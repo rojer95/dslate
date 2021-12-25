@@ -1,0 +1,26 @@
+@root-entry-name: 'default';
+@import (reference) '~antd/es/style/themes/index';
+@import (reference) '~antd/es/style/mixins/index.less';
+
+@dslate-prefix-cls: ~'@{ant-prefix}-dslate';
+
+
+.@{dslate-prefix-cls} {
+
+    .@{dslate-prefix-cls}-container{
+        border: 1px solid @border-color-base;
+        border-radius: @border-radius-base;
+    }
+
+    .@{dslate-prefix-cls}-editbale{
+        color: @input-color;
+        font-size: @font-size-base;
+        line-height: @line-height-base;
+        padding: @input-padding-vertical-base @input-padding-horizontal-base;
+        min-height: @input-height-base *3;
+
+        *::selection{
+            color: inherit!important;
+        }
+    }
+}

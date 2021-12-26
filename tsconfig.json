@@ -8,6 +8,9 @@
     "types": ["jest"],
     "strict": true,
     "skipLibCheck": true,
-    "declaration": true
+    "declaration": true,
+    "paths": {
+      "dslate": ["./packages/dslate/src/index.tsx"]
+    }
   }
 }

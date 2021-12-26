@@ -11,28 +11,29 @@ import { ToolbarButton } from '../components/Toolbar';
 import { IconFont } from '../components/Icon';
 import DSlateContext from '../context';
 const DEFAULT_COLOR = undefined;
+const TYPE = 'background-color';
 
 const getActvieColor = (editor: Editor): string | undefined => {
   const [match] = Editor.nodes<DSlateCustomText>(editor, {
-    match: (n) => SlateText.isText(n) && 'color' in n,
+    match: (n) => SlateText.isText(n) && TYPE in n,
   });
 
   if (match && match[0]) {
-    return match[0]?.color as string;
+    return match[0]?.[TYPE] as string;
   }
 
   return DEFAULT_COLOR;
 };
 
 const renderStyle = (text: DSlateCustomText) => {
-  if (text.color) {
-    return { color: text.color as string };
+  if (text[TYPE]) {
+    return { backgroundColor: text[TYPE] as string };
   }
   return {};
 };
 
 const DefaultColors = [
-  '#000000',
+  'transparent',
   '#FF6900',
   '#FCB900',
   '#7BDCB5',
@@ -54,7 +55,7 @@ const Toolbar = () => {
   const handleChangeComplete = (value: any) => {
     Transforms.setNodes(
       editor,
-      { color: value?.hex ?? null },
+      { [TYPE]: value?.hex ?? null },
       { match: (n) => SlateText.isText(n), split: true },
     );
     setVisible(false);
@@ -83,7 +84,7 @@ const Toolbar = () => {
               setColor(value?.hex ?? DEFAULT_COLOR);
             }}
             onChangeComplete={handleChangeComplete}
-            colors={context.colors || DefaultColors}
+            colors={context.backgroundColors || DefaultColors}
             triangle="hide"
           />
         </div>
@@ -107,14 +108,14 @@ const Toolbar = () => {
             style={{
               fontSize: '80%',
             }}
-            type="icon-zitiyanse"
+            type="icon-beijingse"
           />
           <div
             style={{
               width: 14,
               height: 2,
               marginTop: 1,
-              backgroundColor: getActvieColor(editor) ?? 'rgba(0,0,0,0.85)',
+              backgroundColor: getActvieColor(editor) ?? 'transparent',
             }}
           />
         </div>
@@ -123,11 +124,11 @@ const Toolbar = () => {
   );
 };
 
-const ColorPlugin: DSlatePlugin = {
-  type: 'color',
+const BackgroundColorPlugin: DSlatePlugin = {
+  type: TYPE,
   nodeType: 'text',
   toolbar: <Toolbar />,
   renderStyle,
 };
 
-export { ColorPlugin };
+export { BackgroundColorPlugin };

@@ -2,7 +2,7 @@ import React from 'react';
 import { useSlate } from 'slate-react';
 import { IconFont } from '../components/Icon';
 import { ToolbarButton } from '../components/Toolbar';
-import { DSlatePlugin } from '../typing';
+import type { DSlatePlugin } from '../typing';
 import { isTextActive, toggleTextProps } from '../utils';
 
 const Toolbar = () => {

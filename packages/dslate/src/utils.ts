@@ -1,6 +1,5 @@
 import { Editor, Transforms, Text as SlateText } from 'slate';
-import { CSSProperties, useCallback } from 'react';
-import {
+import type {
   DSlateCustomText,
   DSlatePluginContext,
   DSlateSomePluginContext,

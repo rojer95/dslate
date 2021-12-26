@@ -21,7 +21,8 @@
     "classnames": "^2.3.1",
     "react-color": "^2.19.3",
     "slate": "^0.72.0",
-    "slate-react": "^0.72.1"
+    "slate-react": "^0.72.1",
+    "slate-history": "^0.66.0"
   },
   "peerDependencies": {
     "antd": "4.x",
@@ -32,7 +33,6 @@
     "access": "public"
   },
   "devDependencies": {
-    "@types/react-color": "^3.0.6",
-    "slate-history": "^0.66.0"
+    "@types/react-color": "^3.0.6"
   }
 }

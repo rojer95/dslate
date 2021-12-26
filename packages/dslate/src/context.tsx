@@ -1,6 +1,6 @@
 import React from 'react';
 import { DefaultPlugins } from './defaultPlugin';
-import { DSlateContextPropsType, DSlatePluginContext } from './typing';
+import type { DSlateContextPropsType, DSlatePluginContext } from './typing';
 import { getPluginContext } from './utils';
 
 const DSlateContext = React.createContext<DSlateContextPropsType>({

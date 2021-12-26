@@ -1,21 +1,27 @@
 import React from 'react';
-import { Editor, Transforms, Text as SlateText } from 'slate';
-import { useSlate, useSlateStatic } from 'slate-react';
+import type { Editor } from 'slate';
+import { Transforms, Text as SlateText } from 'slate';
+import { useSlate } from 'slate-react';
 import { IconFont } from '../components/Icon';
 import { ToolbarButton } from '../components/Toolbar';
-import { DSlatePlugin } from '../typing';
+import type { DSlatePlugin } from '../typing';
+
+const clearStyle = (editor: Editor, options: any) => {
+  if (!editor.selection) return;
+  const emptyProps = editor.styles.reduce((props, key) => ({ ...props, [key]: null }), {});
+  Transforms.setNodes(editor, emptyProps, options);
+};
 
 const Toolbar = () => {
   const editor = useSlate();
 
-  const clearStyle = () => {
-    if (!editor.selection) return;
-    const emptyProps = editor.text.reduce((props, key) => ({ ...props, [key]: null }), {});
-    Transforms.setNodes(editor, emptyProps, { match: (n) => SlateText.isText(n), split: true });
-  };
-
   return (
-    <ToolbarButton onClick={clearStyle} tooltip="清理格式">
+    <ToolbarButton
+      onClick={() => {
+        clearStyle(editor, { match: (n: any) => SlateText.isText(n), split: true });
+      }}
+      tooltip="清理格式"
+    >
       <IconFont type="icon-empty" />
     </ToolbarButton>
   );
@@ -25,6 +31,9 @@ const ClearPlugin: DSlatePlugin = {
   type: 'clear',
   nodeType: 'tool',
   toolbar: <Toolbar />,
+  injectMethod: (editor: Editor) => {
+    editor.clearStyle = clearStyle;
+  },
 };
 
 export { ClearPlugin };

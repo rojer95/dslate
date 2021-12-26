@@ -1,7 +1,13 @@
-import { CSSProperties } from 'react';
-import { BaseEditor } from 'slate';
-import { ReactEditor } from 'slate-react';
-import { HistoryEditor } from 'slate-history';
+import type { CSSProperties } from 'react';
+import type { BaseEditor, Descendant, Editor, NodeEntry } from 'slate';
+import type { ReactEditor, RenderElementProps, RenderLeafProps } from 'slate-react';
+import type { HistoryEditor } from 'slate-history';
+
+export type DSlateProps = {
+  value: Descendant[];
+  onChange: (value: Descendant[]) => void;
+  toolbar?: string[];
+};
 
 export type DSlateCustomElement = {
   type: string;
@@ -20,18 +26,21 @@ export type DSlatePlugin = {
   isVoid?: ((element: DSlateCustomElement) => boolean) | boolean;
   isInline?: ((element: DSlateCustomElement) => boolean) | boolean;
   toolbar?: React.ReactNode;
-  renderElement?: (props: any) => JSX.Element;
+  renderElement?: (props: RenderElementProps) => JSX.Element;
+  renderLeaf?: (props: RenderLeafProps) => JSX.Element;
   renderStyle?: ((text: DSlateCustomText) => CSSProperties) | CSSProperties;
+  normalizeNode?: (editor: Editor, entry: NodeEntry) => void;
+  injectMethod?: (editor: Editor) => void;
 };
 
 export type DSlateContextPropsType = {
   plugins: DSlatePlugin[];
+  [key: string]: any;
 };
 
 export interface DSlateEditor {
-  text: string[];
-  element: string[];
-  tool: string[];
+  styles: string[];
+  [index: string]: any;
 }
 
 declare module 'slate' {

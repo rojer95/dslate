@@ -1,47 +1,47 @@
 @root-entry-name: 'default';
-@import (reference) '~antd/es/style/themes/index';
+@import (reference) '~antd/es/style/themes/index.less';
 @import (reference) '~antd/es/style/mixins/index.less';
 
 @dslate-prefix-cls: ~'@{ant-prefix}-dslate';
 
 @dslate-toolbar-prefix-cls: ~'@{dslate-prefix-cls}-toolbar';
 
-.@{dslate-toolbar-prefix-cls}{
-    padding: @input-padding-vertical-base @input-padding-horizontal-base;
-    border-bottom: 1px solid @border-color-base;
+.@{dslate-toolbar-prefix-cls} {
+  padding: @input-padding-vertical-base @input-padding-horizontal-base;
+  border-bottom: 1px solid @border-color-base;
 
-    .@{dslate-toolbar-prefix-cls}-item{
-        height: 30px;
-        min-width: 30px;
-        border-radius: @border-radius-base;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        cursor: pointer;
-        box-sizing: border-box;
-        color: @text-color;
+  &-item {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-sizing: border-box;
+    min-width: 30px;
+    height: 30px;
+    color: @text-color;
+    border-radius: @border-radius-base;
+    cursor: pointer;
 
-        &:hover{
-            background-color: fadeout( @border-color-base, 70%);
-        }
-
-        &.active{
-            color: @primary-color;
-        }
-
-        &.disable{
-            color: @disabled-color;
-            cursor: not-allowed;
-            &:hover{
-                background-color: transparent;
-            }
-        }
+    &:hover {
+      background-color: fadeout(@border-color-base, 70%);
     }
 
-    .@{dslate-toolbar-prefix-cls}-divider{
-        width: 1px;
-        height: 30px * 0.8;
-        background-color: @border-color-base;
-        margin-right: @padding-xss;
+    &.active {
+      color: hsla(@primary-color, 50%);
     }
+
+    &.disable {
+      color: @disabled-color;
+      cursor: not-allowed;
+      &:hover {
+        background-color: transparent;
+      }
+    }
+  }
+
+  &-divider {
+    width: 1px;
+    height: 30px * 0.8;
+    margin-right: @padding-xss;
+    background-color: @border-color-base;
+  }
 }

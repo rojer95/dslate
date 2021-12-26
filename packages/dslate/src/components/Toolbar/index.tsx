@@ -1,6 +1,7 @@
 import { ConfigProvider, Space, Tooltip } from 'antd';
 import classnames from 'classnames';
-import React, { CSSProperties, useContext } from 'react';
+import type { CSSProperties } from 'react';
+import React, { useContext } from 'react';
 
 import DSlateContext from '../../context';
 import './index.less';
@@ -32,28 +33,18 @@ export const ToolbarButton: React.FC<{
   return tooltip ? <Tooltip title={tooltip}>{Button}</Tooltip> : Button;
 };
 
-export const Toolbar: React.FC<{ toolbar: string[]; prefixCls: string }> = ({
-  toolbar,
-  prefixCls,
-}) => {
+export const Toolbar: React.FC<{ prefixCls: string }> = ({ prefixCls }) => {
   const { plugins } = useContext(DSlateContext);
-
-  let toolbars: Array<React.ReactNode | string | undefined> = toolbar;
-
-  if (toolbar.length === 0) {
-    toolbars = plugins.map((i) => i.type);
-  }
 
   const toolbarPrefixCls = `${prefixCls}-toolbar`;
 
   return (
     <div className={toolbarPrefixCls}>
       <Space>
-        {toolbars.map((toolbar, index) => {
-          if (toolbar === undefined) return null;
-          const plugin = plugins.find((i) => i.type === toolbar);
+        {plugins.map((plugin, index) => {
           return plugin?.toolbar ? (
             <div
+              // eslint-disable-next-line react/no-array-index-key
               key={`${plugin?.type}_${index}`}
               onMouseDown={(event) => {
                 event.preventDefault();

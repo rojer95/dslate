@@ -6,27 +6,29 @@
 
 @dslate-toolbar-prefix-cls: ~'@{dslate-prefix-cls}-toolbar';
 
+@size: 30px;
+
 .@{dslate-toolbar-prefix-cls} {
   padding: @input-padding-vertical-base @input-padding-horizontal-base;
   border-bottom: 1px solid @border-color-base;
 
-  &-item {
+  &-button {
     display: flex;
     align-items: center;
     justify-content: center;
     box-sizing: border-box;
-    min-width: 30px;
-    height: 30px;
+    min-width: @size;
+    height: @size;
     color: @text-color;
     border-radius: @border-radius-base;
     cursor: pointer;
 
     &:hover {
-      background-color: fadeout(@border-color-base, 70%);
+      background-color: @item-hover-bg;
     }
 
     &.active {
-      color: hsla(@primary-color, 50%);
+      color: @link-active-color;
     }
 
     &.disable {
@@ -38,10 +40,37 @@
     }
   }
 
-  &-divider {
-    width: 1px;
-    height: 30px * 0.8;
-    margin-right: @padding-xss;
-    background-color: @border-color-base;
+  &-select {
+    &-button {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: @size;
+      padding: 0px @padding-sm;
+      cursor: pointer;
+
+      &-icon {
+        margin-left: 8px;
+        color: @disabled-color;
+        font-size: 8px;
+      }
+    }
+
+    &-drop-content {
+      color: @text-color;
+
+      &-item {
+        padding: @input-padding-vertical-base @input-padding-horizontal-base * 2;
+        cursor: pointer;
+
+        &:hover {
+          background-color: @item-hover-bg;
+        }
+
+        &.active {
+          background-color: @item-active-bg;
+        }
+      }
+    }
   }
 }

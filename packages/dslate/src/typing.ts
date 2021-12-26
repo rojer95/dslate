@@ -25,7 +25,7 @@ export type DSlatePlugin = {
   nodeType: 'element' | 'text' | 'tool';
   isVoid?: ((element: DSlateCustomElement) => boolean) | boolean;
   isInline?: ((element: DSlateCustomElement) => boolean) | boolean;
-  toolbar?: React.ReactNode;
+  toolbar?: React.ReactElement;
   renderElement?: (props: RenderElementProps) => JSX.Element;
   renderLeaf?: (props: RenderLeafProps) => JSX.Element;
   renderStyle?: ((text: DSlateCustomText) => CSSProperties) | CSSProperties;
@@ -52,11 +52,7 @@ declare module 'slate' {
 }
 
 export type DSlatePluginContext = {
-  data: Record<string, any>;
-  update: (name: string, data: any) => void;
-};
-
-export type DSlateSomePluginContext = {
-  data: any;
-  update: (data: any) => void;
+  visible?: string;
+  setVisible: (type?: string) => void;
+  getPrefixCls: (key: string) => string;
 };

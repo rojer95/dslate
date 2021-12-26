@@ -10,9 +10,9 @@ import { mergeStyle } from '../../utils';
 import { Toolbar } from '../Toolbar';
 
 import './index.less';
-import type { DSlatePlugin, DSlatePluginContext, DSlateProps } from '../../typing';
+import type { DSlatePlugin, DSlateProps } from '../../typing';
 
-export const withPlugins = (editor: Editor, plugins: DSlatePlugin[]) => {
+const withPlugins = (editor: Editor, plugins: DSlatePlugin[]) => {
   return plugins.reduce<Editor>((preEditor, plugin) => {
     if (!preEditor.styles) preEditor.styles = [];
 
@@ -66,9 +66,9 @@ export const withPlugins = (editor: Editor, plugins: DSlatePlugin[]) => {
 };
 
 export const DSlate = ({ value, onChange }: DSlateProps) => {
-  const { getPrefixCls } = useContext(ConfigProvider.ConfigContext);
+  const { getPrefixCls: getAntdPrefixCls } = useContext(ConfigProvider.ConfigContext);
   const { plugins } = useContext(DSlateContext);
-  const [pluginContextData, setPluginContextData] = useState<DSlatePluginContext['data']>({});
+  const [visibleToolbar, setVisibleToolbar] = useState<string | undefined>(undefined);
 
   const editor = useMemo(() => withPlugins(withReact(withHistory(createEditor())), plugins), []);
 
@@ -103,25 +103,24 @@ export const DSlate = ({ value, onChange }: DSlateProps) => {
     );
   }, []);
 
-  const prefixCls = getPrefixCls('dslate');
-  const updatePluginData = (name: string, data: any) => {
-    setPluginContextData({
-      ...pluginContextData,
-      [name]: data,
-    });
+  const prefixCls = getAntdPrefixCls('dslate');
+
+  const getPrefixCls = (key: string) => {
+    return `${prefixCls}-${key}`;
   };
 
   return (
     <PluginContext.Provider
       value={{
-        data: pluginContextData,
-        update: updatePluginData,
+        getPrefixCls,
+        visible: visibleToolbar,
+        setVisible: setVisibleToolbar,
       }}
     >
       <Slate editor={editor} value={value} onChange={onChange}>
         <div className={prefixCls}>
           <div className={`${prefixCls}-container`}>
-            <Toolbar prefixCls={prefixCls} />
+            <Toolbar />
             <div className={`${prefixCls}-editbale`}>
               <Editable renderElement={renderElement} renderLeaf={renderLeaf} />
             </div>

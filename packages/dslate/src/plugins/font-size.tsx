@@ -1,12 +1,10 @@
-import { Select } from 'antd';
-import React, { useContext } from 'react';
+import React from 'react';
 import { Editor, Text as SlateText, Transforms } from 'slate';
 
 import type { DSlateCustomText, DSlatePlugin } from '../typing';
 
 import { useSlate } from 'slate-react';
-import { ToolbarButton } from '../components/Toolbar';
-import DSlateContext from '../context';
+import { ToolbarSelect } from '../components/Toolbar';
 
 const DEFAULT_FONT_SIZE = 14;
 const TYPE = 'font-size';
@@ -34,7 +32,6 @@ const DefaultSizes = [12, 13, 14, 15, 16, 19, 22, 24, 29, 32, 40, 48];
 
 const Toolbar = () => {
   const editor = useSlate();
-  const context = useContext(DSlateContext);
 
   const onChange = (size: number) => {
     Transforms.setNodes(
@@ -45,20 +42,16 @@ const Toolbar = () => {
   };
 
   return (
-    <ToolbarButton tooltip="字体大小">
-      <Select
-        onChange={onChange}
-        value={getActvieSize(editor)}
-        style={{ width: 80 }}
-        bordered={false}
-      >
-        {(context.fontSizes || DefaultSizes).map((size: number) => (
-          <Select.Option key={size} value={size}>
-            {size}px
-          </Select.Option>
-        ))}
-      </Select>
-    </ToolbarButton>
+    <ToolbarSelect<number>
+      placeholder="14px"
+      onChange={onChange}
+      options={DefaultSizes.map((size) => ({
+        label: `${size}px`,
+        value: size,
+      }))}
+      tooltip="字体大小"
+      value={getActvieSize(editor)}
+    />
   );
 };
 

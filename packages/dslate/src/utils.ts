@@ -1,10 +1,5 @@
 import { Editor, Transforms, Text as SlateText } from 'slate';
-import type {
-  DSlateCustomText,
-  DSlatePluginContext,
-  DSlateSomePluginContext,
-  DSlatePlugin,
-} from './typing';
+import type { DSlateCustomText, DSlatePlugin } from './typing';
 
 export const mergeStyle = (text: DSlateCustomText, plugins: DSlatePlugin[]) => {
   const textPlugins = plugins.filter((i) => i.nodeType === 'text') as DSlatePlugin[];
@@ -42,23 +37,4 @@ export const toggleTextProps = (editor: Editor, format: string, value: any = tru
     { [format]: active ? null : value },
     { match: (n) => SlateText.isText(n), split: true },
   );
-};
-
-export const getPluginContext: (
-  name: string,
-  context: DSlatePluginContext | null,
-) => DSlateSomePluginContext = (name: string, context: DSlatePluginContext | null) => {
-  const { data = {}, update = () => {} } = context ?? {};
-
-  const mergeUpdate = (mergeData: any) => {
-    update(name, {
-      ...(data?.[name] ?? {}),
-      ...mergeData,
-    });
-  };
-
-  return {
-    data: data?.[name] ?? {},
-    update: mergeUpdate,
-  };
 };

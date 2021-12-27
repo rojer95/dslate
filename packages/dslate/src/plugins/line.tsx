@@ -105,7 +105,7 @@ const normalizeNode = (editor: Editor, entry: NodeEntry) => {
         (Object.hasOwnProperty.call(child, 'bold') ||
           Object.hasOwnProperty.call(child, 'font-size'))
       ) {
-        Transforms.setNodes(editor, { bold: null, ['font-size']: null }, { at: childPath });
+        Transforms.unsetNodes(editor, ['bold', 'font-size'], { at: childPath });
         return;
       }
     }

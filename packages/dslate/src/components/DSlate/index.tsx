@@ -14,10 +14,6 @@ import type { DSlatePlugin, DSlateProps } from '../../typing';
 
 const withPlugins = (editor: Editor, plugins: DSlatePlugin[]) => {
   return plugins.reduce<Editor>((preEditor, plugin) => {
-    if (!preEditor.styles) preEditor.styles = [];
-
-    if (plugin.renderStyle) preEditor.styles.push(plugin.type);
-
     const { isVoid, isInline, normalizeNode } = preEditor;
 
     if ('isVoid' in plugin) {
@@ -121,7 +117,12 @@ export const DSlate = ({ value, onChange }: DSlateProps) => {
         <div className={prefixCls}>
           <div className={`${prefixCls}-container`}>
             <Toolbar />
-            <div className={`${prefixCls}-editbale`}>
+            <div
+              className={`${prefixCls}-editbale`}
+              onMouseDown={() => {
+                setVisibleToolbar(undefined);
+              }}
+            >
               <Editable renderElement={renderElement} renderLeaf={renderLeaf} />
             </div>
           </div>

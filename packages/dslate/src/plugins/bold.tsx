@@ -3,7 +3,7 @@ import { useSlate } from 'slate-react';
 import { IconFont } from '../components/Icon';
 import { ToolbarButton } from '../components/Toolbar';
 import type { DSlatePlugin } from '../typing';
-import { isTextActive, toggleTextProps } from '../utils';
+import { getTextProps, toggleTextProps } from '../utils';
 
 const Toolbar = () => {
   const editor = useSlate();
@@ -13,7 +13,7 @@ const Toolbar = () => {
       onClick={() => {
         toggleTextProps(editor, 'bold');
       }}
-      active={isTextActive(editor, 'bold')}
+      active={getTextProps(editor, 'bold')}
       tooltip="加粗"
     >
       <IconFont type="icon-bold" />

@@ -56,3 +56,28 @@ export type DSlatePluginContext = {
   setVisible: (type?: string) => void;
   getPrefixCls: (key: string) => string;
 };
+
+export interface ToolbarModalProps {
+  overlay: JSX.Element;
+  placeholder?: string;
+  width?: number;
+  disabled?: boolean;
+  tooltip?: string;
+}
+
+export interface ToolbarSelectProps<T> {
+  options: { label: React.ReactNode; value: T; placeholder?: string }[];
+  placeholder?: string;
+  width?: number;
+  value: T;
+  disabled?: boolean;
+  tooltip?: string;
+  onChange: (value: T) => void;
+}
+
+export interface ToolbarButtonProps {
+  active?: boolean;
+  disabled?: boolean;
+  onClick?: () => void;
+  tooltip?: string;
+}

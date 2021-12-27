@@ -4,13 +4,13 @@ import { IconFont } from '../components/Icon';
 import { ToolbarButton } from '../components/Toolbar';
 import type { DSlatePlugin } from '../typing';
 
-import { isTextActive, toggleTextProps } from '../utils';
+import { getTextProps, toggleTextProps } from '../utils';
 
 const Toolbar = () => {
   const editor = useSlate();
   return (
     <ToolbarButton
-      active={isTextActive(editor, 'through')}
+      active={getTextProps(editor, 'through')}
       onClick={() => {
         toggleTextProps(editor, 'through');
       }}

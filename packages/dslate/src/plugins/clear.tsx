@@ -1,15 +1,33 @@
 import React from 'react';
-import type { Editor } from 'slate';
-import { Transforms, Text as SlateText } from 'slate';
+import { Editor, Text, Transforms } from 'slate';
 import { useSlate } from 'slate-react';
 import { IconFont } from '../components/Icon';
 import { ToolbarButton } from '../components/Toolbar';
 import type { DSlatePlugin } from '../typing';
 
-const clearStyle = (editor: Editor, options: any) => {
+const clearStyle = (editor: Editor) => {
   if (!editor.selection) return;
-  const emptyProps = editor.styles.reduce((props, key) => ({ ...props, [key]: null }), {});
-  Transforms.setNodes(editor, emptyProps, options);
+
+  const texts = Array.from(
+    Editor.nodes(editor, {
+      match: (n) => Text.isText(n) && Object.keys(n).length > 1,
+      mode: 'all',
+    }),
+  );
+
+  let clearMarks = [];
+  for (const text of texts) {
+    clearMarks.push(...Object.keys(text[0]).filter((i) => !['text'].includes(i)));
+  }
+
+  clearMarks = Array.from(new Set(clearMarks));
+
+  if (clearMarks.length > 0) {
+    Transforms.unsetNodes(editor, clearMarks, {
+      match: Text.isText,
+      split: true,
+    });
+  }
 };
 
 const Toolbar = () => {
@@ -18,7 +36,7 @@ const Toolbar = () => {
   return (
     <ToolbarButton
       onClick={() => {
-        clearStyle(editor, { match: (n: any) => SlateText.isText(n), split: true });
+        clearStyle(editor);
       }}
       tooltip="清理格式"
     >

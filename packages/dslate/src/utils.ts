@@ -22,19 +22,20 @@ export const mergeStyle = (text: DSlateCustomText, plugins: DSlatePlugin[]) => {
   }, {});
 };
 
-export const isTextActive = (editor: Editor, format: string) => {
-  const [match] = Editor.nodes<DSlateCustomText>(editor, {
-    match: (n) => SlateText.isText(n) && !!n?.[format],
-  });
-
-  return !!match;
+export const getTextProps = (editor: Editor, format: string, defaultValue: any = false) => {
+  const marks = Editor.marks(editor);
+  return marks?.[format] ?? defaultValue;
 };
 
-export const toggleTextProps = (editor: Editor, format: string, value: any = true) => {
-  const active = isTextActive(editor, format);
-  Transforms.setNodes(
-    editor,
-    { [format]: active ? null : value },
-    { match: (n) => SlateText.isText(n), split: true },
-  );
+export const setTextProps = (editor: Editor, format: string, value: any) => {
+  Editor.addMark(editor, format, value);
+};
+
+export const toggleTextProps = (editor: Editor, format: string) => {
+  const active = getTextProps(editor, format);
+  if (active) {
+    Editor.removeMark(editor, format);
+  } else {
+    Editor.addMark(editor, format, true);
+  }
 };

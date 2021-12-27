@@ -6,7 +6,12 @@ import { Space, Tooltip } from 'antd';
 import classnames from 'classnames';
 
 import DSlateContext, { usePlugin } from '../../context';
-import type { DSlatePlugin } from '../../typing';
+import type {
+  DSlatePlugin,
+  ToolbarButtonProps,
+  ToolbarModalProps,
+  ToolbarSelectProps,
+} from '../../typing';
 import { IconFont } from '../Icon';
 import './index.less';
 
@@ -23,21 +28,6 @@ const ToolbarTooltip: React.FC<{ tooltip?: string }> = ({ children, tooltip }) =
   return tooltip ? <Tooltip title={tooltip}>{children}</Tooltip> : <>{children}</>;
 };
 
-interface ToolbarSelectProps<T> {
-  options: { label: React.ReactNode; value: T; placeholder?: string }[];
-  placeholder?: string;
-  value: T;
-  disabled?: boolean;
-  tooltip?: string;
-  onChange: (value: T) => void;
-}
-
-interface ToolbarButtonProps {
-  active?: boolean;
-  disabled?: boolean;
-  onClick?: () => void;
-  tooltip?: string;
-}
 export const ToolbarButton: React.FC<ToolbarButtonProps> = ({
   children,
   disabled = false,
@@ -65,8 +55,53 @@ export const ToolbarButton: React.FC<ToolbarButtonProps> = ({
   );
 };
 
+export const ToolbarModal: (props: React.PropsWithChildren<ToolbarModalProps>) => ReactElement = ({
+  width = 'max-content',
+  overlay,
+  children,
+  disabled,
+  tooltip,
+}) => {
+  const { getPrefixCls, visible, setVisible } = usePlugin();
+  const type = useType();
+
+  const prefixCls = getPrefixCls('toolbar-select');
+
+  const toggle = () => {
+    if (visible === type) {
+      setVisible(undefined);
+    } else {
+      setVisible(type);
+    }
+  };
+
+  return (
+    <div className={classnames(`${prefixCls}`)}>
+      <Tooltip
+        trigger={[]}
+        visible={visible === type}
+        placement="bottom"
+        color="#FFFFFF"
+        overlayInnerStyle={{
+          padding: 0,
+        }}
+        overlay={<div className={`${prefixCls}-drop-content`}>{overlay}</div>}
+      >
+        <ToolbarButton disabled={disabled} onClick={toggle} tooltip={tooltip}>
+          <div className={classnames(`${prefixCls}-button`)}>
+            <div className={`${prefixCls}-button-content`} style={{ width }}>
+              {children}
+            </div>
+          </div>
+        </ToolbarButton>
+      </Tooltip>
+    </div>
+  );
+};
+
 export const ToolbarSelect: <T>(props: ToolbarSelectProps<T>) => ReactElement = ({
-  placeholder,
+  placeholder = '',
+  width = 'max-content',
   options,
   value,
   disabled,
@@ -81,9 +116,20 @@ export const ToolbarSelect: <T>(props: ToolbarSelectProps<T>) => ReactElement = 
   const ActiveValue = useMemo(() => {
     const selected = options.find((i) => i.value === value);
 
-    if (!selected) return placeholder;
-    return selected.placeholder ?? selected.label;
-  }, [options, value, placeholder]);
+    let dom: React.ReactNode = placeholder;
+    if (selected) {
+      dom = selected.placeholder ?? selected.label;
+    }
+    return (
+      <div
+        style={{
+          width,
+        }}
+      >
+        {dom}
+      </div>
+    );
+  }, [options, placeholder, width, value]);
 
   const toggle = () => {
     if (visible === type) {
@@ -161,7 +207,7 @@ export const Toolbar = () => {
 
   return (
     <div className={prefixCls}>
-      <Space>
+      <Space wrap>
         {plugins.map((plugin, index) => {
           return (
             <ToolbarItem key={`${plugin?.type}_${index}`} plugin={plugin}>

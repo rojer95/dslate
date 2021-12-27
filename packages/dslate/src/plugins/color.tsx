@@ -1,32 +1,21 @@
-import { Tooltip } from 'antd';
-import React, { useContext, useEffect, useState } from 'react';
-import { Editor, Text as SlateText, Transforms } from 'slate';
+import React, { useContext } from 'react';
 
 import { TwitterPicker } from 'react-color';
 
 import type { DSlateCustomText, DSlatePlugin } from '../typing';
 
 import { useSlate } from 'slate-react';
-import { ToolbarButton } from '../components/Toolbar';
+import { ToolbarModal } from '../components/Toolbar';
 import { IconFont } from '../components/Icon';
 import DSlateContext from '../context';
+import { getTextProps, setTextProps } from '../utils';
+
 const DEFAULT_COLOR = undefined;
-
-const getActvieColor = (editor: Editor): string | undefined => {
-  const [match] = Editor.nodes<DSlateCustomText>(editor, {
-    match: (n) => SlateText.isText(n) && 'color' in n,
-  });
-
-  if (match && match[0]) {
-    return match[0]?.color as string;
-  }
-
-  return DEFAULT_COLOR;
-};
+const TYPE = 'color';
 
 const renderStyle = (text: DSlateCustomText) => {
-  if (text.color) {
-    return { color: text.color as string };
+  if (text[TYPE]) {
+    return { color: text[TYPE] as string };
   }
   return {};
 };
@@ -45,81 +34,50 @@ const DefaultColors = [
 ];
 
 const Toolbar = () => {
-  const [visible, setVisible] = useState(false);
   const editor = useSlate();
-  const [color, setColor] = useState<string | undefined>(undefined);
 
   const context = useContext(DSlateContext);
 
   const handleChangeComplete = (value: any) => {
-    Transforms.setNodes(
-      editor,
-      { color: value?.hex ?? null },
-      { match: (n) => SlateText.isText(n), split: true },
-    );
-    setVisible(false);
+    setTextProps(editor, TYPE, value?.hex ?? DEFAULT_COLOR);
   };
 
-  useEffect(() => {
-    if (visible) {
-      setColor(getActvieColor(editor));
-    }
-  }, [visible, editor]);
-
   return (
-    <Tooltip
-      visible={visible}
-      trigger={[]}
-      placement="bottom"
-      color="#FFFFFF"
-      overlayInnerStyle={{
-        padding: 0,
-      }}
+    <ToolbarModal
+      tooltip="字体颜色"
       overlay={
-        <div>
-          <TwitterPicker
-            color={color}
-            onChange={(value: any) => {
-              setColor(value?.hex ?? DEFAULT_COLOR);
-            }}
-            onChangeComplete={handleChangeComplete}
-            colors={context.colors || DefaultColors}
-            triangle="hide"
-          />
-        </div>
+        <TwitterPicker
+          color={getTextProps(editor, TYPE, DEFAULT_COLOR)}
+          onChangeComplete={handleChangeComplete}
+          colors={context.colors || DefaultColors}
+          triangle="hide"
+        />
       }
     >
-      <ToolbarButton
-        onClick={() => {
-          setVisible(!visible);
+      <div
+        style={{
+          display: 'flex',
+          justifyContent: 'center',
+          alignItems: 'center',
+          flexDirection: 'column',
         }}
-        tooltip="字体颜色"
       >
+        <IconFont
+          style={{
+            fontSize: '80%',
+          }}
+          type="icon-zitiyanse"
+        />
         <div
           style={{
-            display: 'flex',
-            justifyContent: 'center',
-            alignItems: 'center',
-            flexDirection: 'column',
+            width: 14,
+            height: 2,
+            marginTop: 2,
+            backgroundColor: getTextProps(editor, TYPE, 'rgba(0,0,0,0.85)'),
           }}
-        >
-          <IconFont
-            style={{
-              fontSize: '80%',
-            }}
-            type="icon-zitiyanse"
-          />
-          <div
-            style={{
-              width: 14,
-              height: 2,
-              marginTop: 1,
-              backgroundColor: getActvieColor(editor) ?? 'rgba(0,0,0,0.85)',
-            }}
-          />
-        </div>
-      </ToolbarButton>
-    </Tooltip>
+        />
+      </div>
+    </ToolbarModal>
   );
 };
 

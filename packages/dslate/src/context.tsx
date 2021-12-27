@@ -9,6 +9,7 @@ const DSlateContext = React.createContext<DSlateContextPropsType>({
 const { Consumer: DSlateConsumer, Provider: DSlateProvider } = DSlateContext;
 
 export { DSlateConsumer, DSlateProvider };
+
 export default DSlateContext;
 
 export const PluginContext = React.createContext<DSlatePluginContext>({

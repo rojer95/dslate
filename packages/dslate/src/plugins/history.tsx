@@ -12,7 +12,7 @@ const RedoToolbar = () => {
   };
 
   return (
-    <ToolbarButton onClick={onClick} tooltip="重做" disable={editor.history.redos.length === 0}>
+    <ToolbarButton onClick={onClick} tooltip="重做" disabled={editor.history.redos.length === 0}>
       <IconFont type="icon-redo" />
     </ToolbarButton>
   );
@@ -32,7 +32,7 @@ const UndoToolbar = () => {
   };
 
   return (
-    <ToolbarButton onClick={onClick} tooltip="撤消" disable={editor.history.undos.length === 0}>
+    <ToolbarButton onClick={onClick} tooltip="撤消" disabled={editor.history.undos.length === 0}>
       <IconFont type="icon-undo" />
     </ToolbarButton>
   );

@@ -1,6 +1,7 @@
 /* eslint-disable react/no-array-index-key */
 
 import type { ReactElement } from 'react';
+import { useState } from 'react';
 import React, { useContext, useMemo } from 'react';
 import { Space, Tooltip } from 'antd';
 import classnames from 'classnames';
@@ -15,11 +16,25 @@ import type {
 import { IconFont } from '../Icon';
 import './index.less';
 
+const ToolbarContext = React.createContext<{
+  disabled: string[];
+  enableToolbar: (key: string | string[]) => void;
+  disableToolbar: (key: string | string[]) => void;
+}>({
+  disabled: [],
+  enableToolbar: () => {},
+  disableToolbar: () => {},
+});
+
+export const useToolbar = () => {
+  return useContext(ToolbarContext);
+};
+
 const ToolbarItemContext = React.createContext<{ type?: string }>({
   type: undefined,
 });
 
-const useType = () => {
+export const useToolbarType = () => {
   const context = useContext(ToolbarItemContext);
   return context.type;
 };
@@ -36,17 +51,21 @@ export const ToolbarButton: React.FC<ToolbarButtonProps> = ({
   tooltip = '',
 }) => {
   const { getPrefixCls } = usePlugin();
+  const type = useToolbarType();
+  const { disabled: disabledToolbars } = useToolbar();
   const prefixCls = getPrefixCls('toolbar-button');
+
+  const isDisabled = disabled || disabledToolbars?.includes(type as string);
 
   return (
     <ToolbarTooltip tooltip={tooltip}>
       <div
         className={classnames(`${prefixCls}`, {
           active,
-          disabled,
+          disabled: isDisabled,
         })}
         onClick={() => {
-          if (!disabled) onClick?.();
+          if (!isDisabled) onClick?.();
         }}
       >
         {children}
@@ -63,7 +82,7 @@ export const ToolbarModal: (props: React.PropsWithChildren<ToolbarModalProps>) =
   tooltip,
 }) => {
   const { getPrefixCls, visible, setVisible } = usePlugin();
-  const type = useType();
+  const type = useToolbarType();
 
   const prefixCls = getPrefixCls('toolbar-select');
 
@@ -109,7 +128,7 @@ export const ToolbarSelect: <T>(props: ToolbarSelectProps<T>) => ReactElement = 
   onChange,
 }) => {
   const { getPrefixCls, visible, setVisible } = usePlugin();
-  const type = useType();
+  const type = useToolbarType();
 
   const prefixCls = getPrefixCls('toolbar-select');
 
@@ -205,17 +224,37 @@ export const Toolbar = () => {
   const { getPrefixCls } = usePlugin();
   const prefixCls = getPrefixCls('toolbar');
 
+  const [disabled, setDisabled] = useState<string[]>([]);
+
+  const enableToolbar = (key: string | string[]) => {
+    const keys: string[] = Array.isArray(key) ? key : [key];
+    setDisabled(disabled.filter((i) => !keys.includes(i)));
+  };
+
+  const disableToolbar = (key: string | string[]) => {
+    const keys: string[] = Array.isArray(key) ? key : [key];
+    setDisabled(Array.from(new Set([...disabled, ...keys])));
+  };
+
   return (
-    <div className={prefixCls}>
-      <Space wrap>
-        {plugins.map((plugin, index) => {
-          return (
-            <ToolbarItem key={`${plugin?.type}_${index}`} plugin={plugin}>
-              {plugin?.toolbar}
-            </ToolbarItem>
-          );
-        })}
-      </Space>
-    </div>
+    <ToolbarContext.Provider
+      value={{
+        disabled,
+        enableToolbar,
+        disableToolbar,
+      }}
+    >
+      <div className={prefixCls}>
+        <Space wrap>
+          {plugins.map((plugin, index) => {
+            return (
+              <ToolbarItem key={`${plugin?.type}_${index}`} plugin={plugin}>
+                {plugin?.toolbar}
+              </ToolbarItem>
+            );
+          })}
+        </Space>
+      </div>
+    </ToolbarContext.Provider>
   );
 };

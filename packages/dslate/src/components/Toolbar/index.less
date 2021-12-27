@@ -31,11 +31,11 @@
       color: @link-active-color;
     }
 
-    &.disable {
-      color: @disabled-color;
-      cursor: not-allowed;
+    &.disabled {
+      color: @disabled-color !important;
+      cursor: not-allowed !important;
       &:hover {
-        background-color: transparent;
+        background-color: transparent !important;
       }
     }
   }
@@ -47,7 +47,6 @@
       justify-content: center;
       height: @size;
       padding: 0px @padding-sm;
-      cursor: pointer;
 
       &-icon {
         margin-left: 8px;

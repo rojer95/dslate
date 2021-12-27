@@ -6,7 +6,7 @@ import DSlate from 'dslate';
 export default () => {
   const [value, setValue] = useState<Descendant[]>([
     {
-      type: 'line',
+      type: 'paragraph',
       children: [{ text: '' }],
     },
   ]);

@@ -16,6 +16,8 @@ const withPlugins = (editor: Editor, plugins: DSlatePlugin[]) => {
   return plugins.reduce<Editor>((preEditor, plugin) => {
     const { isVoid, isInline, normalizeNode } = preEditor;
 
+    if (plugin.isDefaultElement) preEditor.defaultElement = plugin.type;
+
     if ('isVoid' in plugin) {
       preEditor.isVoid = (element) => {
         if (element.type === plugin.type) {
@@ -75,6 +77,12 @@ export const DSlate = ({ value, onChange }: DSlateProps) => {
 
     if (plugin && plugin.renderElement) {
       return plugin.renderElement(props);
+    }
+
+    const defaultElementPlugin = plugins.find((p) => p.isDefaultElement);
+
+    if (defaultElementPlugin && defaultElementPlugin.renderElement) {
+      return defaultElementPlugin.renderElement(props);
     }
 
     return <DefaultElement {...props} />;

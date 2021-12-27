@@ -1,17 +1,20 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import type { NodeEntry } from 'slate';
 import { Editor, Element, Transforms, Node, Text } from 'slate';
 import type { RenderElementProps } from 'slate-react';
 import { useSlate } from 'slate-react';
-import { ToolbarSelect } from '../components/Toolbar';
+import { ToolbarSelect, useToolbar } from '../components/Toolbar';
 import type { DSlateCustomElement, DSlatePlugin } from '../typing';
 
-const TYPE = 'line';
-const DEFAULT_LINE = 'p';
+const TYPE = 'paragraph';
+const DEFAULT_TYPE = 'p';
 
-type LINE = 'p' | 'h1' | 'h2' | 'h3' | 'h4';
+type TYPES = 'p' | 'h1' | 'h2' | 'h3' | 'h4';
 
-const getActvieType = (editor: Editor): LINE => {
+const getActvieType = (editor: Editor): TYPES => {
+  const { selection } = editor;
+  if (!selection) return DEFAULT_TYPE;
+
   const [match] = Editor.nodes<DSlateCustomElement>(editor, {
     match: (n) => Element.isElement(n) && n.type === TYPE,
   });
@@ -20,23 +23,36 @@ const getActvieType = (editor: Editor): LINE => {
     return match[0]?.[TYPE];
   }
 
-  return DEFAULT_LINE;
+  return DEFAULT_TYPE;
 };
 
 const Toolbar = () => {
   const editor = useSlate();
 
-  const onChange = (size: string) => {
+  const onChange = (type: string) => {
     Transforms.setNodes(
       editor,
-      { [TYPE]: size },
+      { [TYPE]: type },
       { match: (n) => Element.isElement(n) && n.type === TYPE },
     );
   };
 
+  const activeType = getActvieType(editor);
+
+  const { disableToolbar, enableToolbar } = useToolbar();
+  useEffect(() => {
+    if (activeType !== 'p') {
+      disableToolbar(['bold', 'font-size']);
+    } else {
+      enableToolbar(['bold', 'font-size']);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [activeType]);
+
   return (
     <ToolbarSelect<string>
       placeholder="正文"
+      width={38}
       onChange={onChange}
       options={[
         {
@@ -66,13 +82,14 @@ const Toolbar = () => {
         },
       ]}
       tooltip="正文与标题"
-      value={getActvieType(editor)}
+      value={activeType}
     />
   );
 };
 
 const renderElement = (props: RenderElementProps) => {
   const { attributes, children, element } = props;
+
   if (element?.[TYPE] === 'h1') {
     return <h1 {...attributes}>{children}</h1>;
   }
@@ -89,14 +106,14 @@ const renderElement = (props: RenderElementProps) => {
     return <h4 {...attributes}>{children}</h4>;
   }
 
-  return <div {...attributes}>{children}</div>;
+  return <p {...attributes}>{children}</p>;
 };
 
 const normalizeNode = (editor: Editor, entry: NodeEntry) => {
   const [node, path] = entry;
 
   /**
-   * 大标题，移除加粗和字号
+   * 标题，移除加粗和字号样式
    */
   if (Element.isElement(node) && ['h1', 'h2', 'h3', 'h4'].includes(node[TYPE])) {
     for (const [child, childPath] of Node.children(editor, path)) {
@@ -112,12 +129,13 @@ const normalizeNode = (editor: Editor, entry: NodeEntry) => {
   }
 };
 
-const LinePlugin: DSlatePlugin = {
+const ParagraphPlugin: DSlatePlugin = {
   type: TYPE,
   nodeType: 'element',
   toolbar: <Toolbar />,
   renderElement,
   normalizeNode,
+  isDefaultElement: true,
 };
 
-export { LinePlugin };
+export { ParagraphPlugin };

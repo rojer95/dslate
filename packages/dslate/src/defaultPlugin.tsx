@@ -1,7 +1,7 @@
 import type { DSlatePlugin } from './typing';
 
 import { UnderlinePlugin } from './plugins/underline';
-import { LinePlugin } from './plugins/line';
+import { ParagraphPlugin } from './plugins/paragraph';
 import { BoldPlugin } from './plugins/bold';
 import { ThroughPlugin } from './plugins/through';
 import { ItalicPlugin } from './plugins/italic';
@@ -17,7 +17,7 @@ export const DefaultPlugins: DSlatePlugin[] = [
   RedoPlugin,
   ClearPlugin,
   DividerPlugin,
-  LinePlugin,
+  ParagraphPlugin,
   FontSizePlugin,
   BoldPlugin,
   ItalicPlugin,

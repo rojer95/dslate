@@ -31,6 +31,7 @@ export type DSlatePlugin = {
   renderStyle?: ((text: DSlateCustomText) => CSSProperties) | CSSProperties;
   normalizeNode?: (editor: Editor, entry: NodeEntry) => void;
   injectMethod?: (editor: Editor) => void;
+  isDefaultElement?: boolean;
 };
 
 export type DSlateContextPropsType = {
@@ -39,8 +40,8 @@ export type DSlateContextPropsType = {
 };
 
 export interface DSlateEditor {
-  styles: string[];
   [index: string]: any;
+  defaultElement?: string;
 }
 
 declare module 'slate' {

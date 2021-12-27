@@ -1,4 +1,4 @@
-import { Editor, Transforms, Text as SlateText } from 'slate';
+import { Editor, Transforms, Element } from 'slate';
 import type { DSlateCustomText, DSlatePlugin } from './typing';
 
 export const mergeStyle = (text: DSlateCustomText, plugins: DSlatePlugin[]) => {
@@ -38,4 +38,26 @@ export const toggleTextProps = (editor: Editor, format: string) => {
   } else {
     Editor.addMark(editor, format, true);
   }
+};
+
+const isBlockActive = (editor: Editor, format: string) => {
+  const { selection } = editor;
+  if (!selection) return false;
+
+  const [match] = Array.from(
+    Editor.nodes(editor, {
+      at: Editor.unhangRange(editor, selection),
+      match: (n) => !Editor.isEditor(n) && Element.isElement(n) && n.type === format,
+    }),
+  );
+
+  return !!match;
+};
+
+export const toggleBlock = (editor: Editor, format: string) => {
+  const isActive = isBlockActive(editor, format);
+  const newProperties: Partial<Element> = {
+    type: isActive ? editor.defaultElement ?? 'paragraph' : format,
+  };
+  Transforms.setNodes<Element>(editor, newProperties);
 };

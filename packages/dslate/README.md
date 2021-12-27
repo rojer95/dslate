@@ -1,17 +1,17 @@
-# @ant-design/pro-field
+# dslate
 
-See our website [@ant-design/pro-field](https://procomponent.ant.design/) for more information.
+See our website [dslate](http://www.freesailing.cn/dslate/) for more information.
 
 ## Install
 
 Using npm:
 
 ```bash
-$ npm install --save  @ant-design/pro-field
+$ npm install --save  dslate
 ```
 
 or using yarn:
 
 ```bash
-$ yarn add  @ant-design/pro-field
+$ yarn add  dslate
 ```

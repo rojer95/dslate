@@ -5,8 +5,8 @@ import type { DSlateCustomText, DSlatePlugin } from '../typing';
 
 import { useSlate } from 'slate-react';
 import { ToolbarModal } from '../components/Toolbar';
-import { IconFont } from '../components/Icon';
-import DSlateContext from '../context';
+import IconFont from '../components/IconFont';
+import DSlateContext from '../ConfigContext';
 import { getTextProps, setTextProps } from '../utils';
 
 const DEFAULT_COLOR = undefined;

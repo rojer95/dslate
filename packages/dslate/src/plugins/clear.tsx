@@ -1,7 +1,7 @@
 import React from 'react';
 import { Editor, Text, Transforms } from 'slate';
 import { useSlate } from 'slate-react';
-import { IconFont } from '../components/Icon';
+import IconFont from '../components/IconFont';
 import { ToolbarButton } from '../components/Toolbar';
 import type { DSlatePlugin } from '../typing';
 

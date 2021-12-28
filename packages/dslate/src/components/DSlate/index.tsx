@@ -1,16 +1,23 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import React, { useCallback, useContext, useMemo, useState } from 'react';
-import type { Editor, NodeEntry } from 'slate';
+import type { Descendant, Editor, NodeEntry } from 'slate';
 import { createEditor, Element, Text } from 'slate';
 import type { RenderElementProps } from 'slate-react';
 import { Slate, Editable, withReact, DefaultElement } from 'slate-react';
 import { withHistory } from 'slate-history';
 import { ConfigProvider } from 'antd';
-import DSlateContext, { PluginContext } from '../../context';
+import { useConfig } from '../../ConfigContext';
+import { DSlatePluginProvider } from '../../PluginContext';
 import { mergeStyle } from '../../utils';
-import { Toolbar } from '../Toolbar';
+import DefaultToolbar from '../Toolbar';
 
 import './index.less';
-import type { DSlatePlugin, DSlateProps } from '../../typing';
+import type { DSlatePlugin } from '../../typing';
+
+export type DSlateProps = {
+  value: Descendant[];
+  onChange: (value: Descendant[]) => void;
+};
 
 const withPlugins = (editor: Editor, plugins: DSlatePlugin[]) => {
   return plugins.reduce<Editor>((preEditor, plugin) => {
@@ -63,12 +70,24 @@ const withPlugins = (editor: Editor, plugins: DSlatePlugin[]) => {
   }, editor);
 };
 
-export const DSlate = ({ value, onChange }: DSlateProps) => {
+const DSlate = ({ value, onChange }: DSlateProps) => {
   const { getPrefixCls: getAntdPrefixCls } = useContext(ConfigProvider.ConfigContext);
-  const { plugins } = useContext(DSlateContext);
-  const [visibleToolbar, setVisibleToolbar] = useState<string | undefined>(undefined);
+  const { plugins } = useConfig();
+  const [visibleType, setVisibleType] = useState<string | undefined>(undefined);
 
   const editor = useMemo(() => withPlugins(withReact(withHistory(createEditor())), plugins), []);
+
+  const [disabled, setDisabled] = useState<string[]>([]);
+
+  const enablePlugin = (key: string | string[]) => {
+    const keys: string[] = Array.isArray(key) ? key : [key];
+    setDisabled(disabled.filter((i) => !keys.includes(i)));
+  };
+
+  const disablePlugin = (key: string | string[]) => {
+    const keys: string[] = Array.isArray(key) ? key : [key];
+    setDisabled(Array.from(new Set([...disabled, ...keys])));
+  };
 
   const renderElement = useCallback((props: RenderElementProps) => {
     const plugin = plugins.find(
@@ -114,21 +133,25 @@ export const DSlate = ({ value, onChange }: DSlateProps) => {
   };
 
   return (
-    <PluginContext.Provider
+    <DSlatePluginProvider
       value={{
         getPrefixCls,
-        visible: visibleToolbar,
-        setVisible: setVisibleToolbar,
+
+        visibleType: visibleType,
+        setVisibleType: setVisibleType,
+        disabled,
+        enablePlugin: enablePlugin,
+        disablePlugin: disablePlugin,
       }}
     >
       <Slate editor={editor} value={value} onChange={onChange}>
         <div className={prefixCls}>
           <div className={`${prefixCls}-container`}>
-            <Toolbar />
+            <DefaultToolbar />
             <div
               className={`${prefixCls}-editbale`}
               onMouseDown={() => {
-                setVisibleToolbar(undefined);
+                setVisibleType(undefined);
               }}
             >
               <Editable renderElement={renderElement} renderLeaf={renderLeaf} />
@@ -136,6 +159,8 @@ export const DSlate = ({ value, onChange }: DSlateProps) => {
           </div>
         </div>
       </Slate>
-    </PluginContext.Provider>
+    </DSlatePluginProvider>
   );
 };
+
+export default DSlate;

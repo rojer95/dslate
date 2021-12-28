@@ -3,7 +3,8 @@ import type { NodeEntry } from 'slate';
 import { Editor, Element, Transforms, Node, Text } from 'slate';
 import type { RenderElementProps } from 'slate-react';
 import { useSlate } from 'slate-react';
-import { ToolbarSelect, useToolbar } from '../components/Toolbar';
+import { ToolbarSelect } from '../components/Toolbar';
+import { usePlugin } from '../PluginContext';
 import type { DSlateCustomElement, DSlatePlugin } from '../typing';
 
 const TYPE = 'paragraph';
@@ -39,12 +40,13 @@ const Toolbar = () => {
 
   const activeType = getActvieType(editor);
 
-  const { disableToolbar, enableToolbar } = useToolbar();
+  const { disablePlugin, enablePlugin } = usePlugin();
+
   useEffect(() => {
     if (activeType !== 'p') {
-      disableToolbar(['bold', 'font-size']);
+      disablePlugin(['bold', 'font-size']);
     } else {
-      enableToolbar(['bold', 'font-size']);
+      enablePlugin(['bold', 'font-size']);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [activeType]);

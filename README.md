@@ -1,33 +1,15 @@
-# DSlate
+# Introduction
 
-## Getting Started
+DSlate is an [Ant Design](https://github.com/ant-design/ant-design/) style rich editor based on [Slate](https://github.com/ianstormtaylor/slate). You can easily customize elements or tools through plugins.
 
-Install dependencies,
+> DSlate is still under development. Welcome to build DSlate together.
 
-```bash
-$ npm i
-```
+## Documentation
 
-Start the dev server,
+To find out more see the following Dslate documentation sections:
 
-```bash
-$ npm start
-```
+- [Demo](http://www.freesailing.cn/dslate/)
 
-Build documentation,
+## LICENSE
 
-```bash
-$ npm run docs:build
-```
-
-Run test,
-
-```bash
-$ npm test
-```
-
-Build library via `father-build`,
-
-```bash
-$ npm run build
-```
+MIT

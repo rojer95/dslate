@@ -1,5 +1,5 @@
 import React from 'react';
-import { DefaultPlugins } from './defaultPlugin';
+import DefaultPlugins from './defaultPlugin';
 import type { DSlatePlugin } from './typing';
 
 export type ConfigContextType = {

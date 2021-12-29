@@ -12,7 +12,7 @@ import { RedoPlugin, UndoPlugin } from './plugins/history';
 import { BackgroundColorPlugin } from './plugins/background-color';
 import { FontSizePlugin } from './plugins/font-size';
 
-export const DefaultPlugins: DSlatePlugin[] = [
+const DefaultPlugins: DSlatePlugin[] = [
   UndoPlugin,
   RedoPlugin,
   ClearPlugin,
@@ -27,3 +27,5 @@ export const DefaultPlugins: DSlatePlugin[] = [
   BackgroundColorPlugin,
   DividerPlugin,
 ];
+
+export default DefaultPlugins;

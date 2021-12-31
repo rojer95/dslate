@@ -26,12 +26,18 @@ export type DSlatePlugin = {
   normalizeNode?: (editor: Editor, entry: NodeEntry) => void;
   injectMethod?: (editor: Editor) => void;
   isDefaultElement?: boolean;
+  locale?: Record<string, any>;
 };
 
 export interface DSlateEditor {
   [index: string]: any;
   defaultElement?: string;
 }
+
+export type Locale = {
+  locale: string;
+  [index: string]: any;
+};
 
 declare module 'slate' {
   interface CustomTypes {

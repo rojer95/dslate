@@ -3,7 +3,7 @@ import type { Descendant } from 'slate';
 import { Range, Transforms } from 'slate';
 
 import type { DSlatePlugin } from 'dslate';
-import DSlate, { ConfigProvider, DefaultPlugins, ToolbarButton } from 'dslate';
+import DSlate, { ConfigProvider, defaultConfig, ToolbarButton } from 'dslate';
 import { useSlate } from 'slate-react';
 
 const CustomPluginToolbar = () => {
@@ -38,7 +38,8 @@ export default () => {
   return (
     <ConfigProvider
       value={{
-        plugins: [...DefaultPlugins, CustomPlugin],
+        ...defaultConfig,
+        plugins: [...defaultConfig.plugins, CustomPlugin],
       }}
     >
       <DSlate value={value} onChange={setValue} />

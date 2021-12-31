@@ -1,5 +1,21 @@
 import { Editor, Transforms, Element } from 'slate';
-import type { DSlateCustomText, DSlatePlugin } from './typing';
+import type { DSlateCustomText, DSlatePlugin, Locale } from './typing';
+
+export function get(source: Locale, path: string, defaultValue?: string): string | undefined {
+  // a[3].b -> a.3.b
+  const paths = path.replace(/\[(\d+)\]/g, '.$1').split('.');
+  let result = source;
+  let message = defaultValue;
+  // eslint-disable-next-line no-restricted-syntax
+  for (const p of paths) {
+    message = Object(result)[p];
+    result = Object(result)[p];
+    if (message === undefined) {
+      return defaultValue;
+    }
+  }
+  return message;
+}
 
 export const mergeStyle = (text: DSlateCustomText, plugins: DSlatePlugin[]) => {
   const textPlugins = plugins.filter((i) => i.nodeType === 'text') as DSlatePlugin[];

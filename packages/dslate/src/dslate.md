@@ -11,3 +11,9 @@ Demo:
 Demo:
 
 <code src="./demos/plugin.tsx" />
+
+### 国际化
+
+Demo:
+
+<code src="./demos/locale.tsx" />

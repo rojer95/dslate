@@ -1,9 +1,12 @@
 import React from 'react';
 import { Editor, Text, Transforms } from 'slate';
+import zhCN from 'antd/lib/locale/zh_CN';
+import enUS from 'antd/lib/locale/en_US';
 import { useSlate } from 'slate-react';
 import IconFont from '../components/IconFont';
 import { ToolbarButton } from '../components/Toolbar';
 import type { DSlatePlugin } from '../typing';
+import { useMessage } from '../ConfigContext';
 
 const clearStyle = (editor: Editor) => {
   if (!editor.selection) return;
@@ -32,13 +35,14 @@ const clearStyle = (editor: Editor) => {
 
 const Toolbar = () => {
   const editor = useSlate();
+  const getMessage = useMessage();
 
   return (
     <ToolbarButton
       onClick={() => {
         clearStyle(editor);
       }}
-      tooltip="清理格式"
+      tooltip={getMessage('tooltip', '清理格式')}
     >
       <IconFont type="icon-empty" />
     </ToolbarButton>
@@ -51,6 +55,14 @@ const ClearPlugin: DSlatePlugin = {
   toolbar: <Toolbar />,
   injectMethod: (editor: Editor) => {
     editor.clearStyle = clearStyle;
+  },
+  locale: {
+    [zhCN.locale]: {
+      tooltip: '清理格式',
+    },
+    [enUS.locale]: {
+      tooltip: 'clear style',
+    },
   },
 };
 

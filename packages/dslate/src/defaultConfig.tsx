@@ -1,4 +1,5 @@
 import type { DSlatePlugin } from './typing';
+import type { ConfigContextType } from './ConfigContext';
 
 import { UnderlinePlugin } from './plugins/underline';
 import { ParagraphPlugin } from './plugins/paragraph';
@@ -12,7 +13,10 @@ import { RedoPlugin, UndoPlugin } from './plugins/history';
 import { BackgroundColorPlugin } from './plugins/background-color';
 import { FontSizePlugin } from './plugins/font-size';
 
-const DefaultPlugins: DSlatePlugin[] = [
+import zh_CN from './locale/zh_CN';
+import en_US from './locale/en_US';
+
+const defaultPlugins: DSlatePlugin[] = [
   UndoPlugin,
   RedoPlugin,
   ClearPlugin,
@@ -28,4 +32,15 @@ const DefaultPlugins: DSlatePlugin[] = [
   DividerPlugin,
 ];
 
-export default DefaultPlugins;
+const locales = {
+  [zh_CN.locale]: zh_CN,
+  [en_US.locale]: en_US,
+};
+
+const defaultConfig: ConfigContextType = {
+  plugins: defaultPlugins,
+  locales,
+  defauleLocale: zh_CN.locale,
+};
+
+export default defaultConfig;

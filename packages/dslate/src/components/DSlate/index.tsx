@@ -5,14 +5,14 @@ import { createEditor, Element, Text } from 'slate';
 import type { RenderElementProps } from 'slate-react';
 import { Slate, Editable, withReact, DefaultElement } from 'slate-react';
 import { withHistory } from 'slate-history';
-import { ConfigProvider } from 'antd';
-import { useConfig } from '../../ConfigContext';
+import { ConfigProvider as AntdConfigProvider } from 'antd';
+import { ConfigConsumer, ConfigProvider, useConfig } from '../../ConfigContext';
 import { DSlatePluginProvider } from '../../PluginContext';
 import { mergeStyle } from '../../utils';
 import DefaultToolbar from '../Toolbar';
 
 import './index.less';
-import type { DSlatePlugin } from '../../typing';
+import type { DSlatePlugin, Locale } from '../../typing';
 
 export type DSlateProps = {
   value: Descendant[];
@@ -70,8 +70,35 @@ const withPlugins = (editor: Editor, plugins: DSlatePlugin[]) => {
   }, editor);
 };
 
+const mergeLocalteFromPlugins = (locales: Record<string, Locale>, plugins: DSlatePlugin[]) => {
+  const newLocales: Record<string, Locale> = { ...locales };
+  for (const plugin of plugins) {
+    if (!plugin.locale) continue;
+
+    const localeNames = Object.keys(plugin.locale);
+    for (const localeName of localeNames) {
+      if (!newLocales[localeName]) {
+        newLocales[localeName] = {
+          locale: localeName,
+        };
+      }
+
+      newLocales[localeName] = {
+        ...newLocales[localeName],
+        [plugin.type]: {
+          ...(newLocales[localeName][plugin.type] ?? {}),
+          ...plugin.locale[localeName],
+        },
+      };
+    }
+  }
+
+  return newLocales;
+};
+
 const DSlate = ({ value, onChange }: DSlateProps) => {
-  const { getPrefixCls: getAntdPrefixCls } = useContext(ConfigProvider.ConfigContext);
+  const { getPrefixCls: getAntdPrefixCls } = useContext(AntdConfigProvider.ConfigContext);
+
   const { plugins } = useConfig();
   const [visibleType, setVisibleType] = useState<string | undefined>(undefined);
 
@@ -133,33 +160,45 @@ const DSlate = ({ value, onChange }: DSlateProps) => {
   };
 
   return (
-    <DSlatePluginProvider
-      value={{
-        getPrefixCls,
-
-        visibleType: visibleType,
-        setVisibleType: setVisibleType,
-        disabled,
-        enablePlugin: enablePlugin,
-        disablePlugin: disablePlugin,
-      }}
-    >
-      <Slate editor={editor} value={value} onChange={onChange}>
-        <div className={prefixCls}>
-          <div className={`${prefixCls}-container`}>
-            <DefaultToolbar />
-            <div
-              className={`${prefixCls}-editbale`}
-              onMouseDown={() => {
-                setVisibleType(undefined);
+    <ConfigConsumer>
+      {(wrapValue) => {
+        return (
+          <ConfigProvider
+            value={{
+              ...wrapValue,
+              locales: mergeLocalteFromPlugins(wrapValue.locales, wrapValue.plugins),
+            }}
+          >
+            <DSlatePluginProvider
+              value={{
+                getPrefixCls,
+                visibleType: visibleType,
+                setVisibleType: setVisibleType,
+                disabled,
+                enablePlugin: enablePlugin,
+                disablePlugin: disablePlugin,
               }}
             >
-              <Editable renderElement={renderElement} renderLeaf={renderLeaf} />
-            </div>
-          </div>
-        </div>
-      </Slate>
-    </DSlatePluginProvider>
+              <Slate editor={editor} value={value} onChange={onChange}>
+                <div className={prefixCls}>
+                  <div className={`${prefixCls}-container`}>
+                    <DefaultToolbar />
+                    <div
+                      className={`${prefixCls}-editbale`}
+                      onMouseDown={() => {
+                        setVisibleType(undefined);
+                      }}
+                    >
+                      <Editable renderElement={renderElement} renderLeaf={renderLeaf} />
+                    </div>
+                  </div>
+                </div>
+              </Slate>
+            </DSlatePluginProvider>
+          </ConfigProvider>
+        );
+      }}
+    </ConfigConsumer>
   );
 };
 

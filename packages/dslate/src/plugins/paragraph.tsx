@@ -1,11 +1,15 @@
 import React, { useEffect } from 'react';
 import type { NodeEntry } from 'slate';
+import zhCN from 'antd/lib/locale/zh_CN';
+import enUS from 'antd/lib/locale/en_US';
+
 import { Editor, Element, Transforms, Node, Text } from 'slate';
 import type { RenderElementProps } from 'slate-react';
 import { useSlate } from 'slate-react';
 import { ToolbarSelect } from '../components/Toolbar';
 import { usePlugin } from '../PluginContext';
 import type { DSlateCustomElement, DSlatePlugin } from '../typing';
+import { useMessage } from '../ConfigContext';
 
 const TYPE = 'paragraph';
 const DEFAULT_TYPE = 'p';
@@ -40,6 +44,7 @@ const Toolbar = () => {
 
   const activeType = getActvieType(editor);
 
+  const getMessage = useMessage();
   const { disablePlugin, enablePlugin } = usePlugin();
 
   useEffect(() => {
@@ -53,37 +58,37 @@ const Toolbar = () => {
 
   return (
     <ToolbarSelect<string>
-      placeholder="正文"
+      placeholder={getMessage('p', '正文')}
       width={38}
       onChange={onChange}
       options={[
         {
           value: 'p',
-          label: '正文',
-          placeholder: '正文',
+          label: getMessage('p', '正文'),
+          placeholder: getMessage('p', '正文'),
         },
         {
           value: 'h1',
-          label: <h1 style={{ margin: 0 }}>标题1</h1>,
-          placeholder: '标题1',
+          label: <h1 style={{ margin: 0 }}>{getMessage('h1', '标题1')}</h1>,
+          placeholder: getMessage('h1', '标题1'),
         },
         {
           value: 'h2',
-          label: <h2 style={{ margin: 0 }}>标题2</h2>,
-          placeholder: '标题2',
+          label: <h2 style={{ margin: 0 }}>{getMessage('h2', '标题2')}</h2>,
+          placeholder: getMessage('h2', '标题2'),
         },
         {
           value: 'h3',
-          label: <h3 style={{ margin: 0 }}>标题3</h3>,
-          placeholder: '标题3',
+          label: <h3 style={{ margin: 0 }}>{getMessage('h3', '标题3')}</h3>,
+          placeholder: getMessage('h3', '标题3'),
         },
         {
           value: 'h4',
-          label: <h4 style={{ margin: 0 }}>标题4</h4>,
-          placeholder: '标题4',
+          label: <h4 style={{ margin: 0 }}>{getMessage('h4', '标题4')}</h4>,
+          placeholder: getMessage('h4', '标题4'),
         },
       ]}
-      tooltip="正文与标题"
+      tooltip={getMessage('tooltip', '段落与标题')}
       value={activeType}
     />
   );
@@ -138,6 +143,24 @@ const ParagraphPlugin: DSlatePlugin = {
   renderElement,
   normalizeNode,
   isDefaultElement: true,
+  locale: {
+    [zhCN.locale]: {
+      tooltip: '段落与标题',
+      p: '正文',
+      h1: '标题1',
+      h2: '标题2',
+      h3: '标题3',
+      h4: '标题4',
+    },
+    [enUS.locale]: {
+      tooltip: 'paragraph and title',
+      p: 'P',
+      h1: 'H1',
+      h2: 'H2',
+      h3: 'H3',
+      h4: 'H4',
+    },
+  },
 };
 
 export { ParagraphPlugin };

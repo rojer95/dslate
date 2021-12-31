@@ -1,13 +1,15 @@
-import React, { useContext } from 'react';
+import React from 'react';
 
 import { TwitterPicker } from 'react-color';
+import zhCN from 'antd/lib/locale/zh_CN';
+import enUS from 'antd/lib/locale/en_US';
 
 import type { DSlateCustomText, DSlatePlugin } from '../typing';
 
 import { useSlate } from 'slate-react';
 import { ToolbarModal } from '../components/Toolbar';
 import IconFont from '../components/IconFont';
-import DSlateContext from '../ConfigContext';
+import { useMessage } from '../ConfigContext';
 import { getTextProps, setTextProps } from '../utils';
 
 const DEFAULT_COLOR = undefined;
@@ -35,8 +37,7 @@ const DefaultColors = [
 
 const Toolbar = () => {
   const editor = useSlate();
-
-  const context = useContext(DSlateContext);
+  const getMessage = useMessage();
 
   const handleChangeComplete = (value: any) => {
     setTextProps(editor, TYPE, value?.hex ?? DEFAULT_COLOR);
@@ -44,12 +45,12 @@ const Toolbar = () => {
 
   return (
     <ToolbarModal
-      tooltip="字体颜色"
+      tooltip={getMessage('tooltip', '字体颜色')}
       overlay={
         <TwitterPicker
           color={getTextProps(editor, TYPE, DEFAULT_COLOR)}
           onChangeComplete={handleChangeComplete}
-          colors={context.colors || DefaultColors}
+          colors={DefaultColors}
           triangle="hide"
         />
       }
@@ -86,6 +87,14 @@ const ColorPlugin: DSlatePlugin = {
   nodeType: 'text',
   toolbar: <Toolbar />,
   renderStyle,
+  locale: {
+    [zhCN.locale]: {
+      tooltip: '字体颜色',
+    },
+    [enUS.locale]: {
+      tooltip: 'font color',
+    },
+  },
 };
 
 export { ColorPlugin };

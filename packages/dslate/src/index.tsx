@@ -1,6 +1,11 @@
 import DSlate from './components/DSlate';
 
-import DSlateContext, { ConfigProvider, ConfigConsumer, useConfig } from './ConfigContext';
+import DSlateContext, {
+  ConfigProvider,
+  ConfigConsumer,
+  useConfig,
+  useMessage,
+} from './ConfigContext';
 
 import Toolbar, { ToolbarModal, ToolbarButton, ToolbarSelect } from './components/Toolbar';
 
@@ -14,7 +19,7 @@ import type {
 
 import type { DSlateCustomElement, DSlateCustomText, DSlateEditor, DSlatePlugin } from './typing';
 
-import DefaultPlugins from './defaultPlugin';
+import defaultConfig from './defaultConfig';
 
 import { UnderlinePlugin } from './plugins/underline';
 import { ParagraphPlugin } from './plugins/paragraph';
@@ -29,15 +34,16 @@ import { BackgroundColorPlugin } from './plugins/background-color';
 import { FontSizePlugin } from './plugins/font-size';
 
 export {
+  defaultConfig,
   DSlateContext,
   ConfigProvider,
   ConfigConsumer,
   useConfig,
+  useMessage,
   Toolbar,
   ToolbarModal,
   ToolbarButton,
   ToolbarSelect,
-  DefaultPlugins,
   UndoPlugin,
   RedoPlugin,
   ClearPlugin,

@@ -7,13 +7,14 @@ import ToolbarButton from './ToolbarButton';
 import { usePluginType } from './ToolbarItem';
 
 export type ToolbarSelectProps<T> = {
-  options: { label: React.ReactNode; value: T; placeholder?: string }[];
+  options: { label: React.ReactNode; value: T; placeholder?: string; tooltip?: string }[];
   placeholder?: string;
   width?: number;
   value: T;
   disabled?: boolean;
   tooltip?: string;
   onChange: (value: T) => void;
+  direction?: 'vertical' | 'horizontal';
 };
 
 const ToolbarSelect: <T>(props: ToolbarSelectProps<T>) => JSX.Element = ({
@@ -24,6 +25,7 @@ const ToolbarSelect: <T>(props: ToolbarSelectProps<T>) => JSX.Element = ({
   disabled,
   tooltip,
   onChange,
+  direction = 'vertical',
 }) => {
   const type = usePluginType();
   const { getPrefixCls, visible, setVisible } = usePlugin(type);
@@ -64,20 +66,31 @@ const ToolbarSelect: <T>(props: ToolbarSelectProps<T>) => JSX.Element = ({
         }}
         overlay={
           <div className={`${prefixCls}-drop-content`}>
-            {options.map((i) => (
-              <div
-                onClick={() => {
-                  onChange(i.value);
-                  setVisible(false);
-                }}
-                key={`${i.value}`}
-                className={classnames(`${prefixCls}-drop-content-item`, {
-                  active: value === i.value,
-                })}
-              >
-                {i.label}
-              </div>
-            ))}
+            <div className={`${prefixCls}-${direction}`}>
+              {options.map((i) => {
+                const optionDom = (
+                  <div
+                    onClick={() => {
+                      onChange(i.value);
+                      setVisible(false);
+                    }}
+                    key={`${i.value}`}
+                    className={classnames(`${prefixCls}-item`, {
+                      active: value === i.value,
+                    })}
+                  >
+                    {i.label}
+                  </div>
+                );
+                return i.tooltip ? (
+                  <Tooltip title={i.tooltip} key={`${i.value}`}>
+                    {optionDom}
+                  </Tooltip>
+                ) : (
+                  optionDom
+                );
+              })}
+            </div>
           </div>
         }
       >

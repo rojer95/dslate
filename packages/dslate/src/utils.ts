@@ -1,5 +1,6 @@
+import type { Descendant, NodeEntry } from 'slate';
 import { Editor, Transforms, Element } from 'slate';
-import type { DSlateCustomText, DSlatePlugin, Locale } from './typing';
+import type { DSlateCustomElement, DSlatePlugin, Locale } from './typing';
 
 export function get(source: Locale, path: string, defaultValue?: string): string | undefined {
   // a[3].b -> a.3.b
@@ -17,16 +18,16 @@ export function get(source: Locale, path: string, defaultValue?: string): string
   return message;
 }
 
-export const mergeStyle = (text: DSlateCustomText, plugins: DSlatePlugin[]) => {
-  const textPlugins = plugins.filter((i) => i.nodeType === 'text') as DSlatePlugin[];
+export const mergeStyle = (node: Descendant, plugins: DSlatePlugin[], nodeType: string) => {
+  const textPlugins = plugins.filter((i) => i.nodeType === nodeType) as DSlatePlugin[];
   return textPlugins.reduce((preStyle, plugin) => {
     const style: any = { ...preStyle };
     if (!plugin.renderStyle) return { ...style };
     let gstyle;
 
     if (typeof plugin.renderStyle === 'function') {
-      gstyle = plugin.renderStyle(text);
-    } else if (!!text[plugin.type]) {
+      gstyle = plugin.renderStyle(node);
+    } else if (!!node[plugin.type]) {
       gstyle = plugin.renderStyle;
     }
 
@@ -56,13 +57,12 @@ export const toggleTextProps = (editor: Editor, format: string) => {
   }
 };
 
-const isBlockActive = (editor: Editor, format: string) => {
+export const isBlockActive = (editor: Editor, format: string) => {
   const { selection } = editor;
   if (!selection) return false;
 
   const [match] = Array.from(
     Editor.nodes(editor, {
-      at: Editor.unhangRange(editor, selection),
       match: (n) => !Editor.isEditor(n) && Element.isElement(n) && n.type === format,
     }),
   );
@@ -72,8 +72,51 @@ const isBlockActive = (editor: Editor, format: string) => {
 
 export const toggleBlock = (editor: Editor, format: string) => {
   const isActive = isBlockActive(editor, format);
-  const newProperties: Partial<Element> = {
-    type: isActive ? editor.defaultElement ?? 'paragraph' : format,
-  };
-  Transforms.setNodes<Element>(editor, newProperties);
+  Transforms.setNodes(
+    editor,
+    { type: isActive ? editor.defaultElement : format },
+    {
+      hanging: true,
+      match: (n) => n.type === (isActive ? format : editor.defaultElement),
+    },
+  );
+};
+
+export const getBlockProps = (editor: Editor, format: string, defaultValue: any) => {
+  const { selection } = editor;
+
+  if (!selection) {
+    return defaultValue;
+  }
+
+  const [match] = Editor.nodes(editor, {
+    at: Editor.unhangRange(editor, selection),
+    match: (n) => !Editor.isEditor(n) && Element.isElement(n) && format in n,
+  });
+
+  if (!match) return defaultValue;
+  const [node] = match as NodeEntry<DSlateCustomElement>;
+  return node[format] ?? defaultValue;
+};
+
+export const setBlockProps = (editor: Editor, format: string, value: any) => {
+  const { selection } = editor;
+
+  if (!selection) return;
+
+  Transforms.setNodes(
+    editor,
+    { [format]: value },
+    { match: (n) => !Editor.isEditor(n) && Element.isElement(n) },
+  );
+};
+
+export const clearBlockProps = (editor: Editor, format: string | string[]) => {
+  const { selection } = editor;
+
+  if (!selection) return;
+
+  Transforms.unsetNodes(editor, format, {
+    match: (n) => !Editor.isEditor(n) && Element.isElement(n),
+  });
 };

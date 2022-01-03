@@ -48,18 +48,17 @@
       justify-content: center;
       height: @size;
 
-      &-icon {
+      .icon-down {
         margin-left: 8px;
         color: @disabled-color;
-        font-size: 8px;
+        font-size: 7px;
       }
     }
 
-    &-drop-content {
-      color: @text-color;
-
-      &-item {
+    &-content {
+      .item {
         padding: @input-padding-vertical-base @input-padding-horizontal-base * 2;
+        color: @text-color;
         cursor: pointer;
 
         &:hover {
@@ -68,6 +67,19 @@
 
         &.active {
           background-color: @item-active-bg;
+        }
+      }
+
+      &.horizontal {
+        display: flex;
+
+        .item {
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          min-width: @size;
+          min-height: 32px;
+          padding: @input-padding-vertical-base;
         }
       }
     }

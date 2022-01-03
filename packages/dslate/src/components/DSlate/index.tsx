@@ -62,8 +62,8 @@ const withPlugins = (editor: Editor, plugins: DSlatePlugin[]) => {
       };
     }
 
-    if (typeof plugin?.injectMethod === 'function') {
-      plugin?.injectMethod(preEditor);
+    if (typeof plugin?.inject === 'function') {
+      return plugin?.inject(preEditor);
     }
 
     return preEditor;
@@ -117,18 +117,21 @@ const DSlate = ({ value, onChange }: DSlateProps) => {
   };
 
   const renderElement = useCallback((props: RenderElementProps) => {
+    const style = mergeStyle(props.element, plugins, 'element');
     const plugin = plugins.find(
-      (i) => i.type === props.element.type && i.nodeType === 'element',
+      (i) =>
+        i.nodeType === 'element' &&
+        (i.type === props.element.type || (i.match && i.match(props.element))),
     ) as DSlatePlugin | undefined;
 
     if (plugin && plugin.renderElement) {
-      return plugin.renderElement(props);
+      return plugin.renderElement({ ...props, style });
     }
 
     const defaultElementPlugin = plugins.find((p) => p.isDefaultElement);
 
     if (defaultElementPlugin && defaultElementPlugin.renderElement) {
-      return defaultElementPlugin.renderElement(props);
+      return defaultElementPlugin.renderElement({ ...props, style });
     }
 
     return <DefaultElement {...props} />;
@@ -137,13 +140,15 @@ const DSlate = ({ value, onChange }: DSlateProps) => {
   const renderLeaf = useCallback((props) => {
     const { attributes, children, leaf } = props;
     const needRenderPlugin = plugins.find(
-      (i) => i.nodeType === 'text' && leaf[i.type] === true && !!i.renderLeaf,
+      (i) =>
+        i.nodeType === 'text' &&
+        ((i.type in leaf && !!i.renderLeaf) || (i.match && i.match(props.element))),
     ) as DSlatePlugin | undefined;
 
-    const style = mergeStyle(leaf, plugins);
+    const style = mergeStyle(leaf, plugins, 'text');
 
     if (needRenderPlugin && needRenderPlugin.renderLeaf) {
-      return needRenderPlugin.renderLeaf(props);
+      return needRenderPlugin.renderLeaf({ ...props, style });
     }
 
     return (

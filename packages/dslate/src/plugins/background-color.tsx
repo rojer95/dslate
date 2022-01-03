@@ -3,18 +3,19 @@ import { TwitterPicker } from 'react-color';
 import zhCN from 'antd/lib/locale/zh_CN';
 import enUS from 'antd/lib/locale/en_US';
 
-import type { DSlateCustomText, DSlatePlugin } from '../typing';
+import type { DSlatePlugin } from '../typing';
 
 import { useSlate } from 'slate-react';
 import { ToolbarModal } from '../components/Toolbar';
 import IconFont from '../components/IconFont';
 import { getTextProps, setTextProps } from '../utils';
 import { useMessage } from '../ConfigContext';
+import type { Descendant } from 'slate';
 
 const DEFAULT_COLOR = undefined;
 const TYPE = 'background-color';
 
-const renderStyle = (text: DSlateCustomText) => {
+const renderStyle = (text: Descendant) => {
   if (text[TYPE]) {
     return { backgroundColor: text[TYPE] as string };
   }

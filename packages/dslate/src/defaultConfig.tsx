@@ -15,6 +15,8 @@ import { FontSizePlugin } from './plugins/font-size';
 
 import zh_CN from './locale/zh_CN';
 import en_US from './locale/en_US';
+import { TextAlignPlugin } from './plugins/text-align';
+import { ListPlugin } from './plugins/list';
 
 const defaultPlugins: DSlatePlugin[] = [
   UndoPlugin,
@@ -30,6 +32,8 @@ const defaultPlugins: DSlatePlugin[] = [
   ColorPlugin,
   BackgroundColorPlugin,
   DividerPlugin,
+  TextAlignPlugin,
+  ListPlugin,
 ];
 
 const locales = {

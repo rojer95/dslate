@@ -1,4 +1,5 @@
 import { Tooltip } from 'antd';
+import classNames from 'classnames';
 import classnames from 'classnames';
 import React, { useMemo } from 'react';
 import { usePlugin } from '../../PluginContext';
@@ -65,39 +66,37 @@ const ToolbarSelect: <T>(props: ToolbarSelectProps<T>) => JSX.Element = ({
           padding: 0,
         }}
         overlay={
-          <div className={`${prefixCls}-drop-content`}>
-            <div className={`${prefixCls}-${direction}`}>
-              {options.map((i) => {
-                const optionDom = (
-                  <div
-                    onClick={() => {
-                      onChange(i.value);
-                      setVisible(false);
-                    }}
-                    key={`${i.value}`}
-                    className={classnames(`${prefixCls}-item`, {
-                      active: value === i.value,
-                    })}
-                  >
-                    {i.label}
-                  </div>
-                );
-                return i.tooltip ? (
-                  <Tooltip title={i.tooltip} key={`${i.value}`}>
-                    {optionDom}
-                  </Tooltip>
-                ) : (
-                  optionDom
-                );
-              })}
-            </div>
+          <div className={classNames(`${prefixCls}-content`, direction)}>
+            {options.map((i) => {
+              const optionDom = (
+                <div
+                  onClick={() => {
+                    onChange(i.value);
+                    setVisible(false);
+                  }}
+                  key={`${i.value}`}
+                  className={classnames('item', {
+                    active: value === i.value,
+                  })}
+                >
+                  {i.label}
+                </div>
+              );
+              return i.tooltip ? (
+                <Tooltip title={i.tooltip} key={`${i.value}`}>
+                  {optionDom}
+                </Tooltip>
+              ) : (
+                optionDom
+              );
+            })}
           </div>
         }
       >
         <ToolbarButton disabled={disabled} onClick={toggle} tooltip={tooltip}>
           <div className={classnames(`${prefixCls}-button`)}>
             <div className={`${prefixCls}-button-content`}>{ActiveValue}</div>
-            <IconFont className={`${prefixCls}-button-icon`} type="icon-down" />
+            <IconFont className="icon-down" type="icon-down" />
           </div>
         </ToolbarButton>
       </Tooltip>

@@ -4,42 +4,43 @@ import zhCN from 'antd/lib/locale/zh_CN';
 import enUS from 'antd/lib/locale/en_US';
 
 import { Editor, Element, Transforms, Node, Text } from 'slate';
-import type { RenderElementProps } from 'slate-react';
 import { useSlate } from 'slate-react';
 import { ToolbarSelect } from '../components/Toolbar';
 import { usePlugin } from '../PluginContext';
-import type { DSlateCustomElement, DSlatePlugin } from '../typing';
+import type { DSlateCustomElement, DSlatePlugin, RenderElementPropsWithStyle } from '../typing';
 import { useMessage } from '../ConfigContext';
 
 const TYPE = 'paragraph';
-const DEFAULT_TYPE = 'p';
+const DEFAULT_TYPE = 'paragraph';
 
-type TYPES = 'p' | 'h1' | 'h2' | 'h3' | 'h4';
+type TYPES = 'paragraph' | 'h1' | 'h2' | 'h3' | 'h4';
+const types = ['paragraph', 'h1', 'h2', 'h3', 'h4'];
 
 const getActvieType = (editor: Editor): TYPES => {
   const { selection } = editor;
   if (!selection) return DEFAULT_TYPE;
 
   const [match] = Editor.nodes<DSlateCustomElement>(editor, {
-    match: (n) => Element.isElement(n) && n.type === TYPE,
+    match: (n) => Element.isElement(n) && types.includes(n.type),
   });
 
-  if (match && match[0] && match[0]?.[TYPE]) {
-    return match[0]?.[TYPE];
+  if (match) {
+    return match[0]?.type as TYPES;
   }
 
   return DEFAULT_TYPE;
 };
 
+const setType = (editor: Editor, type: TYPES) => {
+  if (!editor.selection) return;
+  Transforms.setNodes(editor, { type });
+};
+
 const Toolbar = () => {
   const editor = useSlate();
 
-  const onChange = (type: string) => {
-    Transforms.setNodes(
-      editor,
-      { [TYPE]: type },
-      { match: (n) => Element.isElement(n) && n.type === TYPE },
-    );
+  const onChange = (type: TYPES) => {
+    setType(editor, type);
   };
 
   const activeType = getActvieType(editor);
@@ -48,7 +49,7 @@ const Toolbar = () => {
   const { disablePlugin, enablePlugin } = usePlugin();
 
   useEffect(() => {
-    if (activeType !== 'p') {
+    if (activeType !== 'paragraph') {
       disablePlugin(['bold', 'font-size']);
     } else {
       enablePlugin(['bold', 'font-size']);
@@ -57,15 +58,15 @@ const Toolbar = () => {
   }, [activeType]);
 
   return (
-    <ToolbarSelect<string>
-      placeholder={getMessage('p', '正文')}
+    <ToolbarSelect<TYPES>
+      placeholder={getMessage('paragraph', '正文')}
       width={38}
       onChange={onChange}
       options={[
         {
-          value: 'p',
-          label: getMessage('p', '正文'),
-          placeholder: getMessage('p', '正文'),
+          value: 'paragraph',
+          label: getMessage('paragraph', '正文'),
+          placeholder: getMessage('paragraph', '正文'),
         },
         {
           value: 'h1',
@@ -94,26 +95,46 @@ const Toolbar = () => {
   );
 };
 
-const renderElement = (props: RenderElementProps) => {
-  const { attributes, children, element } = props;
+const renderElement = (props: RenderElementPropsWithStyle) => {
+  const { attributes, children, element, style } = props;
 
-  if (element?.[TYPE] === 'h1') {
-    return <h1 {...attributes}>{children}</h1>;
+  if (element?.type === 'h1') {
+    return (
+      <h1 {...attributes} style={style}>
+        {children}
+      </h1>
+    );
   }
 
-  if (element?.[TYPE] === 'h2') {
-    return <h2 {...attributes}>{children}</h2>;
+  if (element?.type === 'h2') {
+    return (
+      <h2 {...attributes} style={style}>
+        {children}
+      </h2>
+    );
   }
 
-  if (element?.[TYPE] === 'h3') {
-    return <h3 {...attributes}>{children}</h3>;
+  if (element?.type === 'h3') {
+    return (
+      <h3 {...attributes} style={style}>
+        {children}
+      </h3>
+    );
   }
 
-  if (element?.[TYPE] === 'h4') {
-    return <h4 {...attributes}>{children}</h4>;
+  if (element?.type === 'h4') {
+    return (
+      <h4 {...attributes} style={style}>
+        {children}
+      </h4>
+    );
   }
 
-  return <p {...attributes}>{children}</p>;
+  return (
+    <p {...attributes} style={style}>
+      {children}
+    </p>
+  );
 };
 
 const normalizeNode = (editor: Editor, entry: NodeEntry) => {
@@ -122,7 +143,7 @@ const normalizeNode = (editor: Editor, entry: NodeEntry) => {
   /**
    * 标题，移除加粗和字号样式
    */
-  if (Element.isElement(node) && ['h1', 'h2', 'h3', 'h4'].includes(node[TYPE])) {
+  if (Element.isElement(node) && ['h1', 'h2', 'h3', 'h4'].includes(node.type)) {
     for (const [child, childPath] of Node.children(editor, path)) {
       if (
         Text.isText(child) &&
@@ -143,10 +164,11 @@ const ParagraphPlugin: DSlatePlugin = {
   renderElement,
   normalizeNode,
   isDefaultElement: true,
+  match: (n) => types.includes(n.type),
   locale: {
     [zhCN.locale]: {
       tooltip: '段落与标题',
-      p: '正文',
+      paragraph: '正文',
       h1: '标题1',
       h2: '标题2',
       h3: '标题3',
@@ -154,7 +176,7 @@ const ParagraphPlugin: DSlatePlugin = {
     },
     [enUS.locale]: {
       tooltip: 'paragraph and title',
-      p: 'P',
+      paragraph: 'paragraph',
       h1: 'H1',
       h2: 'H2',
       h3: 'H3',

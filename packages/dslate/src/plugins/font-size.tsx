@@ -1,17 +1,18 @@
 import React from 'react';
 import zhCN from 'antd/lib/locale/zh_CN';
 import enUS from 'antd/lib/locale/en_US';
-import type { DSlateCustomText, DSlatePlugin } from '../typing';
+import type { DSlatePlugin } from '../typing';
 
 import { useSlate } from 'slate-react';
 import { ToolbarSelect } from '../components/Toolbar';
 import { getTextProps, setTextProps } from '../utils';
 import { useMessage } from '../ConfigContext';
+import type { Descendant } from 'slate';
 
 const DEFAULT_FONT_SIZE = 14;
 const TYPE = 'font-size';
 
-const renderStyle = (text: DSlateCustomText) => {
+const renderStyle = (text: Descendant) => {
   if (text[TYPE]) {
     return { fontSize: text?.[TYPE] };
   }

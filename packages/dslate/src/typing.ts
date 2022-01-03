@@ -1,5 +1,5 @@
 import type { CSSProperties } from 'react';
-import type { BaseEditor, Editor, NodeEntry } from 'slate';
+import type { BaseEditor, Descendant, Editor, NodeEntry } from 'slate';
 import type { ReactEditor, RenderElementProps, RenderLeafProps } from 'slate-react';
 import type { HistoryEditor } from 'slate-history';
 
@@ -20,11 +20,12 @@ export type DSlatePlugin = {
   isVoid?: ((element: DSlateCustomElement) => boolean) | boolean;
   isInline?: ((element: DSlateCustomElement) => boolean) | boolean;
   toolbar?: React.ReactNode;
-  renderElement?: (props: RenderElementProps) => JSX.Element;
-  renderLeaf?: (props: RenderLeafProps) => JSX.Element;
-  renderStyle?: ((text: DSlateCustomText) => CSSProperties) | CSSProperties;
+  match?: (n: Descendant) => boolean;
+  renderElement?: (props: RenderElementPropsWithStyle) => JSX.Element;
+  renderLeaf?: (props: RenderLeafPropsWithStyle) => JSX.Element;
+  renderStyle?: ((text: Descendant) => CSSProperties) | CSSProperties;
   normalizeNode?: (editor: Editor, entry: NodeEntry) => void;
-  injectMethod?: (editor: Editor) => void;
+  inject?: (editor: Editor) => Editor;
   isDefaultElement?: boolean;
   locale?: Record<string, any>;
 };
@@ -38,6 +39,14 @@ export type Locale = {
   locale: string;
   [index: string]: any;
 };
+
+export interface RenderElementPropsWithStyle extends RenderElementProps {
+  style?: CSSProperties;
+}
+
+export interface RenderLeafPropsWithStyle extends RenderLeafProps {
+  style?: CSSProperties;
+}
 
 declare module 'slate' {
   interface CustomTypes {

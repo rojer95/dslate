@@ -1,7 +1,7 @@
 ---
 title: Dslate - 富文本编辑器
-order: 10
-sidebar: false
+order: 0
+toc: false
 hero:
   title: Dslate
   desc: DSlate 是一个基于[Slate](https://github.com/ianstormtaylor/slate) 构建的[Ant Design](https://github.com/ant-design/ant-design/) 风格的富文本编辑器。你可以通过插件的方式轻松自定义节点、工具等元素。

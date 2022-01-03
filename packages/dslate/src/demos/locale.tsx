@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-import { ConfigProvider, Radio, Space } from 'antd';
+import { ConfigProvider, DatePicker, Radio, Space } from 'antd';
 import DSlate from 'dslate';
 import enUS from 'antd/lib/locale/en_US';
 import zhCN from 'antd/lib/locale/zh_CN';
@@ -39,7 +39,13 @@ export default () => {
         </Space>
       </div>
       <ConfigProvider locale={locale}>
-        <DSlate value={value} onChange={setValue} />
+        <div style={{ marginBottom: 16 }}>
+          <DSlate value={value} onChange={setValue} />
+        </div>
+        <div style={{ marginBottom: 16 }}>Antd组件：</div>
+        <div style={{ marginBottom: 16 }}>
+          <DatePicker />
+        </div>
       </ConfigProvider>
     </div>
   );

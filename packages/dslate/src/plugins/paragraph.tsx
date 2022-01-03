@@ -60,7 +60,6 @@ const Toolbar = () => {
   return (
     <ToolbarSelect<TYPES>
       placeholder={getMessage('paragraph', '正文')}
-      width={38}
       onChange={onChange}
       options={[
         {

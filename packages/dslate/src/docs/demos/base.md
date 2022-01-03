@@ -4,6 +4,7 @@ order: 1
 group:
   path: /demo
   title: Demo
+  order: 3
 nav:
   title: DSlate
   path: /dslate

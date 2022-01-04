@@ -1,7 +1,6 @@
-import { UnderlinePlugin } from './underline';
 import { ParagraphPlugin } from './paragraph';
 import { BoldPlugin } from './bold';
-import { ThroughPlugin } from './through';
+import { DecorationPlugin } from './decoration';
 import { ItalicPlugin } from './italic';
 import { ColorPlugin } from './color';
 import { ClearPlugin } from './clear';
@@ -13,17 +12,13 @@ import { TextAlignPlugin } from './text-align';
 import { ListPlugin } from './list';
 import { TextIndentPlugin } from './indent';
 
-import type { DSlatePlugin } from '../typing';
-
-const DefaultPlugin: Record<string, DSlatePlugin> = {};
+const DefaultPlugin = () => {};
 
 DefaultPlugin.HistoryPlugin = HistoryPlugin;
 DefaultPlugin.ClearPlugin = ClearPlugin;
-
-DefaultPlugin.UnderlinePlugin = UnderlinePlugin;
 DefaultPlugin.ParagraphPlugin = ParagraphPlugin;
 DefaultPlugin.BoldPlugin = BoldPlugin;
-DefaultPlugin.ThroughPlugin = ThroughPlugin;
+DefaultPlugin.DecorationPlugin = DecorationPlugin;
 DefaultPlugin.ItalicPlugin = ItalicPlugin;
 DefaultPlugin.ColorPlugin = ColorPlugin;
 DefaultPlugin.DividerPlugin = DividerPlugin;

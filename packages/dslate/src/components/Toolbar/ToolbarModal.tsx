@@ -3,7 +3,6 @@ import classnames from 'classnames';
 import React from 'react';
 import { usePlugin } from '../../contexts/PluginContext';
 import ToolbarButton from './ToolbarButton';
-import { usePluginType } from './ToolbarItem';
 
 export type ToolbarModalProps = {
   overlay: JSX.Element;
@@ -20,13 +19,12 @@ const ToolbarModal: (props: React.PropsWithChildren<ToolbarModalProps>) => JSX.E
   disabled,
   tooltip,
 }) => {
-  const type = usePluginType();
-  const { getPrefixCls, visible, setVisible } = usePlugin(type);
+  const { getPrefixCls, visible, setVisible } = usePlugin();
 
-  const prefixCls = getPrefixCls('toolbar-select');
+  const prefixCls = getPrefixCls?.('toolbar-select');
 
   const toggle = () => {
-    setVisible(!visible);
+    setVisible?.(!visible);
   };
 
   return (

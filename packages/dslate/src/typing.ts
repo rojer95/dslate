@@ -31,6 +31,7 @@ export type DSlatePlugin = {
   onKeyDown?: (e: React.KeyboardEvent<HTMLDivElement>, editor: Editor) => void;
   isDefaultElement?: boolean;
   locale?: Record<string, any>;
+  props?: Record<string, any>;
 };
 
 export interface DSlateEditor {

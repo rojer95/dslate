@@ -6,7 +6,7 @@ import type { RenderElementProps } from 'slate-react';
 import { Slate, Editable, withReact, DefaultElement } from 'slate-react';
 import { ConfigProvider as AntdConfigProvider } from 'antd';
 import { ConfigConsumer, ConfigProvider, useConfig } from '../../contexts/ConfigContext';
-import { DSlatePluginProvider } from '../../contexts/PluginContext';
+import { GlobalPluginProvider } from '../../contexts/PluginContext';
 import { mergeStyle, withPlugins } from '../../utils';
 import DefaultToolbar from '../Toolbar';
 
@@ -48,7 +48,7 @@ const DSlate = ({ value, onChange }: DSlateProps) => {
   const { getPrefixCls: getAntdPrefixCls } = useContext(AntdConfigProvider.ConfigContext);
 
   const { plugins } = useConfig();
-  const [visibleType, setVisibleType] = useState<string | undefined>(undefined);
+  const [visibleKey, setVisibleKey] = useState<React.Key | undefined>(undefined);
 
   const editor = useMemo(() => withPlugins(withReact(createEditor()), plugins), []);
 
@@ -130,11 +130,11 @@ const DSlate = ({ value, onChange }: DSlateProps) => {
               locales: mergeLocalteFromPlugins(wrapValue.locales, wrapValue.plugins),
             }}
           >
-            <DSlatePluginProvider
+            <GlobalPluginProvider
               value={{
                 getPrefixCls,
-                visibleType: visibleType,
-                setVisibleType: setVisibleType,
+                visibleKey: visibleKey,
+                setVisibleKey: setVisibleKey,
                 disabled,
                 enablePlugin: enablePlugin,
                 disablePlugin: disablePlugin,
@@ -147,7 +147,7 @@ const DSlate = ({ value, onChange }: DSlateProps) => {
                     <div
                       className={`${prefixCls}-editbale`}
                       onMouseDown={() => {
-                        setVisibleType(undefined);
+                        setVisibleKey(undefined);
                       }}
                     >
                       <Editable
@@ -159,7 +159,7 @@ const DSlate = ({ value, onChange }: DSlateProps) => {
                   </div>
                 </div>
               </Slate>
-            </DSlatePluginProvider>
+            </GlobalPluginProvider>
           </ConfigProvider>
         );
       }}

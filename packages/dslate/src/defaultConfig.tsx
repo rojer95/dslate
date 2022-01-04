@@ -14,8 +14,7 @@ const defaultPlugins: DSlatePlugin[] = [
   DefaultPlugin.FontSizePlugin, // 字号
   DefaultPlugin.BoldPlugin, // 加粗
   DefaultPlugin.ItalicPlugin, // 斜体
-  DefaultPlugin.UnderlinePlugin, // 下划线
-  DefaultPlugin.ThroughPlugin, // 删除线
+  DefaultPlugin.DecorationPlugin, // 下划线+删除线
   DefaultPlugin.ColorPlugin, // 字颜色
   DefaultPlugin.BackgroundColorPlugin, // 背景颜色
   DefaultPlugin.DividerPlugin, // 分割

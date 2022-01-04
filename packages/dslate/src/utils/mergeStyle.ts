@@ -6,18 +6,12 @@ export default function mergeStyle(node: Descendant, plugins: DSlatePlugin[], no
   return textPlugins.reduce((preStyle, plugin) => {
     const style: any = { ...preStyle };
     if (!plugin.renderStyle) return { ...style };
-    let gstyle;
-
+    let gstyle = {};
     if (typeof plugin.renderStyle === 'function') {
       gstyle = plugin.renderStyle(node);
     } else if (!!node[plugin.type]) {
       gstyle = plugin.renderStyle;
     }
-
-    Object.entries(gstyle || {}).map(([key, value]) => {
-      if (style[key]) style[key] += ` ${value}`;
-      else style[key] = value;
-    });
-    return style;
+    return { ...style, ...gstyle };
   }, {});
 }

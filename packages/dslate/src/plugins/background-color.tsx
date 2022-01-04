@@ -11,6 +11,7 @@ import IconFont from '../components/IconFont';
 import { getTextProps, setTextProps } from '../utils';
 import { useMessage } from '../contexts/ConfigContext';
 import type { Descendant } from 'slate';
+import { usePlugin } from '../contexts/PluginContext';
 
 const DEFAULT_COLOR = undefined;
 const TYPE = 'background-color';
@@ -22,19 +23,6 @@ const renderStyle = (text: Descendant) => {
   return {};
 };
 
-const DefaultColors = [
-  'transparent',
-  '#FF6900',
-  '#FCB900',
-  '#7BDCB5',
-  '#00D084',
-  '#8ED1FC',
-  '#0693E3',
-  '#EB144C',
-  '#F78DA7',
-  '#9900EF',
-];
-
 const Toolbar = () => {
   const editor = useSlate();
 
@@ -43,6 +31,7 @@ const Toolbar = () => {
   };
 
   const getMessage = useMessage();
+  const { props } = usePlugin();
 
   return (
     <ToolbarModal
@@ -51,7 +40,7 @@ const Toolbar = () => {
         <TwitterPicker
           color={getTextProps(editor, TYPE, DEFAULT_COLOR)}
           onChangeComplete={handleChangeComplete}
-          colors={DefaultColors}
+          colors={props?.colors}
           triangle="hide"
         />
       }
@@ -88,6 +77,20 @@ const BackgroundColorPlugin: DSlatePlugin = {
   nodeType: 'text',
   toolbar: <Toolbar />,
   renderStyle,
+  props: {
+    colors: [
+      'transparent',
+      '#FF6900',
+      '#FCB900',
+      '#7BDCB5',
+      '#00D084',
+      '#8ED1FC',
+      '#0693E3',
+      '#EB144C',
+      '#F78DA7',
+      '#9900EF',
+    ],
+  },
   locale: {
     [zhCN.locale]: {
       tooltip: '字体背景颜色',

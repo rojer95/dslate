@@ -1,9 +1,9 @@
 import React from 'react';
 import { ConfigProvider as AntdConfigProvider } from 'antd';
-import { usePluginType } from '../components/Toolbar/ToolbarItem';
 import defaultConfig from '../defaultConfig';
 import type { DSlatePlugin, Locale } from '../typing';
 import { get } from '../utils';
+import { usePlugin } from './PluginContext';
 
 export type ConfigContextType = {
   plugins: DSlatePlugin[];
@@ -25,7 +25,7 @@ export const useConfig = () => {
 };
 
 export const useMessage = () => {
-  const type = usePluginType();
+  const { type } = usePlugin();
   const { locales, defauleLocale } = useConfig();
   const { locale: antdLocale } = React.useContext(AntdConfigProvider.ConfigContext);
 

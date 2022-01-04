@@ -1,36 +1,60 @@
 import React from 'react';
+import { usePluginUuid } from '../components/Toolbar/ToolbarItem';
+import ConfigContext from './ConfigContext';
 
-export type PluginContextType = {
-  visible?: boolean;
-  setVisible?: (visible: boolean) => void;
-  visibleType?: string;
-  setVisibleType?: (type?: string) => void;
+export type GlobalPluginContextType = {
+  visibleKey?: React.Key;
+  setVisibleKey?: (Key?: React.Key) => void;
   getPrefixCls?: (key: string) => string;
   disabled?: string[];
   enablePlugin?: (key: string | string[]) => void;
   disablePlugin?: (key: string | string[]) => void;
 };
 
-const PluginContext = React.createContext<PluginContextType>({});
+export type PluginContextType = {
+  visible?: boolean;
+  setVisible?: (visible: boolean) => void;
+  getPrefixCls?: (key: string) => string;
+  enablePlugin?: (key: string | string[]) => void;
+  disablePlugin?: (key: string | string[]) => void;
+  props?: Record<string, any>;
+  uuid?: React.Key;
+  type?: string;
+  disabled?: string[];
+};
 
-export default PluginContext;
+const GlobalPluginContext = React.createContext<GlobalPluginContextType>({});
 
-const { Consumer: DSlatePluginConsumer, Provider: DSlatePluginProvider } = PluginContext;
+export default GlobalPluginContext;
 
-export { DSlatePluginConsumer, DSlatePluginProvider };
+const { Consumer: GlobalPluginConsumer, Provider: GlobalPluginProvider } = GlobalPluginContext;
 
-export const usePlugin = (type?: string) => {
-  const context = React.useContext(PluginContext);
+export { GlobalPluginConsumer, GlobalPluginProvider };
+
+export const usePlugin = (): PluginContextType => {
+  const uuid = usePluginUuid();
+  const { plugins } = React.useContext(ConfigContext);
+  const { visibleKey, setVisibleKey, getPrefixCls, enablePlugin, disablePlugin, disabled } =
+    React.useContext(GlobalPluginContext);
+  const matchPlugin = plugins?.find((plugin) => plugin.uuid === uuid);
+
+  const setVisible = (v: boolean) => {
+    if (v) {
+      setVisibleKey?.(matchPlugin?.uuid);
+    } else {
+      setVisibleKey?.(undefined);
+    }
+  };
 
   return {
-    ...context,
-    visible: type === context.visibleType,
-    setVisible: (v: boolean) => {
-      if (v) {
-        context.setVisibleType?.(type);
-      } else {
-        context.setVisibleType?.(undefined);
-      }
-    },
-  } as Required<PluginContextType>;
+    visible: matchPlugin?.uuid === visibleKey,
+    setVisible,
+    props: matchPlugin?.props ?? {},
+    getPrefixCls,
+    enablePlugin,
+    disablePlugin,
+    uuid,
+    type: matchPlugin?.type,
+    disabled,
+  };
 };

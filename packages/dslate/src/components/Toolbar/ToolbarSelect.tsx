@@ -5,7 +5,6 @@ import React, { useMemo } from 'react';
 import { usePlugin } from '../../contexts/PluginContext';
 import IconFont from '../IconFont';
 import ToolbarButton from './ToolbarButton';
-import { usePluginType } from './ToolbarItem';
 
 export type ToolbarSelectProps<T> = {
   options: { label: React.ReactNode; value: T; placeholder?: string; tooltip?: string }[];
@@ -28,10 +27,9 @@ const ToolbarSelect: <T>(props: ToolbarSelectProps<T>) => JSX.Element = ({
   onChange,
   direction = 'vertical',
 }) => {
-  const type = usePluginType();
-  const { getPrefixCls, visible, setVisible } = usePlugin(type);
+  const { getPrefixCls, visible, setVisible } = usePlugin();
 
-  const prefixCls = getPrefixCls('toolbar-select');
+  const prefixCls = getPrefixCls?.('toolbar-select');
 
   const ActiveValue = useMemo(() => {
     const selected = options.find((i) => i.value === value);
@@ -52,7 +50,7 @@ const ToolbarSelect: <T>(props: ToolbarSelectProps<T>) => JSX.Element = ({
   }, [options, placeholder, width, value]);
 
   const toggle = () => {
-    setVisible(!visible);
+    setVisible?.(!visible);
   };
 
   return (
@@ -72,7 +70,7 @@ const ToolbarSelect: <T>(props: ToolbarSelectProps<T>) => JSX.Element = ({
                 <div
                   onClick={() => {
                     onChange(i.value);
-                    setVisible(false);
+                    setVisible?.(false);
                   }}
                   key={`${i.value}`}
                   className={classnames('item', {

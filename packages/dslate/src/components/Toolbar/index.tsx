@@ -1,7 +1,7 @@
 import React, { useContext } from 'react';
 import { Space } from 'antd';
 
-import { usePlugin } from '../../contexts/PluginContext';
+import { usePluginHelper } from '../../contexts/PluginContext';
 import DSlateContext from '../../contexts/ConfigContext';
 
 import './index.less';
@@ -17,8 +17,8 @@ import type { ToolbarModalProps } from './ToolbarModal';
 
 const Toolbar = () => {
   const { plugins } = useContext(DSlateContext);
-  const { getPrefixCls } = usePlugin();
-  const prefixCls = getPrefixCls('toolbar');
+  const { getPrefixCls } = usePluginHelper();
+  const prefixCls = getPrefixCls?.('toolbar');
 
   return (
     <div className={prefixCls}>

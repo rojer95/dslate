@@ -6,7 +6,7 @@ import enUS from 'antd/lib/locale/en_US';
 import { Editor, Element, Transforms, Node, Text } from 'slate';
 import { useSlate } from 'slate-react';
 import { ToolbarSelect } from '../components/Toolbar';
-import { usePlugin } from '../contexts/PluginContext';
+import { usePluginHelper } from '../contexts/PluginContext';
 import type { DSlateCustomElement, DSlatePlugin, RenderElementPropsWithStyle } from '../typing';
 import { useMessage } from '../contexts/ConfigContext';
 
@@ -46,13 +46,13 @@ const Toolbar = () => {
   const activeType = getActvieType(editor);
 
   const getMessage = useMessage();
-  const { disablePlugin, enablePlugin } = usePlugin();
+  const { disablePluginByType, enablePluginByType } = usePluginHelper();
 
   useEffect(() => {
     if (activeType !== 'paragraph') {
-      disablePlugin(['bold', 'font-size']);
+      disablePluginByType?.(['bold', 'font-size']);
     } else {
-      enablePlugin(['bold', 'font-size']);
+      enablePluginByType?.(['bold', 'font-size']);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [activeType]);

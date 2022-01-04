@@ -1,7 +1,7 @@
 import { Tooltip } from 'antd';
 import classnames from 'classnames';
 import React from 'react';
-import { usePlugin } from '../../contexts/PluginContext';
+import { usePlugin, usePluginHelper } from '../../contexts/PluginContext';
 import ToolbarButton from './ToolbarButton';
 
 export type ToolbarModalProps = {
@@ -19,7 +19,8 @@ const ToolbarModal: (props: React.PropsWithChildren<ToolbarModalProps>) => JSX.E
   disabled,
   tooltip,
 }) => {
-  const { getPrefixCls, visible, setVisible } = usePlugin();
+  const { visible, setVisible } = usePlugin();
+  const { getPrefixCls } = usePluginHelper();
 
   const prefixCls = getPrefixCls?.('toolbar-select');
 

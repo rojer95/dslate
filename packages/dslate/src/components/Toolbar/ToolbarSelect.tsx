@@ -2,7 +2,7 @@ import { Tooltip } from 'antd';
 import classNames from 'classnames';
 import classnames from 'classnames';
 import React, { useMemo } from 'react';
-import { usePlugin } from '../../contexts/PluginContext';
+import { usePlugin, usePluginHelper } from '../../contexts/PluginContext';
 import IconFont from '../IconFont';
 import ToolbarButton from './ToolbarButton';
 
@@ -27,7 +27,8 @@ const ToolbarSelect: <T>(props: ToolbarSelectProps<T>) => JSX.Element = ({
   onChange,
   direction = 'vertical',
 }) => {
-  const { getPrefixCls, visible, setVisible } = usePlugin();
+  const { visible, setVisible } = usePlugin();
+  const { getPrefixCls } = usePluginHelper();
 
   const prefixCls = getPrefixCls?.('toolbar-select');
 

@@ -7,62 +7,49 @@ import { Slate, Editable, withReact, DefaultElement } from 'slate-react';
 import { ConfigProvider as AntdConfigProvider } from 'antd';
 import { ConfigConsumer, ConfigProvider, useConfig } from '../../contexts/ConfigContext';
 import { GlobalPluginProvider } from '../../contexts/PluginContext';
-import { mergeStyle, withPlugins } from '../../utils';
-import DefaultToolbar from '../Toolbar';
+import { mergeStyle, withPlugins, mergeLocalteFromPlugins } from '../../utils';
+import Toolbar from '../Toolbar';
 
 import './index.less';
-import type { DSlatePlugin, Locale } from '../../typing';
+import type { DSlatePlugin } from '../../typing';
 
 export type DSlateProps = {
   value: Descendant[];
   onChange: (value: Descendant[]) => void;
 };
 
-const mergeLocalteFromPlugins = (locales: Record<string, Locale>, plugins: DSlatePlugin[]) => {
-  const newLocales: Record<string, Locale> = { ...locales };
-  for (const plugin of plugins) {
-    if (!plugin.locale) continue;
-
-    const localeNames = Object.keys(plugin.locale);
-    for (const localeName of localeNames) {
-      if (!newLocales[localeName]) {
-        newLocales[localeName] = {
-          locale: localeName,
-        };
-      }
-
-      newLocales[localeName] = {
-        ...newLocales[localeName],
-        [plugin.type]: {
-          ...(newLocales[localeName][plugin.type] ?? {}),
-          ...plugin.locale[localeName],
-        },
-      };
-    }
-  }
-
-  return newLocales;
-};
-
 const DSlate = ({ value, onChange }: DSlateProps) => {
   const { getPrefixCls: getAntdPrefixCls } = useContext(AntdConfigProvider.ConfigContext);
-
   const { plugins } = useConfig();
-  const [visibleKey, setVisibleKey] = useState<React.Key | undefined>(undefined);
-
   const editor = useMemo(() => withPlugins(withReact(createEditor()), plugins), []);
 
-  const [disabled, setDisabled] = useState<string[]>([]);
+  const [visibleKey, setVisibleKey] = useState<React.Key | undefined>(undefined);
+  const [disabledTypes, setDisabledTypes] = useState<string[]>([]);
 
-  const enablePlugin = (key: string | string[]) => {
-    const keys: string[] = Array.isArray(key) ? key : [key];
-    setDisabled(disabled.filter((i) => !keys.includes(i)));
-  };
+  const enablePluginByType = useCallback(
+    (type: string | string[]) => {
+      const types: string[] = Array.isArray(type) ? type : [type];
+      setDisabledTypes(disabledTypes.filter((i) => !types.includes(i)));
+    },
+    [disabledTypes],
+  );
 
-  const disablePlugin = (key: string | string[]) => {
-    const keys: string[] = Array.isArray(key) ? key : [key];
-    setDisabled(Array.from(new Set([...disabled, ...keys])));
-  };
+  const disablePluginByType = useCallback(
+    (type: string | string[]) => {
+      const types: string[] = Array.isArray(type) ? type : [type];
+      setDisabledTypes(Array.from(new Set([...disabledTypes, ...types])));
+    },
+    [disabledTypes],
+  );
+
+  const prefixCls = getAntdPrefixCls('dslate');
+
+  const getPrefixCls = useCallback(
+    (key: string) => {
+      return `${prefixCls}-${key}`;
+    },
+    [prefixCls],
+  );
 
   const renderElement = useCallback((props: RenderElementProps) => {
     const style = mergeStyle(props.element, plugins, 'element');
@@ -106,20 +93,17 @@ const DSlate = ({ value, onChange }: DSlateProps) => {
     );
   }, []);
 
-  const prefixCls = getAntdPrefixCls('dslate');
-
-  const getPrefixCls = (key: string) => {
-    return `${prefixCls}-${key}`;
-  };
-
-  const onKeyDown = (e: React.KeyboardEvent<HTMLDivElement>) => {
+  const onKeyDown = useCallback((e: React.KeyboardEvent<HTMLDivElement>) => {
     for (const plugin of plugins) {
       if (typeof plugin.onKeyDown === 'function') {
         plugin.onKeyDown(e, editor);
       }
     }
-  };
+  }, []);
 
+  const onFocus = useCallback(() => {
+    setVisibleKey(undefined);
+  }, []);
   return (
     <ConfigConsumer>
       {(wrapValue) => {
@@ -135,21 +119,16 @@ const DSlate = ({ value, onChange }: DSlateProps) => {
                 getPrefixCls,
                 visibleKey: visibleKey,
                 setVisibleKey: setVisibleKey,
-                disabled,
-                enablePlugin: enablePlugin,
-                disablePlugin: disablePlugin,
+                disabledTypes,
+                enablePluginByType,
+                disablePluginByType,
               }}
             >
               <Slate editor={editor} value={value} onChange={onChange}>
                 <div className={prefixCls}>
                   <div className={`${prefixCls}-container`}>
-                    <DefaultToolbar />
-                    <div
-                      className={`${prefixCls}-editbale`}
-                      onMouseDown={() => {
-                        setVisibleKey(undefined);
-                      }}
-                    >
+                    <Toolbar />
+                    <div className={`${prefixCls}-editbale`} onMouseDown={onFocus}>
                       <Editable
                         renderElement={renderElement}
                         renderLeaf={renderLeaf}

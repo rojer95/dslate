@@ -1,22 +1,27 @@
 import React, { useContext } from 'react';
 import type { DSlatePlugin } from '../../typing';
 
-const ToolbarItemContext = React.createContext<{ uuid?: React.Key }>({
+const ToolbarItemContext = React.createContext<{ uuid?: React.Key; type?: string }>({
   uuid: undefined,
+  type: undefined,
 });
 
 export const usePluginUuid = () => {
-  const context = useContext(ToolbarItemContext);
-  return context.uuid;
+  return useContext(ToolbarItemContext);
 };
 
-const ToolbarItem: React.FC<{ plugin: DSlatePlugin }> = ({ children, plugin }) => {
+interface ToolbarItemProps {
+  plugin: DSlatePlugin;
+}
+
+const ToolbarItem: React.FC<ToolbarItemProps> = ({ children, plugin }) => {
   if (!children) return null;
 
   return (
     <ToolbarItemContext.Provider
       value={{
         uuid: plugin.uuid,
+        type: plugin.type,
       }}
     >
       <div
@@ -32,4 +37,4 @@ const ToolbarItem: React.FC<{ plugin: DSlatePlugin }> = ({ children, plugin }) =
   );
 };
 
-export default ToolbarItem;
+export default React.memo<React.PropsWithChildren<ToolbarItemProps>>(ToolbarItem);

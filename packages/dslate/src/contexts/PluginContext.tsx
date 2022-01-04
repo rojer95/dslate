@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import { usePluginUuid } from '../components/Toolbar/ToolbarItem';
 import ConfigContext from './ConfigContext';
 
@@ -6,21 +6,18 @@ export type GlobalPluginContextType = {
   visibleKey?: React.Key;
   setVisibleKey?: (Key?: React.Key) => void;
   getPrefixCls?: (key: string) => string;
-  disabled?: string[];
-  enablePlugin?: (key: string | string[]) => void;
-  disablePlugin?: (key: string | string[]) => void;
+  disabledTypes?: string[];
+  enablePluginByType?: (key: string | string[]) => void;
+  disablePluginByType?: (key: string | string[]) => void;
 };
 
 export type PluginContextType = {
   visible?: boolean;
   setVisible?: (visible: boolean) => void;
-  getPrefixCls?: (key: string) => string;
-  enablePlugin?: (key: string | string[]) => void;
-  disablePlugin?: (key: string | string[]) => void;
   props?: Record<string, any>;
   uuid?: React.Key;
   type?: string;
-  disabled?: string[];
+  disabled?: boolean;
 };
 
 const GlobalPluginContext = React.createContext<GlobalPluginContextType>({});
@@ -31,28 +28,45 @@ const { Consumer: GlobalPluginConsumer, Provider: GlobalPluginProvider } = Globa
 
 export { GlobalPluginConsumer, GlobalPluginProvider };
 
+export const usePluginHelper = () => {
+  return React.useContext(GlobalPluginContext);
+};
+
 export const usePlugin = (): PluginContextType => {
-  const uuid = usePluginUuid();
+  const { uuid, type } = usePluginUuid();
   const { plugins } = React.useContext(ConfigContext);
-  const { visibleKey, setVisibleKey, getPrefixCls, enablePlugin, disablePlugin, disabled } =
-    React.useContext(GlobalPluginContext);
+  const globalPluginHelper = usePluginHelper();
+  const { setVisibleKey } = globalPluginHelper;
+
+  const [visible, setVisible] = useState(false);
+  const [disabled, setDisabled] = useState(false);
+
+  useEffect(() => {
+    setVisible(globalPluginHelper.visibleKey === uuid);
+  }, [globalPluginHelper.visibleKey, uuid]);
+
+  useEffect(() => {
+    setDisabled(globalPluginHelper.disabledTypes?.includes(type as string) ?? false);
+  }, [globalPluginHelper.disabledTypes, type]);
+
   const matchPlugin = plugins?.find((plugin) => plugin.uuid === uuid);
 
-  const setVisible = (v: boolean) => {
-    if (v) {
-      setVisibleKey?.(matchPlugin?.uuid);
-    } else {
-      setVisibleKey?.(undefined);
-    }
-  };
+  const toggleVisible = useCallback(
+    (v: boolean) => {
+      if (v) {
+        setVisibleKey?.(matchPlugin?.uuid);
+      } else {
+        setVisibleKey?.(undefined);
+      }
+    },
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    [uuid],
+  );
 
   return {
-    visible: matchPlugin?.uuid === visibleKey,
-    setVisible,
+    visible,
+    setVisible: toggleVisible,
     props: matchPlugin?.props ?? {},
-    getPrefixCls,
-    enablePlugin,
-    disablePlugin,
     uuid,
     type: matchPlugin?.type,
     disabled,

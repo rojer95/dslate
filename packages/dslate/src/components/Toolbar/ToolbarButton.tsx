@@ -1,6 +1,6 @@
 import classnames from 'classnames';
 import React from 'react';
-import { usePlugin } from '../../contexts/PluginContext';
+import { usePlugin, usePluginHelper } from '../../contexts/PluginContext';
 import ToolbarTooltip from './ToolbarTooltip';
 
 export type ToolbarButtonProps = {
@@ -17,9 +17,10 @@ const ToolbarButton: React.FC<ToolbarButtonProps> = ({
   onClick,
   tooltip = '',
 }) => {
-  const { getPrefixCls, disabled: disabledPlugin, type } = usePlugin();
+  const { disabled: globalDisabled } = usePlugin();
+  const { getPrefixCls } = usePluginHelper();
   const prefixCls = getPrefixCls?.('toolbar-button');
-  const isDisabled = disabled || disabledPlugin?.includes(type as string);
+  const isDisabled = disabled || globalDisabled;
 
   return (
     <ToolbarTooltip tooltip={tooltip}>

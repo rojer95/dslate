@@ -11,6 +11,7 @@ import { BackgroundColorPlugin } from './background-color';
 import { FontSizePlugin } from './font-size';
 import { TextAlignPlugin } from './text-align';
 import { ListPlugin } from './list';
+import { TextIndentPlugin } from './indent';
 
 import type { DSlatePlugin } from '../typing';
 
@@ -30,5 +31,6 @@ DefaultPlugin.BackgroundColorPlugin = BackgroundColorPlugin;
 DefaultPlugin.FontSizePlugin = FontSizePlugin;
 DefaultPlugin.TextAlignPlugin = TextAlignPlugin;
 DefaultPlugin.ListPlugin = ListPlugin;
+DefaultPlugin.TextIndentPlugin = TextIndentPlugin;
 
 export default DefaultPlugin;

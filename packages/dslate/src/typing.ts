@@ -27,7 +27,7 @@ export type DSlatePlugin = {
   renderLeaf?: (props: RenderLeafPropsWithStyle) => JSX.Element;
   renderStyle?: ((text: Descendant) => CSSProperties) | CSSProperties;
   normalizeNode?: (editor: Editor, entry: NodeEntry) => void;
-  inject?: (editor: Editor) => Editor;
+  withPlugin?: (editor: Editor) => Editor;
   isDefaultElement?: boolean;
   locale?: Record<string, any>;
 };

@@ -46,7 +46,7 @@ const HistoryPlugin: DSlatePlugin = {
   type: 'history',
   nodeType: 'tool',
   toolbar: <Toolbar />,
-  inject: withHistory,
+  withPlugin: withHistory,
   locale: {
     [zhCN.locale]: {
       undo: {

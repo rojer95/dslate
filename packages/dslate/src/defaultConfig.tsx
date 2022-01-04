@@ -7,20 +7,21 @@ import en_US from './locale/en_US';
 import DefaultPlugin from './plugins';
 
 const defaultPlugins: DSlatePlugin[] = [
-  DefaultPlugin.HistoryPlugin,
-  DefaultPlugin.ClearPlugin,
+  DefaultPlugin.HistoryPlugin, // 撤销重做
+  DefaultPlugin.ClearPlugin, // 清理格式
   DefaultPlugin.DividerPlugin, // 分割
-  DefaultPlugin.ParagraphPlugin,
-  DefaultPlugin.FontSizePlugin,
-  DefaultPlugin.BoldPlugin,
-  DefaultPlugin.ItalicPlugin,
-  DefaultPlugin.UnderlinePlugin,
-  DefaultPlugin.ThroughPlugin,
-  DefaultPlugin.ColorPlugin,
-  DefaultPlugin.BackgroundColorPlugin,
+  DefaultPlugin.ParagraphPlugin, // 段落&标题
+  DefaultPlugin.FontSizePlugin, // 字号
+  DefaultPlugin.BoldPlugin, // 加粗
+  DefaultPlugin.ItalicPlugin, // 斜体
+  DefaultPlugin.UnderlinePlugin, // 下划线
+  DefaultPlugin.ThroughPlugin, // 删除线
+  DefaultPlugin.ColorPlugin, // 字颜色
+  DefaultPlugin.BackgroundColorPlugin, // 背景颜色
   DefaultPlugin.DividerPlugin, // 分割
-  DefaultPlugin.TextAlignPlugin,
-  DefaultPlugin.ListPlugin,
+  DefaultPlugin.TextAlignPlugin, // 对齐方式
+  DefaultPlugin.ListPlugin, // 列表
+  DefaultPlugin.TextIndentPlugin, // 缩进
 ];
 
 const locales = {

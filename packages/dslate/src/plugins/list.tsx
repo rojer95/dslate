@@ -135,16 +135,29 @@ const Toolbar = () => {
 };
 
 const renderElement = (props: RenderElementPropsWithStyle) => {
-  const { attributes, children, element } = props;
-  if (element.type === LIST_ITEM) return <li {...attributes}>{children}</li>;
+  const { attributes, children, element, style } = props;
+  if (element.type === LIST_ITEM)
+    return (
+      <li {...attributes} style={style}>
+        {children}
+      </li>
+    );
   if (element[LIST_TYPE] === UNORDERED_LIST_TYPE) {
-    return <ul {...attributes}>{children}</ul>;
+    return (
+      <ul {...attributes} style={style}>
+        {children}
+      </ul>
+    );
   } else {
-    return <ol {...attributes}>{children}</ol>;
+    return (
+      <ol {...attributes} style={style}>
+        {children}
+      </ol>
+    );
   }
 };
 
-const inject = (editor: Editor) => {
+const withList = (editor: Editor) => {
   const { deleteBackward, insertBreak } = editor;
 
   editor.deleteBackward = (unit) => {
@@ -185,7 +198,7 @@ const ListPlugin: DSlatePlugin = {
   renderElement,
   match: (n) => n.type === LIST_ITEM,
   normalizeNode,
-  inject,
+  withPlugin: withList,
   locale: {
     [zhCN.locale]: {
       unorder_tooltip: '无序列表',

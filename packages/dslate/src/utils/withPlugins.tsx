@@ -47,8 +47,8 @@ const withPlugins = (editor: Editor, plugins: DSlatePlugin[]) => {
       };
     }
 
-    if (typeof plugin?.inject === 'function') {
-      return plugin?.inject(preEditor);
+    if (typeof plugin?.withPlugin === 'function') {
+      return plugin?.withPlugin(preEditor);
     }
 
     return preEditor;

@@ -6,9 +6,9 @@ import enUS from 'antd/lib/locale/en_US';
 import { Editor, Element, Transforms, Node, Text } from 'slate';
 import { useSlate } from 'slate-react';
 import { ToolbarSelect } from '../components/Toolbar';
-import { usePlugin } from '../PluginContext';
+import { usePlugin } from '../contexts/PluginContext';
 import type { DSlateCustomElement, DSlatePlugin, RenderElementPropsWithStyle } from '../typing';
-import { useMessage } from '../ConfigContext';
+import { useMessage } from '../contexts/ConfigContext';
 
 const TYPE = 'paragraph';
 const DEFAULT_TYPE = 'paragraph';

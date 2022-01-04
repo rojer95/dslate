@@ -1,6 +1,6 @@
 import classnames from 'classnames';
 import React from 'react';
-import { usePlugin } from '../../PluginContext';
+import { usePlugin } from '../../contexts/PluginContext';
 import { usePluginType } from './ToolbarItem';
 import ToolbarTooltip from './ToolbarTooltip';
 

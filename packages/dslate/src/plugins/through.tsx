@@ -8,7 +8,7 @@ import { ToolbarButton } from '../components/Toolbar';
 import type { DSlatePlugin } from '../typing';
 
 import { getTextProps, toggleTextProps } from '../utils';
-import { useMessage } from '../ConfigContext';
+import { useMessage } from '../contexts/ConfigContext';
 
 const Toolbar = () => {
   const editor = useSlate();

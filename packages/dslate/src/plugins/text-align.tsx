@@ -6,13 +6,13 @@ import type { DSlatePlugin } from '../typing';
 import { useSlate } from 'slate-react';
 import { ToolbarSelect } from '../components/Toolbar';
 import { getBlockProps, setBlockProps } from '../utils';
-import { useMessage } from '../ConfigContext';
+import { useMessage } from '../contexts/ConfigContext';
 import IconFont from '../components/IconFont';
 import type { Descendant } from 'slate';
 
 const DEFAULT_VALUE = 'left';
 const TYPE = 'text-align';
-
+const iconStyle = { opacity: 0.7, fontSize: '93%' };
 const renderStyle = (text: Descendant) => {
   if (text[TYPE]) {
     return { textAlign: text?.[TYPE] };
@@ -34,23 +34,23 @@ const Toolbar = () => {
       direction="horizontal"
       options={[
         {
-          tooltip: '左对齐',
-          label: <IconFont type="icon-alignLeft" />,
+          tooltip: getMessage('left', '左对齐'),
+          label: <IconFont type="icon-alignleft" style={iconStyle} />,
           value: 'left',
         },
         {
-          tooltip: '居中对齐',
-          label: <IconFont type="icon-center" />,
+          tooltip: getMessage('center', '居中对齐'),
+          label: <IconFont type="icon-aligncenter" style={iconStyle} />,
           value: 'center',
         },
         {
-          tooltip: '右对齐',
-          label: <IconFont type="icon-alignRight" />,
+          tooltip: getMessage('right', '右对齐'),
+          label: <IconFont type="icon-aligncenter1" style={iconStyle} />,
           value: 'right',
         },
         {
-          tooltip: '两端对齐',
-          label: <IconFont type="icon-alignBothSides" />,
+          tooltip: getMessage('justify', '两端对齐'),
+          label: <IconFont type="icon-alignjustify" style={iconStyle} />,
           value: 'justify',
         },
       ]}
@@ -68,9 +68,17 @@ const TextAlignPlugin: DSlatePlugin = {
   locale: {
     [zhCN.locale]: {
       tooltip: '对齐方式',
+      left: '左对齐',
+      center: '居中对齐',
+      right: '右对齐',
+      justify: '两端对齐',
     },
     [enUS.locale]: {
       tooltip: 'text align',
+      left: 'align left',
+      center: 'align center',
+      right: 'align right',
+      justify: 'align justify',
     },
   },
 };

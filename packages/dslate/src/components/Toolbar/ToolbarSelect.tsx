@@ -2,7 +2,7 @@ import { Tooltip } from 'antd';
 import classNames from 'classnames';
 import classnames from 'classnames';
 import React, { useMemo } from 'react';
-import { usePlugin } from '../../PluginContext';
+import { usePlugin } from '../../contexts/PluginContext';
 import IconFont from '../IconFont';
 import ToolbarButton from './ToolbarButton';
 import { usePluginType } from './ToolbarItem';

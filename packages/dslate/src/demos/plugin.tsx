@@ -3,7 +3,7 @@ import type { Descendant } from 'slate';
 import { Range, Transforms } from 'slate';
 
 import type { DSlatePlugin } from 'dslate';
-import DSlate, { ConfigProvider, defaultConfig, ToolbarButton } from 'dslate';
+import DSlate, { ConfigProvider, defaultConfig, Toolbar } from 'dslate';
 import { useSlate } from 'slate-react';
 
 const CustomPluginToolbar = () => {
@@ -19,7 +19,7 @@ const CustomPluginToolbar = () => {
     }
   };
 
-  return <ToolbarButton onClick={toggleText}>一段文本</ToolbarButton>;
+  return <Toolbar.Button onClick={toggleText}>一段文本</Toolbar.Button>;
 };
 const CustomPlugin: DSlatePlugin = {
   type: 'custom',

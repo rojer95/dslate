@@ -1,14 +1,15 @@
 import React from 'react';
 import { ConfigProvider as AntdConfigProvider } from 'antd';
-import { usePluginType } from './components/Toolbar/ToolbarItem';
-import defaultConfig from './defaultConfig';
-import type { DSlatePlugin, Locale } from './typing';
-import { get } from './utils';
+import { usePluginType } from '../components/Toolbar/ToolbarItem';
+import defaultConfig from '../defaultConfig';
+import type { DSlatePlugin, Locale } from '../typing';
+import { get } from '../utils';
 
 export type ConfigContextType = {
   plugins: DSlatePlugin[];
   locales: Record<string, Locale>;
   defauleLocale: string;
+  iconScriptUrl?: string | string[];
 };
 
 const ConfigContext = React.createContext<ConfigContextType>(defaultConfig);

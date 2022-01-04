@@ -9,7 +9,7 @@ import { useSlate } from 'slate-react';
 import { ToolbarModal } from '../components/Toolbar';
 import IconFont from '../components/IconFont';
 import { getTextProps, setTextProps } from '../utils';
-import { useMessage } from '../ConfigContext';
+import { useMessage } from '../contexts/ConfigContext';
 import type { Descendant } from 'slate';
 
 const DEFAULT_COLOR = undefined;

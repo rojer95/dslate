@@ -1,77 +1,70 @@
 import React from 'react';
 import { useSlate } from 'slate-react';
+import { withHistory } from 'slate-history';
 import zhCN from 'antd/lib/locale/zh_CN';
 import enUS from 'antd/lib/locale/en_US';
 
 import IconFont from '../components/IconFont';
-import { ToolbarButton } from '../components/Toolbar';
 import type { DSlatePlugin } from '../typing';
-import { useMessage } from '../ConfigContext';
+import { useMessage } from '../contexts/ConfigContext';
+import { Space } from 'antd';
+import { ToolbarButton } from '../components/Toolbar';
 
-const RedoToolbar = () => {
+const Toolbar = () => {
   const editor = useSlate();
   const getMessage = useMessage();
 
-  const onClick = () => {
+  const undo = () => {
+    editor.undo();
+  };
+
+  const redo = () => {
     editor.redo();
   };
 
   return (
-    <ToolbarButton
-      onClick={onClick}
-      tooltip={getMessage('tooltip', '重做')}
-      disabled={editor.history.redos.length === 0}
-    >
-      <IconFont type="icon-redo" />
-    </ToolbarButton>
+    <Space>
+      <ToolbarButton
+        onClick={undo}
+        tooltip={getMessage('undo.tooltip', '撤消')}
+        disabled={editor.history.undos.length === 0}
+      >
+        <IconFont type="icon-undo1" />
+      </ToolbarButton>
+      <ToolbarButton
+        onClick={redo}
+        tooltip={getMessage('redo.tooltip', '重做')}
+        disabled={editor.history.redos.length === 0}
+      >
+        <IconFont type="icon-redo1" />
+      </ToolbarButton>
+    </Space>
   );
 };
 
-const RedoPlugin: DSlatePlugin = {
-  type: 'redo',
+const HistoryPlugin: DSlatePlugin = {
+  type: 'history',
   nodeType: 'tool',
-  toolbar: <RedoToolbar />,
+  toolbar: <Toolbar />,
+  inject: withHistory,
   locale: {
     [zhCN.locale]: {
-      tooltip: '重做',
+      undo: {
+        tooltip: '撤销',
+      },
+      redo: {
+        tooltip: '重做',
+      },
     },
     [enUS.locale]: {
-      tooltip: 'redo',
+      undo: {
+        tooltip: 'undo',
+      },
+      redo: {
+        tooltip: 'redo',
+      },
     },
   },
 };
 
-const UndoToolbar = () => {
-  const editor = useSlate();
-  const getMessage = useMessage();
-
-  const onClick = () => {
-    editor.undo();
-  };
-
-  return (
-    <ToolbarButton
-      onClick={onClick}
-      tooltip={getMessage('tooltip', '撤消')}
-      disabled={editor.history.undos.length === 0}
-    >
-      <IconFont type="icon-undo" />
-    </ToolbarButton>
-  );
-};
-
-const UndoPlugin: DSlatePlugin = {
-  type: 'undo',
-  nodeType: 'tool',
-  toolbar: <UndoToolbar />,
-  locale: {
-    [zhCN.locale]: {
-      tooltip: '撤销',
-    },
-    [enUS.locale]: {
-      tooltip: 'undo',
-    },
-  },
-};
-
-export { RedoPlugin, UndoPlugin };
+export { HistoryPlugin };

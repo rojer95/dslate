@@ -1,14 +1,13 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import React, { useCallback, useContext, useMemo, useState } from 'react';
-import type { Descendant, Editor, NodeEntry } from 'slate';
-import { createEditor, Element, Text } from 'slate';
+import type { Descendant } from 'slate';
+import { createEditor } from 'slate';
 import type { RenderElementProps } from 'slate-react';
 import { Slate, Editable, withReact, DefaultElement } from 'slate-react';
-import { withHistory } from 'slate-history';
 import { ConfigProvider as AntdConfigProvider } from 'antd';
-import { ConfigConsumer, ConfigProvider, useConfig } from '../../ConfigContext';
-import { DSlatePluginProvider } from '../../PluginContext';
-import { mergeStyle } from '../../utils';
+import { ConfigConsumer, ConfigProvider, useConfig } from '../../contexts/ConfigContext';
+import { DSlatePluginProvider } from '../../contexts/PluginContext';
+import { mergeStyle, withPlugins } from '../../utils';
 import DefaultToolbar from '../Toolbar';
 
 import './index.less';
@@ -17,57 +16,6 @@ import type { DSlatePlugin, Locale } from '../../typing';
 export type DSlateProps = {
   value: Descendant[];
   onChange: (value: Descendant[]) => void;
-};
-
-const withPlugins = (editor: Editor, plugins: DSlatePlugin[]) => {
-  return plugins.reduce<Editor>((preEditor, plugin) => {
-    const { isVoid, isInline, normalizeNode } = preEditor;
-
-    if (plugin.isDefaultElement) preEditor.defaultElement = plugin.type;
-
-    if ('isVoid' in plugin) {
-      preEditor.isVoid = (element) => {
-        if (element.type === plugin.type) {
-          if (!plugin.isVoid) return false;
-          return typeof plugin.isVoid === 'function' ? plugin.isVoid(element) : plugin.isVoid;
-        }
-        return isVoid(element);
-      };
-    }
-
-    if ('isInline' in plugin) {
-      preEditor.isInline = (element) => {
-        if (element.type === plugin.type) {
-          if (!plugin.isInline) return false;
-          return typeof plugin.isInline === 'function' ? plugin.isInline(element) : plugin.isInline;
-        }
-        return isInline(element);
-      };
-    }
-
-    if ('normalizeNode' in plugin) {
-      preEditor.normalizeNode = (entry: NodeEntry) => {
-        const [node] = entry;
-
-        if (
-          (Element.isElement(node) || Text.isText(node)) &&
-          node.type === plugin.type &&
-          plugin.normalizeNode
-        ) {
-          plugin.normalizeNode(editor, entry);
-          return;
-        }
-
-        normalizeNode(entry);
-      };
-    }
-
-    if (typeof plugin?.inject === 'function') {
-      return plugin?.inject(preEditor);
-    }
-
-    return preEditor;
-  }, editor);
 };
 
 const mergeLocalteFromPlugins = (locales: Record<string, Locale>, plugins: DSlatePlugin[]) => {
@@ -102,7 +50,7 @@ const DSlate = ({ value, onChange }: DSlateProps) => {
   const { plugins } = useConfig();
   const [visibleType, setVisibleType] = useState<string | undefined>(undefined);
 
-  const editor = useMemo(() => withPlugins(withReact(withHistory(createEditor())), plugins), []);
+  const editor = useMemo(() => withPlugins(withReact(createEditor()), plugins), []);
 
   const [disabled, setDisabled] = useState<string[]>([]);
 

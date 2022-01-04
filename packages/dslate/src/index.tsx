@@ -5,12 +5,12 @@ import DSlateContext, {
   ConfigConsumer,
   useConfig,
   useMessage,
-} from './ConfigContext';
+} from './contexts/ConfigContext';
 
-import Toolbar, { ToolbarModal, ToolbarButton, ToolbarSelect } from './components/Toolbar';
+import Toolbar from './components/Toolbar';
+import DefaultPlugin from './plugins';
 
 import type { DSlateProps } from './components/DSlate/';
-
 import type {
   ToolbarModalProps,
   ToolbarButtonProps,
@@ -21,18 +21,6 @@ import type { DSlateCustomElement, DSlateCustomText, DSlateEditor, DSlatePlugin 
 
 import defaultConfig from './defaultConfig';
 
-import { UnderlinePlugin } from './plugins/underline';
-import { ParagraphPlugin } from './plugins/paragraph';
-import { BoldPlugin } from './plugins/bold';
-import { ThroughPlugin } from './plugins/through';
-import { ItalicPlugin } from './plugins/italic';
-import { ColorPlugin } from './plugins/color';
-import { ClearPlugin } from './plugins/clear';
-import { DividerPlugin } from './plugins/divider';
-import { RedoPlugin, UndoPlugin } from './plugins/history';
-import { BackgroundColorPlugin } from './plugins/background-color';
-import { FontSizePlugin } from './plugins/font-size';
-
 export {
   defaultConfig,
   DSlateContext,
@@ -41,21 +29,7 @@ export {
   useConfig,
   useMessage,
   Toolbar,
-  ToolbarModal,
-  ToolbarButton,
-  ToolbarSelect,
-  UndoPlugin,
-  RedoPlugin,
-  ClearPlugin,
-  DividerPlugin,
-  ParagraphPlugin,
-  FontSizePlugin,
-  BoldPlugin,
-  ItalicPlugin,
-  UnderlinePlugin,
-  ThroughPlugin,
-  ColorPlugin,
-  BackgroundColorPlugin,
+  DefaultPlugin,
 };
 
 export type {

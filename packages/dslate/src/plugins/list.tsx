@@ -6,7 +6,7 @@ import type { DSlatePlugin, RenderElementPropsWithStyle } from '../typing';
 import { useSlate } from 'slate-react';
 import { ToolbarButton } from '../components/Toolbar';
 import { getBlockProps, isBlockActive } from '../utils';
-import { useMessage } from '../ConfigContext';
+import { useMessage } from '../contexts/ConfigContext';
 import IconFont from '../components/IconFont';
 import type { NodeEntry } from 'slate';
 import { Editor, Element, Transforms, Range, Node, Path } from 'slate';

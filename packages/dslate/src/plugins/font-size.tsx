@@ -6,7 +6,7 @@ import type { DSlatePlugin } from '../typing';
 import { useSlate } from 'slate-react';
 import { ToolbarSelect } from '../components/Toolbar';
 import { getTextProps, setTextProps } from '../utils';
-import { useMessage } from '../ConfigContext';
+import { useMessage } from '../contexts/ConfigContext';
 import type { Descendant } from 'slate';
 
 const DEFAULT_FONT_SIZE = 14;

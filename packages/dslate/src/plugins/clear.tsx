@@ -6,7 +6,7 @@ import { useSlate } from 'slate-react';
 import IconFont from '../components/IconFont';
 import { ToolbarButton } from '../components/Toolbar';
 import type { DSlatePlugin } from '../typing';
-import { useMessage } from '../ConfigContext';
+import { useMessage } from '../contexts/ConfigContext';
 
 const clearStyle = (editor: Editor) => {
   if (!editor.selection) return;
@@ -53,9 +53,6 @@ const ClearPlugin: DSlatePlugin = {
   type: 'clear',
   nodeType: 'tool',
   toolbar: <Toolbar />,
-  injectMethod: (editor: Editor) => {
-    editor.clearStyle = clearStyle;
-  },
   locale: {
     [zhCN.locale]: {
       tooltip: '清理格式',

@@ -2,6 +2,7 @@ import type { CSSProperties } from 'react';
 import type { BaseEditor, Descendant, Editor, NodeEntry } from 'slate';
 import type { ReactEditor, RenderElementProps, RenderLeafProps } from 'slate-react';
 import type { HistoryEditor } from 'slate-history';
+import type React from 'react';
 
 export type DSlateCustomElement = {
   type: string;
@@ -15,6 +16,7 @@ export type DSlateCustomText = {
 };
 
 export type DSlatePlugin = {
+  uuid?: React.Key;
   type: string;
   nodeType: 'element' | 'text' | 'tool';
   isVoid?: ((element: DSlateCustomElement) => boolean) | boolean;

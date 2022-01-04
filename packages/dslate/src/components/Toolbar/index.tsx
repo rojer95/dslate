@@ -1,10 +1,8 @@
-/* eslint-disable react/no-array-index-key */
-
 import React, { useContext } from 'react';
 import { Space } from 'antd';
 
-import { usePlugin } from '../../PluginContext';
-import DSlateContext from '../../ConfigContext';
+import { usePlugin } from '../../contexts/PluginContext';
+import DSlateContext from '../../contexts/ConfigContext';
 
 import './index.less';
 import ToolbarItem from './ToolbarItem';
@@ -25,13 +23,11 @@ const Toolbar = () => {
   return (
     <div className={prefixCls}>
       <Space wrap>
-        {plugins.map((plugin, index) => {
-          return (
-            <ToolbarItem key={`${plugin?.type}_${index}`} plugin={plugin}>
-              {plugin?.toolbar}
-            </ToolbarItem>
-          );
-        })}
+        {plugins.map((plugin) => (
+          <ToolbarItem key={`${plugin?.uuid}`} plugin={plugin}>
+            {plugin?.toolbar}
+          </ToolbarItem>
+        ))}
       </Space>
     </div>
   );
@@ -40,5 +36,9 @@ const Toolbar = () => {
 export { ToolbarButton, ToolbarSelect, ToolbarModal };
 
 export type { ToolbarButtonProps, ToolbarSelectProps, ToolbarModalProps };
+
+Toolbar.Button = ToolbarButton;
+Toolbar.Modal = ToolbarModal;
+Toolbar.Select = ToolbarSelect;
 
 export default Toolbar;

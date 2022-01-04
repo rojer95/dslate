@@ -9,7 +9,7 @@ import type { DSlatePlugin } from '../typing';
 import { useSlate } from 'slate-react';
 import { ToolbarModal } from '../components/Toolbar';
 import IconFont from '../components/IconFont';
-import { useMessage } from '../ConfigContext';
+import { useMessage } from '../contexts/ConfigContext';
 import { getTextProps, setTextProps } from '../utils';
 import type { Descendant } from 'slate';
 

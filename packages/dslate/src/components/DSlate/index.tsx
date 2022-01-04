@@ -112,6 +112,14 @@ const DSlate = ({ value, onChange }: DSlateProps) => {
     return `${prefixCls}-${key}`;
   };
 
+  const onKeyDown = (e: React.KeyboardEvent<HTMLDivElement>) => {
+    for (const plugin of plugins) {
+      if (typeof plugin.onKeyDown === 'function') {
+        plugin.onKeyDown(e, editor);
+      }
+    }
+  };
+
   return (
     <ConfigConsumer>
       {(wrapValue) => {
@@ -142,7 +150,11 @@ const DSlate = ({ value, onChange }: DSlateProps) => {
                         setVisibleType(undefined);
                       }}
                     >
-                      <Editable renderElement={renderElement} renderLeaf={renderLeaf} />
+                      <Editable
+                        renderElement={renderElement}
+                        renderLeaf={renderLeaf}
+                        onKeyDown={onKeyDown}
+                      />
                     </div>
                   </div>
                 </div>

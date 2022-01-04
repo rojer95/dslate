@@ -28,6 +28,7 @@ export type DSlatePlugin = {
   renderStyle?: ((text: Descendant) => CSSProperties) | CSSProperties;
   normalizeNode?: (editor: Editor, entry: NodeEntry) => void;
   withPlugin?: (editor: Editor) => Editor;
+  onKeyDown?: (e: React.KeyboardEvent<HTMLDivElement>, editor: Editor) => void;
   isDefaultElement?: boolean;
   locale?: Record<string, any>;
 };

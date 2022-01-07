@@ -9,8 +9,8 @@ import { HistoryPlugin } from './history';
 import { BackgroundColorPlugin } from './background-color';
 import { FontSizePlugin } from './font-size';
 import { TextAlignPlugin } from './text-align';
-import { ListPlugin } from './list';
 import { TextIndentPlugin } from './indent';
+import { ListPlugin, ListItemPlugin } from './list';
 
 const DefaultPlugin = () => {};
 
@@ -26,6 +26,7 @@ DefaultPlugin.BackgroundColorPlugin = BackgroundColorPlugin;
 DefaultPlugin.FontSizePlugin = FontSizePlugin;
 DefaultPlugin.TextAlignPlugin = TextAlignPlugin;
 DefaultPlugin.ListPlugin = ListPlugin;
+DefaultPlugin.ListItemPlugin = ListItemPlugin;
 DefaultPlugin.TextIndentPlugin = TextIndentPlugin;
 
 export default DefaultPlugin;

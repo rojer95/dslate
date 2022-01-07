@@ -15,6 +15,8 @@ export type DSlateCustomText = {
   [index: string]: any;
 };
 
+export type NormalizeNode = (entry: NodeEntry) => void;
+
 export type DSlatePlugin = {
   uuid?: React.Key;
   type: string;
@@ -22,11 +24,10 @@ export type DSlatePlugin = {
   isVoid?: ((element: DSlateCustomElement) => boolean) | boolean;
   isInline?: ((element: DSlateCustomElement) => boolean) | boolean;
   toolbar?: React.ReactNode;
-  match?: (n: Descendant) => boolean;
-  renderElement?: (props: RenderElementPropsWithStyle) => JSX.Element;
-  renderLeaf?: (props: RenderLeafPropsWithStyle) => JSX.Element;
-  renderStyle?: ((text: Descendant) => CSSProperties) | CSSProperties;
-  normalizeNode?: (editor: Editor, entry: NodeEntry) => void;
+  renderElement?: (props: RenderElementPropsWithStyle, editor: Editor) => JSX.Element;
+  renderLeaf?: (props: RenderLeafPropsWithStyle, editor: Editor) => JSX.Element;
+  renderStyle?: ((node: Descendant, editor: Editor) => CSSProperties) | CSSProperties;
+  normalizeNode?: (entry: NodeEntry, editor: Editor, next: NormalizeNode) => void;
   withPlugin?: (editor: Editor) => Editor;
   onKeyDown?: (e: React.KeyboardEvent<HTMLDivElement>, editor: Editor) => void;
   isDefaultElement?: boolean;

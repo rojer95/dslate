@@ -52,21 +52,19 @@ const DSlate = ({ value, onChange }: DSlateProps) => {
   );
 
   const renderElement = useCallback((props: RenderElementProps) => {
-    const style = mergeStyle(props.element, plugins, 'element');
+    const style = mergeStyle(props.element, plugins, 'element', editor);
     const plugin = plugins.find(
-      (i) =>
-        i.nodeType === 'element' &&
-        (i.type === props.element.type || (i.match && i.match(props.element))),
+      (i) => i.nodeType === 'element' && i.type === props.element.type,
     ) as DSlatePlugin | undefined;
 
     if (plugin && plugin.renderElement) {
-      return plugin.renderElement({ ...props, style });
+      return plugin.renderElement({ ...props, style }, editor);
     }
 
     const defaultElementPlugin = plugins.find((p) => p.isDefaultElement);
 
     if (defaultElementPlugin && defaultElementPlugin.renderElement) {
-      return defaultElementPlugin.renderElement({ ...props, style });
+      return defaultElementPlugin.renderElement({ ...props, style }, editor);
     }
 
     return <DefaultElement {...props} />;
@@ -75,15 +73,13 @@ const DSlate = ({ value, onChange }: DSlateProps) => {
   const renderLeaf = useCallback((props) => {
     const { attributes, children, leaf } = props;
     const needRenderPlugin = plugins.find(
-      (i) =>
-        i.nodeType === 'text' &&
-        ((i.type in leaf && !!i.renderLeaf) || (i.match && i.match(props.element))),
+      (i) => i.nodeType === 'text' && i.type in leaf && !!i.renderLeaf,
     ) as DSlatePlugin | undefined;
 
-    const style = mergeStyle(leaf, plugins, 'text');
+    const style = mergeStyle(leaf, plugins, 'text', editor);
 
     if (needRenderPlugin && needRenderPlugin.renderLeaf) {
-      return needRenderPlugin.renderLeaf({ ...props, style });
+      return needRenderPlugin.renderLeaf({ ...props, style }, editor);
     }
 
     return (

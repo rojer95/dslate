@@ -1,5 +1,4 @@
 import type { Editor, NodeEntry } from 'slate';
-import { Element, Text } from 'slate';
 import { nanoid } from 'nanoid';
 import type { DSlatePlugin } from '../typing';
 
@@ -32,17 +31,10 @@ const withPlugins = (editor: Editor, plugins: DSlatePlugin[]) => {
 
     if ('normalizeNode' in plugin) {
       preEditor.normalizeNode = (entry: NodeEntry) => {
-        const [node] = entry;
-
-        if (
-          (Element.isElement(node) || Text.isText(node)) &&
-          node.type === plugin.type &&
-          plugin.normalizeNode
-        ) {
-          plugin.normalizeNode(editor, entry);
+        if (plugin.normalizeNode) {
+          plugin.normalizeNode(entry, editor, normalizeNode);
           return;
         }
-
         normalizeNode(entry);
       };
     }

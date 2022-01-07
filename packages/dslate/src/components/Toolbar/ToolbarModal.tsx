@@ -10,14 +10,16 @@ export type ToolbarModalProps = {
   width?: number;
   disabled?: boolean;
   tooltip?: string;
+  color?: string;
 };
 
 const ToolbarModal: (props: React.PropsWithChildren<ToolbarModalProps>) => JSX.Element = ({
-  width = 'max-content',
   overlay,
   children,
   disabled,
   tooltip,
+  width = 'max-content',
+  color = '#FFFFFF',
 }) => {
   const { visible, setVisible } = usePlugin();
   const { getPrefixCls } = usePluginHelper();
@@ -34,11 +36,11 @@ const ToolbarModal: (props: React.PropsWithChildren<ToolbarModalProps>) => JSX.E
         trigger={[]}
         visible={visible}
         placement="bottom"
-        color="#FFFFFF"
+        color={color}
         overlayInnerStyle={{
           padding: 0,
         }}
-        overlay={<div className={`${prefixCls}-drop-content`}>{overlay}</div>}
+        overlay={<div className={`${prefixCls}-content`}>{overlay}</div>}
       >
         <ToolbarButton disabled={disabled} onClick={toggle} tooltip={tooltip}>
           <div className={classnames(`${prefixCls}-button`)}>

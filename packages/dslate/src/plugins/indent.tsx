@@ -17,9 +17,9 @@ const DEFAULT_VALUE = 0;
 const TYPE = 'text-indent';
 const iconStyle = { opacity: 0.7, fontSize: '93%' };
 
-const renderStyle = (text: Descendant) => {
-  if (text[TYPE]) {
-    return { textIndent: `${text?.[TYPE] * 2}em` };
+const renderStyle = (element: Descendant, editor: Editor) => {
+  if (!!element[TYPE] && element.type === editor.defaultElement) {
+    return { textIndent: `${element[TYPE] * 2}em` };
   }
   return {};
 };
@@ -27,6 +27,7 @@ const renderStyle = (text: Descendant) => {
 const increase = (editor: Editor) => {
   const indent = getBlockProps(editor, TYPE, DEFAULT_VALUE);
   setBlockProps(editor, TYPE, indent + 1);
+  editor?.onIndent();
 };
 
 const decrease = (editor: Editor) => {
@@ -37,6 +38,7 @@ const decrease = (editor: Editor) => {
   } else {
     setBlockProps(editor, TYPE, indent);
   }
+  editor?.onIndent();
 };
 
 const Toolbar = () => {
@@ -62,9 +64,8 @@ const Toolbar = () => {
   );
 };
 
-const decreaseOnStart = (editor: Editor) => {
+const isStart = (editor: Editor) => {
   if (!editor.selection || Range.isExpanded(editor.selection)) return false;
-
   const [match] = Editor.nodes(editor, {
     match: (n) => {
       return TYPE in n;
@@ -72,13 +73,17 @@ const decreaseOnStart = (editor: Editor) => {
   });
 
   if (!!match) {
-    const isStart = Editor.isStart(editor, editor.selection?.focus, match[1]);
-    if (isStart) {
-      decrease(editor);
-      return true;
-    }
+    return Editor.isStart(editor, editor.selection?.focus, match[1]);
   }
 
+  return false;
+};
+
+const decreaseOnStart = (editor: Editor) => {
+  if (isStart(editor)) {
+    decrease(editor);
+    return true;
+  }
   return false;
 };
 

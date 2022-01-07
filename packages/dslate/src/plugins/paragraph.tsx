@@ -7,33 +7,38 @@ import { Editor, Element, Transforms, Node, Text } from 'slate';
 import { useSlate } from 'slate-react';
 import { ToolbarSelect } from '../components/Toolbar';
 import { usePluginHelper } from '../contexts/PluginContext';
-import type { DSlateCustomElement, DSlatePlugin, RenderElementPropsWithStyle } from '../typing';
+import type {
+  DSlateCustomElement,
+  DSlatePlugin,
+  NormalizeNode,
+  RenderElementPropsWithStyle,
+} from '../typing';
 import { useMessage } from '../contexts/ConfigContext';
 
 const TYPE = 'paragraph';
 const DEFAULT_TYPE = 'paragraph';
+const PROPS_KEY = 'paragraphType';
 
 type TYPES = 'paragraph' | 'h1' | 'h2' | 'h3' | 'h4';
-const types = ['paragraph', 'h1', 'h2', 'h3', 'h4'];
 
 const getActvieType = (editor: Editor): TYPES => {
   const { selection } = editor;
   if (!selection) return DEFAULT_TYPE;
 
   const [match] = Editor.nodes<DSlateCustomElement>(editor, {
-    match: (n) => Element.isElement(n) && types.includes(n.type),
+    match: (n) => Element.isElement(n) && n.type === TYPE,
   });
 
   if (match) {
-    return match[0]?.type as TYPES;
+    return match[0]?.[PROPS_KEY] ?? DEFAULT_TYPE;
   }
 
   return DEFAULT_TYPE;
 };
 
-const setType = (editor: Editor, type: TYPES) => {
+const setType = (editor: Editor, paragraphType: TYPES) => {
   if (!editor.selection) return;
-  Transforms.setNodes(editor, { type });
+  Transforms.setNodes(editor, { type: TYPE, [PROPS_KEY]: paragraphType });
 };
 
 const Toolbar = () => {
@@ -97,7 +102,7 @@ const Toolbar = () => {
 const renderElement = (props: RenderElementPropsWithStyle) => {
   const { attributes, children, element, style } = props;
 
-  if (element?.type === 'h1') {
+  if (element?.[PROPS_KEY] === 'h1') {
     return (
       <h1 {...attributes} style={style}>
         {children}
@@ -105,7 +110,7 @@ const renderElement = (props: RenderElementPropsWithStyle) => {
     );
   }
 
-  if (element?.type === 'h2') {
+  if (element?.[PROPS_KEY] === 'h2') {
     return (
       <h2 {...attributes} style={style}>
         {children}
@@ -113,7 +118,7 @@ const renderElement = (props: RenderElementPropsWithStyle) => {
     );
   }
 
-  if (element?.type === 'h3') {
+  if (element?.[PROPS_KEY] === 'h3') {
     return (
       <h3 {...attributes} style={style}>
         {children}
@@ -121,7 +126,7 @@ const renderElement = (props: RenderElementPropsWithStyle) => {
     );
   }
 
-  if (element?.type === 'h4') {
+  if (element?.[PROPS_KEY] === 'h4') {
     return (
       <h4 {...attributes} style={style}>
         {children}
@@ -136,13 +141,13 @@ const renderElement = (props: RenderElementPropsWithStyle) => {
   );
 };
 
-const normalizeNode = (editor: Editor, entry: NodeEntry) => {
+const normalizeNode = (entry: NodeEntry, editor: Editor, next: NormalizeNode) => {
   const [node, path] = entry;
 
   /**
    * 标题，移除加粗和字号样式
    */
-  if (Element.isElement(node) && ['h1', 'h2', 'h3', 'h4'].includes(node.type)) {
+  if (node.type === TYPE && ['h1', 'h2', 'h3', 'h4'].includes(node[PROPS_KEY])) {
     for (const [child, childPath] of Node.children(editor, path)) {
       if (
         Text.isText(child) &&
@@ -154,6 +159,8 @@ const normalizeNode = (editor: Editor, entry: NodeEntry) => {
       }
     }
   }
+
+  next(entry);
 };
 
 const ParagraphPlugin: DSlatePlugin = {
@@ -163,7 +170,6 @@ const ParagraphPlugin: DSlatePlugin = {
   renderElement,
   normalizeNode,
   isDefaultElement: true,
-  match: (n) => types.includes(n.type),
   locale: {
     [zhCN.locale]: {
       tooltip: '段落与标题',

@@ -15,17 +15,19 @@ export type ToolbarSelectProps<T> = {
   tooltip?: string;
   onChange: (value: T) => void;
   direction?: 'vertical' | 'horizontal';
+  color?: string;
 };
 
 const ToolbarSelect: <T>(props: ToolbarSelectProps<T>) => JSX.Element = ({
-  placeholder = '',
-  width = 'max-content',
   options,
   value,
   disabled,
   tooltip,
   onChange,
   direction = 'vertical',
+  color = '#FFFFFF',
+  placeholder = '',
+  width = 'max-content',
 }) => {
   const { visible, setVisible } = usePlugin();
   const { getPrefixCls } = usePluginHelper();
@@ -60,7 +62,7 @@ const ToolbarSelect: <T>(props: ToolbarSelectProps<T>) => JSX.Element = ({
         trigger={[]}
         visible={visible}
         placement="bottom"
-        color="#FFFFFF"
+        color={color}
         overlayInnerStyle={{
           padding: 0,
         }}

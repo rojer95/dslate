@@ -10,5 +10,6 @@ export default () => {
       children: [{ text: '' }],
     },
   ]);
+
   return <DSlate value={value} onChange={setValue} />;
 };

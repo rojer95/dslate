@@ -16,9 +16,13 @@
     font-size: @font-size-base;
     line-height: @line-height-base;
 
-    *::selection {
-      color: inherit !important;
-      background-color: hsla(@primary-color, 50%);
+    * {
+      margin: 0;
+
+      &::selection {
+        color: inherit;
+        background-color: hsla(@primary-color, 50%);
+      }
     }
 
     div[role='textbox'] {

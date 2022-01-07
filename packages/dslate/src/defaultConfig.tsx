@@ -19,6 +19,7 @@ const defaultPlugins: DSlatePlugin[] = [
   DefaultPlugin.BackgroundColorPlugin, // 背景颜色
   DefaultPlugin.DividerPlugin, // 分割
   DefaultPlugin.TextAlignPlugin, // 对齐方式
+  DefaultPlugin.ListItemPlugin, // 列表项
   DefaultPlugin.ListPlugin, // 列表
   DefaultPlugin.TextIndentPlugin, // 缩进
 ];

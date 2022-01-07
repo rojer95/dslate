@@ -21,7 +21,9 @@ const defaultPlugins: DSlatePlugin[] = [
   DefaultPlugin.TextAlignPlugin, // 对齐方式
   DefaultPlugin.ListItemPlugin, // 列表项
   DefaultPlugin.ListPlugin, // 列表
+  DefaultPlugin.TodoListPlugin, // 选框列表
   DefaultPlugin.TextIndentPlugin, // 缩进
+  DefaultPlugin.DividerPlugin, // 分割
 ];
 
 const locales = {

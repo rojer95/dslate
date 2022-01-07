@@ -5,7 +5,7 @@ import type { DSlatePlugin, NormalizeNode, RenderElementPropsWithStyle } from '.
 
 import { useSlate } from 'slate-react';
 import { ToolbarButton } from '../components/Toolbar';
-import { getBlockProps, isBlockActive } from '../utils';
+import { getBlockProps, isBlockActive, isStart } from '../utils';
 import { useMessage } from '../contexts/ConfigContext';
 import IconFont from '../components/IconFont';
 import type { Descendant, NodeEntry } from 'slate';
@@ -13,74 +13,15 @@ import { Editor, Element, Transforms, Range, Node, Path } from 'slate';
 import { Space } from 'antd';
 import { TextIndentPlugin } from './indent';
 
-const TYPE = 'list';
+export const TYPE = 'list';
 const ITEM_TYPE = 'list-item';
-const IS_ORDERED = 'listIsOrdered';
+export const IS_ORDERED = 'listIsOrdered';
 const LIST_START_KEY = 'listStart';
 
 /**
  * 获取缩进列表的
  */
 const getListIndent = (n: Node) => n?.children?.[0]?.[TextIndentPlugin.type] ?? 0;
-
-/**
- * 移除列表
- */
-const remove = (editor: Editor) => {
-  Editor.withoutNormalizing(editor, () => {
-    Transforms.unwrapNodes(editor, {
-      match: (n) => !Editor.isEditor(n) && Element.isElement(n) && n.type === TYPE,
-      split: true,
-    });
-
-    Transforms.setNodes(
-      editor,
-      { type: editor.defaultElement, [IS_ORDERED]: null },
-      {
-        hanging: true,
-        match: (n) => Editor.isBlock(editor, n),
-      },
-    );
-  });
-};
-
-/**
- * 创建列表
- * @param editor
- * @param isOrdered
- */
-const create = (editor: Editor, isOrdered: boolean) => {
-  Editor.withoutNormalizing(editor, () => {
-    Transforms.setNodes(
-      editor,
-      { type: ITEM_TYPE, [IS_ORDERED]: isOrdered },
-      {
-        hanging: true,
-        match: (n) => Editor.isBlock(editor, n),
-      },
-    );
-
-    const block = { type: TYPE, children: [], [IS_ORDERED]: isOrdered };
-    Transforms.wrapNodes(editor, block);
-  });
-};
-
-/**
- * 是否处于开头处
- */
-const isStart = (editor: Editor, type: string) => {
-  if (!editor.selection || Range.isExpanded(editor.selection)) return false;
-
-  const [match] = Editor.nodes(editor, {
-    match: (n) => Element.isElement(n) && n.type === type,
-  });
-
-  if (!!match) {
-    return Editor.isStart(editor, editor.selection?.focus, match[1]);
-  }
-
-  return false;
-};
 
 /**
  * 重新构建列表序号
@@ -126,6 +67,50 @@ const buildListNumber = (editor: Editor) => {
       );
     }
   });
+};
+
+/**
+ * 移除列表
+ */
+const remove = (editor: Editor) => {
+  Editor.withoutNormalizing(editor, () => {
+    Transforms.unwrapNodes(editor, {
+      match: (n) => !Editor.isEditor(n) && Element.isElement(n) && n.type === TYPE,
+      split: true,
+    });
+
+    Transforms.setNodes(
+      editor,
+      { type: editor.defaultElement, [IS_ORDERED]: null },
+      {
+        hanging: true,
+        match: (n) => Editor.isBlock(editor, n),
+      },
+    );
+  });
+  buildListNumber(editor);
+};
+
+/**
+ * 创建列表
+ * @param editor
+ * @param isOrdered
+ */
+const create = (editor: Editor, isOrdered: boolean) => {
+  Editor.withoutNormalizing(editor, () => {
+    Transforms.setNodes(
+      editor,
+      { type: ITEM_TYPE, [IS_ORDERED]: isOrdered },
+      {
+        hanging: true,
+        match: (n) => Editor.isBlock(editor, n),
+      },
+    );
+
+    const block = { type: TYPE, children: [], [IS_ORDERED]: isOrdered };
+    Transforms.wrapNodes(editor, block);
+  });
+  buildListNumber(editor);
 };
 
 /**

@@ -43,4 +43,6 @@ export type {
   ToolbarSelectProps,
 };
 
+export * from './utils';
+
 export default DSlate;

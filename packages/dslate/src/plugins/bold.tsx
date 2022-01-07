@@ -9,6 +9,8 @@ import type { DSlatePlugin } from '../typing';
 import { getTextProps, toggleTextProps } from '../utils';
 import { useMessage } from '../contexts/ConfigContext';
 
+const TYPE = 'bold';
+
 const Toolbar = () => {
   const editor = useSlate();
 
@@ -17,9 +19,9 @@ const Toolbar = () => {
   return (
     <ToolbarButton
       onClick={() => {
-        toggleTextProps(editor, 'bold');
+        toggleTextProps(editor, TYPE);
       }}
-      active={getTextProps(editor, 'bold')}
+      active={getTextProps(editor, TYPE)}
       tooltip={getMessage('tooltip', '加粗')}
     >
       <IconFont type="icon-bold" />
@@ -28,7 +30,7 @@ const Toolbar = () => {
 };
 
 const BoldPlugin: DSlatePlugin = {
-  type: 'bold',
+  type: TYPE,
   nodeType: 'text',
   toolbar: <Toolbar />,
   renderStyle: { fontWeight: 'bold' },

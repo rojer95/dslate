@@ -14,7 +14,6 @@ const clearStyle = (editor: Editor) => {
   const texts = Array.from(
     Editor.nodes(editor, {
       match: (n) => Text.isText(n) && Object.keys(n).length > 1,
-      mode: 'all',
     }),
   );
 

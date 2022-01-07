@@ -45,7 +45,7 @@ const Toolbar = () => {
         },
         {
           tooltip: getMessage('right', '右对齐'),
-          label: <IconFont type="icon-aligncenter1" style={iconStyle} />,
+          label: <IconFont type="icon-alignright" style={iconStyle} />,
           value: 'right',
         },
         {

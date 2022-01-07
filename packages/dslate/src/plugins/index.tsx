@@ -11,6 +11,7 @@ import { FontSizePlugin } from './font-size';
 import { TextAlignPlugin } from './text-align';
 import { TextIndentPlugin } from './indent';
 import { ListPlugin, ListItemPlugin } from './list';
+import { TodoListPlugin } from './todo-list';
 
 const DefaultPlugin = () => {};
 
@@ -28,5 +29,6 @@ DefaultPlugin.TextAlignPlugin = TextAlignPlugin;
 DefaultPlugin.ListPlugin = ListPlugin;
 DefaultPlugin.ListItemPlugin = ListItemPlugin;
 DefaultPlugin.TextIndentPlugin = TextIndentPlugin;
+DefaultPlugin.TodoListPlugin = TodoListPlugin;
 
 export default DefaultPlugin;

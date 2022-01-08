@@ -24,6 +24,7 @@ const defaultPlugins: DSlatePlugin[] = [
   DefaultPlugin.TodoListPlugin, // 选框列表
   DefaultPlugin.TextIndentPlugin, // 缩进
   DefaultPlugin.DividerPlugin, // 分割
+  DefaultPlugin.ImgPlugin, //  图片
 ];
 
 const locales = {

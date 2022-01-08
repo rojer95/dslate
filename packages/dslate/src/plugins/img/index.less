@@ -1,0 +1,21 @@
+@root-entry-name: 'default';
+@import (reference) '~antd/es/style/themes/index.less';
+@import (reference) '~antd/es/style/mixins/index.less';
+
+@dslate-prefix-cls: ~'@{ant-prefix}-dslate';
+
+@dslate-img-prefix-cls: ~'@{dslate-prefix-cls}-img';
+
+.@{dslate-img-prefix-cls} {
+  position: relative;
+  display: inline-block;
+  border: 1px solid transparent;
+
+  &:hover {
+    border-color: @primary-color-outline;
+  }
+
+  &.selected {
+    border-color: @primary-color;
+  }
+}

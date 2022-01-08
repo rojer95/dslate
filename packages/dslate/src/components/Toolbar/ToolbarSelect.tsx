@@ -4,6 +4,7 @@ import classnames from 'classnames';
 import React, { useMemo } from 'react';
 import { usePlugin, usePluginHelper } from '../../contexts/PluginContext';
 import IconFont from '../IconFont';
+import Popover from '../Popover';
 import ToolbarButton from './ToolbarButton';
 
 export type ToolbarSelectProps<T> = {
@@ -25,7 +26,6 @@ const ToolbarSelect: <T>(props: ToolbarSelectProps<T>) => JSX.Element = ({
   tooltip,
   onChange,
   direction = 'vertical',
-  color = '#FFFFFF',
   placeholder = '',
   width = 'max-content',
 }) => {
@@ -58,15 +58,11 @@ const ToolbarSelect: <T>(props: ToolbarSelectProps<T>) => JSX.Element = ({
 
   return (
     <div className={classnames(`${prefixCls}`)}>
-      <Tooltip
+      <Popover
         trigger={[]}
         visible={visible}
         placement="bottom"
-        color={color}
-        overlayInnerStyle={{
-          padding: 0,
-        }}
-        overlay={
+        content={
           <div className={classNames(`${prefixCls}-content`, direction)}>
             {options.map((i) => {
               const optionDom = (
@@ -100,7 +96,7 @@ const ToolbarSelect: <T>(props: ToolbarSelectProps<T>) => JSX.Element = ({
             <IconFont className="icon-down" type="icon-down" />
           </div>
         </ToolbarButton>
-      </Tooltip>
+      </Popover>
     </div>
   );
 };

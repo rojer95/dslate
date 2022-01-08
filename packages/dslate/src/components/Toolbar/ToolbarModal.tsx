@@ -1,7 +1,7 @@
-import { Tooltip } from 'antd';
 import classnames from 'classnames';
 import React from 'react';
 import { usePlugin, usePluginHelper } from '../../contexts/PluginContext';
+import Popover from '../Popover';
 import ToolbarButton from './ToolbarButton';
 
 export type ToolbarModalProps = {
@@ -10,7 +10,6 @@ export type ToolbarModalProps = {
   width?: number;
   disabled?: boolean;
   tooltip?: string;
-  color?: string;
 };
 
 const ToolbarModal: (props: React.PropsWithChildren<ToolbarModalProps>) => JSX.Element = ({
@@ -19,7 +18,6 @@ const ToolbarModal: (props: React.PropsWithChildren<ToolbarModalProps>) => JSX.E
   disabled,
   tooltip,
   width = 'max-content',
-  color = '#FFFFFF',
 }) => {
   const { visible, setVisible } = usePlugin();
   const { getPrefixCls } = usePluginHelper();
@@ -32,15 +30,11 @@ const ToolbarModal: (props: React.PropsWithChildren<ToolbarModalProps>) => JSX.E
 
   return (
     <div className={classnames(`${prefixCls}`)}>
-      <Tooltip
+      <Popover
         trigger={[]}
         visible={visible}
         placement="bottom"
-        color={color}
-        overlayInnerStyle={{
-          padding: 0,
-        }}
-        overlay={<div className={`${prefixCls}-content`}>{overlay}</div>}
+        content={<div className={`${prefixCls}-content`}>{overlay}</div>}
       >
         <ToolbarButton disabled={disabled} onClick={toggle} tooltip={tooltip}>
           <div className={classnames(`${prefixCls}-button`)}>
@@ -49,7 +43,7 @@ const ToolbarModal: (props: React.PropsWithChildren<ToolbarModalProps>) => JSX.E
             </div>
           </div>
         </ToolbarButton>
-      </Tooltip>
+      </Popover>
     </div>
   );
 };

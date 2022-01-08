@@ -1,55 +1,57 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import React, { useCallback, useContext, useMemo, useState } from 'react';
 import type { Descendant } from 'slate';
-import { createEditor } from 'slate';
+import { createEditor, Node } from 'slate';
 import type { RenderElementProps } from 'slate-react';
+import { useFocused, useSlate } from 'slate-react';
 import { Slate, Editable, withReact, DefaultElement } from 'slate-react';
 import { ConfigProvider as AntdConfigProvider } from 'antd';
 import { ConfigConsumer, ConfigProvider, useConfig } from '../../contexts/ConfigContext';
-import { GlobalPluginProvider } from '../../contexts/PluginContext';
+import { GlobalPluginProvider, usePluginHelper } from '../../contexts/PluginContext';
 import { mergeStyle, withPlugins, mergeLocalteFromPlugins } from '../../utils';
 import Toolbar from '../Toolbar';
 
 import './index.less';
 import type { DSlatePlugin } from '../../typing';
+import classNames from 'classnames';
+import type { SizeType } from 'antd/lib/config-provider/SizeContext';
+import SizeContext from 'antd/lib/config-provider/SizeContext';
 
-export type DSlateProps = {
+interface ShowCountProps {
+  formatter: (args: { count: number }) => string;
+}
+
+export interface DSlateProps {
   value: Descendant[];
   onChange: (value: Descendant[]) => void;
-};
+  prefixCls?: string;
+  bordered?: boolean;
+  size?: SizeType;
+  showCount?: boolean | ShowCountProps;
+  disabled?: boolean;
+  placeholder?: string;
+}
 
-const DSlate = ({ value, onChange }: DSlateProps) => {
+interface DSlateContentProps {
+  bordered?: boolean;
+  size?: SizeType;
+  showCount?: boolean | ShowCountProps;
+  disabled?: boolean;
+  placeholder?: string;
+}
+
+const DSlateContent = ({
+  bordered,
+  size: customizeSize,
+  disabled,
+  showCount,
+  placeholder,
+}: DSlateContentProps) => {
   const { getPrefixCls: getAntdPrefixCls } = useContext(AntdConfigProvider.ConfigContext);
-  const { plugins } = useConfig();
-  const editor = useMemo(() => withPlugins(withReact(createEditor()), plugins), []);
-
-  const [visibleKey, setVisibleKey] = useState<React.Key | undefined>(undefined);
-  const [disabledTypes, setDisabledTypes] = useState<string[]>([]);
-
-  const enablePluginByType = useCallback(
-    (type: string | string[]) => {
-      const types: string[] = Array.isArray(type) ? type : [type];
-      setDisabledTypes(disabledTypes.filter((i) => !types.includes(i)));
-    },
-    [disabledTypes],
-  );
-
-  const disablePluginByType = useCallback(
-    (type: string | string[]) => {
-      const types: string[] = Array.isArray(type) ? type : [type];
-      setDisabledTypes(Array.from(new Set([...disabledTypes, ...types])));
-    },
-    [disabledTypes],
-  );
-
   const prefixCls = getAntdPrefixCls('dslate');
-
-  const getPrefixCls = useCallback(
-    (key: string) => {
-      return `${prefixCls}-${key}`;
-    },
-    [prefixCls],
-  );
+  const { setVisibleKey } = usePluginHelper();
+  const { plugins } = useConfig();
+  const editor = useSlate();
 
   const renderElement = useCallback((props: RenderElementProps) => {
     const style = mergeStyle(props.element, plugins, 'element', editor);
@@ -97,9 +99,95 @@ const DSlate = ({ value, onChange }: DSlateProps) => {
     }
   }, []);
 
-  const onFocus = useCallback(() => {
-    setVisibleKey(undefined);
-  }, []);
+  const focused = useFocused();
+
+  return (
+    <SizeContext.Consumer>
+      {(size) => {
+        const realSize = customizeSize || size;
+        let dataCount = '';
+        if (showCount) {
+          const count = Node.string(editor).length;
+          if (typeof showCount === 'object') {
+            dataCount = showCount.formatter({ count });
+          } else {
+            dataCount = `${count}字`;
+          }
+        }
+
+        return (
+          <div
+            className={classNames(`${prefixCls}`, {
+              [`${prefixCls}-sm`]: realSize === 'small',
+              [`${prefixCls}-lg`]: realSize === 'large',
+              [`${prefixCls}-disabled`]: disabled,
+              [`${prefixCls}-borderless`]: !bordered,
+              [`${prefixCls}-focused`]: focused,
+              [`${prefixCls}-show-count`]: !!dataCount,
+            })}
+            data-count={dataCount}
+          >
+            <Toolbar />
+            <div className={`editable`}>
+              <Editable
+                renderElement={renderElement}
+                renderLeaf={renderLeaf}
+                onMouseDown={() => {
+                  setVisibleKey?.(undefined);
+                }}
+                onKeyDown={onKeyDown}
+                readOnly={disabled}
+                placeholder={placeholder}
+              />
+            </div>
+          </div>
+        );
+      }}
+    </SizeContext.Consumer>
+  );
+};
+
+const DSlate = ({
+  value,
+  onChange,
+  showCount = false,
+  bordered = true,
+  disabled = false,
+  size: customizeSize,
+  prefixCls: customizePrefixCls,
+  placeholder = '',
+}: DSlateProps) => {
+  const { getPrefixCls: getAntdPrefixCls } = useContext(AntdConfigProvider.ConfigContext);
+  const prefixCls = getAntdPrefixCls('dslate', customizePrefixCls);
+  const { plugins } = useConfig();
+  const editor = useMemo(() => withPlugins(withReact(createEditor()), plugins), []);
+  const [visibleKey, setVisibleKey] = useState<React.Key | undefined>(undefined);
+
+  const getPrefixCls = useCallback(
+    (key: string) => {
+      return `${prefixCls}-${key}`;
+    },
+    [prefixCls],
+  );
+
+  const [disabledTypes, setDisabledTypes] = useState<string[]>([]);
+
+  const enablePluginByType = useCallback(
+    (type: string | string[]) => {
+      const types: string[] = Array.isArray(type) ? type : [type];
+      setDisabledTypes(disabledTypes.filter((i) => !types.includes(i)));
+    },
+    [disabledTypes],
+  );
+
+  const disablePluginByType = useCallback(
+    (type: string | string[]) => {
+      const types: string[] = Array.isArray(type) ? type : [type];
+      setDisabledTypes(Array.from(new Set([...disabledTypes, ...types])));
+    },
+    [disabledTypes],
+  );
+
   return (
     <ConfigConsumer>
       {(wrapValue) => {
@@ -121,18 +209,13 @@ const DSlate = ({ value, onChange }: DSlateProps) => {
               }}
             >
               <Slate editor={editor} value={value} onChange={onChange}>
-                <div className={prefixCls}>
-                  <div className={`${prefixCls}-container`}>
-                    <Toolbar />
-                    <div className={`${prefixCls}-editbale`} onMouseDown={onFocus}>
-                      <Editable
-                        renderElement={renderElement}
-                        renderLeaf={renderLeaf}
-                        onKeyDown={onKeyDown}
-                      />
-                    </div>
-                  </div>
-                </div>
+                <DSlateContent
+                  bordered={bordered}
+                  size={customizeSize}
+                  disabled={disabled}
+                  showCount={showCount}
+                  placeholder={placeholder}
+                />
               </Slate>
             </GlobalPluginProvider>
           </ConfigProvider>

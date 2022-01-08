@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useContext, useEffect } from 'react';
 import { Space } from 'antd';
 
 import { usePluginHelper } from '../../contexts/PluginContext';
@@ -14,11 +14,17 @@ import ToolbarModal from './ToolbarModal';
 import type { ToolbarButtonProps } from './ToolbarButton';
 import type { ToolbarSelectProps } from './ToolbarSelect';
 import type { ToolbarModalProps } from './ToolbarModal';
+import { useFocused } from 'slate-react';
 
 const Toolbar = () => {
   const { plugins } = useContext(DSlateContext);
-  const { getPrefixCls } = usePluginHelper();
+  const { getPrefixCls, setVisibleKey } = usePluginHelper();
   const prefixCls = getPrefixCls?.('toolbar');
+  const focused = useFocused();
+  useEffect(() => {
+    if (!focused) setVisibleKey?.(undefined);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [focused]);
 
   return (
     <div className={prefixCls}>

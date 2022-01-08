@@ -1,35 +1,54 @@
 @root-entry-name: 'default';
 @import (reference) '~antd/es/style/themes/index.less';
 @import (reference) '~antd/es/style/mixins/index.less';
+@import (reference) '~antd/es/input/style/mixin.less';
 
 @dslate-prefix-cls: ~'@{ant-prefix}-dslate';
 
 .@{dslate-prefix-cls} {
-  &-container {
-    border: 1px solid @border-color-base;
-    border-radius: @border-radius-base;
-  }
+  .reset-component();
+  .input();
 
-  &-editbale {
+  padding: @input-padding-vertical-base 0px;
+
+  .editable {
     padding: @input-padding-vertical-base @input-padding-horizontal-base;
-    color: @input-color;
-    font-size: @font-size-base;
-    line-height: @line-height-base;
 
     * {
       margin: 0;
-
       &::selection {
         color: inherit;
         background-color: hsla(@primary-color, 50%);
       }
     }
 
-    div[role='textbox'] {
+    > div {
       min-height: @input-height-base * 10;
-      p {
-        margin: 0;
-      }
+    }
+  }
+
+  &-show-count {
+    &::after {
+      float: right;
+      padding-right: @input-padding-horizontal-base;
+      color: @text-color-secondary;
+      white-space: nowrap;
+      content: attr(data-count);
+      pointer-events: none;
+    }
+  }
+
+  &-lg {
+    padding: @input-padding-vertical-lg 0px;
+    .editable {
+      padding: @input-padding-vertical-lg @input-padding-horizontal-lg;
+    }
+  }
+
+  &-sm {
+    padding: @input-padding-vertical-sm 0px;
+    .editable {
+      padding: @input-padding-vertical-sm @input-padding-horizontal-sm;
     }
   }
 }

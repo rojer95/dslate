@@ -12,6 +12,7 @@ import { TextAlignPlugin } from './text-align';
 import { TextIndentPlugin } from './indent';
 import { ListPlugin, ListItemPlugin } from './list';
 import { TodoListPlugin } from './todo-list';
+import { ImgPlugin } from './img';
 
 const DefaultPlugin = () => {};
 
@@ -30,5 +31,6 @@ DefaultPlugin.ListPlugin = ListPlugin;
 DefaultPlugin.ListItemPlugin = ListItemPlugin;
 DefaultPlugin.TextIndentPlugin = TextIndentPlugin;
 DefaultPlugin.TodoListPlugin = TodoListPlugin;
+DefaultPlugin.ImgPlugin = ImgPlugin;
 
 export default DefaultPlugin;

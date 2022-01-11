@@ -1,8 +1,8 @@
-import { Space, Tooltip } from 'antd';
-import React, { useEffect, useState } from 'react';
-import type { Editor } from 'slate';
+import type { CSSProperties } from 'react';
+import React from 'react';
+import type { Descendant, Editor } from 'slate';
 import { Transforms } from 'slate';
-import { useSelected, useSlate } from 'slate-react';
+import { useSlate } from 'slate-react';
 
 import IconFont from '../../components/IconFont';
 import Toolbar from '../../components/Toolbar';
@@ -18,6 +18,16 @@ const TEST_IMG =
 
 const renderElement = (props: RenderElementPropsWithStyle) => {
   return <Img {...props} />;
+};
+
+const renderStyle = (node: Descendant) => {
+  if (node.type === TYPE) {
+    const style: CSSProperties = {};
+    if (node.imgWidth) style.width = node.imgWidth;
+    if (node.imgHeight) style.height = node.imgHeight;
+    return style;
+  }
+  return {};
 };
 
 const insertImg = (editor: Editor, url = TEST_IMG) => {
@@ -44,6 +54,7 @@ const ImgPlugin: DSlatePlugin = {
   isVoid: true,
   isInline: true,
   renderElement,
+  renderStyle,
 };
 
 export { ImgPlugin };

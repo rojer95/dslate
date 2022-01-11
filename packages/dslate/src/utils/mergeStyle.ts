@@ -7,8 +7,8 @@ export default function mergeStyle(
   nodeType: string,
   editor: Editor,
 ) {
-  const textPlugins = plugins.filter((i) => i.nodeType === nodeType) as DSlatePlugin[];
-  return textPlugins.reduce((preStyle, plugin) => {
+  const targetPlugins = plugins.filter((i) => i.nodeType === nodeType) as DSlatePlugin[];
+  return targetPlugins.reduce((preStyle, plugin) => {
     const style: any = { ...preStyle };
     if (!plugin.renderStyle) return { ...style };
     let gstyle = {};

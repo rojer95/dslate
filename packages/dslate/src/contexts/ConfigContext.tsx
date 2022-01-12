@@ -1,5 +1,6 @@
 import React from 'react';
 import { ConfigProvider as AntdConfigProvider } from 'antd';
+import type { UploadRequestOption } from 'rc-upload/lib/interface';
 import defaultConfig from '../defaultConfig';
 import type { DSlatePlugin, Locale } from '../typing';
 import { get } from '../utils';
@@ -10,6 +11,7 @@ export type ConfigContextType = {
   locales: Record<string, Locale>;
   defauleLocale: string;
   iconScriptUrl?: string | string[];
+  uploadCustomRequest?: (options: UploadRequestOption) => void;
 };
 
 const ConfigContext = React.createContext<ConfigContextType>(defaultConfig);

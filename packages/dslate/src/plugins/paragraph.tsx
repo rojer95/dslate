@@ -135,9 +135,9 @@ const renderElement = (props: RenderElementPropsWithStyle) => {
   }
 
   return (
-    <p {...attributes} style={style}>
+    <div {...attributes} style={style}>
       {children}
-    </p>
+    </div>
   );
 };
 

@@ -1,5 +1,4 @@
-import React, { useCallback, useEffect, useState } from 'react';
-import { usePluginUuid } from '../components/Toolbar/ToolbarItem';
+import React, { useCallback, useContext, useEffect, useState } from 'react';
 import ConfigContext from './ConfigContext';
 
 export type GlobalPluginContextType = {
@@ -18,6 +17,15 @@ export type PluginContextType = {
   uuid?: React.Key;
   type?: string;
   disabled?: boolean;
+};
+
+export const PluginUuidContext = React.createContext<{ uuid?: React.Key; type?: string }>({
+  uuid: undefined,
+  type: undefined,
+});
+
+export const usePluginUuid = () => {
+  return useContext(PluginUuidContext);
 };
 
 const GlobalPluginContext = React.createContext<GlobalPluginContextType>({});

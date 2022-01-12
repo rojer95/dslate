@@ -1,15 +1,17 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import { Divider, InputNumber, Space } from 'antd';
+import { Divider, InputNumber, Space, Upload } from 'antd';
 import classNames from 'classnames';
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useRef, useState } from 'react';
 import { ReactEditor, useSelected, useSlate } from 'slate-react';
 import { Rnd } from 'react-rnd';
 import IconFont from '../../components/IconFont';
 import Toolbar from '../../components/Toolbar';
-import { usePluginHelper } from '../../contexts/PluginContext';
+import { usePlugin, usePluginHelper } from '../../contexts/PluginContext';
 import type { RenderElementPropsWithStyle } from '../../typing';
 import Popover from '../../components/Popover';
 import { Transforms } from 'slate';
+import { defaultFileUpload } from './defaultFileUpload';
+import { useConfig } from '../../contexts/ConfigContext';
 
 type Draggable = {
   status: boolean;
@@ -19,6 +21,8 @@ type Draggable = {
 
 const Img = ({ attributes, children, element, style }: RenderElementPropsWithStyle) => {
   const { getPrefixCls } = usePluginHelper();
+  const { uploadCustomRequest } = useConfig();
+
   const prefixCls = getPrefixCls?.('img');
 
   const img = useRef<HTMLImageElement>(null);
@@ -28,41 +32,70 @@ const Img = ({ attributes, children, element, style }: RenderElementPropsWithSty
     status: false,
   });
 
+  const [editable, setEditable] = useState({
+    width: 0,
+    height: 0,
+  });
+
   const selected = useSelected();
   const editor = useSlate();
   const path = ReactEditor.findPath(editor, element);
 
-  const updateSize = () => {
+  const updateSize = (target: any) => {
     Transforms.setNodes(
       editor,
       {
-        imgHeight: draggable.height,
-        imgWidth: draggable.width,
+        imgHeight: target.height,
+        imgWidth: target.width,
       },
       {
         at: path,
       },
     );
+
+    setDraggable({
+      ...draggable,
+      width: target.width,
+      height: target.height,
+    });
+
+    setEditable({
+      width: target.width,
+      height: target.height,
+    });
   };
 
-  useEffect(() => {
-    if (draggable.status === false && draggable.width && draggable.height) {
-      updateSize();
-    }
-  }, [draggable.status]);
-
-  const updateDraggableSize = (key: string, value: number) => {
+  const updateEditableSize = (key: string, value: number) => {
     const width = img.current?.width ?? 1;
     const height = img.current?.height ?? 1;
     const p = width / height;
 
     const rwidth = key === 'width' ? value : Math.round(p * value);
     const rheight = key === 'height' ? value : Math.round(value / p);
-    setDraggable({
-      ...draggable,
+    setEditable({
       width: rwidth,
       height: rheight,
     });
+  };
+
+  const loadEditableSizeFromImg = () => {
+    setEditable({
+      width: img.current?.width ?? 0,
+      height: img.current?.height ?? 0,
+    });
+  };
+
+  const updateUrl = async (file: File) => {
+    const url = await defaultFileUpload(file);
+    Transforms.setNodes(
+      editor,
+      {
+        url,
+      },
+      {
+        at: path,
+      },
+    );
   };
 
   return (
@@ -71,27 +104,40 @@ const Img = ({ attributes, children, element, style }: RenderElementPropsWithSty
       <span contentEditable={false}>
         <Popover
           overlayClassName=""
+          trigger={['click']}
+          onVisibleChange={(v) => {
+            if (v) loadEditableSizeFromImg();
+          }}
           content={
             <Space>
-              <Toolbar.Button>
-                <IconFont type="icon-image1" />
-              </Toolbar.Button>
+              <Upload
+                accept="image/*"
+                maxCount={1}
+                showUploadList={false}
+                customRequest={({ file }) => {
+                  updateUrl(file as File);
+                }}
+              >
+                <Toolbar.Button tooltip="更换图片">
+                  <IconFont type="icon-image1" />
+                </Toolbar.Button>
+              </Upload>
               <Divider type="vertical" />
               <span>宽</span>
               <InputNumber
-                value={draggable.width}
+                value={editable.width}
                 onChange={(w) => {
-                  updateDraggableSize('width', w);
+                  updateEditableSize('width', w);
                 }}
-                onPressEnter={updateSize}
+                onPressEnter={() => updateSize(editable)}
               />
               <span>高</span>
               <InputNumber
-                value={draggable.width}
+                value={editable.width}
                 onChange={(h) => {
-                  updateDraggableSize('height', h);
+                  updateEditableSize('height', h);
                 }}
-                onPressEnter={updateSize}
+                onPressEnter={() => updateSize(editable)}
               />
             </Space>
           }
@@ -131,6 +177,10 @@ const Img = ({ attributes, children, element, style }: RenderElementPropsWithSty
                   height: ref.clientHeight,
                   status: false,
                 });
+                updateSize({
+                  width: ref.clientWidth,
+                  height: ref.clientHeight,
+                });
                 rnd.current?.updatePosition({ x: 0, y: 0 });
               }}
               enableResizing={{
@@ -154,11 +204,15 @@ const Img = ({ attributes, children, element, style }: RenderElementPropsWithSty
               ref={img}
               src={element.url}
               style={style}
-              onLoad={() => {
+              onLoad={(e: any) => {
                 setDraggable({
                   ...draggable,
-                  width: img.current?.width ?? 0,
-                  height: img.current?.height ?? 0,
+                  width: e.target?.width ?? 0,
+                  height: e.target?.height ?? 0,
+                });
+                setEditable({
+                  width: e.target?.width ?? 0,
+                  height: e.target?.height ?? 0,
                 });
               }}
             />

@@ -1,6 +1,7 @@
+import { Upload } from 'antd';
 import type { CSSProperties } from 'react';
 import React from 'react';
-import type { Descendant, Editor } from 'slate';
+import type { Descendant } from 'slate';
 import { Transforms } from 'slate';
 import { useSlate } from 'slate-react';
 
@@ -10,11 +11,9 @@ import Toolbar from '../../components/Toolbar';
 import type { DSlatePlugin, RenderElementPropsWithStyle } from '../../typing';
 import Img from './Img';
 import './index.less';
+import { defaultFileUpload } from './defaultFileUpload';
 
 const TYPE = 'img';
-
-const TEST_IMG =
-  'https://user-images.githubusercontent.com/9554297/83762004-a0761b00-a6a9-11ea-83b4-9c8ff721d4b8.png';
 
 const renderElement = (props: RenderElementPropsWithStyle) => {
   return <Img {...props} />;
@@ -30,20 +29,25 @@ const renderStyle = (node: Descendant) => {
   return {};
 };
 
-const insertImg = (editor: Editor, url = TEST_IMG) => {
-  Transforms.insertNodes(editor, { type: TYPE, url, children: [{ text: '' }] });
-};
-
 const ToolbarButton = () => {
   const editor = useSlate();
+
+  const insertImg = async (file: File) => {
+    const url = await defaultFileUpload(file);
+    Transforms.insertNodes(editor, { type: TYPE, url, children: [{ text: '' }] });
+  };
+
   return (
-    <Toolbar.Button
-      onClick={() => {
-        insertImg(editor);
-      }}
+    <Upload
+      accept="image/*"
+      maxCount={1}
+      showUploadList={false}
+      customRequest={({ file }) => insertImg(file as File)}
     >
-      <IconFont type="icon-image1" />
-    </Toolbar.Button>
+      <Toolbar.Button tooltip="上传图片">
+        <IconFont type="icon-image1" />
+      </Toolbar.Button>
+    </Upload>
   );
 };
 

@@ -7,7 +7,11 @@ import { useFocused, useSlate } from 'slate-react';
 import { Slate, Editable, withReact, DefaultElement } from 'slate-react';
 import { ConfigProvider as AntdConfigProvider } from 'antd';
 import { ConfigConsumer, ConfigProvider, useConfig } from '../../contexts/ConfigContext';
-import { GlobalPluginProvider, usePluginHelper } from '../../contexts/PluginContext';
+import {
+  GlobalPluginProvider,
+  PluginUuidContext,
+  usePluginHelper,
+} from '../../contexts/PluginContext';
 import { mergeStyle, withPlugins, mergeLocalteFromPlugins } from '../../utils';
 import Toolbar from '../Toolbar';
 
@@ -59,17 +63,36 @@ const DSlateContent = ({
       (i) => i.nodeType === 'element' && i.type === props.element.type,
     ) as DSlatePlugin | undefined;
 
+    let dom;
     if (plugin && plugin.renderElement) {
-      return plugin.renderElement({ ...props, style }, editor);
+      dom = (
+        <PluginUuidContext.Provider
+          value={{
+            uuid: plugin.uuid,
+            type: plugin.type,
+          }}
+        >
+          {plugin.renderElement({ ...props, style }, editor)}
+        </PluginUuidContext.Provider>
+      );
+    } else {
+      const defaultElementPlugin = plugins.find((p) => p.isDefaultElement);
+
+      if (defaultElementPlugin && defaultElementPlugin.renderElement) {
+        dom = (
+          <PluginUuidContext.Provider
+            value={{
+              uuid: defaultElementPlugin.uuid,
+              type: defaultElementPlugin.type,
+            }}
+          >
+            {defaultElementPlugin.renderElement({ ...props, style }, editor)}
+          </PluginUuidContext.Provider>
+        );
+      }
     }
 
-    const defaultElementPlugin = plugins.find((p) => p.isDefaultElement);
-
-    if (defaultElementPlugin && defaultElementPlugin.renderElement) {
-      return defaultElementPlugin.renderElement({ ...props, style }, editor);
-    }
-
-    return <DefaultElement {...props} />;
+    return dom ?? <DefaultElement {...props} />;
   }, []);
 
   const renderLeaf = useCallback((props) => {

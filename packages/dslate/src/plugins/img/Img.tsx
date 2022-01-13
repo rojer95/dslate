@@ -6,7 +6,7 @@ import { ReactEditor, useSelected, useSlate } from 'slate-react';
 import { Rnd } from 'react-rnd';
 import IconFont from '../../components/IconFont';
 import Toolbar from '../../components/Toolbar';
-import { usePlugin, usePluginHelper } from '../../contexts/PluginContext';
+import { usePluginHelper } from '../../contexts/PluginContext';
 import type { RenderElementPropsWithStyle } from '../../typing';
 import Popover from '../../components/Popover';
 import { Transforms } from 'slate';

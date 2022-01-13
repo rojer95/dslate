@@ -1,12 +1,11 @@
 ---
 title: 国际化
-order: 3
+order: 4
 group:
   path: /demo
   title: Demo
 nav:
-  title: DSlate
-  path: /dslate
+  path: /docs
 ---
 
 # 国际化

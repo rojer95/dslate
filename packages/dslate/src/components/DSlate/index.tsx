@@ -5,7 +5,7 @@ import { createEditor, Node } from 'slate';
 import type { RenderElementProps } from 'slate-react';
 import { useFocused, useSlate } from 'slate-react';
 import { Slate, Editable, withReact, DefaultElement } from 'slate-react';
-import { ConfigProvider as AntdConfigProvider } from 'antd';
+import { ConfigProvider as AntdConfigProvider, Progress } from 'antd';
 import { ConfigConsumer, ConfigProvider, useConfig } from '../../contexts/ConfigContext';
 import {
   GlobalPluginProvider,
@@ -25,6 +25,11 @@ interface ShowCountProps {
   formatter: (args: { count: number }) => string;
 }
 
+interface ProgressProps {
+  strokeWidth?: number;
+  showInfo?: boolean;
+}
+
 export interface DSlateProps {
   value: Descendant[];
   onChange: (value: Descendant[]) => void;
@@ -34,6 +39,7 @@ export interface DSlateProps {
   showCount?: boolean | ShowCountProps;
   disabled?: boolean;
   placeholder?: string;
+  progress?: ProgressProps;
 }
 
 interface DSlateContentProps {
@@ -42,6 +48,9 @@ interface DSlateContentProps {
   showCount?: boolean | ShowCountProps;
   disabled?: boolean;
   placeholder?: string;
+  progress?: {
+    percent?: number;
+  } & ProgressProps;
 }
 
 const DSlateContent = ({
@@ -50,6 +59,7 @@ const DSlateContent = ({
   disabled,
   showCount,
   placeholder,
+  progress,
 }: DSlateContentProps) => {
   const { getPrefixCls: getAntdPrefixCls } = useContext(AntdConfigProvider.ConfigContext);
   const prefixCls = getAntdPrefixCls('dslate');
@@ -151,7 +161,18 @@ const DSlateContent = ({
             data-count={dataCount}
           >
             <Toolbar />
-            <div className={`editable`}>
+
+            <div className="editable">
+              {progress?.percent ? (
+                <div className="progress">
+                  <Progress
+                    {...progress}
+                    type="line"
+                    percent={progress?.percent === -1 ? 100 : progress?.percent}
+                    status={progress?.percent === -1 ? 'exception' : 'active'}
+                  />
+                </div>
+              ) : null}
               <Editable
                 renderElement={renderElement}
                 renderLeaf={renderLeaf}
@@ -179,12 +200,18 @@ const DSlate = ({
   size: customizeSize,
   prefixCls: customizePrefixCls,
   placeholder = '',
+  progress = {
+    strokeWidth: 2,
+    showInfo: false,
+  },
 }: DSlateProps) => {
   const { getPrefixCls: getAntdPrefixCls } = useContext(AntdConfigProvider.ConfigContext);
   const prefixCls = getAntdPrefixCls('dslate', customizePrefixCls);
   const { plugins } = useConfig();
   const editor = useMemo(() => withPlugins(withReact(createEditor()), plugins), []);
   const [visibleKey, setVisibleKey] = useState<React.Key | undefined>(undefined);
+
+  const [percent, setPercent] = useState(0);
 
   const getPrefixCls = useCallback(
     (key: string) => {
@@ -229,6 +256,7 @@ const DSlate = ({
                 disabledTypes,
                 enablePluginByType,
                 disablePluginByType,
+                setPercent,
               }}
             >
               <Slate editor={editor} value={value} onChange={onChange}>
@@ -238,6 +266,7 @@ const DSlate = ({
                   disabled={disabled}
                   showCount={showCount}
                   placeholder={placeholder}
+                  progress={{ ...progress, percent }}
                 />
               </Slate>
             </GlobalPluginProvider>

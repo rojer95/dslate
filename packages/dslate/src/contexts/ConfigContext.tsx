@@ -11,7 +11,7 @@ export type ConfigContextType = {
   locales: Record<string, Locale>;
   defauleLocale: string;
   iconScriptUrl?: string | string[];
-  uploadCustomRequest?: (options: UploadRequestOption) => void;
+  customUploadRequest?: (options: UploadRequestOption) => void;
 };
 
 const ConfigContext = React.createContext<ConfigContextType>(defaultConfig);

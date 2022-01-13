@@ -5,8 +5,7 @@ group:
   path: /components
   title: 组件
 nav:
-  title: DSlate
-  path: /dslate
+  path: /docs
 ---
 
 # Toolbar

@@ -1,8 +1,9 @@
+import type React from 'react';
 import type { CSSProperties } from 'react';
 import type { BaseEditor, Descendant, Editor, NodeEntry } from 'slate';
 import type { ReactEditor, RenderElementProps, RenderLeafProps } from 'slate-react';
 import type { HistoryEditor } from 'slate-history';
-import type React from 'react';
+import type { UploadRequestOption } from 'rc-upload/lib/interface';
 
 export type DSlateCustomElement = {
   type: string;
@@ -52,6 +53,8 @@ export interface RenderElementPropsWithStyle extends RenderElementProps {
 export interface RenderLeafPropsWithStyle extends RenderLeafProps {
   style?: CSSProperties;
 }
+
+export type UploadFunc = (options: UploadRequestOption) => void;
 
 declare module 'slate' {
   interface CustomTypes {

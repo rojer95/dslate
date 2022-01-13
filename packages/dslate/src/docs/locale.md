@@ -4,8 +4,7 @@ order: 3
 group:
   path: /
 nav:
-  title: DSlate
-  path: /dslate
+  path: /docs
 ---
 
 # 国际化

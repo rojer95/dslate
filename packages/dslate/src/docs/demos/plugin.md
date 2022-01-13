@@ -5,8 +5,7 @@ group:
   path: /demo
   title: Demo
 nav:
-  title: DSlate
-  path: /dslate
+  path: /docs
 ---
 
 # 自定义插件

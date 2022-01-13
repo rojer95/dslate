@@ -6,8 +6,7 @@ group:
   title: 组件
   order: 1
 nav:
-  title: DSlate
-  path: /dslate
+  path: /docs
 ---
 
 # DSlate

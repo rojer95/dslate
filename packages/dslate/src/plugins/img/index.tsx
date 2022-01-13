@@ -11,7 +11,10 @@ import Toolbar from '../../components/Toolbar';
 import type { DSlatePlugin, RenderElementPropsWithStyle } from '../../typing';
 import Img from './Img';
 import './index.less';
-import { defaultFileUpload } from './defaultFileUpload';
+import { defaultFileUpload, promiseUploadFunc } from './defaultFileUpload';
+import { useConfig } from '../../contexts/ConfigContext';
+import { UploadRequestOption } from 'rc-upload/lib/interface';
+import { usePluginHelper } from '../../contexts/PluginContext';
 
 const TYPE = 'img';
 
@@ -30,10 +33,16 @@ const renderStyle = (node: Descendant) => {
 };
 
 const ToolbarButton = () => {
+  const { setPercent } = usePluginHelper();
+  const { customUploadRequest } = useConfig();
   const editor = useSlate();
 
-  const insertImg = async (file: File) => {
-    const url = await defaultFileUpload(file);
+  const insertImg = async (option: UploadRequestOption) => {
+    const { url } = await promiseUploadFunc(
+      customUploadRequest ?? defaultFileUpload,
+      option,
+      setPercent,
+    );
     Transforms.insertNodes(editor, { type: TYPE, url, children: [{ text: '' }] });
   };
 
@@ -42,7 +51,7 @@ const ToolbarButton = () => {
       accept="image/*"
       maxCount={1}
       showUploadList={false}
-      customRequest={({ file }) => insertImg(file as File)}
+      customRequest={(option) => insertImg(option)}
     >
       <Toolbar.Button tooltip="上传图片">
         <IconFont type="icon-image1" />

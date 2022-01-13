@@ -6,8 +6,7 @@ group:
   title: Demo
   order: 3
 nav:
-  title: DSlate
-  path: /dslate
+  path: /docs
 ---
 
 # 基础使用

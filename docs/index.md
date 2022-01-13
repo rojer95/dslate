@@ -7,7 +7,7 @@ hero:
   desc: DSlate 是一个基于[Slate](https://github.com/ianstormtaylor/slate) 构建的[Ant Design](https://github.com/ant-design/ant-design/) 风格的富文本编辑器。你可以通过插件的方式轻松自定义节点、工具等元素。
   actions:
     - text: 👨‍💻👩‍💻 快速开始 →
-      link: /dslate
+      link: /docs/getting-started
 
 features:
   - icon: https://gw.alipayobjects.com/mdn/rms_08e378/afts/img/A*43rfS4dD0MUAAAAAAAAAAABkARQnAQ

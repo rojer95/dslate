@@ -10,8 +10,9 @@ import { usePlugin, usePluginHelper } from '../../contexts/PluginContext';
 import type { RenderElementPropsWithStyle } from '../../typing';
 import Popover from '../../components/Popover';
 import { Transforms } from 'slate';
-import { defaultFileUpload } from './defaultFileUpload';
+import { defaultFileUpload, promiseUploadFunc } from './defaultFileUpload';
 import { useConfig } from '../../contexts/ConfigContext';
+import type { UploadRequestOption } from 'rc-upload/lib/interface';
 
 type Draggable = {
   status: boolean;
@@ -20,8 +21,8 @@ type Draggable = {
 };
 
 const Img = ({ attributes, children, element, style }: RenderElementPropsWithStyle) => {
-  const { getPrefixCls } = usePluginHelper();
-  const { uploadCustomRequest } = useConfig();
+  const { getPrefixCls, setPercent } = usePluginHelper();
+  const { customUploadRequest } = useConfig();
 
   const prefixCls = getPrefixCls?.('img');
 
@@ -85,8 +86,12 @@ const Img = ({ attributes, children, element, style }: RenderElementPropsWithSty
     });
   };
 
-  const updateUrl = async (file: File) => {
-    const url = await defaultFileUpload(file);
+  const updateUrl = async (option: UploadRequestOption) => {
+    const { url } = await promiseUploadFunc(
+      customUploadRequest ?? defaultFileUpload,
+      option,
+      setPercent,
+    );
     Transforms.setNodes(
       editor,
       {
@@ -114,8 +119,8 @@ const Img = ({ attributes, children, element, style }: RenderElementPropsWithSty
                 accept="image/*"
                 maxCount={1}
                 showUploadList={false}
-                customRequest={({ file }) => {
-                  updateUrl(file as File);
+                customRequest={(option) => {
+                  updateUrl(option);
                 }}
               >
                 <Toolbar.Button tooltip="更换图片">

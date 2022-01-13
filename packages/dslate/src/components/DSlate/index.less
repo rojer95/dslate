@@ -12,7 +12,17 @@
   padding: @input-padding-vertical-base 0px;
 
   .editable {
+    position: relative;
     padding: @input-padding-vertical-base @input-padding-horizontal-base;
+
+    .progress {
+      position: absolute;
+      top: -12px;
+      left: 0;
+      width: 100%;
+      font-size: @font-size-base;
+      line-height: 0;
+    }
 
     * {
       margin: 0;
@@ -22,7 +32,7 @@
       }
     }
 
-    > div {
+    [data-slate-editor] {
       min-height: @input-height-base * 10;
     }
   }

@@ -5,8 +5,8 @@ group:
   path: /
   order: 0
 nav:
-  title: DSlate
-  path: /dslate
+  title: 文档
+  path: /docs
 ---
 
 # DSlate

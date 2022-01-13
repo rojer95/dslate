@@ -4,8 +4,7 @@ order: 2
 group:
   path: /
 nav:
-  title: DSlate
-  path: /dslate
+  path: /docs
 ---
 
 # 插件开发

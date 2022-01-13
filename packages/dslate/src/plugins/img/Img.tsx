@@ -1,7 +1,7 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import { Divider, InputNumber, Space, Upload } from 'antd';
+import { Divider, InputNumber, Space, Spin, Upload } from 'antd';
 import classNames from 'classnames';
-import React, { useRef, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { ReactEditor, useSelected, useSlate } from 'slate-react';
 import { Rnd } from 'react-rnd';
 import IconFont from '../../components/IconFont';
@@ -26,8 +26,9 @@ const Img = ({ attributes, children, element, style }: RenderElementPropsWithSty
 
   const prefixCls = getPrefixCls?.('img');
 
-  const img = useRef<HTMLImageElement>(null);
+  const image = useRef<HTMLImageElement>(null);
   const rnd = useRef<Rnd>(null);
+  const [loading, setLoading] = useState(false);
 
   const [draggable, setDraggable] = useState<Draggable>({
     status: false,
@@ -37,6 +38,23 @@ const Img = ({ attributes, children, element, style }: RenderElementPropsWithSty
     width: 0,
     height: 0,
   });
+
+  const onImageLoad = (e: any) => {
+    setDraggable({
+      ...draggable,
+      width: e.target?.naturalWidth,
+      height: e.target?.naturalHeight,
+    });
+    setEditable({
+      width: e.target?.naturalWidth ?? 0,
+      height: e.target?.naturalHeight ?? 0,
+    });
+    setLoading(false);
+  };
+
+  useEffect(() => {
+    setLoading(true);
+  }, [element.url]);
 
   const selected = useSelected();
   const editor = useSlate();
@@ -67,8 +85,8 @@ const Img = ({ attributes, children, element, style }: RenderElementPropsWithSty
   };
 
   const updateEditableSize = (key: string, value: number) => {
-    const width = img.current?.width ?? 1;
-    const height = img.current?.height ?? 1;
+    const width = image.current?.naturalWidth ?? 1;
+    const height = image.current?.naturalHeight ?? 1;
     const p = width / height;
 
     const rwidth = key === 'width' ? value : Math.round(p * value);
@@ -81,8 +99,8 @@ const Img = ({ attributes, children, element, style }: RenderElementPropsWithSty
 
   const loadEditableSizeFromImg = () => {
     setEditable({
-      width: img.current?.width ?? 0,
-      height: img.current?.height ?? 0,
+      width: image.current?.naturalWidth ?? 0,
+      height: image.current?.naturalHeight ?? 0,
     });
   };
 
@@ -150,76 +168,72 @@ const Img = ({ attributes, children, element, style }: RenderElementPropsWithSty
               selected: selected,
             })}
           >
-            <Rnd
-              ref={rnd}
-              className={classNames(`${prefixCls}-drag`, {
-                selected: selected,
-                draging: draggable.status,
-              })}
-              size={{
-                width: draggable.width ?? 0,
-                height: draggable.height ?? 0,
-              }}
-              resizeHandleWrapperClass="resize-handle-wrapper"
-              onResizeStart={() => {
-                setDraggable({
-                  ...draggable,
-                  status: true,
-                });
-              }}
-              onResize={(e, direction, ref) => {
-                setDraggable({
-                  ...draggable,
-                  width: ref.clientWidth,
-                  height: ref.clientHeight,
-                });
-              }}
-              onResizeStop={(e, direction, ref) => {
-                setDraggable({
-                  width: ref.clientWidth,
-                  height: ref.clientHeight,
-                  status: false,
-                });
-                updateSize({
-                  width: ref.clientWidth,
-                  height: ref.clientHeight,
-                });
-                rnd.current?.updatePosition({ x: 0, y: 0 });
-              }}
-              enableResizing={{
-                bottomLeft: true,
-                bottomRight: true,
-                topLeft: true,
-                topRight: true,
-                bottom: false,
-                left: false,
-                right: false,
-                top: false,
-              }}
-              lockAspectRatio
-              disableDragging
-            >
-              <div className="size-content">
-                {draggable.width}x{draggable.height}
-              </div>
-            </Rnd>
-            <img
-              ref={img}
-              src={element.url}
-              style={style}
-              onLoad={(e: any) => {
-                setDraggable({
-                  ...draggable,
-                  width: e.target?.width ?? 0,
-                  height: e.target?.height ?? 0,
-                });
-
-                setEditable({
-                  width: e.target?.width ?? 0,
-                  height: e.target?.height ?? 0,
-                });
-              }}
-            />
+            <Spin spinning={loading}>
+              {loading ? null : (
+                <Rnd
+                  ref={rnd}
+                  className={classNames(`${prefixCls}-drag`, {
+                    selected: selected,
+                    draging: draggable.status,
+                  })}
+                  size={{
+                    width: draggable.width ?? 0,
+                    height: draggable.height ?? 0,
+                  }}
+                  resizeHandleWrapperClass="resize-handle-wrapper"
+                  onResizeStart={() => {
+                    setDraggable({
+                      ...draggable,
+                      status: true,
+                    });
+                  }}
+                  onResize={(e, direction, ref) => {
+                    setDraggable({
+                      ...draggable,
+                      width: ref.clientWidth,
+                      height: ref.clientHeight,
+                    });
+                  }}
+                  onResizeStop={(e, direction, ref) => {
+                    setDraggable({
+                      width: ref.clientWidth,
+                      height: ref.clientHeight,
+                      status: false,
+                    });
+                    updateSize({
+                      width: ref.clientWidth,
+                      height: ref.clientHeight,
+                    });
+                    rnd.current?.updatePosition({ x: 0, y: 0 });
+                  }}
+                  enableResizing={{
+                    bottomLeft: true,
+                    bottomRight: true,
+                    topLeft: true,
+                    topRight: true,
+                    bottom: false,
+                    left: false,
+                    right: false,
+                    top: false,
+                  }}
+                  lockAspectRatio
+                  disableDragging
+                >
+                  <div className="size-content">
+                    {draggable.width}x{draggable.height}
+                  </div>
+                </Rnd>
+              )}
+              <img
+                ref={image}
+                src={element.url}
+                style={{
+                  ...style,
+                  visibility: loading ? 'hidden' : 'visible',
+                }}
+                onLoad={onImageLoad}
+              />
+            </Spin>
           </span>
         </Popover>
       </span>

@@ -8,7 +8,7 @@ DSlate is an [Ant Design](https://github.com/ant-design/ant-design/) style rich 
 
 To find out more see the following Dslate documentation sections:
 
-- [Demo](http://www.freesailing.cn/dslate/)
+- [Demo](http://rojer95.github.io/dslate)
 
 ## LICENSE
 

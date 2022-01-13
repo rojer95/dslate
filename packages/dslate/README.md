@@ -1,6 +1,6 @@
 # dslate
 
-See our website [dslate](http://www.freesailing.cn/dslate/) for more information.
+See our website [dslate](http://rojer95.github.io/dslate) for more information.
 
 ## Install
 

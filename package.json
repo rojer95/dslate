@@ -1,7 +1,7 @@
 {
   "private": true,
   "license": "MIT",
-  "homepage": "http://www.freesailing.cn/dslate",
+  "homepage": "http://rojer95.github.io/dslate",
   "workspaces": [
     "packages/*"
   ],

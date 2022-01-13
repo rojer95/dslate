@@ -10,7 +10,7 @@ import { usePluginHelper } from '../../contexts/PluginContext';
 import type { RenderElementPropsWithStyle } from '../../typing';
 import Popover from '../../components/Popover';
 import { Transforms } from 'slate';
-import { defaultFileUpload, promiseUploadFunc } from './defaultFileUpload';
+import { file2base64, promiseUploadFunc } from './utils';
 import { useConfig } from '../../contexts/ConfigContext';
 import type { UploadRequestOption } from 'rc-upload/lib/interface';
 
@@ -87,15 +87,13 @@ const Img = ({ attributes, children, element, style }: RenderElementPropsWithSty
   };
 
   const updateUrl = async (option: UploadRequestOption) => {
-    const { url } = await promiseUploadFunc(
-      customUploadRequest ?? defaultFileUpload,
-      option,
-      setPercent,
-    );
+    const { url } = await promiseUploadFunc(customUploadRequest ?? file2base64, option, setPercent);
     Transforms.setNodes(
       editor,
       {
         url,
+        imgWidth: null,
+        imgHeight: null,
       },
       {
         at: path,
@@ -138,7 +136,7 @@ const Img = ({ attributes, children, element, style }: RenderElementPropsWithSty
               />
               <span>高</span>
               <InputNumber
-                value={editable.width}
+                value={editable.height}
                 onChange={(h) => {
                   updateEditableSize('height', h);
                 }}
@@ -215,6 +213,7 @@ const Img = ({ attributes, children, element, style }: RenderElementPropsWithSty
                   width: e.target?.width ?? 0,
                   height: e.target?.height ?? 0,
                 });
+
                 setEditable({
                   width: e.target?.width ?? 0,
                   height: e.target?.height ?? 0,

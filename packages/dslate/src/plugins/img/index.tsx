@@ -8,13 +8,15 @@ import { useSlate } from 'slate-react';
 import IconFont from '../../components/IconFont';
 import Toolbar from '../../components/Toolbar';
 
-import type { DSlatePlugin, RenderElementPropsWithStyle } from '../../typing';
 import Img from './Img';
-import './index.less';
-import { defaultFileUpload, promiseUploadFunc } from './defaultFileUpload';
+import { file2base64, promiseUploadFunc } from './utils';
 import { useConfig } from '../../contexts/ConfigContext';
-import { UploadRequestOption } from 'rc-upload/lib/interface';
 import { usePluginHelper } from '../../contexts/PluginContext';
+
+import type { UploadRequestOption } from 'rc-upload/lib/interface';
+import type { DSlatePlugin, RenderElementPropsWithStyle } from '../../typing';
+
+import './index.less';
 
 const TYPE = 'img';
 
@@ -38,11 +40,7 @@ const ToolbarButton = () => {
   const editor = useSlate();
 
   const insertImg = async (option: UploadRequestOption) => {
-    const { url } = await promiseUploadFunc(
-      customUploadRequest ?? defaultFileUpload,
-      option,
-      setPercent,
-    );
+    const { url } = await promiseUploadFunc(customUploadRequest ?? file2base64, option, setPercent);
     Transforms.insertNodes(editor, { type: TYPE, url, children: [{ text: '' }] });
   };
 

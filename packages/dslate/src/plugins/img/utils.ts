@@ -29,7 +29,7 @@ export const promiseUploadFunc = (
   });
 };
 
-export const defaultFileUpload: UploadFunc = (option: UploadRequestOption) => {
+export const file2base64: UploadFunc = (option: UploadRequestOption) => {
   const reader: FileReader = new FileReader();
   reader.addEventListener(
     'load',

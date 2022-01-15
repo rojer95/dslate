@@ -25,6 +25,7 @@ const defaultPlugins: DSlatePlugin[] = [
   DefaultPlugin.TextIndentPlugin, // 缩进
   DefaultPlugin.DividerPlugin, // 分割
   DefaultPlugin.ImgPlugin, //  图片
+  DefaultPlugin.LinkPlugin, // 链接
 ];
 
 const locales = {

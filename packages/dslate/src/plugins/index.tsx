@@ -13,6 +13,7 @@ import { TextIndentPlugin } from './indent';
 import { ListPlugin, ListItemPlugin } from './list';
 import { TodoListPlugin } from './todo-list';
 import { ImgPlugin } from './img';
+import { LinkPlugin } from './link';
 
 const DefaultPlugin = () => {};
 
@@ -32,5 +33,6 @@ DefaultPlugin.ListItemPlugin = ListItemPlugin;
 DefaultPlugin.TextIndentPlugin = TextIndentPlugin;
 DefaultPlugin.TodoListPlugin = TodoListPlugin;
 DefaultPlugin.ImgPlugin = ImgPlugin;
+DefaultPlugin.LinkPlugin = LinkPlugin;
 
 export default DefaultPlugin;

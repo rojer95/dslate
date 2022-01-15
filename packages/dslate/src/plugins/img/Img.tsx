@@ -11,7 +11,7 @@ import type { RenderElementPropsWithStyle } from '../../typing';
 import Popover from '../../components/Popover';
 import { Transforms } from 'slate';
 import { file2base64, promiseUploadFunc } from './utils';
-import { useConfig } from '../../contexts/ConfigContext';
+import { useConfig, useMessage } from '../../contexts/ConfigContext';
 import type { UploadRequestOption } from 'rc-upload/lib/interface';
 
 type Draggable = {
@@ -24,6 +24,7 @@ const Img = ({ attributes, children, element, style }: RenderElementPropsWithSty
   const { getPrefixCls, setPercent } = usePluginHelper();
   const { customUploadRequest } = useConfig();
 
+  const getMessage = useMessage();
   const prefixCls = getPrefixCls?.('img');
 
   const image = useRef<HTMLImageElement>(null);
@@ -139,12 +140,12 @@ const Img = ({ attributes, children, element, style }: RenderElementPropsWithSty
                   updateUrl(option);
                 }}
               >
-                <Toolbar.Button tooltip="更换图片">
+                <Toolbar.Button tooltip={getMessage('change', '更换图片')}>
                   <IconFont type="icon-image1" />
                 </Toolbar.Button>
               </Upload>
               <Divider type="vertical" />
-              <span>宽</span>
+              <span>{getMessage('width', '宽')}</span>
               <InputNumber
                 value={editable.width}
                 onChange={(w) => {
@@ -152,7 +153,7 @@ const Img = ({ attributes, children, element, style }: RenderElementPropsWithSty
                 }}
                 onPressEnter={() => updateSize(editable)}
               />
-              <span>高</span>
+              <span>{getMessage('height', '高')}</span>
               <InputNumber
                 value={editable.height}
                 onChange={(h) => {

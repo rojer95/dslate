@@ -1,5 +1,7 @@
-import { Checkbox } from 'antd';
 import React from 'react';
+import { Checkbox } from 'antd';
+import zhCN from 'antd/lib/locale/zh_CN';
+import enUS from 'antd/lib/locale/en_US';
 import { Editor, Transforms, Element } from 'slate';
 import { useSlate, ReactEditor } from 'slate-react';
 
@@ -8,11 +10,13 @@ import IconFont from '../components/IconFont';
 import Toolbar from '../components/Toolbar';
 import type { DSlatePlugin, RenderElementPropsWithStyle } from '../typing';
 import { isBlockActive, isStart } from '../utils';
+import { useMessage } from '../contexts/ConfigContext';
 
 const TYPE = 'todo-list';
 
 const ToolbarButton = () => {
   const editor = useSlate();
+  const getMessage = useMessage();
   const toggle = () => {
     const isActive = isBlockActive(editor, TYPE);
     Editor.withoutNormalizing(editor, () => {
@@ -30,7 +34,11 @@ const ToolbarButton = () => {
     });
   };
   return (
-    <Toolbar.Button active={isBlockActive(editor, TYPE)} onClick={toggle}>
+    <Toolbar.Button
+      tooltip={getMessage('tooltip', '任务列表')}
+      active={isBlockActive(editor, TYPE)}
+      onClick={toggle}
+    >
       <IconFont type="icon-multipleChoiceList" />
     </Toolbar.Button>
   );
@@ -86,6 +94,14 @@ const TodoListPlugin: DSlatePlugin = {
   toolbar: <ToolbarButton />,
   renderElement,
   withPlugin: withTodoList,
+  locale: {
+    [zhCN.locale]: {
+      tooltip: '任务列表',
+    },
+    [enUS.locale]: {
+      tooltip: 'todo list',
+    },
+  },
 };
 
 export { TodoListPlugin };

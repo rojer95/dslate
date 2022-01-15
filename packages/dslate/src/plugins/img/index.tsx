@@ -1,7 +1,5 @@
-import { Upload } from 'antd';
-import type { CSSProperties } from 'react';
 import React from 'react';
-import type { Descendant } from 'slate';
+import { Upload } from 'antd';
 import { Transforms } from 'slate';
 import { useSlate } from 'slate-react';
 
@@ -10,11 +8,16 @@ import Toolbar from '../../components/Toolbar';
 
 import Img from './Img';
 import { file2base64, promiseUploadFunc } from './utils';
-import { useConfig } from '../../contexts/ConfigContext';
+import { useConfig, useMessage } from '../../contexts/ConfigContext';
 import { usePluginHelper } from '../../contexts/PluginContext';
 
+import type { Descendant } from 'slate';
+import type { CSSProperties } from 'react';
 import type { UploadRequestOption } from 'rc-upload/lib/interface';
 import type { DSlatePlugin, RenderElementPropsWithStyle } from '../../typing';
+
+import zhCN from 'antd/lib/locale/zh_CN';
+import enUS from 'antd/lib/locale/en_US';
 
 import './index.less';
 
@@ -38,6 +41,7 @@ const ToolbarButton = () => {
   const { setPercent } = usePluginHelper();
   const { customUploadRequest } = useConfig();
   const editor = useSlate();
+  const getMessage = useMessage();
 
   const insertImg = async (option: UploadRequestOption) => {
     const { url } = await promiseUploadFunc(customUploadRequest ?? file2base64, option, setPercent);
@@ -51,7 +55,7 @@ const ToolbarButton = () => {
       showUploadList={false}
       customRequest={(option) => insertImg(option)}
     >
-      <Toolbar.Button tooltip="上传图片">
+      <Toolbar.Button tooltip={getMessage('tooltip', '上传图片')}>
         <IconFont type="icon-image1" />
       </Toolbar.Button>
     </Upload>
@@ -66,6 +70,20 @@ const ImgPlugin: DSlatePlugin = {
   isInline: true,
   renderElement,
   renderStyle,
+  locale: {
+    [zhCN.locale]: {
+      tooltip: '上传图片',
+      change: '修改图片',
+      height: '高',
+      width: '宽',
+    },
+    [enUS.locale]: {
+      tooltip: 'upload image',
+      change: 'change image',
+      height: 'height',
+      width: 'width',
+    },
+  },
 };
 
 export { ImgPlugin };

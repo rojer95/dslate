@@ -4,7 +4,7 @@ import type { Locale } from '../typing';
 
 const localeValues: Locale = {
   locale: en_US.locale,
-  test: 'test',
+  placeholder: 'Please enter the text here',
 };
 
 export default localeValues;

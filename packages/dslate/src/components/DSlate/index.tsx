@@ -6,7 +6,12 @@ import type { RenderElementProps } from 'slate-react';
 import { useFocused, useSlate } from 'slate-react';
 import { Slate, Editable, withReact, DefaultElement } from 'slate-react';
 import { ConfigProvider as AntdConfigProvider, Progress } from 'antd';
-import { ConfigConsumer, ConfigProvider, useConfig } from '../../contexts/ConfigContext';
+import {
+  ConfigConsumer,
+  ConfigProvider,
+  useConfig,
+  useMessage,
+} from '../../contexts/ConfigContext';
 import {
   GlobalPluginProvider,
   PluginUuidContext,
@@ -134,6 +139,8 @@ const DSlateContent = ({
 
   const focused = useFocused();
 
+  const getMessage = useMessage();
+
   return (
     <SizeContext.Consumer>
       {(size) => {
@@ -181,7 +188,7 @@ const DSlateContent = ({
                 }}
                 onKeyDown={onKeyDown}
                 readOnly={disabled}
-                placeholder={placeholder}
+                placeholder={placeholder ?? getMessage('placeholder', '')}
               />
             </div>
           </div>
@@ -199,7 +206,7 @@ const DSlate = ({
   disabled = false,
   size: customizeSize,
   prefixCls: customizePrefixCls,
-  placeholder = '',
+  placeholder,
   progress = {
     strokeWidth: 2,
     showInfo: false,

@@ -4,7 +4,7 @@ import type { Locale } from '../typing';
 
 const localeValues: Locale = {
   locale: zhCN.locale,
-  test: '测试',
+  placeholder: '请在此输入正文',
 };
 
 export default localeValues;

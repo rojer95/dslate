@@ -10,10 +10,4 @@ nav:
   path: /components
 ---
 
-# Toolbar
-
-## ToolbarButton
-
-## ToolbarSelect
-
-## ToolbarModal
+# ToolbarButton

@@ -9,4 +9,4 @@ nav:
   path: /components
 ---
 
-# DSlate
+# ConfigProvider

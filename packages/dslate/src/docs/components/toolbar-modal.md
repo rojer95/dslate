@@ -1,6 +1,6 @@
 ---
-title: ToolbarButton
-order: 2
+title: ToolbarModal
+order: 3
 group:
   path: /toolbar
 nav:
@@ -8,10 +8,4 @@ nav:
   path: /components
 ---
 
-# Toolbar
-
-## ToolbarButton
-
-## ToolbarSelect
-
-## ToolbarModal
+# ToolbarModal

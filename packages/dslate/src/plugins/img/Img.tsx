@@ -10,9 +10,10 @@ import { usePluginHelper } from '../../contexts/PluginContext';
 import type { RenderElementPropsWithStyle } from '../../typing';
 import Popover from '../../components/Popover';
 import { Transforms } from 'slate';
-import { file2base64, promiseUploadFunc } from './utils';
+import { file2base64 } from './file2base64';
 import { useConfig, useMessage } from '../../contexts/ConfigContext';
 import type { UploadRequestOption } from 'rc-upload/lib/interface';
+import { promiseUploadFunc } from '../../utils';
 
 type Draggable = {
   status: boolean;

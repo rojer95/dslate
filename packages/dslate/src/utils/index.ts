@@ -5,3 +5,4 @@ export { toggleBlock, getBlockProps, setBlockProps, isBlockActive } from './bloc
 export { default as withPlugins } from './withPlugins';
 export { default as mergeLocalteFromPlugins } from './mergeLocalteFromPlugins';
 export { default as isStart } from './isStart';
+export { default as promiseUploadFunc } from './promiseUploadFunc';

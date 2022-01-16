@@ -1,12 +1,11 @@
-import type { RcFile } from 'antd/lib/upload';
-import type { UploadFunc } from '../../typing';
+import type { UploadFunc } from '../typing';
 import type { UploadRequestOption } from 'rc-upload/lib/interface';
 
-export const promiseUploadFunc = (
+export default function promiseUploadFunc(
   func: UploadFunc,
   options: UploadRequestOption,
   setPercent?: (p: number) => void,
-) => {
+) {
   const { onProgress: RcOnProgress, onError, onSuccess } = options;
   return new Promise<{ url?: string }>((resolve, reject) => {
     func({
@@ -27,16 +26,4 @@ export const promiseUploadFunc = (
       },
     });
   });
-};
-
-export const file2base64: UploadFunc = (option: UploadRequestOption) => {
-  const reader: FileReader = new FileReader();
-  reader.addEventListener(
-    'load',
-    () => {
-      option.onSuccess?.({ url: reader.result });
-    },
-    false,
-  );
-  reader.readAsDataURL(option.file as RcFile);
-};
+}

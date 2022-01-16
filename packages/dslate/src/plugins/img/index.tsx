@@ -7,9 +7,10 @@ import IconFont from '../../components/IconFont';
 import Toolbar from '../../components/Toolbar';
 
 import Img from './Img';
-import { file2base64, promiseUploadFunc } from './utils';
+import { file2base64 } from './file2base64';
 import { useConfig, useMessage } from '../../contexts/ConfigContext';
 import { usePluginHelper } from '../../contexts/PluginContext';
+import { promiseUploadFunc } from '../../utils';
 
 import type { Descendant } from 'slate';
 import type { CSSProperties } from 'react';

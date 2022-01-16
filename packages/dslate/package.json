@@ -1,5 +1,5 @@
 {
-  "name": "dslate",
+  "name": "@dslate/dslate",
   "version": "0.1.0",
   "description": "一个Ant Design风格的富文本编辑器 - An Ant Design style rich editor based on Slate",
   "keywords": [
@@ -57,5 +57,6 @@
   ],
   "devDependencies": {
     "@types/react-color": "^3.0.6"
-  }
+  },
+  "gitHead": "844a1ce17d27879fbbcf6df35f25988065602dc8"
 }

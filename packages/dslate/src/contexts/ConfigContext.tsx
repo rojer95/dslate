@@ -20,7 +20,7 @@ const { Consumer: ConfigConsumer, Provider: ConfigProvider } = ConfigContext;
 
 export { ConfigConsumer, ConfigProvider };
 
-export default ConfigContext;
+export { ConfigContext };
 
 export const useConfig = () => {
   return React.useContext(ConfigContext);

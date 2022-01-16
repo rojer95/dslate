@@ -1,15 +1,13 @@
 import DSlate from './components/DSlate';
 
-import DSlateContext, {
-  ConfigProvider,
-  ConfigConsumer,
-  useConfig,
-  useMessage,
-} from './contexts/ConfigContext';
-
 import Toolbar from './components/Toolbar';
 import IconFont from './components/IconFont';
-import DefaultPlugin from './plugins';
+import Popover from './components/Popover';
+import defaultConfig from './defaultConfig';
+
+export { defaultConfig, Toolbar, IconFont, Popover };
+
+export { default as DefaultPlugin } from './plugins';
 
 import type { DSlateProps } from './components/DSlate/';
 import type {
@@ -18,33 +16,12 @@ import type {
   ToolbarSelectProps,
 } from './components/Toolbar';
 
-import type { DSlateCustomElement, DSlateCustomText, DSlateEditor, DSlatePlugin } from './typing';
+export type { DSlateProps, ToolbarModalProps, ToolbarButtonProps, ToolbarSelectProps };
 
-import defaultConfig from './defaultConfig';
+export * from './typing';
 
-export {
-  defaultConfig,
-  DSlateContext,
-  ConfigProvider,
-  ConfigConsumer,
-  useConfig,
-  useMessage,
-  Toolbar,
-  IconFont,
-  DefaultPlugin,
-};
-
-export type {
-  DSlateProps,
-  DSlateCustomElement,
-  DSlateCustomText,
-  DSlateEditor,
-  DSlatePlugin,
-  ToolbarModalProps,
-  ToolbarButtonProps,
-  ToolbarSelectProps,
-};
-
+export * from './contexts/ConfigContext';
+export * from './contexts/PluginContext';
 export * from './utils';
 
 export default DSlate;

@@ -2,7 +2,7 @@ import React, { useContext, useEffect } from 'react';
 import { Space } from 'antd';
 
 import { usePluginHelper } from '../../contexts/PluginContext';
-import DSlateContext from '../../contexts/ConfigContext';
+import { ConfigContext } from '../../contexts/ConfigContext';
 
 import './index.less';
 import ToolbarItem from './ToolbarItem';
@@ -17,7 +17,7 @@ import type { ToolbarModalProps } from './ToolbarModal';
 import { useFocused } from 'slate-react';
 
 const Toolbar = () => {
-  const { plugins } = useContext(DSlateContext);
+  const { plugins } = useContext(ConfigContext);
   const { getPrefixCls, setVisibleKey } = usePluginHelper();
   const prefixCls = getPrefixCls?.('toolbar');
   const focused = useFocused();

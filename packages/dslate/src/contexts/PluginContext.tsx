@@ -1,5 +1,5 @@
 import React, { useCallback, useContext, useEffect, useState } from 'react';
-import ConfigContext from './ConfigContext';
+import { ConfigContext } from './ConfigContext';
 
 export type GlobalPluginContextType = {
   visibleKey?: React.Key;
@@ -31,7 +31,7 @@ export const usePluginUuid = () => {
 
 const GlobalPluginContext = React.createContext<GlobalPluginContextType>({});
 
-export default GlobalPluginContext;
+export { GlobalPluginContext };
 
 const { Consumer: GlobalPluginConsumer, Provider: GlobalPluginProvider } = GlobalPluginContext;
 

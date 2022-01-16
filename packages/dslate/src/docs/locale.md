@@ -9,6 +9,8 @@ nav:
 
 # 国际化
 
+## 简介
+
 DSlate 与 Ant Design 设计体系一脉相承，无缝对接 antd 项目。因此 DSlate 直接继承使用了 Ant Design 的国际化方案。
 
 ## 使用方法

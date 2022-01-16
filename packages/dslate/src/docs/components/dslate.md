@@ -2,11 +2,11 @@
 title: DSlate
 order: 1
 group:
-  path: /components
-  title: 组件
+  path: /dslate
+  title: DSlate
   order: 1
 nav:
-  path: /docs
+  path: /components
 ---
 
 # DSlate

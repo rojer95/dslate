@@ -1,11 +1,10 @@
 ---
-title: Toolbar
+title: ToolbarButton
 order: 2
 group:
-  path: /components
-  title: 组件
+  path: /toolbar
 nav:
-  path: /docs
+  path: /components
 ---
 
 # Toolbar

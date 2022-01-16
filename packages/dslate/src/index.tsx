@@ -8,6 +8,7 @@ import DSlateContext, {
 } from './contexts/ConfigContext';
 
 import Toolbar from './components/Toolbar';
+import IconFont from './components/IconFont';
 import DefaultPlugin from './plugins';
 
 import type { DSlateProps } from './components/DSlate/';
@@ -29,6 +30,7 @@ export {
   useConfig,
   useMessage,
   Toolbar,
+  IconFont,
   DefaultPlugin,
 };
 

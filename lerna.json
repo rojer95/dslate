@@ -3,6 +3,7 @@
   "npmClient": "yarn",
   "useWorkspaces": true,
   "changelog": {
+    "repo": "rojer95/dslate",
     "cacheDir": ".changelog"
   },
   "ignoreChanges": [
@@ -16,5 +17,13 @@
     "**/es/**",
     "**/test/**"
   ],
-  "packages": ["packages/*"]
+  "packages": ["packages/*"],
+  "command": {
+    "publish": {
+      "ignoreChanges": ["*.md"],
+      "verifyAccess": false,
+      "verifyRegistry": false,
+      "message": "chore(release): :european_castle: publish"
+    }
+  }
 }

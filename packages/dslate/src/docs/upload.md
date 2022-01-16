@@ -15,7 +15,7 @@ nav:
 
 对于自定义上传，DSlate 提供了全局配置 `ConfigProvider` 。只需要在 `ConfigProvider` 中对 `customUploadRequest` 进行配置即可。
 
-`customUploadRequest` 回调被调用时会传入一个`Object`，其中包含了一下参数：
+`customUploadRequest` 回调被调用时会传入一个`Object`，其中包含了以下参数：
 
 | 参数       | 说明                                        | 类型                                 |
 | ---------- | ------------------------------------------- | ------------------------------------ |

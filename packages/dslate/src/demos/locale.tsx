@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 
 import { ConfigProvider, DatePicker, Radio, Space } from 'antd';
-import DSlate from 'dslate';
+import DSlate from '@dslate/core';
 import enUS from 'antd/lib/locale/en_US';
 import zhCN from 'antd/lib/locale/zh_CN';
 

@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import type { Descendant } from 'slate';
 
-import DSlate, { ConfigProvider, defaultConfig } from 'dslate';
+import DSlate, { ConfigProvider, defaultConfig } from '@dslate/core';
 
 export default () => {
   const [value, setValue] = useState<Descendant[]>([

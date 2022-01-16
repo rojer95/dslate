@@ -7,11 +7,11 @@ See our website [dslate](http://rojer95.github.io/dslate) for more information.
 Using npm:
 
 ```bash
-$ npm install --save  dslate
+$ npm install --save  @dslate/core
 ```
 
 or using yarn:
 
 ```bash
-$ yarn add  dslate
+$ yarn add  @dslate/core
 ```

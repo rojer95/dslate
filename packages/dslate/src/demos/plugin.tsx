@@ -2,8 +2,8 @@ import React, { useState } from 'react';
 import type { Descendant } from 'slate';
 import { Range, Transforms } from 'slate';
 
-import type { DSlatePlugin } from 'dslate';
-import DSlate, { ConfigProvider, defaultConfig, DefaultPlugin, Toolbar } from 'dslate';
+import type { DSlatePlugin } from '@dslate/core';
+import DSlate, { ConfigProvider, defaultConfig, DefaultPlugin, Toolbar } from '@dslate/core';
 import { useSlate } from 'slate-react';
 
 /**

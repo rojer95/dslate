@@ -28,7 +28,7 @@ DSlate 与 Ant Design 设计体系一脉相承，无缝对接 antd 项目。因�
 locale 是一个 `Record<string, any>` 的 `KEY-VALUE` 类型的参数，其中 `KEY` 必须为 antd 语言包提供的 `locale` 值， `VALUE` 为具体的国际化的语言包内容。
 
 ```tsx | pure
-import type { DSlatePlugin } from 'dslate';
+import type { DSlatePlugin } from '@dslate/core';
 import zhCN from 'antd/lib/locale/zh_CN';
 import enUS from 'antd/lib/locale/en_US';
 
@@ -65,8 +65,8 @@ import { useSlate } from 'slate-react';
 import zhCN from 'antd/lib/locale/zh_CN';
 import enUS from 'antd/lib/locale/en_US';
 
-import { Toolbar, IconFont, getTextProps, toggleTextProps, useMessage } from 'dslate';
-import type { DSlatePlugin } from 'dslate';
+import { Toolbar, IconFont, getTextProps, toggleTextProps, useMessage } from '@dslate/core';
+import type { DSlatePlugin } from '@dslate/core';
 
 const TYPE = 'bold';
 

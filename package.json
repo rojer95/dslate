@@ -14,7 +14,9 @@
     "prettier": "prettier --write \"**/*.{js,jsx,tsx,ts,less,md,json}\"",
     "test": "umi-test",
     "test:coverage": "umi-test --coverage",
-    "prepublishOnly": "npm run build"
+    "prepublishOnly": "npm run build",
+    "lernaVersion": "lerna version patch --conventional-commits",
+    "lernaPublish": "lerna publish from-git"
   },
   "gitHooks": {
     "pre-commit": "pretty-quick --staged",

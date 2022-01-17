@@ -15,7 +15,9 @@ DSlate 与 Ant Design 设计体系一脉相承，无缝对接 antd 项目。因�
 
 ## 使用方法
 
-在 antd 中，提供了一个 React 组件 [ConfigProvider](https://ant-design.gitee.io/components/config-provider-cn/) 用于全局配置国际化文案。 DSlate 为了能够无缝接入 antd 项目，一并使用了 antd 提供的 `ConfigProvider` 来进行语言环境上下文的判断。 因此**无需单独配置**语言环境上下文。
+在 Antd 中，提供了一个 React 组件 [ConfigProvider](https://ant-design.gitee.io/components/config-provider-cn/) 用于全局配置国际化文案。 DSlate 为了能够无缝接入 antd 项目，一并使用了 antd 提供的 `ConfigProvider` 来进行语言环境上下文的判断。 因此**无需单独配置**语言环境上下文。
+
+> Tip：注意区分 Antd 的 ConfigProvider 与 DSlate 的 ConfigProvider，这里使用的是 **Antd 的 ConfigProvider**
 
 ## Demo
 
@@ -23,11 +25,11 @@ DSlate 与 Ant Design 设计体系一脉相承，无缝对接 antd 项目。因�
 
 ## 插件国际化
 
-由于 DSlate 是一个插件化的编辑器，因此插件也需要支持国际化。当我们在开发插件时，可以通过 `locale` 来配置插件内部的国际化语言包。通过`useMessage` hook 返回的辅助函数来读取语言包。
+由于 DSlate 是一个插件化的编辑器，因此插件也需要支持国际化。当我们在开发插件时，可以通过 `locale` 来配置插件内部的国际化文案。通过`useMessage` hook 返回的辅助函数来读取文案。
 
 ### locale
 
-locale 是一个 `Record<string, any>` 的 `KEY-VALUE` 类型的参数，其中 `KEY` 必须为 antd 语言包提供的 `locale` 值， `VALUE` 为具体的国际化的语言包内容。
+locale 是一个 `Record<string, any>` 的 `KEY-VALUE` 类型的参数，其中 `KEY` 必须为 antd 文案提供的 `locale` 值， `VALUE` 为具体的国际化的文案内容。
 
 ```tsx | pure
 import type { DSlatePlugin } from '@dslate/core';
@@ -36,9 +38,11 @@ import enUS from 'antd/lib/locale/en_US';
 
 const Plugin: DSlatePlugin = {
   locale: {
+    // 对应Antd的中文
     [zhCN.locale]: {
       tooltip: '加粗',
     },
+    // 对应Antd的英文
     [enUS.locale]: {
       tooltip: 'bold',
     },
@@ -48,7 +52,7 @@ const Plugin: DSlatePlugin = {
 
 ### useMessage
 
-`useMessage` 是一个能够在插件内部直接读取语言包的 `hook`。它返回了一个辅助函数 `getMessage` 能够自动根据上下文获取本插件的语言包内容，函数定义如下：
+`useMessage` 是一个能够在插件内部直接读取文案的 `hook`。它返回了一个辅助函数 `getMessage` 能够自动根据上下文获取本插件的文案内容，函数定义如下：
 
 `(id: string, defaultMessage: string) => string`
 

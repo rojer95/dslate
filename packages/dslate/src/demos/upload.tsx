@@ -1,3 +1,6 @@
+/**
+ * defaultShowCode: true
+ */
 import React, { useState } from 'react';
 import type { Descendant } from 'slate';
 

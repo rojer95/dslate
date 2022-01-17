@@ -4,7 +4,6 @@ import { Space } from 'antd';
 import { usePluginHelper } from '../../contexts/PluginContext';
 import { ConfigContext } from '../../contexts/ConfigContext';
 
-import './index.less';
 import ToolbarItem from './ToolbarItem';
 
 import ToolbarButton from './ToolbarButton';

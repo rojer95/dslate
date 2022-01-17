@@ -1,13 +1,16 @@
 import DSlate from './components/DSlate';
-
+import AntdStyleEditor from './components/AntdStyleEditor';
 import Toolbar from './components/Toolbar';
 import IconFont from './components/IconFont';
 import Popover from './components/Popover';
-import defaultConfig from './defaultConfig';
+import Editable from './components/Editable';
+import Progress from './components/Progress';
+import Counter from './components/Counter';
 
-export { defaultConfig, Toolbar, IconFont, Popover };
+export { DSlate, Editable, Progress, Counter, Toolbar, IconFont, Popover };
 
 export { default as DefaultPlugin } from './plugins';
+export { default as defaultConfig } from './defaultConfig';
 
 import type { DSlateProps } from './components/DSlate/';
 import type {
@@ -24,4 +27,4 @@ export * from './contexts/ConfigContext';
 export * from './contexts/PluginContext';
 export * from './utils';
 
-export default DSlate;
+export default AntdStyleEditor;

@@ -39,6 +39,7 @@ const buildListNumber = (editor: Editor) => {
       let searchPath = path;
       let start = 1;
 
+      // 向上逐级查找同级列表，序号+1，如没有找到则设为1
       do {
         const pre = Editor.previous(editor, {
           at: searchPath,
@@ -268,17 +269,18 @@ const normalizeNode = (entry: NodeEntry, editor: Editor, next: NormalizeNode) =>
   next(entry);
 };
 
-const listStyles: Record<number, string> = {
+const defaultListStyles: Record<number, string> = {
   0: 'decimal',
   1: 'lower-alpha',
   2: 'lower-roman',
 };
 
-const renderStyle = (element: Descendant) => {
+const renderStyle = (element: Descendant, editor: Editor, props?: Record<string, any>) => {
   if (element.type === TYPE) {
+    const { listStyles } = props ?? {};
     const firstChildren = element.children?.[0];
     const indent = firstChildren ? firstChildren[TextIndentPlugin.type] : 0;
-    const listStyleType = !element[IS_ORDERED] ? 'disc' : listStyles[indent % 3];
+    const listStyleType = !element[IS_ORDERED] ? 'disc' : listStyles?.[indent % 3] ?? 'decimal';
     if (indent) {
       return {
         listStyleType,
@@ -312,6 +314,9 @@ const ListPlugin: DSlatePlugin = {
       unorder_tooltip: 'unordered list',
       order_tooltip: 'ordered list',
     },
+  },
+  props: {
+    listStyles: defaultListStyles,
   },
 };
 

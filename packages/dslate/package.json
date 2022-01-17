@@ -37,6 +37,7 @@
   "dependencies": {
     "@ant-design/icons": "^4.7.0",
     "classnames": "^2.3.1",
+    "is-hotkey": "^0.2.0",
     "nanoid": "^3.1.30",
     "react-color": "^2.19.3",
     "react-rnd": "^10.3.5",

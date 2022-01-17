@@ -9,6 +9,7 @@ export type GlobalPluginContextType = {
   enablePluginByType?: (key: string | string[]) => void;
   disablePluginByType?: (key: string | string[]) => void;
   setPercent?: (percent: number) => void;
+  percent?: number;
 };
 
 export type PluginContextType = {

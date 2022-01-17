@@ -13,7 +13,7 @@ export default function mergeStyle(
     if (!plugin.renderStyle) return { ...style };
     let gstyle = {};
     if (typeof plugin.renderStyle === 'function') {
-      gstyle = plugin.renderStyle(node, editor);
+      gstyle = plugin.renderStyle(node, editor, plugin.props);
     } else if (!!node[plugin.type]) {
       gstyle = plugin.renderStyle;
     }

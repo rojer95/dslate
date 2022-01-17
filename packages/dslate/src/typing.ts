@@ -27,7 +27,9 @@ export type DSlatePlugin = {
   toolbar?: React.ReactNode;
   renderElement?: (props: RenderElementPropsWithStyle, editor: Editor) => JSX.Element;
   renderLeaf?: (props: RenderLeafPropsWithStyle, editor: Editor) => JSX.Element;
-  renderStyle?: ((node: Descendant, editor: Editor) => CSSProperties) | CSSProperties;
+  renderStyle?:
+    | ((node: Descendant, editor: Editor, props?: Record<string, any>) => CSSProperties)
+    | CSSProperties;
   normalizeNode?: (entry: NodeEntry, editor: Editor, next: NormalizeNode) => void;
   withPlugin?: (editor: Editor) => Editor;
   onKeyDown?: (e: React.KeyboardEvent<HTMLDivElement>, editor: Editor) => void;
@@ -52,6 +54,15 @@ export interface RenderElementPropsWithStyle extends RenderElementProps {
 
 export interface RenderLeafPropsWithStyle extends RenderLeafProps {
   style?: CSSProperties;
+}
+
+export interface ProgressProps {
+  strokeWidth?: number;
+  showInfo?: boolean;
+}
+
+export interface ShowCountProps {
+  formatter: (args: { count: number }) => string;
 }
 
 export type UploadFunc = (options: UploadRequestOption) => void;

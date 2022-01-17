@@ -1,6 +1,7 @@
 import React from 'react';
 import zhCN from 'antd/lib/locale/zh_CN';
 import enUS from 'antd/lib/locale/en_US';
+import isHotkey from 'is-hotkey';
 import type { DSlatePlugin } from '../typing';
 
 import { useSlate } from 'slate-react';
@@ -19,7 +20,7 @@ const iconStyle = { opacity: 0.7, fontSize: '93%' };
 
 const renderStyle = (element: Descendant, editor: Editor) => {
   if (!!element[TYPE] && element.type === editor.defaultElement) {
-    return { textIndent: `${element[TYPE] * 2}em` };
+    return { paddingLeft: `${element[TYPE] * 2}em` };
   }
   return {};
 };
@@ -100,13 +101,16 @@ const withIndent = (editor: Editor) => {
 };
 
 const onKeyDown = (e: React.KeyboardEvent, editor: Editor) => {
-  if (e.key === 'Tab' && !e.altKey && !e.ctrlKey && !e.metaKey) {
+  if (isHotkey('tab', e)) {
     e.preventDefault();
-    if (e.shiftKey) {
-      decrease(editor);
-    } else {
-      increase(editor);
-    }
+    increase(editor);
+    return;
+  }
+
+  if (isHotkey('shift+tab', e)) {
+    e.preventDefault();
+    decrease(editor);
+    return;
   }
 };
 

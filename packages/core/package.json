@@ -3,7 +3,6 @@
   "version": "0.0.1",
   "description": "一个Ant Design风格的富文本编辑器 - An Ant Design style rich editor based on Slate",
   "keywords": [
-    "antd",
     "wysiwyg",
     "rich-editor",
     "ant-design",
@@ -41,7 +40,6 @@
     "slate-react": "^0.72.1"
   },
   "peerDependencies": {
-    "antd": "4.x",
     "react": ">=16.9.0",
     "react-dom": ">=16.9.0"
   },

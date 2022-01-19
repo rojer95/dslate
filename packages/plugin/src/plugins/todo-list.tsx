@@ -1,10 +1,8 @@
 import React from 'react';
-import { Checkbox } from 'antd';
-import zhCN from 'antd/lib/locale/zh_CN';
-import enUS from 'antd/lib/locale/en_US';
+import locale from '../locale';
 import { Editor, Transforms, Element } from 'slate';
 import { useSlate, ReactEditor } from 'slate-react';
-
+import { Checkbox } from 'antd';
 import { TYPE as LIST_TYPE, IS_ORDERED } from './list';
 import { IconFont, Toolbar } from '@dslate/component';
 import type { DSlatePlugin, RenderElementPropsWithStyle } from '@dslate/core';
@@ -92,14 +90,16 @@ const TodoListPlugin: DSlatePlugin = {
   toolbar: <ToolbarButton />,
   renderElement,
   withPlugin: withTodoList,
-  locale: {
-    [zhCN.locale]: {
+  locale: [
+    {
+      locale: locale.zhCN,
       tooltip: '任务列表',
     },
-    [enUS.locale]: {
+    {
+      locale: locale.enUS,
       tooltip: 'todo list',
     },
-  },
+  ],
 };
 
 export { TodoListPlugin };

@@ -1,5 +1,4 @@
 import React from 'react';
-import { ConfigProvider as AntdConfigProvider } from 'antd';
 import type { UploadRequestOption } from 'rc-upload/lib/interface';
 import defaultConfig from '../defaultConfig';
 import type { DSlatePlugin, Locale } from '../typing';
@@ -8,8 +7,8 @@ import { usePlugin } from './PluginContext';
 
 export type ConfigContextType = {
   plugins: DSlatePlugin[];
-  locales: Record<string, Locale>;
-  defauleLocale: string;
+  locales: Locale[];
+  locale: string;
   iconScriptUrl?: string | string[];
   customUploadRequest?: (options: UploadRequestOption) => void;
 };
@@ -28,17 +27,12 @@ export const useConfig = () => {
 
 export const useMessage = () => {
   const { type } = usePlugin();
-  const { locales, defauleLocale } = useConfig();
-  const { locale: antdLocale } = React.useContext(AntdConfigProvider.ConfigContext);
-
-  const key =
-    antdLocale && antdLocale.locale && locales[antdLocale.locale]
-      ? antdLocale.locale
-      : defauleLocale;
+  const { locales, locale } = useConfig();
 
   return (id: string, defaultMessage: string) => {
-    return (
-      get(locales[key] ?? {}, `${type ? `${type}.${id}` : id}`, defaultMessage) || defaultMessage
-    );
+    const targetLocale: Locale = locales.find((i) => i.locale === locale) ?? {
+      locale: 'default',
+    };
+    return get(targetLocale, `${type ? `${type}.${id}` : id}`, defaultMessage) || defaultMessage;
   };
 };

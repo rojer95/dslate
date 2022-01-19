@@ -1,8 +1,9 @@
-export { default as mergeStyle } from './mergeStyle';
-export { default as get } from './get';
+export { mergeStyle } from './mergeStyle';
+export { get } from './get';
 export { getTextProps, setTextProps, toggleTextProps } from './text';
 export { toggleBlock, getBlockProps, setBlockProps, isBlockActive, clearBlockProps } from './block';
-export { default as withPlugins } from './withPlugins';
-export { default as mergeLocalteFromPlugins } from './mergeLocalteFromPlugins';
-export { default as isStart } from './isStart';
-export { default as promiseUploadFunc } from './promiseUploadFunc';
+export { withPlugins } from './withPlugins';
+export { isStart } from './isStart';
+export { promiseUploadFunc } from './promiseUploadFunc';
+export { base64file } from './base64file';
+export { mergeLocalteFromPlugins } from './mergeLocalteFromPlugins';

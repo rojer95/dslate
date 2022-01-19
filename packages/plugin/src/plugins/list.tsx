@@ -1,6 +1,5 @@
 import React from 'react';
-import zhCN from 'antd/lib/locale/zh_CN';
-import enUS from 'antd/lib/locale/en_US';
+import locale from '../locale';
 import type { DSlatePlugin, NormalizeNode, RenderElementPropsWithStyle } from '@dslate/core';
 
 import { useSlate } from 'slate-react';
@@ -8,7 +7,7 @@ import { Toolbar, IconFont } from '@dslate/component';
 import { useMessage, getBlockProps, isBlockActive, isStart } from '@dslate/core';
 import type { Descendant, NodeEntry } from 'slate';
 import { Editor, Element, Transforms, Range, Node, Path } from 'slate';
-import { Space } from 'antd';
+
 import { TextIndentPlugin } from './indent';
 
 export const TYPE = 'list';
@@ -181,7 +180,7 @@ const ToolbarButton = () => {
   };
 
   return (
-    <Space>
+    <>
       <Toolbar.Button
         tooltip={getMessage('unorder_tooltip', '无序列表')}
         onClick={() => toggle(false)}
@@ -189,7 +188,6 @@ const ToolbarButton = () => {
       >
         <IconFont type="icon-unorderedList" />
       </Toolbar.Button>
-
       <Toolbar.Button
         tooltip={getMessage('order_tooltip', '有序列表')}
         onClick={() => toggle(true)}
@@ -197,7 +195,7 @@ const ToolbarButton = () => {
       >
         <IconFont type="icon-orderedList" />
       </Toolbar.Button>
-    </Space>
+    </>
   );
 };
 
@@ -303,16 +301,10 @@ const ListPlugin: DSlatePlugin = {
   renderStyle,
   normalizeNode,
   withPlugin: withList,
-  locale: {
-    [zhCN.locale]: {
-      unorder_tooltip: '无序列表',
-      order_tooltip: '有序列表',
-    },
-    [enUS.locale]: {
-      unorder_tooltip: 'unordered list',
-      order_tooltip: 'ordered list',
-    },
-  },
+  locale: [
+    { locale: locale.zhCN, unorder_tooltip: '无序列表', order_tooltip: '有序列表' },
+    { locale: locale.enUS, unorder_tooltip: 'unordered list', order_tooltip: 'ordered list' },
+  ],
   props: {
     listStyles: defaultListStyles,
   },

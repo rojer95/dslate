@@ -1,6 +1,5 @@
-import React, { useContext, useEffect } from 'react';
-import { Space } from 'antd';
-
+/* eslint-disable react/no-array-index-key */
+import React, { useContext, useEffect, useMemo } from 'react';
 import { usePluginHelper, ConfigContext } from '@dslate/core';
 
 import ToolbarItem from './ToolbarItem';
@@ -14,28 +13,40 @@ import type { ToolbarSelectProps } from './ToolbarSelect';
 import type { ToolbarModalProps } from './ToolbarModal';
 
 import { useFocused } from 'slate-react';
+import Divider from '../Divider';
 
-const Toolbar = () => {
+export interface ToolbarProps {
+  toolbar?: string[];
+}
+
+const Toolbar = ({ toolbar }: ToolbarProps) => {
   const { plugins } = useContext(ConfigContext);
   const { getPrefixCls, setVisibleKey } = usePluginHelper();
   const prefixCls = getPrefixCls?.('toolbar');
   const focused = useFocused();
+
   useEffect(() => {
     if (!focused) setVisibleKey?.(undefined);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [focused]);
 
-  return (
-    <div className={prefixCls}>
-      <Space wrap>
-        {plugins.map((plugin) => (
-          <ToolbarItem key={`${plugin?.uuid}`} plugin={plugin}>
-            {plugin?.toolbar}
+  const ToolbarItems = useMemo(() => {
+    return toolbar?.map((type, index) => {
+      if (type === 'divider') return <Divider key={`${type}-${index}`} />;
+      const plugin = plugins.find((i) => i.type === type);
+      if (plugin && plugin.toolbar) {
+        return (
+          <ToolbarItem plugin={plugin} key={`${type}-${index}`}>
+            {plugin.toolbar}
           </ToolbarItem>
-        ))}
-      </Space>
-    </div>
-  );
+        );
+      }
+      return null;
+    });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [toolbar]);
+
+  return <div className={prefixCls}>{ToolbarItems}</div>;
 };
 
 export { ToolbarButton, ToolbarSelect, ToolbarModal };

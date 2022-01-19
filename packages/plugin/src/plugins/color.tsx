@@ -1,34 +1,33 @@
 import React from 'react';
+
 import { TwitterPicker } from 'react-color';
-import zhCN from 'antd/lib/locale/zh_CN';
-import enUS from 'antd/lib/locale/en_US';
+import locale from '../locale';
 
-import { useSlate } from 'slate-react';
-import { Toolbar, IconFont } from '@dslate/component';
-import { usePlugin, useMessage, getTextProps, setTextProps } from '@dslate/core';
-
-import type { Descendant } from 'slate';
 import type { DSlatePlugin } from '@dslate/core';
 
+import { useSlate } from 'slate-react';
+import { IconFont, Toolbar } from '@dslate/component';
+import { useMessage, usePlugin, getTextProps, setTextProps } from '@dslate/core';
+import type { Descendant } from 'slate';
+
 const DEFAULT_COLOR = undefined;
-const TYPE = 'background-color';
+const TYPE = 'color';
 
 const renderStyle = (text: Descendant) => {
   if (text[TYPE]) {
-    return { backgroundColor: text[TYPE] as string };
+    return { color: text[TYPE] as string };
   }
   return {};
 };
 
 const ToolbarButton = () => {
   const editor = useSlate();
+  const getMessage = useMessage();
+  const { props } = usePlugin();
 
   const handleChangeComplete = (value: any) => {
     setTextProps(editor, TYPE, value?.hex ?? DEFAULT_COLOR);
   };
-
-  const getMessage = useMessage();
-  const { props } = usePlugin();
 
   return (
     <Toolbar.Modal
@@ -54,14 +53,14 @@ const ToolbarButton = () => {
           style={{
             fontSize: '80%',
           }}
-          type="icon-beijingse"
+          type="icon-zitiyanse"
         />
         <div
           style={{
             width: 14,
             height: 2,
             marginTop: 2,
-            backgroundColor: getTextProps(editor, TYPE, 'rgba(0,0,0,0.1)'),
+            backgroundColor: getTextProps(editor, TYPE, 'rgba(0,0,0,0.85)'),
           }}
         />
       </div>
@@ -69,14 +68,14 @@ const ToolbarButton = () => {
   );
 };
 
-const BackgroundColorPlugin: DSlatePlugin = {
-  type: TYPE,
+const ColorPlugin: DSlatePlugin = {
+  type: 'color',
   nodeType: 'text',
   toolbar: <ToolbarButton />,
   renderStyle,
   props: {
     colors: [
-      'transparent',
+      '#000000',
       '#FF6900',
       '#FCB900',
       '#7BDCB5',
@@ -88,14 +87,10 @@ const BackgroundColorPlugin: DSlatePlugin = {
       '#9900EF',
     ],
   },
-  locale: {
-    [zhCN.locale]: {
-      tooltip: '字体背景颜色',
-    },
-    [enUS.locale]: {
-      tooltip: 'font background color',
-    },
-  },
+  locale: [
+    { locale: locale.zhCN, tooltip: '字体颜色' },
+    { locale: locale.enUS, tooltip: 'font colore' },
+  ],
 };
 
-export { BackgroundColorPlugin };
+export { ColorPlugin };

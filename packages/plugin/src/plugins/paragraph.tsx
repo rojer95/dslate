@@ -1,7 +1,6 @@
 import React, { useEffect } from 'react';
 import type { NodeEntry } from 'slate';
-import zhCN from 'antd/lib/locale/zh_CN';
-import enUS from 'antd/lib/locale/en_US';
+import locale from '../locale';
 
 import { Editor, Element, Transforms, Node, Text } from 'slate';
 import { useSlate } from 'slate-react';
@@ -169,8 +168,9 @@ const ParagraphPlugin: DSlatePlugin = {
   renderElement,
   normalizeNode,
   isDefaultElement: true,
-  locale: {
-    [zhCN.locale]: {
+  locale: [
+    {
+      locale: locale.zhCN,
       tooltip: '段落与标题',
       paragraph: '正文',
       h1: '标题1',
@@ -178,7 +178,8 @@ const ParagraphPlugin: DSlatePlugin = {
       h3: '标题3',
       h4: '标题4',
     },
-    [enUS.locale]: {
+    {
+      locale: locale.enUS,
       tooltip: 'paragraph and title',
       paragraph: 'paragraph',
       h1: 'H1',
@@ -186,7 +187,7 @@ const ParagraphPlugin: DSlatePlugin = {
       h3: 'H3',
       h4: 'H4',
     },
-  },
+  ],
 };
 
 export { ParagraphPlugin };

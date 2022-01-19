@@ -1,30 +1,25 @@
 import type { DSlatePlugin, Locale } from '../typing';
 
-export default function mergeLocalteFromPlugins(
-  locales: Record<string, Locale>,
-  plugins: DSlatePlugin[],
-) {
-  const newLocales: Record<string, Locale> = { ...locales };
+export const mergeLocalteFromPlugins = (locales: Locale[], plugins: DSlatePlugin[]) => {
+  const newLocales: Locale[] = [...locales];
+
   for (const plugin of plugins) {
     if (!plugin.locale) continue;
 
-    const localeNames = Object.keys(plugin.locale);
-    for (const localeName of localeNames) {
-      if (!newLocales[localeName]) {
-        newLocales[localeName] = {
-          locale: localeName,
-        };
+    for (const { locale, ...languages } of plugin.locale) {
+      const target = newLocales.find((i) => i.locale === locale);
+      if (target) {
+        target[plugin.type] = languages;
+      } else {
+        newLocales.push({
+          locale,
+          [plugin.type]: {
+            ...languages,
+          },
+        });
       }
-
-      newLocales[localeName] = {
-        ...newLocales[localeName],
-        [plugin.type]: {
-          ...(newLocales[localeName][plugin.type] ?? {}),
-          ...plugin.locale[localeName],
-        },
-      };
     }
   }
 
   return newLocales;
-}
+};

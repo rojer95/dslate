@@ -2,7 +2,7 @@ import type { Editor, NodeEntry } from 'slate';
 import { nanoid } from 'nanoid';
 import type { DSlatePlugin } from '../typing';
 
-const withPlugins = (editor: Editor, plugins: DSlatePlugin[]) => {
+export const withPlugins = (editor: Editor, plugins: DSlatePlugin[]) => {
   return plugins.reduce<Editor>((preEditor, plugin) => {
     if (!plugin.uuid) plugin.uuid = `${plugin.type}_${nanoid()}`;
     const { isVoid, isInline, normalizeNode } = preEditor;
@@ -46,5 +46,3 @@ const withPlugins = (editor: Editor, plugins: DSlatePlugin[]) => {
     return preEditor;
   }, editor);
 };
-
-export default withPlugins;

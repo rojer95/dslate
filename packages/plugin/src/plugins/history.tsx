@@ -1,13 +1,11 @@
 import React from 'react';
 import { useSlate } from 'slate-react';
 import { withHistory } from 'slate-history';
-import zhCN from 'antd/lib/locale/zh_CN';
-import enUS from 'antd/lib/locale/en_US';
+import locale from '../locale';
 
 import { IconFont } from '@dslate/component';
 import type { DSlatePlugin } from '@dslate/core';
 import { useMessage } from '@dslate/core';
-import { Space } from 'antd';
 import { Toolbar } from '@dslate/component';
 
 const ToolbarButton = () => {
@@ -23,7 +21,7 @@ const ToolbarButton = () => {
   };
 
   return (
-    <Space>
+    <>
       <Toolbar.Button
         onClick={undo}
         tooltip={getMessage('undo.tooltip', '撤消')}
@@ -38,7 +36,7 @@ const ToolbarButton = () => {
       >
         <IconFont type="icon-redo1" />
       </Toolbar.Button>
-    </Space>
+    </>
   );
 };
 
@@ -47,8 +45,9 @@ const HistoryPlugin: DSlatePlugin = {
   nodeType: 'tool',
   toolbar: <ToolbarButton />,
   withPlugin: withHistory,
-  locale: {
-    [zhCN.locale]: {
+  locale: [
+    {
+      locale: locale.zhCN,
       undo: {
         tooltip: '撤销',
       },
@@ -56,7 +55,8 @@ const HistoryPlugin: DSlatePlugin = {
         tooltip: '重做',
       },
     },
-    [enUS.locale]: {
+    {
+      locale: locale.enUS,
       undo: {
         tooltip: 'undo',
       },
@@ -64,7 +64,7 @@ const HistoryPlugin: DSlatePlugin = {
         tooltip: 'redo',
       },
     },
-  },
+  ],
 };
 
 export { HistoryPlugin };

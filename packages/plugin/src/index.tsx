@@ -1,19 +1,18 @@
-import { ParagraphPlugin } from './paragraph';
-import { BoldPlugin } from './bold';
-import { DecorationPlugin } from './decoration';
-import { ItalicPlugin } from './italic';
-import { ColorPlugin } from './color';
-import { ClearPlugin } from './clear';
-import { DividerPlugin } from './divider';
-import { HistoryPlugin } from './history';
-import { BackgroundColorPlugin } from './background-color';
-import { FontSizePlugin } from './font-size';
-import { TextAlignPlugin } from './text-align';
-import { TextIndentPlugin } from './indent';
-import { ListPlugin, ListItemPlugin } from './list';
-import { TodoListPlugin } from './todo-list';
-import { ImgPlugin } from './img';
-import { LinkPlugin } from './link';
+import { ParagraphPlugin } from './plugins/paragraph';
+import { BoldPlugin } from './plugins/bold';
+import { DecorationPlugin } from './plugins/decoration';
+import { ItalicPlugin } from './plugins/italic';
+import { ColorPlugin } from './plugins/color';
+import { ClearPlugin } from './plugins/clear';
+import { HistoryPlugin } from './plugins/history';
+import { BackgroundColorPlugin } from './plugins/background-color';
+import { FontSizePlugin } from './plugins/font-size';
+import { TextAlignPlugin } from './plugins/text-align';
+import { TextIndentPlugin } from './plugins/indent';
+import { ListPlugin, ListItemPlugin } from './plugins/list';
+import { TodoListPlugin } from './plugins/todo-list';
+import { ImgPlugin } from './plugins/img';
+import { LinkPlugin } from './plugins/link';
 
 export default {
   HistoryPlugin,
@@ -23,7 +22,6 @@ export default {
   DecorationPlugin,
   ItalicPlugin,
   ColorPlugin,
-  DividerPlugin,
   BackgroundColorPlugin,
   FontSizePlugin,
   TextAlignPlugin,

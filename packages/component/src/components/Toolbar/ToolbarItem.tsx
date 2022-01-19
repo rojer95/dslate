@@ -1,5 +1,5 @@
 import React from 'react';
-import { PluginUuidContext } from '@dslate/core';
+import { PluginUuidContext, usePluginHelper } from '@dslate/core';
 import type { DSlatePlugin } from '@dslate/core';
 
 interface ToolbarItemProps {
@@ -7,8 +7,9 @@ interface ToolbarItemProps {
 }
 
 const ToolbarItem: React.FC<ToolbarItemProps> = ({ children, plugin }) => {
-  if (!children) return null;
+  const { getPrefixCls } = usePluginHelper();
 
+  if (!children) return null;
   return (
     <PluginUuidContext.Provider
       value={{
@@ -17,6 +18,7 @@ const ToolbarItem: React.FC<ToolbarItemProps> = ({ children, plugin }) => {
       }}
     >
       <div
+        className={getPrefixCls?.('toolbar-item')}
         onMouseDown={(event) => {
           const target: any = event.target;
           if (target && target?.nodeName === 'INPUT') return;

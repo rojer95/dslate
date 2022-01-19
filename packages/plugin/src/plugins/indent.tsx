@@ -1,6 +1,5 @@
 import React from 'react';
-import zhCN from 'antd/lib/locale/zh_CN';
-import enUS from 'antd/lib/locale/en_US';
+import locale from '../locale';
 import isHotkey from 'is-hotkey';
 import type { DSlatePlugin } from '@dslate/core';
 
@@ -10,7 +9,6 @@ import { useMessage, getBlockProps, setBlockProps, clearBlockProps } from '@dsla
 import { IconFont } from '@dslate/component';
 import { Editor, Range } from 'slate';
 import type { Descendant } from 'slate';
-import { Space } from 'antd';
 
 const DEFAULT_VALUE = 0;
 const TYPE = 'text-indent';
@@ -45,7 +43,7 @@ const ToolbarButton = () => {
   const getMessage = useMessage();
 
   return (
-    <Space>
+    <>
       <Toolbar.Button
         onClick={() => increase(editor)}
         tooltip={getMessage('indent.tooltip', '增加缩进')}
@@ -59,7 +57,7 @@ const ToolbarButton = () => {
       >
         <IconFont type="icon-outdent" style={iconStyle} />
       </Toolbar.Button>
-    </Space>
+    </>
   );
 };
 
@@ -119,8 +117,9 @@ const TextIndentPlugin: DSlatePlugin = {
   renderStyle,
   withPlugin: withIndent,
   onKeyDown,
-  locale: {
-    [zhCN.locale]: {
+  locale: [
+    {
+      locale: locale.zhCN,
       indent: {
         tooltip: '增加缩进',
       },
@@ -128,7 +127,8 @@ const TextIndentPlugin: DSlatePlugin = {
         tooltip: '减少缩进',
       },
     },
-    [enUS.locale]: {
+    {
+      locale: locale.enUS,
       indent: {
         tooltip: 'increase indent',
       },
@@ -136,7 +136,7 @@ const TextIndentPlugin: DSlatePlugin = {
         tooltip: 'decrease indent',
       },
     },
-  },
+  ],
 };
 
 export { TextIndentPlugin };

@@ -1,6 +1,6 @@
 import zhCN from 'antd/lib/locale/zh_CN';
 
-import type { Locale } from '../typing';
+import type { Locale } from '@dslate/core';
 
 const localeValues: Locale = {
   locale: zhCN.locale,

@@ -33,7 +33,7 @@ export type DSlatePlugin = {
   withPlugin?: (editor: Editor) => Editor;
   onKeyDown?: (e: React.KeyboardEvent<HTMLDivElement>, editor: Editor) => void;
   isDefaultElement?: boolean;
-  locale?: Record<string, any>;
+  locale?: Locale[];
   props?: Record<string, any>;
 };
 

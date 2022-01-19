@@ -1,6 +1,6 @@
 import { Editor, Range, Element, Point } from 'slate';
 
-export default function isStart(editor: Editor, type: string) {
+export const isStart = (editor: Editor, type: string) => {
   const selection = editor.selection;
   if (selection && Range.isCollapsed(selection)) {
     const [match] = Editor.nodes(editor, {
@@ -16,4 +16,4 @@ export default function isStart(editor: Editor, type: string) {
     }
   }
   return false;
-}
+};

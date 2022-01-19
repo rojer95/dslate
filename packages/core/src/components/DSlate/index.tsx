@@ -2,9 +2,9 @@ import React, { useCallback, useMemo, useState } from 'react';
 import type { Descendant } from 'slate';
 import { createEditor } from 'slate';
 import { Slate, withReact } from 'slate-react';
-import { ConfigConsumer, ConfigProvider, useConfig } from '../../contexts/ConfigContext';
+import { useConfig } from '../../contexts/ConfigContext';
 import { GlobalPluginProvider } from '../../contexts/PluginContext';
-import { withPlugins, mergeLocalteFromPlugins } from '../../utils';
+import { withPlugins } from '../../utils';
 
 export interface DSlateProps {
   value: Descendant[];
@@ -19,6 +19,7 @@ const DSlate = ({
   children,
 }: React.PropsWithChildren<DSlateProps>) => {
   const { plugins = [] } = useConfig();
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   const editor = useMemo(() => withPlugins(withReact(createEditor()), plugins), []);
   const [visibleKey, setVisibleKey] = useState<React.Key | undefined>(undefined);
 
@@ -50,35 +51,22 @@ const DSlate = ({
   );
 
   return (
-    <ConfigConsumer>
-      {(wrapValue) => {
-        return (
-          <ConfigProvider
-            value={{
-              ...wrapValue,
-              locales: mergeLocalteFromPlugins(wrapValue.locales, wrapValue.plugins),
-            }}
-          >
-            <GlobalPluginProvider
-              value={{
-                getPrefixCls,
-                visibleKey: visibleKey,
-                setVisibleKey: setVisibleKey,
-                disabledTypes,
-                enablePluginByType,
-                disablePluginByType,
-                setPercent,
-                percent,
-              }}
-            >
-              <Slate editor={editor} value={value} onChange={onChange}>
-                {children}
-              </Slate>
-            </GlobalPluginProvider>
-          </ConfigProvider>
-        );
+    <GlobalPluginProvider
+      value={{
+        getPrefixCls,
+        visibleKey: visibleKey,
+        setVisibleKey: setVisibleKey,
+        disabledTypes,
+        enablePluginByType,
+        disablePluginByType,
+        setPercent,
+        percent,
       }}
-    </ConfigConsumer>
+    >
+      <Slate editor={editor} value={value} onChange={onChange}>
+        {children}
+      </Slate>
+    </GlobalPluginProvider>
   );
 };
 

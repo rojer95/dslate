@@ -1,11 +1,9 @@
 import React from 'react';
 import { Editor, Node, Path, Point, Range, Text, Transforms } from 'slate';
-import zhCN from 'antd/lib/locale/zh_CN';
-import enUS from 'antd/lib/locale/en_US';
-import { Input, Space } from 'antd';
+import locale from '../locale';
 import { ReactEditor, useSelected, useSlate } from 'slate-react';
 import { IconFont, Toolbar, Popover } from '@dslate/component';
-
+import { Input, Space } from 'antd';
 import { isBlockActive, useMessage } from '@dslate/core';
 
 import type { NodeEntry } from 'slate';
@@ -175,16 +173,10 @@ const LinkPlugin: DSlatePlugin = {
   toolbar: <ToolbarButton />,
   withPlugin,
   normalizeNode,
-  locale: {
-    [zhCN.locale]: {
-      link: '链接',
-      clear: '清除链接',
-    },
-    [enUS.locale]: {
-      link: 'link',
-      clear: 'clear link',
-    },
-  },
+  locale: [
+    { locale: locale.zhCN, link: '链接', clear: '清除链接' },
+    { locale: locale.enUS, link: 'link', clear: 'clear link' },
+  ],
 };
 
 export { LinkPlugin };

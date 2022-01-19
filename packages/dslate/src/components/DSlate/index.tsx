@@ -17,6 +17,7 @@ const AntdStyleEditor = ({
   showCount = false,
   disabled = false,
   placeholder,
+  toolbar,
   progress = {
     strokeWidth: 2,
     showInfo: false,
@@ -40,7 +41,7 @@ const AntdStyleEditor = ({
               [`${prefixCls}-focused`]: focused,
             })}
           >
-            <Toolbar />
+            <Toolbar toolbar={toolbar} />
             <Progress
               progress={{
                 ...progress,

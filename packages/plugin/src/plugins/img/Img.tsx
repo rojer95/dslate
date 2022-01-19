@@ -1,15 +1,13 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import { Divider, InputNumber, Space, Spin, Upload } from 'antd';
 import classNames from 'classnames';
 import React, { useEffect, useRef, useState } from 'react';
 import { ReactEditor, useSelected, useSlate } from 'slate-react';
 import { Rnd } from 'react-rnd';
-
-import { usePluginHelper, useConfig, useMessage, promiseUploadFunc } from '@dslate/core';
-import { IconFont, Toolbar, Popover } from '@dslate/component';
+import { InputNumber, Spin, Upload, Space } from 'antd';
+import { usePluginHelper, useConfig, useMessage, promiseUploadFunc, usePlugin } from '@dslate/core';
+import { IconFont, Toolbar, Popover, Divider } from '@dslate/component';
 import type { RenderElementPropsWithStyle } from '@dslate/core';
 import { Transforms } from 'slate';
-import { file2base64 } from './file2base64';
 import type { UploadRequestOption } from 'rc-upload/lib/interface';
 
 type Draggable = {
@@ -18,12 +16,14 @@ type Draggable = {
   height?: number;
 };
 
+const prefixCls = 'dslate-img-element';
+
 const Img = ({ attributes, children, element, style }: RenderElementPropsWithStyle) => {
-  const { getPrefixCls, setPercent } = usePluginHelper();
+  const { setPercent } = usePluginHelper();
   const { customUploadRequest } = useConfig();
+  const { props } = usePlugin();
 
   const getMessage = useMessage();
-  const prefixCls = getPrefixCls?.('img');
 
   const image = useRef<HTMLImageElement>(null);
   const rnd = useRef<Rnd>(null);
@@ -104,7 +104,7 @@ const Img = ({ attributes, children, element, style }: RenderElementPropsWithSty
   };
 
   const updateUrl = async (option: UploadRequestOption) => {
-    const { url } = await promiseUploadFunc(customUploadRequest ?? file2base64, option, setPercent);
+    const { url } = await promiseUploadFunc(option, customUploadRequest, setPercent);
     Transforms.setNodes(
       editor,
       {
@@ -142,7 +142,7 @@ const Img = ({ attributes, children, element, style }: RenderElementPropsWithSty
                   <IconFont type="icon-image1" />
                 </Toolbar.Button>
               </Upload>
-              <Divider type="vertical" />
+              <Divider />
               <span>{getMessage('width', '宽')}</span>
               <InputNumber
                 value={editable.width}
@@ -167,7 +167,7 @@ const Img = ({ attributes, children, element, style }: RenderElementPropsWithSty
               selected: selected,
             })}
           >
-            <Spin spinning={loading}>
+            <Spin spinning={loading} tip={getMessage('loading', '图片加载中')}>
               {loading ? null : (
                 <Rnd
                   ref={rnd}
@@ -229,6 +229,7 @@ const Img = ({ attributes, children, element, style }: RenderElementPropsWithSty
                 style={{
                   ...style,
                   visibility: loading ? 'hidden' : 'visible',
+                  ...(loading ? props?.loadingMinSize : {}),
                 }}
                 onLoad={onImageLoad}
               />

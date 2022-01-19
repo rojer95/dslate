@@ -59,7 +59,7 @@ export default () => {
         plugins: [ColorPlugin, CustomPlugin],
       }}
     >
-      <DSlate value={value} onChange={setValue} />
+      <DSlate value={value} onChange={setValue} toolbar={['color', 'divider', 'custom']} />
     </ConfigProvider>
   );
 };

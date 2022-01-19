@@ -1,12 +1,12 @@
 import type { Descendant, Editor } from 'slate';
 import type { DSlatePlugin } from '../typing';
 
-export default function mergeStyle(
+export const mergeStyle = (
   node: Descendant,
   plugins: DSlatePlugin[],
   nodeType: string,
   editor: Editor,
-) {
+) => {
   const targetPlugins = plugins.filter((i) => i.nodeType === nodeType) as DSlatePlugin[];
   return targetPlugins.reduce((preStyle, plugin) => {
     const style: any = { ...preStyle };
@@ -19,4 +19,4 @@ export default function mergeStyle(
     }
     return { ...style, ...gstyle };
   }, {});
-}
+};

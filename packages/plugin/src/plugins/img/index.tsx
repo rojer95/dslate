@@ -1,12 +1,11 @@
 import React from 'react';
-import { Upload } from 'antd';
 import { Transforms } from 'slate';
 import { useSlate } from 'slate-react';
 
 import { IconFont, Toolbar } from '@dslate/component';
+import { Upload } from 'antd';
 
 import Img from './Img';
-import { file2base64 } from './file2base64';
 import { promiseUploadFunc, usePluginHelper, useConfig, useMessage } from '@dslate/core';
 
 import type { Descendant } from 'slate';
@@ -15,8 +14,7 @@ import type { UploadRequestOption } from 'rc-upload/lib/interface';
 
 import type { DSlatePlugin, RenderElementPropsWithStyle } from '@dslate/core';
 
-import zhCN from 'antd/lib/locale/zh_CN';
-import enUS from 'antd/lib/locale/en_US';
+import locale from '../../locale';
 
 import './index.less';
 
@@ -43,7 +41,7 @@ const ToolbarButton = () => {
   const getMessage = useMessage();
 
   const insertImg = async (option: UploadRequestOption) => {
-    const { url } = await promiseUploadFunc(customUploadRequest ?? file2base64, option, setPercent);
+    const { url } = await promiseUploadFunc(option, customUploadRequest, setPercent);
     Transforms.insertNodes(editor, { type: TYPE, url, children: [{ text: '' }] });
   };
 
@@ -69,20 +67,30 @@ const ImgPlugin: DSlatePlugin = {
   isInline: true,
   renderElement,
   renderStyle,
-  locale: {
-    [zhCN.locale]: {
+  props: {
+    loadingMinSize: {
+      minHeight: 150,
+      minWidth: 300,
+    },
+  },
+  locale: [
+    {
+      locale: locale.zhCN,
       tooltip: '上传图片',
       change: '修改图片',
       height: '高',
       width: '宽',
+      loading: '图片加载中',
     },
-    [enUS.locale]: {
+    {
+      locale: locale.enUS,
       tooltip: 'upload image',
       change: 'change image',
       height: 'height',
       width: 'width',
+      loading: 'loading',
     },
-  },
+  ],
 };
 
 export { ImgPlugin };

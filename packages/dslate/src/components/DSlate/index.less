@@ -14,8 +14,20 @@
   padding: @input-padding-vertical-base 0px;
 
   &-toolbar {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
     padding: @input-padding-vertical-base @input-padding-horizontal-base;
+    column-gap: 8px;
     border-bottom: 1px solid @border-color-base;
+    row-gap: 8px;
+
+    &-item {
+      display: flex;
+      flex-wrap: wrap;
+      column-gap: 8px;
+      row-gap: 8px;
+    }
 
     &-button {
       display: flex;
@@ -147,5 +159,54 @@
     .@{ant-popover-inner-content} {
       padding: 0;
     }
+  }
+
+  &-img {
+    position: relative;
+    display: inline-block;
+    border: 1px solid transparent;
+
+    &:hover {
+      border-color: @primary-color-outline;
+    }
+
+    &.selected {
+      border-color: transparent;
+    }
+
+    &-drag {
+      border: 1px solid @primary-color;
+      visibility: hidden;
+
+      &.selected {
+        visibility: visible;
+      }
+
+      .size-content {
+        display: none;
+        align-items: center;
+        justify-content: center;
+        width: 100%;
+        height: 100%;
+        color: #ffffff;
+        background-color: rgba(0, 0, 0, 0.5);
+      }
+
+      &.draging {
+        .size-content {
+          display: flex;
+        }
+      }
+    }
+  }
+
+  &-divider {
+    position: relative;
+    top: -0.06em;
+    display: inline-block;
+    height: 0.9em;
+    margin: 0 8px;
+    vertical-align: middle;
+    border-left: @border-width-base solid @divider-color;
   }
 }

@@ -1,9 +1,7 @@
 import React from 'react';
 import { useSlate } from 'slate-react';
-import zhCN from 'antd/lib/locale/zh_CN';
-import enUS from 'antd/lib/locale/en_US';
+import locale from '../locale';
 
-import { Space } from 'antd';
 import type { Descendant } from 'slate';
 
 import { IconFont, Toolbar } from '@dslate/component';
@@ -18,7 +16,7 @@ const ToolbarButton = () => {
   const getMessage = useMessage();
 
   return (
-    <Space>
+    <>
       <Toolbar.Button
         active={getTextProps(editor, 'underline')}
         onClick={() => {
@@ -37,7 +35,7 @@ const ToolbarButton = () => {
       >
         <IconFont type="icon-strikethrough" />
       </Toolbar.Button>
-    </Space>
+    </>
   );
 };
 
@@ -59,8 +57,9 @@ const DecorationPlugin: DSlatePlugin = {
   nodeType: 'text',
   toolbar: <ToolbarButton />,
   renderStyle: renderStyle,
-  locale: {
-    [zhCN.locale]: {
+  locale: [
+    {
+      locale: locale.zhCN,
       underline: {
         tooltip: '下划线',
       },
@@ -68,7 +67,8 @@ const DecorationPlugin: DSlatePlugin = {
         tooltip: '删除线',
       },
     },
-    [enUS.locale]: {
+    {
+      locale: locale.enUS,
       underline: {
         tooltip: 'underline',
       },
@@ -76,7 +76,7 @@ const DecorationPlugin: DSlatePlugin = {
         tooltip: 'strikethrough',
       },
     },
-  },
+  ],
 };
 
 export { DecorationPlugin };

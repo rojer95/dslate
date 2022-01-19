@@ -1,10 +1,22 @@
-@root-entry-name: 'default';
-@import (reference) '~antd/es/style/themes/index.less';
-@import (reference) '~antd/es/style/mixins/index.less';
+@outline-fade: 20%;
+@primary-color: #1890ff;
+@primary-color-outline: fade(@primary-color, @outline-fade);
 
-@dslate-prefix-cls: ~'@{ant-prefix}-dslate';
+@dslate-img-prefix-cls: ~'dslate-img-element';
 
-@dslate-img-prefix-cls: ~'@{dslate-prefix-cls}-img';
+.resize-handle-wrapper {
+  > div {
+    &::after {
+      display: block;
+      width: 14px;
+      height: 14px;
+      margin: 3px;
+      background-color: @primary-color;
+      border-radius: 7px;
+      content: '';
+    }
+  }
+}
 
 .@{dslate-img-prefix-cls} {
   position: relative;
@@ -25,20 +37,6 @@
 
     &.selected {
       visibility: visible;
-    }
-
-    .resize-handle-wrapper {
-      > div {
-        &::after {
-          display: block;
-          width: 14px;
-          height: 14px;
-          margin: 3px;
-          background-color: @primary-color;
-          border-radius: 7px;
-          content: '';
-        }
-      }
     }
 
     .size-content {

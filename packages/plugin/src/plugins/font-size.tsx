@@ -1,6 +1,5 @@
 import React from 'react';
-import zhCN from 'antd/lib/locale/zh_CN';
-import enUS from 'antd/lib/locale/en_US';
+import locale from '../locale';
 import type { DSlatePlugin } from '@dslate/core';
 
 import { useSlate } from 'slate-react';
@@ -48,14 +47,10 @@ const FontSizePlugin: DSlatePlugin = {
   nodeType: 'text',
   toolbar: <ToolbarButton />,
   renderStyle,
-  locale: {
-    [zhCN.locale]: {
-      tooltip: '字体大小',
-    },
-    [enUS.locale]: {
-      tooltip: 'font size',
-    },
-  },
+  locale: [
+    { locale: locale.zhCN, tooltip: '字体大小' },
+    { locale: locale.enUS, tooltip: 'font size' },
+  ],
 };
 
 export { FontSizePlugin };

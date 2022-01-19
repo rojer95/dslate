@@ -35,6 +35,7 @@
     "ie >= 11"
   ],
   "dependencies": {
+    "@babel/runtime": "^7.16.3",
     "@dslate/component": "^0.0.3",
     "@dslate/core": "^0.0.3",
     "classnames": "^2.3.1",
@@ -58,6 +59,5 @@
   ],
   "devDependencies": {
     "@types/react-color": "^3.0.6"
-  },
-  "gitHead": "114bf660fee2c13bc241fc561b014c1b70d7ea99"
+  }
 }

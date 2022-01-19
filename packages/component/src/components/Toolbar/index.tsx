@@ -1,6 +1,6 @@
 /* eslint-disable react/no-array-index-key */
 import React, { useContext, useEffect, useMemo } from 'react';
-import { usePluginHelper, ConfigContext } from '@dslate/core';
+import { usePluginHelper, ConfigContext, DSlatePlugin } from '@dslate/core';
 
 import ToolbarItem from './ToolbarItem';
 
@@ -33,7 +33,7 @@ const Toolbar = ({ toolbar }: ToolbarProps) => {
   const ToolbarItems = useMemo(() => {
     return toolbar?.map((type, index) => {
       if (type === 'divider') return <Divider key={`${type}-${index}`} />;
-      const plugin = plugins.find((i) => i.type === type);
+      const plugin = plugins.find((i: DSlatePlugin) => i.type === type);
       if (plugin && plugin.toolbar) {
         return (
           <ToolbarItem plugin={plugin} key={`${type}-${index}`}>

@@ -35,6 +35,7 @@
     "ie >= 11"
   ],
   "dependencies": {
+    "@babel/runtime": "^7.16.3",
     "nanoid": "^3.1.30",
     "slate": "^0.72.0",
     "slate-react": "^0.72.1"
@@ -48,6 +49,5 @@
   },
   "authors": [
     "rojer <rojerchen@qq.com> (https://github.com/rojer95)"
-  ],
-  "gitHead": "114bf660fee2c13bc241fc561b014c1b70d7ea99"
+  ]
 }

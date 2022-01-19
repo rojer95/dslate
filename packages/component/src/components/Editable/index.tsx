@@ -9,8 +9,7 @@ import {
   useMessage,
 } from '@dslate/core';
 
-import type { RenderElementProps } from 'slate-react';
-import type { DSlatePlugin } from '@dslate/core';
+import type { DSlatePlugin, RenderElementPropsWithStyle } from '@dslate/core';
 
 interface EditableProps {
   disabled?: boolean;
@@ -25,10 +24,10 @@ export default ({ disabled = false, placeholder }: EditableProps) => {
 
   const prefixCls = getPrefixCls?.('editable');
 
-  const renderElement = useCallback((props: RenderElementProps) => {
+  const renderElement = useCallback((props: RenderElementPropsWithStyle) => {
     const style = mergeStyle(props.element, plugins, 'element', editor);
     const plugin = plugins.find(
-      (i) => i.nodeType === 'element' && i.type === props.element.type,
+      (i: DSlatePlugin) => i.nodeType === 'element' && i.type === props.element.type,
     ) as DSlatePlugin | undefined;
 
     let dom;
@@ -44,7 +43,7 @@ export default ({ disabled = false, placeholder }: EditableProps) => {
         </PluginUuidContext.Provider>
       );
     } else {
-      const defaultElementPlugin = plugins.find((p) => p.isDefaultElement);
+      const defaultElementPlugin = plugins.find((p: DSlatePlugin) => p.isDefaultElement);
 
       if (defaultElementPlugin && defaultElementPlugin.renderElement) {
         dom = (
@@ -66,7 +65,7 @@ export default ({ disabled = false, placeholder }: EditableProps) => {
   const renderLeaf = useCallback((props) => {
     const { attributes, children, leaf } = props;
     const needRenderPlugin = plugins.find(
-      (i) => i.nodeType === 'text' && i.type in leaf && !!i.renderLeaf,
+      (i: DSlatePlugin) => i.nodeType === 'text' && i.type in leaf && !!i.renderLeaf,
     ) as DSlatePlugin | undefined;
 
     const style = mergeStyle(leaf, plugins, 'text', editor);

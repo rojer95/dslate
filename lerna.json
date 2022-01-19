@@ -19,8 +19,13 @@
   ],
   "packages": ["packages/*"],
   "command": {
+    "version": {
+      "allowBranch": "master",
+      "includeMergedTags": true
+    },
     "publish": {
-      "message": "chore(release): :european_castle: publish"
+      "message": "chore(release): :european_castle: publish",
+      "registry": "https://registry.npmjs.org/"
     }
   }
 }

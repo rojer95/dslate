@@ -1,11 +1,17 @@
-# `@dslate/component`
+# dslate
 
-> TODO: description
+See our website [dslate](http://rojer95.github.io/dslate) for more information.
 
-## Usage
+## Install
 
+Using npm:
+
+```bash
+$ npm install --save  @dslate/component
 ```
-const component = require('@dslate/component');
 
-// TODO: DEMONSTRATE API
+or using yarn:
+
+```bash
+$ yarn add  @dslate/component
 ```

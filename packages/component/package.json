@@ -1,6 +1,6 @@
 {
   "name": "@dslate/component",
-  "version": "0.0.3",
+  "version": "0.0.1",
   "description": "DSlate组件 - Component of DSlate",
   "keywords": [
     "antd",
@@ -38,7 +38,7 @@
   "dependencies": {
     "@babel/runtime": "^7.16.3",
     "@ant-design/icons": "^4.7.0",
-    "@dslate/core": "^0.0.3",
+    "@dslate/core": "^0.0.1",
     "classnames": "^2.3.1",
     "slate": "^0.72.0",
     "slate-react": "^0.72.1"

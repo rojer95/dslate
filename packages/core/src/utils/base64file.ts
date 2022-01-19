@@ -1,5 +1,5 @@
 import type { RcFile } from 'antd/lib/upload';
-import type { UploadFunc } from '@dslate/core';
+import type { UploadFunc } from '../typing';
 import type { UploadRequestOption } from 'rc-upload/lib/interface';
 
 export const base64file: UploadFunc = (option: UploadRequestOption) => {

@@ -29,7 +29,7 @@ DSlate 与 Ant Design 设计体系一脉相承，无缝对接 antd 项目。因�
 
 ### locale
 
-locale 是一个 `Record<string, any>` 的 `KEY-VALUE` 类型的参数，其中 `KEY` 必须为 antd 文案提供的 `locale` 值， `VALUE` 为具体的国际化的文案内容。
+locale 是一个 `Locale` 数组，其中 `locale` 必须为 antd 的语言包相同， `VALUE` 为具体的国际化的文案内容。
 
 ```tsx | pure
 import type { DSlatePlugin } from '@dslate/core';
@@ -37,16 +37,16 @@ import zhCN from 'antd/lib/locale/zh_CN';
 import enUS from 'antd/lib/locale/en_US';
 
 const Plugin: DSlatePlugin = {
-  locale: {
-    // 对应Antd的中文
-    [zhCN.locale]: {
+  locale: [
+    {
+      locale: zhCN.locale, // 对应Antd的中文
       tooltip: '加粗',
     },
-    // 对应Antd的英文
-    [enUS.locale]: {
-      tooltip: 'bold',
+    {
+      locale: enUS.locale, // 对应Antd的英文
+      tooltip: '加粗',
     },
-  },
+  ],
 };
 ```
 
@@ -99,14 +99,16 @@ const BoldPlugin: DSlatePlugin = {
   nodeType: 'text',
   toolbar: <Button />,
   renderStyle: { fontWeight: 'bold' },
-  locale: {
-    [zhCN.locale]: {
+  locale: [
+    {
+      locale: zhCN.locale, // 对应Antd的中文
       tooltip: '加粗',
     },
-    [enUS.locale]: {
-      tooltip: 'bold',
+    {
+      locale: enUS.locale, // 对应Antd的英文
+      tooltip: '加粗',
     },
-  },
+  ],
 };
 
 export { BoldPlugin };

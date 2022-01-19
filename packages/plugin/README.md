@@ -1,11 +1,11 @@
-# `@dslate/dslate`
+# `@dslate/plugins`
 
 > TODO: description
 
 ## Usage
 
 ```
-const dslate = require('@dslate/dslate');
+const plugins = require('@dslate/plugins');
 
 // TODO: DEMONSTRATE API
 ```

@@ -1,7 +1,7 @@
 {
-  "name": "@dslate/dslate",
+  "name": "@dslate/plugin",
   "version": "0.0.1",
-  "description": "一个Ant Design风格的富文本编辑器 - An Ant Design style rich editor based on Slate",
+  "description": "DSlate预设插件 - Preset plugin of DSlate",
   "keywords": [
     "antd",
     "wysiwyg",
@@ -14,7 +14,7 @@
   "sideEffects": [
     "*.less"
   ],
-  "homepage": "https://github.com/rojer95/dslate/tree/master/packages/dslate#readme",
+  "homepage": "https://github.com/rojer95/dslate/tree/master/packages/plugin#readme",
   "bugs": "https://github.com/rojer95/dslate/issues",
   "repository": {
     "type": "git",
@@ -37,11 +37,14 @@
   ],
   "dependencies": {
     "classnames": "^2.3.1",
+    "is-hotkey": "^0.2.0",
+    "react-color": "^2.19.3",
+    "react-rnd": "^10.3.5",
     "slate": "^0.72.0",
+    "slate-history": "^0.66.0",
     "slate-react": "^0.72.1",
     "@dslate/core": "^0.0.1",
-    "@dslate/component": "^0.0.1",
-    "@dslate/plugin": "^0.0.1"
+    "@dslate/component": "^0.0.1"
   },
   "peerDependencies": {
     "antd": "4.x",

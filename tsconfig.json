@@ -10,7 +10,10 @@
     "skipLibCheck": true,
     "declaration": true,
     "paths": {
-      "@dslate/core": ["./packages/dslate/src/index.tsx"]
+      "@dslate/core": ["./packages/core/src/index.tsx"],
+      "@dslate/plugin": ["./packages/plugin/src/index.tsx"],
+      "@dslate/component": ["./packages/component/src/index.tsx"],
+      "@dslate/dslate": ["./packages/dslate/src/index.tsx"]
     }
   }
 }

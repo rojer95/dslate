@@ -1,85 +1,65 @@
-import React, { useCallback, useMemo, useState } from 'react';
-import type { Descendant } from 'slate';
-import { createEditor } from 'slate';
-import { Slate, withReact } from 'slate-react';
-import { ConfigConsumer, ConfigProvider, useConfig } from '../../contexts/ConfigContext';
-import { GlobalPluginProvider } from '../../contexts/PluginContext';
-import { withPlugins, mergeLocalteFromPlugins } from '../../utils';
+import React, { useContext } from 'react';
+import classNames from 'classnames';
+import { ConfigProvider as AntdConfigProvider } from 'antd';
+import { useFocused } from 'slate-react';
+import SizeContext from 'antd/lib/config-provider/SizeContext';
 
-export interface DSlateProps {
-  value: Descendant[];
-  onChange: (value: Descendant[]) => void;
-  prefixCls?: string;
-}
+import DSlate, { usePluginHelper } from '@dslate/core';
+import { Toolbar, Progress, Editable, Counter } from '@dslate/component';
 
-const DSlate = ({
-  value,
-  onChange,
-  prefixCls = 'dslate',
-  children,
-}: React.PropsWithChildren<DSlateProps>) => {
-  const { plugins } = useConfig();
-  const editor = useMemo(() => withPlugins(withReact(createEditor()), plugins), []);
-  const [visibleKey, setVisibleKey] = useState<React.Key | undefined>(undefined);
+import type { AntdStyleDSlateProps } from '../../typing';
 
-  const [percent, setPercent] = useState(0);
+import './index.less';
 
-  const getPrefixCls = useCallback(
-    (key: string) => {
-      return `${prefixCls}${key ? `-${key}` : ''}`;
-    },
-    [prefixCls],
-  );
-
-  const [disabledTypes, setDisabledTypes] = useState<string[]>([]);
-
-  const enablePluginByType = useCallback(
-    (type: string | string[]) => {
-      const types: string[] = Array.isArray(type) ? type : [type];
-      setDisabledTypes(disabledTypes.filter((i) => !types.includes(i)));
-    },
-    [disabledTypes],
-  );
-
-  const disablePluginByType = useCallback(
-    (type: string | string[]) => {
-      const types: string[] = Array.isArray(type) ? type : [type];
-      setDisabledTypes(Array.from(new Set([...disabledTypes, ...types])));
-    },
-    [disabledTypes],
-  );
+const AntdStyleEditor = ({
+  bordered = true,
+  size: customizeSize,
+  showCount = false,
+  disabled = false,
+  placeholder,
+  progress = {
+    strokeWidth: 2,
+    showInfo: false,
+  },
+}: Omit<AntdStyleDSlateProps, 'value' | 'onChange'>) => {
+  const focused = useFocused();
+  const { getPrefixCls } = usePluginHelper();
+  const prefixCls = getPrefixCls?.('');
 
   return (
-    <ConfigConsumer>
-      {(wrapValue) => {
+    <SizeContext.Consumer>
+      {(size) => {
+        const realSize = customizeSize || size;
         return (
-          <ConfigProvider
-            value={{
-              ...wrapValue,
-              locales: mergeLocalteFromPlugins(wrapValue.locales, wrapValue.plugins),
-            }}
+          <div
+            className={classNames(`${prefixCls}`, {
+              [`${prefixCls}-sm`]: realSize === 'small',
+              [`${prefixCls}-lg`]: realSize === 'large',
+              [`${prefixCls}-disabled`]: disabled,
+              [`${prefixCls}-borderless`]: !bordered,
+              [`${prefixCls}-focused`]: focused,
+            })}
           >
-            <GlobalPluginProvider
-              value={{
-                getPrefixCls,
-                visibleKey: visibleKey,
-                setVisibleKey: setVisibleKey,
-                disabledTypes,
-                enablePluginByType,
-                disablePluginByType,
-                setPercent,
-                percent,
+            <Toolbar />
+            <Progress
+              progress={{
+                ...progress,
               }}
-            >
-              <Slate editor={editor} value={value} onChange={onChange}>
-                {children}
-              </Slate>
-            </GlobalPluginProvider>
-          </ConfigProvider>
+            />
+            <Editable disabled={disabled} placeholder={placeholder} />
+            <Counter showCount={showCount} />
+          </div>
         );
       }}
-    </ConfigConsumer>
+    </SizeContext.Consumer>
   );
 };
 
-export default DSlate;
+export default ({ value, onChange, ...rest }: AntdStyleDSlateProps) => {
+  const { getPrefixCls: getAntdPrefixCls } = useContext(AntdConfigProvider.ConfigContext);
+  return (
+    <DSlate value={value} onChange={onChange} prefixCls={getAntdPrefixCls('dslate')}>
+      <AntdStyleEditor {...rest} />
+    </DSlate>
+  );
+};

@@ -1,5 +1,5 @@
 {
-  "name": "@dslate/dslate",
+  "name": "@dslate/core",
   "version": "0.0.1",
   "description": "一个Ant Design风格的富文本编辑器 - An Ant Design style rich editor based on Slate",
   "keywords": [
@@ -14,7 +14,7 @@
   "sideEffects": [
     "*.less"
   ],
-  "homepage": "https://github.com/rojer95/dslate/tree/master/packages/dslate#readme",
+  "homepage": "https://github.com/rojer95/dslate/tree/master/packages/core#readme",
   "bugs": "https://github.com/rojer95/dslate/issues",
   "repository": {
     "type": "git",
@@ -36,12 +36,9 @@
     "ie >= 11"
   ],
   "dependencies": {
-    "classnames": "^2.3.1",
+    "nanoid": "^3.1.30",
     "slate": "^0.72.0",
-    "slate-react": "^0.72.1",
-    "@dslate/core": "^0.0.1",
-    "@dslate/component": "^0.0.1",
-    "@dslate/plugin": "^0.0.1"
+    "slate-react": "^0.72.1"
   },
   "peerDependencies": {
     "antd": "4.x",
@@ -54,8 +51,6 @@
   "authors": [
     "rojer <rojerchen@qq.com> (https://github.com/rojer95)"
   ],
-  "devDependencies": {
-    "@types/react-color": "^3.0.6"
-  },
+  "devDependencies": {},
   "gitHead": "114bf660fee2c13bc241fc561b014c1b70d7ea99"
 }

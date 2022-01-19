@@ -29,7 +29,7 @@ DSlate 与 Ant Design 设计体系一脉相承，无缝对接 antd 项目。因�
 
 ### locale
 
-locale 是一个 `Locale` 数组，其中 `locale` 必须为 antd 的语言包相同， `VALUE` 为具体的国际化的文案内容。
+插件中的 `locale` 是一个 `Locale` 数组，每一个 Locale 必须为 antd 的语言包具有相同的 `locale` 值，见下面示例：
 
 ```tsx | pure
 import type { DSlatePlugin } from '@dslate/core';

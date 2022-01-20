@@ -44,7 +44,7 @@ export const usePluginHelper = () => {
 
 export const usePlugin = (): PluginContextType => {
   const { uuid, type } = usePluginUuid();
-  const { plugins } = React.useContext(ConfigContext);
+  const { plugins, pluginProps } = React.useContext(ConfigContext);
   const globalPluginHelper = usePluginHelper();
   const { setVisibleKey } = globalPluginHelper;
 
@@ -76,7 +76,10 @@ export const usePlugin = (): PluginContextType => {
   return {
     visible,
     setVisible: toggleVisible,
-    props: matchPlugin?.props ?? {},
+    props: {
+      ...(matchPlugin?.props ?? {}),
+      ...(pluginProps?.[type ?? ''] ?? {}),
+    },
     uuid,
     type: matchPlugin?.type,
     disabled,

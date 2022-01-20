@@ -10,16 +10,6 @@ import presetPlugin from '@dslate/plugin';
 import { useSlate } from 'slate-react';
 
 /**
- * 通过复写 ColorPlugin 插件参数修改预设颜色
- */
-const ColorPlugin = {
-  ...presetPlugin.ColorPlugin,
-  props: {
-    colors: ['#000000', 'red', 'green'],
-  },
-};
-
-/**
  * 自定义一个插入文本的插件
  */
 
@@ -56,10 +46,14 @@ export default () => {
     <ConfigProvider
       value={{
         ...defaultConfig,
-        plugins: [ColorPlugin, CustomPlugin],
+        plugins: [...Object.values(presetPlugin), CustomPlugin],
+        pluginProps: {
+          color: { colors: ['#000000', 'red', 'green'] },
+          'background-color': { colors: ['#000000', 'red', 'green'] },
+        },
       }}
     >
-      <DSlate value={value} onChange={setValue} toolbar={['color', 'divider', 'custom']} />
+      <DSlate value={value} onChange={setValue} />
     </ConfigProvider>
   );
 };

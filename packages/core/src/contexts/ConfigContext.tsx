@@ -9,6 +9,7 @@ export type ConfigContextType = {
   plugins: DSlatePlugin[];
   locales: Locale[];
   locale: string;
+  pluginProps?: Record<string, any>;
   iconScriptUrl?: string | string[];
   customUploadRequest?: (options: UploadRequestOption) => void;
 };

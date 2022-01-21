@@ -11,7 +11,7 @@ import type { AntdStyleDSlateProps } from './typing';
 import ZH_CN from './locale/zh_CN';
 import EN_US from './locale/en_US';
 
-const locales = [ZH_CN, EN_US];
+const DefaultLocales = [ZH_CN, EN_US];
 
 const DefaultToolbar = [
   'history',
@@ -42,6 +42,7 @@ export default ({ toolbar = DefaultToolbar, ...props }: AntdStyleDSlateProps) =>
           !value.plugins || value.plugins.length === 0
             ? Object.values(DefaultPlugin)
             : value.plugins;
+        const locales = value.locales ? value.locales : DefaultLocales;
         return (
           <ConfigProvider
             value={{

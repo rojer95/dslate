@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
 
-import { ConfigProvider, DatePicker, Radio, Space } from 'antd';
+import { ConfigProvider as AntdConfigProvider, DatePicker, Radio, Space } from 'antd';
 import DSlate from '@dslate/dslate';
+import { ConfigProvider, defaultConfig } from '@dslate/core';
 import enUS from 'antd/lib/locale/en_US';
 import zhCN from 'antd/lib/locale/zh_CN';
 
@@ -38,15 +39,26 @@ export default () => {
           </Radio.Group>
         </Space>
       </div>
-      <ConfigProvider locale={locale}>
+      <AntdConfigProvider locale={locale}>
         <div style={{ marginBottom: 16 }}>
-          <DSlate value={value} onChange={setValue} />
+          <ConfigProvider
+            value={{
+              ...defaultConfig,
+              // 通过DSlate提供的 ConfigProvider 定义编辑器语言包。目前只有 placeholder 有用到，其余的语言包均定义在插件内部
+              locales: [
+                { locale: zhCN.locale, placeholder: '请在这里输入呦 (#^.^#)' },
+                { locale: enUS.locale, placeholder: 'please enter here (#^.^#)' },
+              ],
+            }}
+          >
+            <DSlate value={value} onChange={setValue} />
+          </ConfigProvider>
         </div>
         <div style={{ marginBottom: 16 }}>Antd组件：</div>
         <div style={{ marginBottom: 16 }}>
           <DatePicker />
         </div>
-      </ConfigProvider>
+      </AntdConfigProvider>
     </div>
   );
 };

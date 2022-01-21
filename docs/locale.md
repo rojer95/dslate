@@ -25,11 +25,20 @@ DSlate 与 Ant Design 设计体系一脉相承，无缝对接 antd 项目。因�
 
 ## 插件国际化
 
-由于 DSlate 是一个插件化的编辑器，因此插件也需要支持国际化。当我们在开发插件时，可以通过 `locale` 来配置插件内部的国际化文案。通过`useMessage` hook 返回的辅助函数来读取文案。
+由于 DSlate 是一个插件化的编辑器，因此插件也需要支持国际化。当我们在开发插件时，可以通过参数 `locale` 来配置插件内部的国际化文案。通过`useMessage` hook 返回的辅助函数来读取文案。
 
-### locale
+### 参数 locale
 
-插件中的 `locale` 是一个 `Locale` 数组，每一个 Locale 必须为 antd 的语言包具有相同的 `locale` 值，见下面示例：
+插件中的参数 `locale` 是一个 `Locale` 数组，`Locale`定义如下：
+
+```ts | pure
+type Locale = {
+  locale: string; // 必须与 antd 的语言包具有相同的 `locale` 值
+  [index: string]: any;
+};
+```
+
+插件国际化文案定义示例：
 
 ```tsx | pure
 import type { DSlatePlugin } from '@dslate/core';
@@ -37,20 +46,21 @@ import zhCN from 'antd/lib/locale/zh_CN';
 import enUS from 'antd/lib/locale/en_US';
 
 const Plugin: DSlatePlugin = {
+  // ingore other ...
   locale: [
     {
-      locale: zhCN.locale, // 对应Antd的中文
+      locale: zhCN.locale, // 直接从 antd 的语言包读取值最稳妥
       tooltip: '加粗',
     },
     {
-      locale: enUS.locale, // 对应Antd的英文
+      locale: enUS.locale, // 直接从 antd 的语言包读取值最稳妥
       tooltip: '加粗',
     },
   ],
 };
 ```
 
-### useMessage
+### useMessage hook
 
 `useMessage` 是一个能够在插件内部直接读取文案的 `hook`。它返回了一个辅助函数 `getMessage` 能够自动根据上下文获取本插件的文案内容，函数定义如下：
 
@@ -63,7 +73,7 @@ const getMessage = useMessage();
 getMessage('tooltip', '加粗');
 ```
 
-### 示例代码
+### 完整插件示例代码
 
 ```tsx | pure
 import React from 'react';

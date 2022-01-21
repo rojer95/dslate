@@ -44,7 +44,7 @@ customUploadRequest: ({ onSuccess, onProgress, onError, file }) => {
 | 参数       | 说明                                        | 类型                                 |
 | ---------- | ------------------------------------------- | ------------------------------------ |
 | onProgress | 上传进度反馈回调                            | `(event: { percent: number }): void` |
-| onError    | 失败回调                                    | `(event: { percent: number }): void` |
+| onError    | 失败回调                                    | `(e: Error): void`                   |
 | onSuccess  | 成功回调，`body`中需要含有`url`作为上传结果 | `(body: Object): void`               |
 | file       | 需要上传的文件                              | `File`                               |
 

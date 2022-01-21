@@ -98,8 +98,8 @@ const Img = ({ attributes, children, element, style }: RenderElementPropsWithSty
 
   const loadEditableSizeFromImg = () => {
     setEditable({
-      width: image.current?.naturalWidth ?? 0,
-      height: image.current?.naturalHeight ?? 0,
+      width: image.current?.width ?? 0,
+      height: image.current?.height ?? 0,
     });
   };
 

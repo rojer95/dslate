@@ -14,6 +14,7 @@ import { TodoListPlugin } from './plugins/todo-list';
 import { ImgPlugin } from './plugins/img';
 import { LinkPlugin } from './plugins/link';
 import { BlockquotePlugin } from './plugins/blockquote';
+import { HrPlugin } from './plugins/hr';
 
 export default {
   HistoryPlugin,
@@ -33,4 +34,5 @@ export default {
   ImgPlugin,
   LinkPlugin,
   BlockquotePlugin,
+  HrPlugin,
 };

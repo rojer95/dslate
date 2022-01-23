@@ -33,6 +33,7 @@ const DefaultToolbar = [
   'img',
   'link',
   'blockquote',
+  'hr',
 ];
 export default ({ toolbar = DefaultToolbar, ...props }: AntdStyleDSlateProps) => {
   const { locale } = React.useContext(AntdConfigProvider.ConfigContext);

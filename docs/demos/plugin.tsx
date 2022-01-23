@@ -1,12 +1,15 @@
+/**
+ * defaultShowCode: true
+ */
 import React, { useState } from 'react';
 import type { Descendant } from 'slate';
 import { Range, Transforms } from 'slate';
 
-import DSlate from '@dslate/dslate';
+import DSlate, { DefaultToolbar, DefaultPlugin } from '@dslate/dslate';
 import type { DSlatePlugin } from '@dslate/core';
+import { usePlugin } from '@dslate/core';
 import { ConfigProvider, defaultConfig } from '@dslate/core';
 import { Toolbar } from '@dslate/component';
-import presetPlugin from '@dslate/plugin';
 import { useSlate } from 'slate-react';
 
 /**
@@ -15,23 +18,29 @@ import { useSlate } from 'slate-react';
 
 const CustomPluginToolbar = () => {
   const editor = useSlate();
+  const { props } = usePlugin();
 
   const toggleText = () => {
     if (!editor.selection) return;
     if (Range.isExpanded(editor.selection)) {
       Transforms.delete(editor);
-      Transforms.insertText(editor, '转为特定文本');
+      Transforms.insertText(editor, props?.changeText);
     } else {
-      Transforms.insertText(editor, '插入文本');
+      Transforms.insertText(editor, props?.insertText);
     }
   };
 
   return <Toolbar.Button onClick={toggleText}>一段文本</Toolbar.Button>;
 };
+
 const CustomPlugin: DSlatePlugin = {
   type: 'custom',
   nodeType: 'tool',
   toolbar: <CustomPluginToolbar />,
+  props: {
+    insertText: '插入文本文案',
+    changeText: '转为特定文本文案',
+  },
 };
 
 export default () => {
@@ -46,14 +55,14 @@ export default () => {
     <ConfigProvider
       value={{
         ...defaultConfig,
-        plugins: [...Object.values(presetPlugin), CustomPlugin],
+        plugins: [...Object.values(DefaultPlugin), CustomPlugin],
         pluginProps: {
-          color: { colors: ['#000000', 'red', 'green'] },
-          'background-color': { colors: ['#000000', 'red', 'green'] },
+          color: { colors: ['#000000', '#0969da', '#da3109'] },
+          'background-color': { colors: ['#000000', '#0969da', '#da3109'] },
         },
       }}
     >
-      <DSlate value={value} onChange={setValue} />
+      <DSlate value={value} onChange={setValue} toolbar={[...DefaultToolbar, 'custom']} />
     </ConfigProvider>
   );
 };

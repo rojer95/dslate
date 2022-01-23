@@ -1,3 +1,6 @@
+/**
+ * defaultShowCode: true
+ */
 import React, { useState } from 'react';
 
 import { ConfigProvider as AntdConfigProvider, DatePicker, Radio, Space } from 'antd';

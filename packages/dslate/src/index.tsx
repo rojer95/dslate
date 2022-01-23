@@ -11,9 +11,9 @@ import type { AntdStyleDSlateProps } from './typing';
 import ZH_CN from './locale/zh_CN';
 import EN_US from './locale/en_US';
 
-const DefaultLocales = [ZH_CN, EN_US];
-
-const DefaultToolbar = [
+export const DefaultLocales = [ZH_CN, EN_US];
+export { DefaultPlugin };
+export const DefaultToolbar = [
   'history',
   'clear',
   'divider',

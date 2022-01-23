@@ -13,6 +13,7 @@ import { ListPlugin, ListItemPlugin } from './plugins/list';
 import { TodoListPlugin } from './plugins/todo-list';
 import { ImgPlugin } from './plugins/img';
 import { LinkPlugin } from './plugins/link';
+import { BlockquotePlugin } from './plugins/blockquote';
 
 export default {
   HistoryPlugin,
@@ -31,4 +32,5 @@ export default {
   TodoListPlugin,
   ImgPlugin,
   LinkPlugin,
+  BlockquotePlugin,
 };

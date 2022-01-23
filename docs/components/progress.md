@@ -1,12 +1,11 @@
 ---
-title: DSlate
-order: 1
+title: Progress
 group:
   path: /dslate
 nav:
   path: /components
 ---
 
-# DSlate
+# Progress
 
 > 待完善

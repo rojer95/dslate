@@ -7,6 +7,9 @@ group:
 nav:
   title: 组件
   path: /components
+  order: 1
 ---
 
 # ConfigProvider
+
+> 待完善

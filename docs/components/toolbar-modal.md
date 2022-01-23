@@ -1,5 +1,5 @@
 ---
-title: ToolbarModal
+title: Toolbar.Modal
 order: 3
 group:
   path: /toolbar
@@ -8,4 +8,6 @@ nav:
   path: /components
 ---
 
-# ToolbarModal
+# Toolbar.Modal
+
+> 待完善

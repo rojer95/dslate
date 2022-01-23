@@ -1,12 +1,11 @@
 ---
-title: DSlate
-order: 1
+title: Editable
 group:
   path: /dslate
 nav:
   path: /components
 ---
 
-# DSlate
+# Editable
 
 > 待完善

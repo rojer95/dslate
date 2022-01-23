@@ -95,6 +95,8 @@ const normalizeNode = (entry: NodeEntry, editor: Editor, next: NormalizeNode) =>
 
 在插件中可以预设一些自定义参数。在插件中通过 `usePlugin` hook 可以取出预设的 `props`。
 
+> 内置插件的预设 props 见： [插件/内置插件](/plugins/default)
+
 ```tsx | pure
 const { props } = usePlugin();
 ```

@@ -1,12 +1,14 @@
 ---
-title: DSlate
-order: 1
+title: Core
+order: 0
 group:
   path: /dslate
+  title: DSlate
+  order: 1
 nav:
   path: /components
 ---
 
-# DSlate
+# Core
 
 > 待完善

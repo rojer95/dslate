@@ -7,6 +7,7 @@ group:
 nav:
   title: 文档
   path: /docs
+  order: 0
 ---
 
 # 快速开始

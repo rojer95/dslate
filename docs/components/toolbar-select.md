@@ -1,5 +1,5 @@
 ---
-title: ToolbarSelect
+title: Toolbar.Select
 order: 2
 group:
   path: /toolbar
@@ -7,4 +7,6 @@ nav:
   path: /components
 ---
 
-# ToolbarSelect
+# Toolbar.Select
+
+> 待完善

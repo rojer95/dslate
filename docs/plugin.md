@@ -101,14 +101,14 @@ const normalizeNode = (entry: NodeEntry, editor: Editor, next: NormalizeNode) =>
 const { props } = usePlugin();
 ```
 
-初次之外，插件预设参数可以被 `ConfigProvider` 的 `pluginProps` 覆盖，因为使用者可以修改自定义插件的预设参数。  
-例如`color`插件。预设了 `colors` 参数（颜色列表）。你可以通过上述方法，来覆盖预设的颜色。
+除此之外，插件预设参数可以被 `ConfigProvider` 的 `pluginProps` 覆盖，因此我们能够自定义插件的预设参数。  
+例如文本颜色插件预设了 `colors` 参数（颜色列表）。你可以通过上述方法，来覆盖预设的颜色。
 
 ```tsx | pure
 type PluginProps = Record<string, any>;
 
 const pluginProps: PluginProps = {
-  // ↱ 对应插件的type值
+  // ↱ 文本颜色插件的type值
   color: {
     // ↱ 文本颜色插件的预设颜色，是一个string[]
     colors: ['#000000', '#0969da', '#da3109'],

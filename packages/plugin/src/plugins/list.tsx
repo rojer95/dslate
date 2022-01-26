@@ -1,6 +1,6 @@
 import React from 'react';
 import locale from '../locale';
-import type { DSlatePlugin, NormalizeNode, RenderElementPropsWithStyle } from '@dslate/core';
+import { DSlatePlugin, isEmpty, NormalizeNode, RenderElementPropsWithStyle } from '@dslate/core';
 
 import { useSlate } from 'slate-react';
 import { Toolbar, IconFont } from '@dslate/component';
@@ -129,14 +129,14 @@ const removeOnStart = (editor: Editor) => {
 const exitListOnEmptyListItem = (editor: Editor) => {
   if (!editor.selection) return false;
 
-  const [match] = Editor.nodes(editor, {
-    match: (n) => {
-      return Element.isElement(n) && n.type === ITEM_TYPE && Node.string(n) === '';
-    },
-  });
-
-  if (!!match) {
+  if (isEmpty(editor)) {
     Editor.withoutNormalizing(editor, () => {
+      const [match] = Editor.nodes(editor, {
+        match: (n) => {
+          return Element.isElement(n) && n.type === ITEM_TYPE;
+        },
+      });
+      if (!match) return;
       const [, path] = match;
       const nextPath = Path.next(Path.parent(path));
       Transforms.moveNodes(editor, {

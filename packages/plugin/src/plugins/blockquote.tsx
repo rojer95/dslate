@@ -1,8 +1,8 @@
 import React from 'react';
 
-import { isBlockActive, isStart, useMessage } from '@dslate/core';
+import { isBlockActive, isEmpty, isStart, useMessage } from '@dslate/core';
 import { IconFont, Toolbar } from '@dslate/component';
-import { Editor, Transforms, Element, Node, Path, Range } from 'slate';
+import { Editor, Transforms, Element, Path, Range } from 'slate';
 import { useSlate } from 'slate-react';
 
 import type { CSSProperties } from 'react';
@@ -95,13 +95,11 @@ const exitOnEmpty = (editor: Editor) => {
     match: (n) => Element.isElement(n) && n.type === TYPE,
   });
 
-  const [isEmpty] = Editor.nodes(editor, {
-    match: (n) => Element.isElement(n) && Node.string(n) === '',
-  });
-
-  if (!!isEmpty && !!isBlockquote) {
+  if (isEmpty(editor) && !!isBlockquote) {
     Editor.withoutNormalizing(editor, () => {
-      const [, path] = isEmpty;
+      const match = Editor.above(editor);
+      if (!match) return;
+      const [, path] = match;
       const nextPath = Path.next(Path.parent(path));
       Transforms.moveNodes(editor, {
         at: path,

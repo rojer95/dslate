@@ -22,10 +22,17 @@ const remove = (editor: Editor) => {
 
 const add = (editor: Editor) => {
   if (!editor.selection) return;
-  Transforms.wrapNodes(editor, {
-    type: TYPE,
-    children: [],
-  });
+  Transforms.wrapNodes(
+    editor,
+    {
+      type: TYPE,
+      children: [],
+    },
+    {
+      match: (n) =>
+        !Editor.isEditor(n) && [editor.defaultElement, 'list', 'todo-list'].includes(n.type),
+    },
+  );
 };
 
 const ToolbarButton = () => {

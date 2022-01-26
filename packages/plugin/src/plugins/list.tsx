@@ -1,6 +1,7 @@
 import React from 'react';
 import locale from '../locale';
-import { DSlatePlugin, isEmpty, NormalizeNode, RenderElementPropsWithStyle } from '@dslate/core';
+import type { DSlatePlugin, NormalizeNode, RenderElementPropsWithStyle } from '@dslate/core';
+import { isEmpty } from '@dslate/core';
 
 import { useSlate } from 'slate-react';
 import { Toolbar, IconFont } from '@dslate/component';

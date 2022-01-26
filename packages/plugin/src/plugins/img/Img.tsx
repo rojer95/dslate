@@ -38,19 +38,6 @@ const Img = ({ attributes, children, element, style }: RenderElementPropsWithSty
     height: 0,
   });
 
-  const onImageLoad = (e: any) => {
-    setDraggable({
-      ...draggable,
-      width: e.target?.naturalWidth,
-      height: e.target?.naturalHeight,
-    });
-    setEditable({
-      width: e.target?.naturalWidth ?? 0,
-      height: e.target?.naturalHeight ?? 0,
-    });
-    setLoading(false);
-  };
-
   useEffect(() => {
     setLoading(true);
   }, [element.url]);
@@ -70,17 +57,6 @@ const Img = ({ attributes, children, element, style }: RenderElementPropsWithSty
         at: path,
       },
     );
-
-    setDraggable({
-      ...draggable,
-      width: target.width,
-      height: target.height,
-    });
-
-    setEditable({
-      width: target.width,
-      height: target.height,
-    });
   };
 
   const updateEditableSize = (key: string, value: number) => {
@@ -96,11 +72,26 @@ const Img = ({ attributes, children, element, style }: RenderElementPropsWithSty
     });
   };
 
-  const loadEditableSizeFromImg = () => {
+  const loadSizeFromImg = () => {
     setEditable({
       width: image.current?.width ?? 0,
       height: image.current?.height ?? 0,
     });
+
+    setDraggable({
+      ...draggable,
+      width: image.current?.width ?? 0,
+      height: image.current?.height ?? 0,
+    });
+  };
+
+  useEffect(() => {
+    if (selected) loadSizeFromImg();
+  }, [selected, element.imgWidth, element.imgHeight]);
+
+  const onImageLoad = () => {
+    setLoading(false);
+    loadSizeFromImg();
   };
 
   const updateUrl = async (option: UploadRequestOption) => {
@@ -125,9 +116,6 @@ const Img = ({ attributes, children, element, style }: RenderElementPropsWithSty
         <Popover
           overlayClassName=""
           trigger={['click']}
-          onVisibleChange={(v) => {
-            if (v) loadEditableSizeFromImg();
-          }}
           content={
             <Space>
               <Upload
@@ -168,7 +156,9 @@ const Img = ({ attributes, children, element, style }: RenderElementPropsWithSty
             })}
           >
             <Spin spinning={loading} tip={getMessage('loading', '图片加载中')}>
-              {loading ? null : (
+              {loading ? (
+                <div style={{ ...props?.loadingMinSize }} />
+              ) : (
                 <Rnd
                   ref={rnd}
                   className={classNames(`${prefixCls}-drag`, {
@@ -229,7 +219,6 @@ const Img = ({ attributes, children, element, style }: RenderElementPropsWithSty
                 style={{
                   ...style,
                   visibility: loading ? 'hidden' : 'visible',
-                  ...(loading ? props?.loadingMinSize : {}),
                 }}
                 onLoad={onImageLoad}
               />

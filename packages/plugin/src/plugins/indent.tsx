@@ -14,8 +14,8 @@ const DEFAULT_VALUE = 0;
 const TYPE = 'text-indent';
 const iconStyle = { opacity: 0.7, fontSize: '93%' };
 
-const renderStyle = (element: Descendant, editor: Editor) => {
-  if (!!element[TYPE] && element.type === editor.defaultElement) {
+const renderStyle = (element: Descendant) => {
+  if (!!element[TYPE]) {
     return { paddingLeft: `${element[TYPE] * 2}em` };
   }
   return {};
@@ -24,7 +24,6 @@ const renderStyle = (element: Descendant, editor: Editor) => {
 const increase = (editor: Editor) => {
   const indent = getBlockProps(editor, TYPE, DEFAULT_VALUE);
   setBlockProps(editor, TYPE, indent + 1);
-  editor?.onIndent();
 };
 
 const decrease = (editor: Editor) => {
@@ -35,7 +34,6 @@ const decrease = (editor: Editor) => {
   } else {
     setBlockProps(editor, TYPE, indent);
   }
-  editor?.onIndent();
 };
 
 const ToolbarButton = () => {

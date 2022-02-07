@@ -1,5 +1,5 @@
 import type { NodeEntry } from 'slate';
-import { Editor, Transforms, Element } from 'slate';
+import { Editor, Transforms } from 'slate';
 import type { DSlateCustomElement } from '../typing';
 
 export const isBlockActive = (editor: Editor, format: string) => {
@@ -8,7 +8,7 @@ export const isBlockActive = (editor: Editor, format: string) => {
 
   const [match] = Array.from(
     Editor.nodes(editor, {
-      match: (n) => !Editor.isEditor(n) && Element.isElement(n) && n.type === format,
+      match: (n) => !Editor.isEditor(n) && Editor.isBlock(editor, n) && n.type === format,
     }),
   );
 
@@ -22,7 +22,10 @@ export const toggleBlock = (editor: Editor, format: string) => {
     { type: isActive ? editor.defaultElement : format },
     {
       hanging: true,
-      match: (n) => n.type === (isActive ? format : editor.defaultElement),
+      match: (n) =>
+        !Editor.isEditor(n) &&
+        Editor.isBlock(editor, n) &&
+        n.type === (isActive ? format : editor.defaultElement),
     },
   );
 };
@@ -36,7 +39,7 @@ export const getBlockProps = (editor: Editor, format: string, defaultValue: any)
 
   const [match] = Editor.nodes(editor, {
     at: Editor.unhangRange(editor, selection),
-    match: (n) => !Editor.isEditor(n) && Element.isElement(n) && format in n,
+    match: (n) => !Editor.isEditor(n) && Editor.isBlock(editor, n) && format in n,
   });
 
   if (!match) return defaultValue;
@@ -52,7 +55,7 @@ export const setBlockProps = (editor: Editor, format: string, value: any) => {
   Transforms.setNodes(
     editor,
     { [format]: value },
-    { match: (n) => !Editor.isEditor(n) && Element.isElement(n) },
+    { match: (n) => !Editor.isEditor(n) && Editor.isBlock(editor, n) },
   );
 };
 
@@ -62,6 +65,6 @@ export const clearBlockProps = (editor: Editor, format: string | string[]) => {
   if (!selection) return;
 
   Transforms.unsetNodes(editor, format, {
-    match: (n) => !Editor.isEditor(n) && Element.isElement(n),
+    match: (n) => !Editor.isEditor(n) && Editor.isBlock(editor, n),
   });
 };

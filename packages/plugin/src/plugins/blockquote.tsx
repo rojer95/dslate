@@ -29,8 +29,8 @@ const add = (editor: Editor) => {
       children: [],
     },
     {
-      match: (n) =>
-        !Editor.isEditor(n) && [editor.defaultElement, 'list', 'todo-list'].includes(n.type),
+      match: (n) => !Editor.isEditor(n) && Editor.isBlock(editor, n),
+      mode: 'highest',
     },
   );
 };

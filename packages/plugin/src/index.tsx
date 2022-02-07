@@ -9,7 +9,7 @@ import { BackgroundColorPlugin } from './plugins/background-color';
 import { FontSizePlugin } from './plugins/font-size';
 import { TextAlignPlugin } from './plugins/text-align';
 import { TextIndentPlugin } from './plugins/indent';
-import { ListPlugin, ListItemPlugin } from './plugins/list';
+import { ListPlugin } from './plugins/list';
 import { TodoListPlugin } from './plugins/todo-list';
 import { ImgPlugin } from './plugins/img';
 import { LinkPlugin } from './plugins/link';
@@ -28,7 +28,6 @@ export default {
   FontSizePlugin,
   TextAlignPlugin,
   ListPlugin,
-  ListItemPlugin,
   TextIndentPlugin,
   TodoListPlugin,
   ImgPlugin,

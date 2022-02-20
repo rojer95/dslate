@@ -124,7 +124,7 @@ const List = (props: RenderElementPropsWithStyle) => {
 
       const listStyleType = !element[IS_ORDERED]
         ? 'disc'
-        : listStyles?.[nodeIndent % 3] ?? 'decimal';
+        : listStyles?.[nodeIndent % listStyles?.length] ?? 'decimal';
       let paddingLeft: string | number = 40;
 
       if (nodeIndent) {
@@ -183,11 +183,7 @@ const withList = (editor: Editor) => {
   return editor;
 };
 
-const defaultListStyles: Record<number, string> = {
-  0: 'decimal',
-  1: 'lower-alpha',
-  2: 'lower-roman',
-};
+const defaultListStyles: string[] = ['decimal', 'lower-alpha', 'lower-roman'];
 
 const ListPlugin: DSlatePlugin = {
   type: TYPE,

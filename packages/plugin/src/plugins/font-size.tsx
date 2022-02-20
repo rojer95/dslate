@@ -1,6 +1,6 @@
 import React from 'react';
 import locale from '../locale';
-import type { DSlatePlugin } from '@dslate/core';
+import { DSlatePlugin, usePlugin } from '@dslate/core';
 
 import { useSlate } from 'slate-react';
 import { Toolbar } from '@dslate/component';
@@ -23,6 +23,8 @@ const ToolbarButton = () => {
   const editor = useSlate();
   const getMessage = useMessage();
 
+  const { props } = usePlugin();
+
   const onChange = (size: number) => {
     setTextProps(editor, TYPE, size);
   };
@@ -32,7 +34,7 @@ const ToolbarButton = () => {
       width={38}
       placeholder="14px"
       onChange={onChange}
-      options={DefaultSizes.map((size) => ({
+      options={(props?.sizes ?? DefaultSizes).map((size: number) => ({
         label: `${size}px`,
         value: size,
       }))}
@@ -51,6 +53,9 @@ const FontSizePlugin: DSlatePlugin = {
     { locale: locale.zhCN, tooltip: '字体大小' },
     { locale: locale.enUS, tooltip: 'font size' },
   ],
+  props: {
+    sizes: DefaultSizes,
+  },
 };
 
 export { FontSizePlugin };

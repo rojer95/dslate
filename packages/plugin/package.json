@@ -1,6 +1,6 @@
 {
   "name": "@dslate/plugin",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "DSlate预设插件 - Preset plugin of DSlate",
   "keywords": [
     "wysiwyg",
@@ -36,8 +36,8 @@
   ],
   "dependencies": {
     "@babel/runtime": "^7.16.3",
-    "@dslate/component": "^0.0.2",
-    "@dslate/core": "^0.0.2",
+    "@dslate/component": "^0.0.3",
+    "@dslate/core": "^0.0.3",
     "classnames": "^2.3.1",
     "is-hotkey": "^0.2.0",
     "react-color": "^2.19.3",

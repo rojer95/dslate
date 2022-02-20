@@ -2,6 +2,17 @@
 
 All notable changes to this project will be documented in this file. See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.0.3](https://github.com/rojer95/dslate/compare/@dslate/dslate@0.0.2...@dslate/dslate@0.0.3) (2022-02-20)
+
+### Bug Fixes
+
+- :bug: 修复 locales 不生效的问题 ([c4b879c](https://github.com/rojer95/dslate/commit/c4b879c56b02dc763921961dc8d69e4a2b63318e))
+
+### Features
+
+- **plugin:** :boom: 引用插件 ([80de5c9](https://github.com/rojer95/dslate/commit/80de5c92252883da2521bc8e89a0e09b816ae17d))
+- **plugin:** :boom: hr 插件 ([fbdeb28](https://github.com/rojer95/dslate/commit/fbdeb2801dad50321361349449ba1c53df7f510f))
+
 ## 0.0.2 (2022-01-19)
 
 ### Bug Fixes

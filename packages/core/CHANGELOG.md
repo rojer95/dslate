@@ -2,6 +2,17 @@
 
 All notable changes to this project will be documented in this file. See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.0.3](https://github.com/rojer95/dslate/compare/@dslate/core@0.0.2...@dslate/core@0.0.3) (2022-02-20)
+
+### Bug Fixes
+
+- :bug: 修复空行退出的 bug ([e34e9fc](https://github.com/rojer95/dslate/commit/e34e9fc1524849fc942c3199106d399b26fbf081))
+
+### Features
+
+- :boom: 更棒的插件参数注入方式 ([b9f063a](https://github.com/rojer95/dslate/commit/b9f063ad65235ac38adca5a5251ca22c2bf814bf))
+- :boom: 全新的 list ([38f2f04](https://github.com/rojer95/dslate/commit/38f2f042fd6e4b722884976ef0ad764bb58bf788))
+
 ## [0.0.2](https://github.com/rojer95/dslate/compare/@dslate/core@0.0.1...@dslate/core@0.0.2) (2022-01-19)
 
 ### Bug Fixes

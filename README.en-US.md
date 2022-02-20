@@ -21,12 +21,12 @@ DSlate provides the following components:
 
 | Component | Description |
 | --- | --- |
-| [DSlate](https://rojer95.github.io/dslate/#/components/dslate/dslate) | editor component |
-| [ConfigProvider](https://rojer95.github.io/dslate/#/components/config/config) | Global configuration components |
-| [Toolbar.Button](https://rojer95.github.io/dslate/#/components/toolbar/toolbar-button) | Toolbar Button Component |
-| [Toolbar.Select](https://rojer95.github.io/dslate/#/components/toolbar/toolbar-select) | Toolbar Select Component |
-| [Toolbar.Modal](https://rojer95.github.io/dslate/#/components/toolbar/toolbar-modal) | Toolbar Modal Component |
-| [Popover](https://rojer95.github.io/dslate/#/components/popover/popover) | Popover Component |
+| [DSlate](https://rojer95.github.io/dslate/#/components/dslate) | Integrates Antd-style out-of-the-box editor components |
+| [ConfigProvider](https://rojer95.github.io/dslate/#/components/config) | Global configuration components |
+| [Toolbar.Button](https://rojer95.github.io/dslate/#/components/toolbar/toolbar-button) | Toolbar-Button Component |
+| [Toolbar.Select](https://rojer95.github.io/dslate/#/components/toolbar/toolbar-select) | Toolbar - Selection Box Component |
+| [Toolbar.Modal](https://rojer95.github.io/dslate/#/components/toolbar/toolbar-modal) | Toolbar - Modal Box Component |
+| [Popover](https://rojer95.github.io/dslate/#/components/popover) | popup component |
 
 ## LICENSE
 

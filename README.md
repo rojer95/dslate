@@ -21,12 +21,12 @@ DSlate 提供了如下组件：
 
 | 组件 | 说明 |
 | --- | --- |
-| [DSlate](https://rojer95.github.io/dslate/#/components/dslate/dslate) | 编辑器组件 |
-| [ConfigProvider](https://rojer95.github.io/dslate/#/components/config/config) | 全局配置组件 |
+| [DSlate](https://rojer95.github.io/dslate/#/components/dslate) | 整合了 Antd 风格开箱即用的编辑器组件 |
+| [ConfigProvider](https://rojer95.github.io/dslate/#/components/config) | 全局配置组件 |
 | [Toolbar.Button](https://rojer95.github.io/dslate/#/components/toolbar/toolbar-button) | 工具栏-按钮组件 |
 | [Toolbar.Select](https://rojer95.github.io/dslate/#/components/toolbar/toolbar-select) | 工具栏-选择框组件 |
 | [Toolbar.Modal](https://rojer95.github.io/dslate/#/components/toolbar/toolbar-modal) | 工具栏-模态框组件 |
-| [Popover](https://rojer95.github.io/dslate/#/components/popover/popover) | 弹出层组件 |
+| [Popover](https://rojer95.github.io/dslate/#/components/popover) | 弹出层组件 |
 
 ## LICENSE
 

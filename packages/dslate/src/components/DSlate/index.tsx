@@ -18,10 +18,6 @@ const AntdStyleEditor = ({
   disabled = false,
   placeholder,
   toolbar,
-  progress = {
-    strokeWidth: 2,
-    showInfo: false,
-  },
 }: Omit<AntdStyleDSlateProps, 'value' | 'onChange'>) => {
   const focused = useFocused();
   const { getPrefixCls } = usePluginHelper();
@@ -42,11 +38,7 @@ const AntdStyleEditor = ({
             })}
           >
             <Toolbar toolbar={toolbar} />
-            <Progress
-              progress={{
-                ...progress,
-              }}
-            />
+            <Progress />
             <Editable disabled={disabled} placeholder={placeholder} />
             <Counter showCount={showCount} />
           </div>

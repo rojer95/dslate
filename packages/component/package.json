@@ -40,11 +40,11 @@
     "@babel/runtime": "^7.16.3",
     "@dslate/core": "^0.0.3",
     "classnames": "^2.3.1",
+    "rc-tooltip": "^5.1.1",
     "slate": "^0.72.0",
     "slate-react": "^0.72.1"
   },
   "peerDependencies": {
-    "antd": "4.x",
     "react": ">=16.9.0",
     "react-dom": ">=16.9.0"
   },

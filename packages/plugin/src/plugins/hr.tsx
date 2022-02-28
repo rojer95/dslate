@@ -1,12 +1,12 @@
-import { IconFont, Toolbar } from '@dslate/component';
+import { IconFont, Popover, Toolbar } from '@dslate/component';
 import type { DSlatePlugin, RenderElementPropsWithStyle } from '@dslate/core';
 import { isBlockActive, useMessage, usePlugin } from '@dslate/core';
 import type { Descendant } from 'slate';
 import { Editor, Path, Range, Transforms } from 'slate';
-import { useSelected, useSlate } from 'slate-react';
-import { Divider } from 'antd';
+import { ReactEditor, useSelected, useSlate } from 'slate-react';
 import locale from '../locale';
 import type { CSSProperties } from 'react';
+import { css } from '@emotion/css';
 
 const TYPE = 'hr';
 
@@ -92,20 +92,54 @@ const withPlugin = (editor: Editor) => {
 const Hr = (props: RenderElementPropsWithStyle) => {
   const selected = useSelected();
   const { props: pluginProps } = usePlugin();
+  const editor = useSlate();
+  const path = ReactEditor.findPath(editor, props.element);
+  const getMessage = useMessage();
 
   return (
     <div {...props.attributes} style={props.style}>
-      {props.children}
       <div contentEditable={false}>
-        <Divider
-          style={{
-            borderColor: !selected ? pluginProps?.color : pluginProps?.hoverColor,
+        <Popover
+          overlayInnerStyle={{
+            padding: 12,
+            display: 'flex',
+            alignItems: 'center',
+            gap: 8,
+            whiteSpace: 'nowrap',
           }}
-        />
+          overlay={
+            <>
+              <Toolbar.Button
+                tooltip={getMessage('remove', '删除')}
+                onClick={() => {
+                  Transforms.removeNodes(editor, {
+                    at: path,
+                  });
+                }}
+              >
+                <IconFont type="icon-empty" />
+              </Toolbar.Button>
+            </>
+          }
+        >
+          <div
+            className={css`
+              padding: 10px 0px;
+              cursor: pointer;
+              .hr {
+                border-bottom: 1px solid ${!selected ? pluginProps?.color : pluginProps?.hoverColor};
+              }
+            `}
+          >
+            <div className="hr" />
+          </div>
+        </Popover>
       </div>
+      {props.children}
     </div>
   );
 };
+
 const renderElement = (props: RenderElementPropsWithStyle) => <Hr {...props} />;
 
 const renderStyle = (node: Descendant) => {
@@ -135,10 +169,12 @@ const HrPlugin: DSlatePlugin = {
     {
       locale: locale.zhCN,
       toolbar: '分割线',
+      remove: '删除',
     },
     {
       locale: locale.enUS,
       toolbar: 'split line',
+      remove: 'remove',
     },
   ],
 };

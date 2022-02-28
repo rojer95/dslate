@@ -1,10 +1,9 @@
-import { Tooltip } from 'antd';
 import classNames from 'classnames';
-import classnames from 'classnames';
 import React, { useMemo } from 'react';
 import { usePlugin, usePluginHelper } from '@dslate/core';
 import IconFont from '../IconFont';
 import Popover from '../Popover';
+import Tooltip from '../Tooltip';
 import ToolbarButton from './ToolbarButton';
 
 export type ToolbarSelectProps<T> = {
@@ -57,12 +56,12 @@ const ToolbarSelect: <T>(props: ToolbarSelectProps<T>) => JSX.Element = ({
   };
 
   return (
-    <div className={classnames(`${prefixCls}`)}>
+    <div className={classNames(`${prefixCls}`)}>
       <Popover
         trigger={[]}
         visible={visible}
         placement="bottom"
-        content={
+        overlay={
           <div className={classNames(`${prefixCls}-content`, direction)}>
             {options.map((i) => {
               const optionDom = (
@@ -72,7 +71,7 @@ const ToolbarSelect: <T>(props: ToolbarSelectProps<T>) => JSX.Element = ({
                     setVisible?.(false);
                   }}
                   key={`${i.value}`}
-                  className={classnames('item', {
+                  className={classNames('item', {
                     active: value === i.value,
                   })}
                 >
@@ -80,7 +79,7 @@ const ToolbarSelect: <T>(props: ToolbarSelectProps<T>) => JSX.Element = ({
                 </div>
               );
               return i.tooltip ? (
-                <Tooltip title={i.tooltip} key={`${i.value}`}>
+                <Tooltip tooltip={i.tooltip} key={`${i.value}`}>
                   {optionDom}
                 </Tooltip>
               ) : (
@@ -91,7 +90,7 @@ const ToolbarSelect: <T>(props: ToolbarSelectProps<T>) => JSX.Element = ({
         }
       >
         <ToolbarButton disabled={disabled} onClick={toggle} tooltip={tooltip}>
-          <div className={classnames(`${prefixCls}-button`)}>
+          <div className={classNames(`${prefixCls}-button`)}>
             <div className={`${prefixCls}-button-content`}>{ActiveValue}</div>
             <IconFont className="icon-down" type="icon-down" />
           </div>

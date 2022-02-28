@@ -1,14 +1,13 @@
 import React from 'react';
-
-import type { PopoverProps } from 'antd';
-import { Popover as AntPopover } from 'antd';
+import Tooltip from '../Tooltip';
 import { usePluginHelper } from '@dslate/core';
+import type { TooltipProps } from 'rc-tooltip/lib/Tooltip';
 
-const Popover = (props: PopoverProps) => {
+const Popover = ({ ...props }: TooltipProps) => {
   const { getPrefixCls } = usePluginHelper();
-  const prefixCls = getPrefixCls?.('popover');
+  const prefixCls = getPrefixCls?.(props.prefixCls ?? 'popover');
 
-  return <AntPopover {...props} overlayClassName={props.overlayClassName ?? prefixCls} />;
+  return <Tooltip {...props} prefixCls={prefixCls} />;
 };
 
 export default Popover;

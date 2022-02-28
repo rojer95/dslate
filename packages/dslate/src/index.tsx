@@ -52,6 +52,7 @@ export default ({ toolbar = DefaultToolbar, ...props }: AntdStyleDSlateProps) =>
               locales: mergeLocalteFromPlugins(locales, plugins),
               locale: locale?.locale ?? 'default',
               plugins,
+              iconScriptUrl: '//at.alicdn.com/t/font_3062978_2vfzjar92f5.js',
             }}
           >
             <DSlate {...props} toolbar={toolbar} />

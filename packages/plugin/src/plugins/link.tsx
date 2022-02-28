@@ -3,13 +3,12 @@ import { Editor, Node, Path, Point, Range, Text, Transforms } from 'slate';
 import locale from '../locale';
 import { ReactEditor, useSelected, useSlate } from 'slate-react';
 import { IconFont, Toolbar, Popover } from '@dslate/component';
-import { Input, Space } from 'antd';
+import { Input } from 'antd';
 import { isBlockActive, useMessage } from '@dslate/core';
-
 import type { NodeEntry } from 'slate';
 import type { DSlatePlugin, NormalizeNode, RenderElementPropsWithStyle } from '@dslate/core';
 
-const TYPE = 'a';
+const TYPE = 'link';
 
 const ToolbarButton = () => {
   const editor = useSlate();
@@ -66,11 +65,19 @@ const Link = ({ attributes, element, children }: RenderElementPropsWithStyle) =>
   return (
     <a {...attributes} href={element.href}>
       <Popover
-        overlayClassName=""
         visible={selected}
-        content={
-          <Space>
-            <span>{getMessage('link', '链接')}：</span>
+        placement="top"
+        overlayInnerStyle={{
+          padding: 12,
+          display: 'flex',
+          alignItems: 'center',
+          gap: 8,
+          whiteSpace: 'nowrap',
+          width: 400,
+        }}
+        overlay={
+          <>
+            <div>{getMessage('link', '链接')}：</div>
             <Input
               value={element.href}
               onChange={(e) => {
@@ -96,10 +103,10 @@ const Link = ({ attributes, element, children }: RenderElementPropsWithStyle) =>
             >
               <IconFont type="icon-empty" />
             </Toolbar.Button>
-          </Space>
+          </>
         }
       >
-        {children}
+        <>{children}</>
       </Popover>
     </a>
   );

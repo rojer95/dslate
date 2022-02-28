@@ -1,13 +1,16 @@
+@dslate-prefix: ant-dslate;
 @root-entry-name: 'default';
+
+@import '~@dslate/component/src/style/index.less';
+
 @import (reference) '~antd/es/style/themes/index.less';
 @import (reference) '~antd/es/style/mixins/index.less';
 @import (reference) '~antd/es/input/style/mixin.less';
 
-@ant-popover-inner-content: ~'@{ant-prefix}-popover-inner-content';
-@dslate-prefix-cls: ~'@{ant-prefix}-dslate';
 @toolbar-button-size: 30px;
+@ant-popover-inner-content: ~'@{ant-prefix}-popover-inner-content';
 
-.@{dslate-prefix-cls} {
+.@{dslate-prefix} {
   .reset-component();
   .input();
 
@@ -103,18 +106,6 @@
     }
   }
 
-  &-progress {
-    &-box {
-      position: relative;
-    }
-    position: absolute;
-    top: -12px;
-    left: 0;
-    width: 100%;
-    font-size: @font-size-base;
-    line-height: 0;
-  }
-
   &-editable {
     min-height: @input-height-base * 10 !important;
     padding: @input-padding-vertical-base @input-padding-horizontal-base;
@@ -155,12 +146,6 @@
     padding: @input-padding-vertical-sm @input-padding-horizontal-sm;
   }
 
-  &-popover {
-    .@{ant-popover-inner-content} {
-      padding: 0;
-    }
-  }
-
   &-img {
     position: relative;
     display: inline-block;
@@ -198,15 +183,5 @@
         }
       }
     }
-  }
-
-  &-divider {
-    position: relative;
-    top: -0.06em;
-    display: inline-block;
-    height: 0.9em;
-    margin: 0 8px;
-    vertical-align: middle;
-    border-left: @border-width-base solid @divider-color;
   }
 }

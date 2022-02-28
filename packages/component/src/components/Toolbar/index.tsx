@@ -1,6 +1,7 @@
 /* eslint-disable react/no-array-index-key */
 import React, { useContext, useEffect, useMemo } from 'react';
-import { usePluginHelper, ConfigContext, DSlatePlugin } from '@dslate/core';
+import type { DSlatePlugin } from '@dslate/core';
+import { usePluginHelper, ConfigContext } from '@dslate/core';
 
 import ToolbarItem from './ToolbarItem';
 

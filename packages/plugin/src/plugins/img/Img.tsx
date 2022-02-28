@@ -3,7 +3,7 @@ import classNames from 'classnames';
 import React, { useEffect, useRef, useState } from 'react';
 import { ReactEditor, useSelected, useSlate } from 'slate-react';
 import { Rnd } from 'react-rnd';
-import { InputNumber, Spin, Upload, Space } from 'antd';
+import { InputNumber, Spin, Upload } from 'antd';
 import { usePluginHelper, useConfig, useMessage, promiseUploadFunc, usePlugin } from '@dslate/core';
 import { IconFont, Toolbar, Popover, Divider } from '@dslate/component';
 import type { RenderElementPropsWithStyle } from '@dslate/core';
@@ -114,10 +114,17 @@ const Img = ({ attributes, children, element, style }: RenderElementPropsWithSty
       {children}
       <span contentEditable={false}>
         <Popover
-          overlayClassName=""
           trigger={['click']}
-          content={
-            <Space>
+          placement="top"
+          overlayInnerStyle={{
+            padding: 12,
+            display: 'flex',
+            alignItems: 'center',
+            gap: 8,
+            whiteSpace: 'nowrap',
+          }}
+          overlay={
+            <>
               <Upload
                 accept="image/*"
                 maxCount={1}
@@ -147,7 +154,7 @@ const Img = ({ attributes, children, element, style }: RenderElementPropsWithSty
                 }}
                 onPressEnter={() => updateSize(editable)}
               />
-            </Space>
+            </>
           }
         >
           <span

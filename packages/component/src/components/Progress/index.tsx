@@ -1,21 +1,28 @@
 import React from 'react';
-import { Progress } from 'antd';
-import type { ProgressProps } from '@dslate/core';
 import { usePluginHelper } from '@dslate/core';
 
-export default ({ progress }: { progress: ProgressProps }) => {
+export default () => {
   const { getPrefixCls, percent } = usePluginHelper();
 
-  return percent ? (
+  const prefixCls = getPrefixCls?.('progress');
+
+  const percentStyle = {
+    width: `${percent?.toFixed(2)}%`,
+    height: 2,
+    backgroundColor: '#1890ff',
+    visibility: percent && Number(percent) > 0 && Number(percent) < 100 ? 'visible' : 'hidden',
+    transition: 'all 200ms',
+  } as React.CSSProperties;
+
+  return (
     <div className={getPrefixCls?.('progress-box')}>
-      <div className={getPrefixCls?.('progress')}>
-        <Progress
-          {...progress}
-          type="line"
-          percent={percent === -1 ? 100 : percent}
-          status={percent === -1 ? 'exception' : 'active'}
-        />
+      <div className={prefixCls}>
+        <div className={`${prefixCls}-outer`}>
+          <div className={`${prefixCls}-inner`}>
+            <div className={`${prefixCls}-bg`} style={percentStyle} />
+          </div>
+        </div>
       </div>
     </div>
-  ) : null;
+  );
 };

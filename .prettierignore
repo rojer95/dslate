@@ -6,3 +6,4 @@ package.json
 .umi-production
 .umi-test
 docs-dist
+packages/component/src/style/theme/*.less

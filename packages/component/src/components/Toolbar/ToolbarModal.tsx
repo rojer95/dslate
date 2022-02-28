@@ -34,7 +34,7 @@ const ToolbarModal: (props: React.PropsWithChildren<ToolbarModalProps>) => JSX.E
         trigger={[]}
         visible={visible}
         placement="bottom"
-        content={<div className={`${prefixCls}-content`}>{overlay}</div>}
+        overlay={<div className={`${prefixCls}-content`}>{overlay}</div>}
       >
         <ToolbarButton disabled={disabled} onClick={toggle} tooltip={tooltip}>
           <div className={classnames(`${prefixCls}-button`)}>

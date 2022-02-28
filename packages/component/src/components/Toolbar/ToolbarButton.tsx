@@ -1,7 +1,7 @@
 import classnames from 'classnames';
 import React from 'react';
 import { usePlugin, usePluginHelper } from '@dslate/core';
-import ToolbarTooltip from './ToolbarTooltip';
+import Tooltip from '../Tooltip';
 
 export type ToolbarButtonProps = {
   active?: boolean;
@@ -22,21 +22,21 @@ const ToolbarButton: React.FC<ToolbarButtonProps> = ({
   const prefixCls = getPrefixCls?.('toolbar-button');
   const isDisabled = disabled || globalDisabled;
 
-  return (
-    <ToolbarTooltip tooltip={tooltip}>
-      <div
-        className={classnames(`${prefixCls}`, {
-          active,
-          disabled: isDisabled,
-        })}
-        onClick={() => {
-          if (!isDisabled) onClick?.();
-        }}
-      >
-        {children}
-      </div>
-    </ToolbarTooltip>
+  const Button = (
+    <div
+      className={classnames(`${prefixCls}`, {
+        active,
+        disabled: isDisabled,
+      })}
+      onClick={() => {
+        if (!isDisabled) onClick?.();
+      }}
+    >
+      {children}
+    </div>
   );
+
+  return tooltip ? <Tooltip tooltip={tooltip}>{Button}</Tooltip> : Button;
 };
 
 export default ToolbarButton;

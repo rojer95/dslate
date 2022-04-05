@@ -50,11 +50,13 @@ const Img = ({ attributes, children, element, style }: RenderElementPropsWithSty
   const path = ReactEditor.findPath(editor, element);
 
   const updateSize = (target: any) => {
+    const width = isNaN(Number(target.width)) ? target.width : Number(target.width);
+    const height = isNaN(Number(target.height)) ? target.height : Number(target.height);
     Transforms.setNodes(
       editor,
       {
-        imgHeight: target.height,
-        imgWidth: target.width,
+        imgHeight: height,
+        imgWidth: width,
       },
       {
         at: path,
@@ -62,7 +64,12 @@ const Img = ({ attributes, children, element, style }: RenderElementPropsWithSty
     );
   };
 
+  const updateEditableSizeEnd = () => {
+    updateSize(editable);
+  };
+
   const updateEditableSize = (key: string, value: string) => {
+    // 百分比
     if (value.endsWith('%')) {
       const rwidth = key === 'width' ? value : 'auto';
       const rheight = key === 'height' ? value : 'auto';
@@ -73,7 +80,10 @@ const Img = ({ attributes, children, element, style }: RenderElementPropsWithSty
       return;
     }
 
+    // 非数字跳过
     if (isNaN(Number(value))) return;
+
+    // 等比缩放
     const width = image.current?.naturalWidth ?? 1;
     const height = image.current?.naturalHeight ?? 1;
     const p = width / height;
@@ -86,29 +96,43 @@ const Img = ({ attributes, children, element, style }: RenderElementPropsWithSty
     });
   };
 
-  const loadSizeFromImg = () => {
-    const width = element.imgWidth ?? image.current?.width ?? '';
-    const height = element.imgHeight ?? image.current?.height ?? '';
-
-    setEditable({
-      width: width,
-      height: height,
-    });
-
-    setDraggable({
-      ...draggable,
-      width: image.current?.width ?? 0,
-      height: image.current?.height ?? 0,
-    });
-  };
-
   useEffect(() => {
-    if (selected) loadSizeFromImg();
+    if (selected) {
+      /**
+       * 选中状态下，优先同步参数宽度，其次同步实际宽高到编辑框
+       */
+      const width = element.imgWidth ?? image.current?.width ?? '';
+      const height = element.imgHeight ?? image.current?.height ?? '';
+      setEditable({
+        width: width,
+        height: height,
+      });
+    }
+
+    /**
+     * 同步图片实际宽高到拖拽组件
+     */
+    setDraggable({
+      status: false,
+      width: image.current?.width,
+      height: image.current?.height,
+    });
   }, [selected, element.imgWidth, element.imgHeight]);
 
+  /**
+   * 图片加载完毕后初始化参数
+   */
   const onImageLoad = () => {
     setLoading(false);
-    loadSizeFromImg();
+    setEditable({
+      width: `${image.current?.width}`,
+      height: `${image.current?.height}`,
+    });
+    setDraggable({
+      ...draggable,
+      width: image.current?.width,
+      height: image.current?.height,
+    });
   };
 
   const updateUrl = async (option: UploadRequestOption) => {
@@ -160,8 +184,8 @@ const Img = ({ attributes, children, element, style }: RenderElementPropsWithSty
                   updateEditableSize('width', e.target.value);
                 }}
                 onKeyPress={(e) => {
-                  if (e.which === 13) {
-                    updateSize(editable);
+                  if (e.key === 'Enter') {
+                    updateEditableSizeEnd();
                   }
                 }}
               />
@@ -172,8 +196,8 @@ const Img = ({ attributes, children, element, style }: RenderElementPropsWithSty
                   updateEditableSize('height', e.target.value);
                 }}
                 onKeyPress={(e) => {
-                  if (e.which === 13) {
-                    updateSize(editable);
+                  if (e.key === 'Enter') {
+                    updateEditableSizeEnd();
                   }
                 }}
               />
@@ -189,7 +213,19 @@ const Img = ({ attributes, children, element, style }: RenderElementPropsWithSty
             }}
           >
             {loading ? (
-              <div style={{ ...props?.loadingMinSize }} />
+              <div
+                style={{
+                  ...props?.loadingMinSize,
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  backgroundColor: 'rgba(0,0,0,0.1)',
+                  color: 'rgba(0,0,0,0.4)',
+                  fontSize: 12,
+                }}
+              >
+                {props?.loadingText ?? 'loading...'}
+              </div>
             ) : (
               <Rnd
                 ref={rnd}

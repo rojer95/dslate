@@ -1,0 +1,61 @@
+{
+  "name": "@dslate/semi",
+  "version": "0.0.3",
+  "description": "富文本编辑器 - An rich editor based on Slate",
+  "keywords": [
+    "antd",
+    "wysiwyg",
+    "rich-editor",
+    "ant-design",
+    "slate",
+    "slate-react",
+    "dslate"
+  ],
+  "sideEffects": [
+    "*.less"
+  ],
+  "homepage": "https://github.com/rojer95/dslate/tree/master/packages/dslate#readme",
+  "bugs": "https://github.com/rojer95/dslate/issues",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/rojer95/dslate"
+  },
+  "license": "MIT",
+  "main": "lib/index.js",
+  "module": "es/index.js",
+  "types": "lib/index.d.ts",
+  "files": [
+    "lib",
+    "es",
+    "dist"
+  ],
+  "browserslist": [
+    "last 2 versions",
+    "Firefox ESR",
+    "> 1%",
+    "ie >= 11"
+  ],
+  "dependencies": {
+    "@babel/runtime": "^7.16.3",
+    "@dslate/component": "^0.0.3",
+    "@dslate/core": "^0.0.3",
+    "@dslate/plugin": "^0.0.3",
+    "classnames": "^2.3.1",
+    "slate": "^0.72.0",
+    "slate-react": "^0.72.1"
+  },
+  "peerDependencies": {
+    "@douyinfe/semi-ui": ">2.7.0",
+    "react": ">=16.9.0",
+    "react-dom": ">=16.9.0"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "authors": [
+    "rojer <rojerchen@qq.com> (https://github.com/rojer95)"
+  ],
+  "devDependencies": {
+    "@types/react-color": "^3.0.6"
+  }
+}

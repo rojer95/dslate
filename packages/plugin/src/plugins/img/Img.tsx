@@ -18,6 +18,11 @@ type Draggable = {
 
 const prefixCls = 'dslate-img-element';
 
+const inputStyle = {
+  width: 80,
+  borderRadius: 2,
+  border: '1px solid rgba(0, 0, 0, 0.2)',
+};
 const Img = ({ attributes, children, element, style }: RenderElementPropsWithStyle) => {
   const { setPercent } = usePluginHelper();
   const { customUploadRequest } = useConfig();
@@ -179,6 +184,7 @@ const Img = ({ attributes, children, element, style }: RenderElementPropsWithSty
               <Divider />
               <span>{getMessage('width', '宽')}</span>
               <input
+                style={inputStyle}
                 value={editable.width}
                 onChange={(e) => {
                   updateEditableSize('width', e.target.value);
@@ -191,6 +197,7 @@ const Img = ({ attributes, children, element, style }: RenderElementPropsWithSty
               />
               <span>{getMessage('height', '高')}</span>
               <input
+                style={inputStyle}
                 value={editable.height}
                 onChange={(e) => {
                   updateEditableSize('height', e.target.value);

@@ -2,7 +2,6 @@ import React from 'react';
 import locale from '../locale';
 import { Editor, Transforms, Element } from 'slate';
 import { useSlate, ReactEditor } from 'slate-react';
-import { Checkbox } from 'antd';
 import { TYPE as LIST_TYPE, IS_ORDERED } from './list';
 import { IconFont, Toolbar } from '@dslate/component';
 import type { DSlatePlugin, RenderElementPropsWithStyle } from '@dslate/core';
@@ -56,7 +55,7 @@ const renderElement = (props: RenderElementPropsWithStyle, editor: Editor) => {
   return (
     <p {...attributes} style={style}>
       <span contentEditable={false} style={{ marginRight: 6 }}>
-        <Checkbox onChange={onChange} checked={element?.checked} />
+        <input type="checkbox" onChange={onChange} checked={element?.checked} />
       </span>
       {children}
     </p>

@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file. See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.0.5](https://github.com/rojer95/dslate/compare/@dslate/component@0.0.4...@dslate/component@0.0.5) (2022-04-05)
+
+### Bug Fixes
+
+- :bug: remove less script ([7e7e7ba](https://github.com/rojer95/dslate/commit/7e7e7bad79c6c11318a5c32c99b422cdbf1e2524))
+
 ## [0.0.4](https://github.com/rojer95/dslate/compare/@dslate/component@0.0.3...@dslate/component@0.0.4) (2022-04-05)
 
 ### Features

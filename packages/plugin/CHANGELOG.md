@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file. See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.0.5](https://github.com/rojer95/dslate/compare/@dslate/plugin@0.0.4...@dslate/plugin@0.0.5) (2022-04-05)
+
+### Bug Fixes
+
+- :bug: img dep ant bug ([44acad1](https://github.com/rojer95/dslate/commit/44acad1065723067427c79e6233ee2d9a02526b1))
+
 ## [0.0.4](https://github.com/rojer95/dslate/compare/@dslate/plugin@0.0.3...@dslate/plugin@0.0.4) (2022-04-05)
 
 ### Features

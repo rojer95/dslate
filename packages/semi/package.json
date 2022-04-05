@@ -1,6 +1,6 @@
 {
   "name": "@dslate/semi",
-  "version": "0.0.4",
+  "version": "0.0.5",
   "description": "富文本编辑器 - An rich editor based on Slate",
   "keywords": [
     "antd",
@@ -39,7 +39,7 @@
     "@babel/runtime": "^7.16.3",
     "@dslate/component": "^0.0.4",
     "@dslate/core": "^0.0.3",
-    "@dslate/plugin": "^0.0.4",
+    "@dslate/plugin": "^0.0.5",
     "classnames": "^2.3.1",
     "slate": "^0.72.0",
     "slate-react": "^0.72.1"

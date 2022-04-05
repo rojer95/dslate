@@ -3,7 +3,7 @@ import { Transforms } from 'slate';
 import { useSlate } from 'slate-react';
 
 import { IconFont, Toolbar } from '@dslate/component';
-import { Upload } from 'antd';
+import Upload from 'rc-upload';
 
 import Img from './Img';
 import { promiseUploadFunc, usePluginHelper, useConfig, useMessage } from '@dslate/core';
@@ -46,12 +46,7 @@ const ToolbarButton = () => {
   };
 
   return (
-    <Upload
-      accept="image/*"
-      maxCount={1}
-      showUploadList={false}
-      customRequest={(option) => insertImg(option)}
-    >
+    <Upload accept="image/*" customRequest={(option) => insertImg(option)}>
       <Toolbar.Button tooltip={getMessage('tooltip', '上传图片')}>
         <IconFont type="icon-image1" />
       </Toolbar.Button>

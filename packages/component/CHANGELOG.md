@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file. See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.0.4](https://github.com/rojer95/dslate/compare/@dslate/component@0.0.3...@dslate/component@0.0.4) (2022-04-05)
+
+### Features
+
+- :boom: 依赖调整 ([73b863d](https://github.com/rojer95/dslate/commit/73b863d337d267bdda1c1a469f166e91ccce90aa))
+
 ## [0.0.3](https://github.com/rojer95/dslate/compare/@dslate/component@0.0.2...@dslate/component@0.0.3) (2022-02-20)
 
 **Note:** Version bump only for package @dslate/component

@@ -2,6 +2,15 @@
 
 All notable changes to this project will be documented in this file. See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.0.4](https://github.com/rojer95/dslate/compare/@dslate/plugin@0.0.3...@dslate/plugin@0.0.4) (2022-04-05)
+
+### Features
+
+- :boom: 依赖调整 ([73b863d](https://github.com/rojer95/dslate/commit/73b863d337d267bdda1c1a469f166e91ccce90aa))
+- :boom: img width height ([fa75358](https://github.com/rojer95/dslate/commit/fa75358ee941bd00580ffd1da78d72a26441f525))
+- :boom: remove plugin antd dep ([784c736](https://github.com/rojer95/dslate/commit/784c736993a5589ac78adefeeb54a7e5f5bbebed))
+- :boom: semi ui style ([2bee406](https://github.com/rojer95/dslate/commit/2bee40654efb130a75b955da021f5f344b944db7))
+
 ## [0.0.3](https://github.com/rojer95/dslate/compare/@dslate/plugin@0.0.2...@dslate/plugin@0.0.3) (2022-02-20)
 
 ### Bug Fixes

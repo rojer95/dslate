@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file. See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 0.0.4 (2022-04-05)
+
+### Features
+
+- :boom: semi ui style ([2bee406](https://github.com/rojer95/dslate/commit/2bee40654efb130a75b955da021f5f344b944db7))
+
 ## [0.0.3](https://github.com/rojer95/dslate/compare/@dslate/dslate@0.0.2...@dslate/dslate@0.0.3) (2022-02-20)
 
 ### Bug Fixes

@@ -1,6 +1,6 @@
 {
   "name": "@dslate/semi",
-  "version": "0.0.5",
+  "version": "0.0.6",
   "description": "富文本编辑器 - An rich editor based on Slate",
   "keywords": [
     "antd",

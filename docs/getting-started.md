@@ -25,7 +25,3 @@ $ npm i @dslate/dslate --save
 ## 在项目中使用
 
 <code src="./demos/base.tsx" />
-
-## 在项目中使用
-
-<code src="./demos/semi.tsx" />

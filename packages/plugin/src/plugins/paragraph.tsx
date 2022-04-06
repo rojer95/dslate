@@ -189,6 +189,7 @@ const ParagraphPlugin: DSlatePlugin = {
     },
   ],
   serialize: (element, props, children) => {
+    const isEmpty = Node.string(element) === '';
     let tag = 'div';
     if (element?.[PROPS_KEY] === 'h1') {
       tag = 'h1';
@@ -205,7 +206,9 @@ const ParagraphPlugin: DSlatePlugin = {
     if (element?.[PROPS_KEY] === 'h4') {
       tag = 'h4';
     }
-    return `<${tag} style="${props?.style ?? ''}">${children.join('')}</${tag}>`;
+    return `<${tag} style="${props?.style ?? ''}">${children.join('')}${
+      isEmpty ? '&nbsp;' : ''
+    }</${tag}>`;
   },
 };
 

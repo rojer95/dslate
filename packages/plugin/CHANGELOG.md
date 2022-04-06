@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file. See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.0.8](https://github.com/rojer95/dslate/compare/@dslate/plugin@0.0.7...@dslate/plugin@0.0.8) (2022-04-06)
+
+### Bug Fixes
+
+- :bug: paragraph empty bug ([850ca1b](https://github.com/rojer95/dslate/commit/850ca1bd865f32c264941248f970f942262e9c37))
+
 ## [0.0.7](https://github.com/rojer95/dslate/compare/@dslate/plugin@0.0.6...@dslate/plugin@0.0.7) (2022-04-06)
 
 ### Features

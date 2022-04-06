@@ -99,6 +99,11 @@ const TodoListPlugin: DSlatePlugin = {
       tooltip: 'todo list',
     },
   ],
+  serialize: (element, props, children) => {
+    return `<p style="${
+      props.style ?? ''
+    }"><span style={{ marginRight: 6 }}><input type="checkbox" /></span>${children.join('')}</p>`;
+  },
 };
 
 export { TodoListPlugin };

@@ -188,6 +188,8 @@ const LinkPlugin: DSlatePlugin = {
     { locale: locale.zhCN, link: '链接', clear: '清除链接' },
     { locale: locale.enUS, link: 'link', clear: 'clear link' },
   ],
+  serialize: (element, props, children) =>
+    `<a style="${props.style ?? ''}" href="${element.href}">${children.join('')}</a>`,
 };
 
 export { LinkPlugin };

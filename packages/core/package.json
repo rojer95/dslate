@@ -36,6 +36,7 @@
   ],
   "dependencies": {
     "@babel/runtime": "^7.16.3",
+    "escape-html": "^1.0.3",
     "nanoid": "^3.1.30",
     "slate": "^0.72.0",
     "slate-react": "^0.72.1"
@@ -49,5 +50,8 @@
   },
   "authors": [
     "rojer <rojerchen@qq.com> (https://github.com/rojer95)"
-  ]
+  ],
+  "devDependencies": {
+    "@types/escape-html": "^1.0.1"
+  }
 }

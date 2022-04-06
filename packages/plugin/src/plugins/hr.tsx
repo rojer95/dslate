@@ -177,6 +177,7 @@ const HrPlugin: DSlatePlugin = {
       remove: 'remove',
     },
   ],
+  serialize: () => '<hr />',
 };
 
 export { HrPlugin };

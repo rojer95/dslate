@@ -188,6 +188,25 @@ const ParagraphPlugin: DSlatePlugin = {
       h4: 'H4',
     },
   ],
+  serialize: (element, props, children) => {
+    let tag = 'div';
+    if (element?.[PROPS_KEY] === 'h1') {
+      tag = 'h1';
+    }
+
+    if (element?.[PROPS_KEY] === 'h2') {
+      tag = 'h2';
+    }
+
+    if (element?.[PROPS_KEY] === 'h3') {
+      tag = 'h3';
+    }
+
+    if (element?.[PROPS_KEY] === 'h4') {
+      tag = 'h4';
+    }
+    return `<${tag} style="${props?.style ?? ''}">${children.join('')}</${tag}>`;
+  },
 };
 
 export { ParagraphPlugin };

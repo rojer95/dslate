@@ -2,9 +2,9 @@ import DSlate from './components/DSlate';
 
 export { default as defaultConfig } from './defaultConfig';
 
-import type { DSlateProps } from './components/DSlate';
+import type { DSlateProps, DSlateRef } from './components/DSlate';
 
-export type { DSlateProps };
+export type { DSlateProps, DSlateRef };
 
 export * from './typing';
 

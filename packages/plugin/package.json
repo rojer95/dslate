@@ -40,6 +40,7 @@
     "@dslate/core": "^0.0.3",
     "@emotion/css": "^11.7.1",
     "classnames": "^2.3.1",
+    "escape-html": "^1.0.3",
     "is-hotkey": "^0.2.0",
     "rc-upload": "^4.3.3",
     "react-color": "^2.19.3",
@@ -59,6 +60,7 @@
     "rojer <rojerchen@qq.com> (https://github.com/rojer95)"
   ],
   "devDependencies": {
+    "@types/escape-html": "^1.0.1",
     "@types/react-color": "^3.0.6"
   }
 }

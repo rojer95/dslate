@@ -35,6 +35,7 @@ export type DSlatePlugin = {
   isDefaultElement?: boolean;
   locale?: Locale[];
   props?: Record<string, any>;
+  serialize?: (element: any, pluginProps: any, children: any[]) => string;
 };
 
 export interface DSlateEditor {

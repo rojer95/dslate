@@ -1,3 +1,4 @@
+import { CSSProperties } from 'react';
 import type { Descendant, Editor } from 'slate';
 import type { DSlatePlugin } from '../typing';
 
@@ -19,4 +20,23 @@ export const mergeStyle = (
     }
     return { ...style, ...gstyle };
   }, {});
+};
+
+export function splitCamel(str: string) {
+  return str
+    .replace(/([A-Z])/g, function (s) {
+      return '-' + s.toLowerCase();
+    })
+    .trim();
+}
+
+export const style2string = (style: CSSProperties) => {
+  if (typeof style !== 'object') return '';
+  return Object.keys(style)
+    .map((key) => {
+      let value = style[key];
+      if (typeof value === 'number') value = value + 'px';
+      return `${splitCamel(key)}:${value};`;
+    })
+    .join('');
 };

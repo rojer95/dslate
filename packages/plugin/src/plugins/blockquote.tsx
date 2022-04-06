@@ -154,6 +154,9 @@ const BlockquotePlugin: DSlatePlugin = {
       toolbar: 'blockquote',
     },
   ],
+  serialize: (el, props, chils) => {
+    return `<blockquote style="${props.style ?? ''}">${chils.join('')}</blockquote>`;
+  },
 };
 
 export { BlockquotePlugin };

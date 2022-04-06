@@ -1,4 +1,4 @@
-export { mergeStyle } from './mergeStyle';
+export { mergeStyle, style2string } from './mergeStyle';
 export { get } from './get';
 export { getTextProps, setTextProps, toggleTextProps } from './text';
 export { toggleBlock, getBlockProps, setBlockProps, isBlockActive, clearBlockProps } from './block';

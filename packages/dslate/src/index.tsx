@@ -1,4 +1,5 @@
-import React from 'react';
+import React, { forwardRef } from 'react';
+import type { DSlateRef } from '@dslate/core';
 import { ConfigProvider, ConfigConsumer } from '@dslate/core';
 import { ConfigProvider as AntdConfigProvider } from 'antd';
 
@@ -35,30 +36,32 @@ export const DefaultToolbar = [
   'blockquote',
   'hr',
 ];
-export default ({ toolbar = DefaultToolbar, ...props }: AntdStyleDSlateProps) => {
-  const { locale } = React.useContext(AntdConfigProvider.ConfigContext);
-  return (
-    <ConfigConsumer>
-      {(value) => {
-        const plugins =
-          !value.plugins || value.plugins.length === 0
-            ? Object.values(DefaultPlugin)
-            : value.plugins;
-        const locales = value.locales ? value.locales : DefaultLocales;
-        return (
-          <ConfigProvider
-            value={{
-              ...value,
-              locales: mergeLocalteFromPlugins(locales, plugins),
-              locale: locale?.locale ?? 'default',
-              plugins,
-              iconScriptUrl: '//at.alicdn.com/t/font_3062978_2vfzjar92f5.js',
-            }}
-          >
-            <DSlate {...props} toolbar={toolbar} />
-          </ConfigProvider>
-        );
-      }}
-    </ConfigConsumer>
-  );
-};
+export default forwardRef<DSlateRef, AntdStyleDSlateProps>(
+  ({ toolbar = DefaultToolbar, ...props }, ref) => {
+    const { locale } = React.useContext(AntdConfigProvider.ConfigContext);
+    return (
+      <ConfigConsumer>
+        {(value) => {
+          const plugins =
+            !value.plugins || value.plugins.length === 0
+              ? Object.values(DefaultPlugin)
+              : value.plugins;
+          const locales = value.locales ? value.locales : DefaultLocales;
+          return (
+            <ConfigProvider
+              value={{
+                ...value,
+                locales: mergeLocalteFromPlugins(locales, plugins),
+                locale: locale?.locale ?? 'default',
+                plugins,
+                iconScriptUrl: '//at.alicdn.com/t/font_3062978_2vfzjar92f5.js',
+              }}
+            >
+              <DSlate {...props} ref={ref} toolbar={toolbar} />
+            </ConfigProvider>
+          );
+        }}
+      </ConfigConsumer>
+    );
+  },
+);

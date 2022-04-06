@@ -1,9 +1,10 @@
-import React, { useContext } from 'react';
+import React, { forwardRef, useContext } from 'react';
 import classNames from 'classnames';
 import { ConfigProvider as AntdConfigProvider } from 'antd';
 import { useFocused } from 'slate-react';
 import SizeContext from 'antd/lib/config-provider/SizeContext';
 
+import type { DSlateRef } from '@dslate/core';
 import DSlate, { usePluginHelper } from '@dslate/core';
 import { Toolbar, Progress, Editable, Counter } from '@dslate/component';
 
@@ -48,11 +49,11 @@ const AntdStyleEditor = ({
   );
 };
 
-export default ({ value, onChange, ...rest }: AntdStyleDSlateProps) => {
+export default forwardRef<DSlateRef, AntdStyleDSlateProps>(({ value, onChange, ...rest }, ref) => {
   const { getPrefixCls: getAntdPrefixCls } = useContext(AntdConfigProvider.ConfigContext);
   return (
-    <DSlate value={value} onChange={onChange} prefixCls={getAntdPrefixCls('dslate')}>
+    <DSlate ref={ref} value={value} onChange={onChange} prefixCls={getAntdPrefixCls('dslate')}>
       <AntdStyleEditor {...rest} />
     </DSlate>
   );
-};
+});

@@ -86,6 +86,15 @@ const ImgPlugin: DSlatePlugin = {
       loading: 'loading',
     },
   ],
+  serialize: (element, props) => {
+    const width = element.imgWidth,
+      height = element.imgHeight;
+    const style = [];
+    if (props?.style) style.push(props.style);
+    if (width) style.push(`width: ${width};`);
+    if (height) style.push(`height: ${height};`);
+    return `<img src="${element.url}"  style="${style.join('')}" />`;
+  },
 };
 
 export { ImgPlugin };

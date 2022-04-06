@@ -1,10 +1,10 @@
 /**
  * defaultShowCode: true
  */
-import React, { useState } from 'react';
+import React, { useRef, useState } from 'react';
 import type { Descendant } from 'slate';
-
 import DSlate from '@dslate/dslate';
+import type { DSlateRef } from '@dslate/core';
 
 export default () => {
   const [value, setValue] = useState<Descendant[]>([
@@ -14,5 +14,23 @@ export default () => {
     },
   ]);
 
-  return <DSlate value={value} onChange={setValue} />;
+  const ref = useRef<DSlateRef>(null);
+
+  return (
+    <div>
+      <DSlate ref={ref} value={value} onChange={setValue} />
+      <button
+        onClick={() => {
+          console.log(value);
+          console.log(
+            ref.current?.serialize({
+              children: value,
+            }),
+          );
+        }}
+      >
+        转内容为HTML
+      </button>
+    </div>
+  );
 };

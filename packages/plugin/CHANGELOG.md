@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file. See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.0.7](https://github.com/rojer95/dslate/compare/@dslate/plugin@0.0.6...@dslate/plugin@0.0.7) (2022-04-06)
+
+### Features
+
+- :boom: 添加 ref, toHtml ([11597d8](https://github.com/rojer95/dslate/commit/11597d8b88888f36fd12fb68edee5795f066d36e))
+
 ## [0.0.6](https://github.com/rojer95/dslate/compare/@dslate/plugin@0.0.5...@dslate/plugin@0.0.6) (2022-04-05)
 
 **Note:** Version bump only for package @dslate/plugin

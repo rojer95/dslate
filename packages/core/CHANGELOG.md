@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file. See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.0.4](https://github.com/rojer95/dslate/compare/@dslate/core@0.0.3...@dslate/core@0.0.4) (2022-04-06)
+
+### Features
+
+- :boom: 添加 ref, toHtml ([11597d8](https://github.com/rojer95/dslate/commit/11597d8b88888f36fd12fb68edee5795f066d36e))
+
 ## [0.0.3](https://github.com/rojer95/dslate/compare/@dslate/core@0.0.2...@dslate/core@0.0.3) (2022-02-20)
 
 ### Bug Fixes

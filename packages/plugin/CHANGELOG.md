@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file. See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.0.9](https://github.com/rojer95/dslate/compare/@dslate/plugin@0.0.8...@dslate/plugin@0.0.9) (2022-04-12)
+
+### Bug Fixes
+
+- :bug: hr serialize ([e8d98e0](https://github.com/rojer95/dslate/commit/e8d98e048808addadf8101f16ffb6b8f934c1375))
+
 ## [0.0.8](https://github.com/rojer95/dslate/compare/@dslate/plugin@0.0.7...@dslate/plugin@0.0.8) (2022-04-06)
 
 ### Bug Fixes

@@ -177,7 +177,7 @@ const HrPlugin: DSlatePlugin = {
       remove: 'remove',
     },
   ],
-  serialize: () => '<hr />',
+  serialize: (e, p) => `<hr style="backgroud-color: ${p.color};height: 1px;border: none;" />`,
 };
 
 export { HrPlugin };

@@ -67,6 +67,7 @@ const ImgPlugin: DSlatePlugin = {
       minHeight: 150,
       minWidth: 300,
     },
+    maxWidth: false,
   },
   locale: [
     {
@@ -87,13 +88,10 @@ const ImgPlugin: DSlatePlugin = {
     },
   ],
   serialize: (element, props) => {
-    const width = element.imgWidth,
-      height = element.imgHeight;
     const style = [];
     if (props?.style) style.push(props.style);
-    if (width) style.push(`width: ${width};`);
-    if (height) style.push(`height: ${height};`);
-    return `<img src="${element.url}"  style="${style.join('')}" />`;
+    if (props?.maxWidth) style.push(`max-width: ${props.maxWidth};`);
+    return `<img style="${style.join('')}" src="${element.url}" />`;
   },
 };
 

@@ -138,6 +138,11 @@ const Img = ({ attributes, children, element, style }: RenderElementPropsWithSty
       width: image.current?.width,
       height: image.current?.height,
     });
+
+    updateSize({
+      width: image.current?.width,
+      height: image.current?.height,
+    });
   };
 
   const updateUrl = async (option: UploadRequestOption) => {
@@ -217,6 +222,7 @@ const Img = ({ attributes, children, element, style }: RenderElementPropsWithSty
             })}
             style={{
               ...style,
+              maxWidth: props?.maxWidth ?? undefined,
             }}
           >
             {loading ? (

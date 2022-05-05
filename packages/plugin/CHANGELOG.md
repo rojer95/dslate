@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file. See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.0.10](https://github.com/rojer95/dslate/compare/@dslate/plugin@0.0.9...@dslate/plugin@0.0.10) (2022-05-05)
+
+### Features
+
+- **img:** :boom: img plugin max-width ([f78f457](https://github.com/rojer95/dslate/commit/f78f457820fd67810f7b654febe84c656e0062d1))
+
 ## [0.0.9](https://github.com/rojer95/dslate/compare/@dslate/plugin@0.0.8...@dslate/plugin@0.0.9) (2022-04-12)
 
 ### Bug Fixes

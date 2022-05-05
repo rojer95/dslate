@@ -2,6 +2,10 @@
 
 All notable changes to this project will be documented in this file. See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.0.11](https://github.com/rojer95/dslate/compare/@dslate/dslate@0.0.10...@dslate/dslate@0.0.11) (2022-05-05)
+
+**Note:** Version bump only for package @dslate/dslate
+
 ## [0.0.10](https://github.com/rojer95/dslate/compare/@dslate/dslate@0.0.9...@dslate/dslate@0.0.10) (2022-04-12)
 
 **Note:** Version bump only for package @dslate/dslate

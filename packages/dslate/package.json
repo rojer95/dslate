@@ -1,6 +1,6 @@
 {
   "name": "@dslate/dslate",
-  "version": "0.0.11",
+  "version": "0.0.12",
   "description": "一个Ant Design风格的富文本编辑器 - An Ant Design style rich editor based on Slate",
   "keywords": [
     "antd",
@@ -37,9 +37,9 @@
   ],
   "dependencies": {
     "@babel/runtime": "^7.16.3",
-    "@dslate/component": "^0.0.6",
-    "@dslate/core": "^0.0.4",
-    "@dslate/plugin": "^0.0.10",
+    "@dslate/component": "^0.0.7",
+    "@dslate/core": "^0.0.5",
+    "@dslate/plugin": "^0.0.11",
     "classnames": "^2.3.1",
     "slate": "^0.72.0",
     "slate-react": "^0.72.1"

@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file. See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.0.12](https://github.com/rojer95/dslate/compare/@dslate/dslate@0.0.11...@dslate/dslate@0.0.12) (2022-05-19)
+
+### Features
+
+- :boom: semi style ([4202a17](https://github.com/rojer95/dslate/commit/4202a17271eab8274022568516320e175e3ccbbc))
+
 ## [0.0.11](https://github.com/rojer95/dslate/compare/@dslate/dslate@0.0.10...@dslate/dslate@0.0.11) (2022-05-05)
 
 **Note:** Version bump only for package @dslate/dslate

@@ -3,9 +3,10 @@
  */
 import React, { useRef, useState } from 'react';
 import type { Descendant } from 'slate';
-import DSlate from '@dslate/dslate';
+import DSlate from '@dslate/semi';
 import type { DSlateRef } from '@dslate/core';
-import { Button } from 'antd';
+
+import { Button } from '@douyinfe/semi-ui';
 
 export default () => {
   const [value, setValue] = useState<Descendant[]>([
@@ -19,7 +20,7 @@ export default () => {
 
   return (
     <div>
-      <DSlate ref={ref} value={value} onChange={setValue} />
+      <DSlate className="my-style" ref={ref} value={value} onChange={setValue} showCount />
       <br />
       <Button
         onClick={() => {

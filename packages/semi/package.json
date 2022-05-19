@@ -1,0 +1,58 @@
+{
+  "name": "@dslate/semi",
+  "version": "1.0.0",
+  "description": "一个Semi Design风格的富文本编辑器 - A Semi Design style rich editor based on Slate",
+  "keywords": [
+    "antd",
+    "wysiwyg",
+    "rich-editor",
+    "ant-design",
+    "slate",
+    "slate-react",
+    "dslate"
+  ],
+  "sideEffects": [
+    "*.less"
+  ],
+  "author": "rojer <rojerchen@qq.com>",
+  "homepage": "http://rojer95.github.io/dslate/tree/main/packages/semi-ui#readme",
+  "license": "MIT",
+  "main": "lib/index.js",
+  "module": "es/index.js",
+  "types": "lib/index.d.ts",
+  "files": [
+    "lib",
+    "es",
+    "dist"
+  ],
+  "browserslist": [
+    "last 2 versions",
+    "Firefox ESR",
+    "> 1%",
+    "ie >= 11"
+  ],
+  "publishConfig": {
+    "access": "public"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/rojer95/dslate.git"
+  },
+  "dependencies": {
+    "@babel/runtime": "^7.16.3",
+    "@dslate/component": "^0.0.6",
+    "@dslate/core": "^0.0.4",
+    "@dslate/plugin": "^0.0.10",
+    "classnames": "^2.3.1",
+    "slate": "^0.72.0",
+    "slate-react": "^0.72.1"
+  },
+  "peerDependencies": {
+    "@douyinfe/semi-ui": ">=2.8.0",
+    "react": ">=16.9.0",
+    "react-dom": ">=16.9.0"
+  },
+  "bugs": {
+    "url": "https://github.com/rojer95/dslate/issues"
+  }
+}

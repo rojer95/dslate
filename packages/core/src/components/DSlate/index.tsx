@@ -1,6 +1,6 @@
 import type { PropsWithChildren } from 'react';
 import React, { forwardRef, useCallback, useImperativeHandle, useMemo, useState } from 'react';
-import type { Descendant } from 'slate';
+import type { Descendant, Editor } from 'slate';
 import { createEditor, Text } from 'slate';
 import { Slate, withReact } from 'slate-react';
 import escapeHtml from 'escape-html';
@@ -17,6 +17,7 @@ export interface DSlateProps {
 
 export type DSlateRef = {
   serialize: (v: any) => string;
+  getEditor: () => Editor;
 };
 
 const DSlate = forwardRef<DSlateRef, PropsWithChildren<DSlateProps>>(
@@ -79,7 +80,11 @@ const DSlate = forwardRef<DSlateRef, PropsWithChildren<DSlateProps>>(
       [plugins, pluginProps],
     );
 
-    useImperativeHandle(ref, () => ({ serialize }), [serialize]);
+    const getEditor = useCallback(() => {
+      return editor;
+    }, [editor]);
+
+    useImperativeHandle(ref, () => ({ serialize, getEditor }), [serialize, getEditor]);
 
     return (
       <GlobalPluginProvider

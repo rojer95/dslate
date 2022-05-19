@@ -34,4 +34,4 @@ footer: Open-source MIT Licensed | © 2021
 
 ## 共建
 
-DSlate 仍在开发中， 欢迎共同构建 DSlate [Github](https://github.com/rojer95/dslate)。
+欢迎共同构建 DSlate [Github](https://github.com/rojer95/dslate)。

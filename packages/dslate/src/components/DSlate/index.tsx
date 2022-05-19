@@ -19,6 +19,7 @@ const AntdStyleEditor = ({
   disabled = false,
   placeholder,
   toolbar,
+  className,
 }: Omit<AntdStyleDSlateProps, 'value' | 'onChange'>) => {
   const focused = useFocused();
   const { getPrefixCls } = usePluginHelper();
@@ -30,7 +31,7 @@ const AntdStyleEditor = ({
         const realSize = customizeSize || size;
         return (
           <div
-            className={classNames(`${prefixCls}`, {
+            className={classNames(`${prefixCls}`, className, {
               [`${prefixCls}-sm`]: realSize === 'small',
               [`${prefixCls}-lg`]: realSize === 'large',
               [`${prefixCls}-disabled`]: disabled,

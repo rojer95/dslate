@@ -15,13 +15,19 @@ To find out more see the following Dslate documentation sections:
 - [Locale](https://rojer95.github.io/dslate/#/docs/locale)
 - [Custom file upload](https://rojer95.github.io/dslate/#/docs/upload)
 
+## OOTB
+
+| Component | Description |
+| --- | --- |
+| [@dslate/dslate](https://www.npmjs.com/package/@dslate/dslate) | Integrates Antd-style out-of-the-box editor components |
+| [@dslate/semi](https://www.npmjs.com/package/@dslate/semi) | Integrates Semi-style out-of-the-box editor components |
+
 ## Component
 
 DSlate provides the following components:
 
 | Component | Description |
 | --- | --- |
-| [DSlate](https://rojer95.github.io/dslate/#/components/dslate) | Integrates Antd-style out-of-the-box editor components |
 | [ConfigProvider](https://rojer95.github.io/dslate/#/components/config) | Global configuration components |
 | [Toolbar.Button](https://rojer95.github.io/dslate/#/components/toolbar/toolbar-button) | Toolbar-Button Component |
 | [Toolbar.Select](https://rojer95.github.io/dslate/#/components/toolbar/toolbar-select) | Toolbar - Selection Box Component |

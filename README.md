@@ -14,6 +14,7 @@ DSlate 是一个基于 [Slate](https://github.com/ianstormtaylor/slate) 构建�
 - [插件开发](https://rojer95.github.io/dslate/#/docs/plugin)
 - [国际化](https://rojer95.github.io/dslate/#/docs/locale)
 - [自定义文件上传](https://rojer95.github.io/dslate/#/docs/upload)
+- [Semi 风格](https://rojer95.github.io/dslate/#/docs/semi)
 
 ## 开箱即用
 

@@ -14,6 +14,7 @@ To find out more see the following Dslate documentation sections:
 - [Plugin development](https://rojer95.github.io/dslate/#/docs/plugin)
 - [Locale](https://rojer95.github.io/dslate/#/docs/locale)
 - [Custom file upload](https://rojer95.github.io/dslate/#/docs/upload)
+- [Semi Style](https://rojer95.github.io/dslate/#/docs/semi)
 
 ## OOTB
 

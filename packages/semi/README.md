@@ -1,11 +1,17 @@
 # `@dslate/semi-ui`
 
-> TODO: description
+See our website [dslate](http://rojer95.github.io/dslate) for more information.
 
-## Usage
+## Install
 
+Using npm:
+
+```bash
+$ npm install --save  @dslate/semi
 ```
-const semiUi = require('@dslate/semi-ui');
 
-// TODO: DEMONSTRATE API
+or using yarn:
+
+```bash
+$ yarn add  @dslate/semi
 ```

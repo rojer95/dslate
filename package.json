@@ -15,7 +15,7 @@
     "test": "umi-test",
     "test:coverage": "umi-test --coverage",
     "prepublishOnly": "npm run build",
-    "lernaVersion": "lerna version patch --conventional-commits",
+    "lernaVersion": "lerna version patch --exact --force-publish --conventional-commits",
     "lernaPublish": "lerna publish from-git"
   },
   "gitHooks": {

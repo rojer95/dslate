@@ -8,6 +8,7 @@ import { Toolbar, Progress, Editable, Counter } from '@dslate/component';
 import type { SemiStyleDSlateProps } from '../typing';
 
 import './index.less';
+import './index.scss';
 
 const SemiStyleEditor = ({
   bordered = true,
@@ -30,9 +31,11 @@ const SemiStyleEditor = ({
       })}
     >
       <Toolbar toolbar={toolbar} />
-      <Progress />
-      <Editable disabled={disabled} placeholder={placeholder} />
-      <Counter showCount={showCount} />
+      <div className={getPrefixCls?.('main-container')}>
+        <Progress />
+        <Editable disabled={disabled} placeholder={placeholder} />
+        <Counter showCount={showCount} />
+      </div>
     </div>
   );
 };

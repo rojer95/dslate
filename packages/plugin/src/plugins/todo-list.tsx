@@ -1,5 +1,5 @@
 import React from 'react';
-import locale from '../locale';
+import { Locales } from '@dslate/core';
 import { Editor, Transforms, Element } from 'slate';
 import { useSlate, ReactEditor } from 'slate-react';
 import { TYPE as LIST_TYPE, IS_ORDERED } from './list';
@@ -91,11 +91,11 @@ const TodoListPlugin: DSlatePlugin = {
   withPlugin: withTodoList,
   locale: [
     {
-      locale: locale.zhCN,
+      locale: Locales.zhCN,
       tooltip: '任务列表',
     },
     {
-      locale: locale.enUS,
+      locale: Locales.enUS,
       tooltip: 'todo list',
     },
   ],

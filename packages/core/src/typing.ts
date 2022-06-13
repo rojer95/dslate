@@ -1,16 +1,20 @@
 import type React from 'react';
 import type { CSSProperties } from 'react';
-import type { BaseEditor, Descendant, Editor, NodeEntry } from 'slate';
+import type { BaseElement, BaseText, Descendant, Editor, NodeEntry } from 'slate';
 import type { ReactEditor, RenderElementProps, RenderLeafProps } from 'slate-react';
 import type { UploadRequestOption } from 'rc-upload/lib/interface';
 
-export type DSlateCustomElement = {
+export interface DSlateEditor extends ReactEditor {
+  defaultElement?: string;
+  [index: string]: any;
+}
+
+export type DSlateCustomElement = BaseElement & {
   type: string;
-  children: (DSlateCustomText | DSlateCustomElement)[];
   [index: string]: any;
 };
 
-export type DSlateCustomText = {
+export type DSlateCustomText = BaseText & {
   text: string;
   [index: string]: any;
 };
@@ -38,11 +42,6 @@ export type DSlatePlugin = {
   serialize?: (element: any, pluginProps: any, children: any[]) => string;
 };
 
-export interface DSlateEditor {
-  [index: string]: any;
-  defaultElement?: string;
-}
-
 export type Locale = {
   locale: string;
   [index: string]: any;
@@ -66,10 +65,9 @@ export interface ShowCountProps {
 }
 
 export type UploadFunc = (options: UploadRequestOption) => void;
-
 declare module 'slate' {
   interface CustomTypes {
-    Editor: BaseEditor & DSlateEditor & ReactEditor;
+    Editor: DSlateEditor;
     Element: DSlateCustomElement;
     Text: DSlateCustomText;
   }

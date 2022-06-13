@@ -7,3 +7,4 @@ package.json
 .umi-test
 docs-dist
 packages/component/src/style/theme/*.less
+*.scss

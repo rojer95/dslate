@@ -1,8 +1,8 @@
 import React from 'react';
 import { Editor, Node, Path, Point, Range, Text, Transforms } from 'slate';
-import locale from '../locale';
+import { Locales } from '@dslate/core';
 import { ReactEditor, useSelected, useSlate } from 'slate-react';
-import { IconFont, Toolbar, Popover } from '@dslate/component';
+import { IconFont, Toolbar, Popover, Input } from '@dslate/component';
 import { isBlockActive, useMessage } from '@dslate/core';
 import type { NodeEntry } from 'slate';
 import type { DSlatePlugin, NormalizeNode, RenderElementPropsWithStyle } from '@dslate/core';
@@ -77,12 +77,7 @@ const Link = ({ attributes, element, children }: RenderElementPropsWithStyle) =>
         overlay={
           <>
             <div>{getMessage('link', '链接')}：</div>
-            <input
-              style={{
-                width: 260,
-                borderRadius: 2,
-                border: '1px solid rgba(0, 0, 0, 0.2)',
-              }}
+            <Input
               value={element.href}
               onChange={(e) => {
                 Transforms.setNodes(
@@ -185,8 +180,8 @@ const LinkPlugin: DSlatePlugin = {
   withPlugin,
   normalizeNode,
   locale: [
-    { locale: locale.zhCN, link: '链接', clear: '清除链接' },
-    { locale: locale.enUS, link: 'link', clear: 'clear link' },
+    { locale: Locales.zhCN, link: '链接', clear: '清除链接' },
+    { locale: Locales.enUS, link: 'link', clear: 'clear link' },
   ],
   serialize: (element, props, children) =>
     `<a style="${props.style ?? ''}" href="${element.href}">${children.join('')}</a>`,

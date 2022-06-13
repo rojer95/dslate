@@ -44,8 +44,8 @@
     "@dslate/core": "^0.0.5",
     "@dslate/plugin": "^0.0.11",
     "classnames": "^2.3.1",
-    "slate": "^0.72.0",
-    "slate-react": "^0.72.1"
+    "slate": "^0.81.0",
+    "slate-react": "^0.81.0"
   },
   "peerDependencies": {
     "@douyinfe/semi-ui": ">=2.8.0",
@@ -54,5 +54,8 @@
   },
   "bugs": {
     "url": "https://github.com/rojer95/dslate/issues"
+  },
+  "devDependencies": {
+    "@douyinfe/semi-webpack-plugin": "^2.12.0"
   }
 }

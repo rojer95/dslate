@@ -9,7 +9,6 @@ export default () => {
   const percentStyle = {
     width: `${percent?.toFixed(2)}%`,
     height: 2,
-    backgroundColor: '#1890ff',
     visibility: percent && Number(percent) > 0 && Number(percent) < 100 ? 'visible' : 'hidden',
     transition: 'all 200ms',
   } as React.CSSProperties;

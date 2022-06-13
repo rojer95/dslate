@@ -2,7 +2,9 @@
 title: Toolbar.Button
 order: 1
 group:
-  path: /toolbar
+  path: /plugin
+  title: 插件辅助组件
+  order: 2
 nav:
   title: 组件
   path: /components

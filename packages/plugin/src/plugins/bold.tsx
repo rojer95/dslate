@@ -1,6 +1,6 @@
 import React from 'react';
 import { useSlate } from 'slate-react';
-import locale from '../locale';
+import { Locales } from '@dslate/core';
 
 import { IconFont, Toolbar } from '@dslate/component';
 import type { DSlatePlugin } from '@dslate/core';
@@ -32,8 +32,8 @@ const BoldPlugin: DSlatePlugin = {
   toolbar: <ToolbarButton />,
   renderStyle: { fontWeight: 'bold' },
   locale: [
-    { locale: locale.zhCN, tooltip: '加粗' },
-    { locale: locale.enUS, tooltip: 'bold' },
+    { locale: Locales.zhCN, tooltip: '加粗' },
+    { locale: Locales.enUS, tooltip: 'bold' },
   ],
 };
 

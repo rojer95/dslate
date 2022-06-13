@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import type { NodeEntry } from 'slate';
-import locale from '../locale';
+import { Locales } from '@dslate/core';
 
 import { Editor, Element, Transforms, Node, Text } from 'slate';
 import { useSlate } from 'slate-react';
@@ -170,7 +170,7 @@ const ParagraphPlugin: DSlatePlugin = {
   isDefaultElement: true,
   locale: [
     {
-      locale: locale.zhCN,
+      locale: Locales.zhCN,
       tooltip: '段落与标题',
       paragraph: '正文',
       h1: '标题1',
@@ -179,7 +179,7 @@ const ParagraphPlugin: DSlatePlugin = {
       h4: '标题4',
     },
     {
-      locale: locale.enUS,
+      locale: Locales.enUS,
       tooltip: 'paragraph and title',
       paragraph: 'paragraph',
       h1: 'H1',

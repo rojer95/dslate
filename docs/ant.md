@@ -1,5 +1,5 @@
 ---
-title: Semi风格
+title: Ant风格
 order: 4
 group:
   path: /
@@ -10,16 +10,16 @@ nav:
   order: 0
 ---
 
-# Semi Design 风格
+# Ant Design 风格
 
-DSlate 的 Semi 风格 的实现
+DSlate 的 Ant 风格 的实现
 
 ## 安装
 
 ```shell
-$ npm i @dslate/semi --save
+$ npm i @dslate/dslate --save
 ```
 
 ## 在项目中使用
 
-<code src="./demos/semi.tsx" />
+<code src="./demos/ant.tsx" />

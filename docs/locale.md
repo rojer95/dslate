@@ -11,17 +11,15 @@ nav:
 
 ## 简介
 
-DSlate 与 Ant Design 设计体系一脉相承，无缝对接 antd 项目。因此 DSlate 直接继承使用了 Ant Design 的国际化方案。
+DSlate 提供了插件国际化功能，目前插件内仅内置了中文与英文，如需要可自行扩展。
 
-## 使用方法
+## 在 Ant 中使用
 
-在 Antd 中，提供了一个 React 组件 [ConfigProvider](https://ant-design.gitee.io/components/config-provider-cn/) 用于全局配置国际化文案。 DSlate 为了能够无缝接入 antd 项目，一并使用了 antd 提供的 `ConfigProvider` 来进行语言环境上下文的判断。 因此**无需单独配置**语言环境上下文。
+<code src="./demos/locale-ant.tsx" />
 
-> Tip：注意区分 Antd 的 ConfigProvider 与 DSlate 的 ConfigProvider，这里使用的是 **Antd 的 ConfigProvider**
+## 在 Semi 中使用
 
-## Demo
-
-<code src="./demos/locale.tsx" />
+<code src="./demos/locale-semi.tsx" />
 
 ## 插件国际化
 

@@ -1,8 +1,8 @@
 ---
 title: Toolbar.Select
-order: 2
+order: 3
 group:
-  path: /toolbar
+  path: /plugin
 nav:
   path: /components
 ---

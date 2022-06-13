@@ -1,6 +1,7 @@
 import React from 'react';
-import locale from '../locale';
-import { DSlatePlugin, usePlugin } from '@dslate/core';
+import { Locales } from '@dslate/core';
+import type { DSlatePlugin } from '@dslate/core';
+import { usePlugin } from '@dslate/core';
 
 import { useSlate } from 'slate-react';
 import { Toolbar } from '@dslate/component';
@@ -50,8 +51,8 @@ const FontSizePlugin: DSlatePlugin = {
   toolbar: <ToolbarButton />,
   renderStyle,
   locale: [
-    { locale: locale.zhCN, tooltip: '字体大小' },
-    { locale: locale.enUS, tooltip: 'font size' },
+    { locale: Locales.zhCN, tooltip: '字体大小' },
+    { locale: Locales.enUS, tooltip: 'font size' },
   ],
   props: {
     sizes: DefaultSizes,

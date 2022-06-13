@@ -13,9 +13,7 @@ nav:
 
 ## 使用方法
 
-对于自定义上传，DSlate 提供了一个 React 组件 [ConfigProvider](/components/config/config) 用于全局配置上传回调函数。
-
-> Tip：注意区分 Antd 的 ConfigProvider 与 DSlate 的 ConfigProvider，这里使用的是 **DSlate 的 ConfigProvider**
+对于自定义上传，DSlate 提供了一个 React 组件 [ConfigProvider](/components/config) 用于全局配置上传回调函数。
 
 ### 回调函数
 

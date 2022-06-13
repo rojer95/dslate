@@ -4,7 +4,7 @@ import { isBlockActive, useMessage, usePlugin } from '@dslate/core';
 import type { Descendant } from 'slate';
 import { Editor, Path, Range, Transforms } from 'slate';
 import { ReactEditor, useSelected, useSlate } from 'slate-react';
-import locale from '../locale';
+import { Locales } from '@dslate/core';
 import type { CSSProperties } from 'react';
 import { css } from '@emotion/css';
 
@@ -167,12 +167,12 @@ const HrPlugin: DSlatePlugin = {
   },
   locale: [
     {
-      locale: locale.zhCN,
+      locale: Locales.zhCN,
       toolbar: '分割线',
       remove: '删除',
     },
     {
-      locale: locale.enUS,
+      locale: Locales.enUS,
       toolbar: 'split line',
       remove: 'remove',
     },

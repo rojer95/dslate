@@ -1,10 +1,8 @@
 ---
 title: Toolbar
-order: 1
+order: 2
 group:
-  path: /toolbar
-  title: Toolbar
-  order: 2
+  path: /core
 nav:
   title: 组件
   path: /components
@@ -16,7 +14,7 @@ nav:
 
 ### 用法
 
-详情可见[超链接插件](https://github.com/rojer95/dslate/blob/d299d7a356c60bf5338cf74c2c11ecf79623f657/packages/dslate/src/components/DSlate/index.tsx#L44)
+详情可见[@dslate/dslate](https://github.com/rojer95/dslate/blob/master/packages/dslate/src/components/DSlate/index.tsx)，这是对 Antd 风格的封装。
 
 ### 参数说明
 

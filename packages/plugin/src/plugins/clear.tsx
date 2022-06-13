@@ -1,6 +1,6 @@
 import React from 'react';
 import { Editor, Text, Transforms } from 'slate';
-import locale from '../locale';
+import { Locales } from '@dslate/core';
 import { useSlate } from 'slate-react';
 import { IconFont, Toolbar } from '@dslate/component';
 import type { DSlatePlugin } from '@dslate/core';
@@ -51,8 +51,8 @@ const ClearPlugin: DSlatePlugin = {
   nodeType: 'tool',
   toolbar: <ToolbarButton />,
   locale: [
-    { locale: locale.zhCN, tooltip: '清理格式' },
-    { locale: locale.enUS, tooltip: 'clear style' },
+    { locale: Locales.zhCN, tooltip: '清理格式' },
+    { locale: Locales.enUS, tooltip: 'clear style' },
   ],
 };
 

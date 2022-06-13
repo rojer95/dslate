@@ -118,7 +118,9 @@ const pluginProps: PluginProps = {
 
 ## Demo
 
-- 通过设置插件参数修改预设字体/背景颜色
+- 通过设置插件参数
+  - 修改预设字体/背景颜色
+  - 设置默认上传图片 100%宽度铺满
 - 自定义一个插入文本的插件
 
 <code src="./demos/plugin.tsx" />

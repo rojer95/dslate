@@ -1,7 +1,6 @@
 import React, { forwardRef } from 'react';
 import type { DSlateRef } from '@dslate/core';
 import { ConfigProvider, ConfigConsumer } from '@dslate/core';
-import { ConfigProvider as AntdConfigProvider } from 'antd';
 
 import DefaultPlugin from '@dslate/plugin';
 import { mergeLocalteFromPlugins } from '@dslate/core';
@@ -13,6 +12,7 @@ import ZH_CN from './locale/zh_CN';
 import EN_US from './locale/en_US';
 
 export const DefaultLocales = [ZH_CN, EN_US];
+
 export { DefaultPlugin };
 export const DefaultToolbar = [
   'history',
@@ -38,7 +38,6 @@ export const DefaultToolbar = [
 ];
 export default forwardRef<DSlateRef, AntdStyleDSlateProps>(
   ({ toolbar = DefaultToolbar, ...props }, ref) => {
-    const { locale } = React.useContext(AntdConfigProvider.ConfigContext);
     return (
       <ConfigConsumer>
         {(value) => {
@@ -52,7 +51,6 @@ export default forwardRef<DSlateRef, AntdStyleDSlateProps>(
               value={{
                 ...value,
                 locales: mergeLocalteFromPlugins(locales, plugins),
-                locale: locale?.locale ?? 'default',
                 plugins,
                 iconScriptUrl: '//at.alicdn.com/t/font_3062978_2vfzjar92f5.js',
               }}

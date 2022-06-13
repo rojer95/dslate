@@ -1,5 +1,5 @@
 import React from 'react';
-import locale from '../locale';
+import { Locales } from '@dslate/core';
 import type { DSlatePlugin } from '@dslate/core';
 
 import { useSlate } from 'slate-react';
@@ -64,7 +64,7 @@ const TextAlignPlugin: DSlatePlugin = {
   renderStyle,
   locale: [
     {
-      locale: locale.zhCN,
+      locale: Locales.zhCN,
       tooltip: '对齐方式',
       left: '左对齐',
       center: '居中对齐',
@@ -72,7 +72,7 @@ const TextAlignPlugin: DSlatePlugin = {
       justify: '两端对齐',
     },
     {
-      locale: locale.enUS,
+      locale: Locales.enUS,
       tooltip: 'text align',
       left: 'align left',
       center: 'align center',

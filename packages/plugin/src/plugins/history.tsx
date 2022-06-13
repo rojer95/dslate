@@ -1,7 +1,7 @@
 import React from 'react';
 import { useSlate } from 'slate-react';
 import { withHistory } from 'slate-history';
-import locale from '../locale';
+import { Locales } from '@dslate/core';
 
 import { IconFont } from '@dslate/component';
 import type { DSlatePlugin } from '@dslate/core';
@@ -47,7 +47,7 @@ const HistoryPlugin: DSlatePlugin = {
   withPlugin: withHistory,
   locale: [
     {
-      locale: locale.zhCN,
+      locale: Locales.zhCN,
       undo: {
         tooltip: '撤销',
       },
@@ -56,7 +56,7 @@ const HistoryPlugin: DSlatePlugin = {
       },
     },
     {
-      locale: locale.enUS,
+      locale: Locales.enUS,
       undo: {
         tooltip: 'undo',
       },

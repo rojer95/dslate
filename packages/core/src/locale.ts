@@ -1,4 +1,4 @@
-export default {
+export const Locales = {
   zhCN: 'zh-cn',
   enUS: 'en',
 };

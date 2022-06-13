@@ -5,7 +5,7 @@ import { ReactEditor, useSelected, useSlate } from 'slate-react';
 import { Rnd } from 'react-rnd';
 import Upload from 'rc-upload';
 import { usePluginHelper, useConfig, useMessage, promiseUploadFunc, usePlugin } from '@dslate/core';
-import { IconFont, Toolbar, Popover, Divider } from '@dslate/component';
+import { IconFont, Toolbar, Popover, Divider, Input } from '@dslate/component';
 import type { RenderElementPropsWithStyle } from '@dslate/core';
 import { Transforms } from 'slate';
 import type { UploadRequestOption } from 'rc-upload/lib/interface';
@@ -18,11 +18,28 @@ type Draggable = {
 
 const prefixCls = 'dslate-img-element';
 
-const inputStyle = {
-  width: 80,
-  borderRadius: 2,
-  border: '1px solid rgba(0, 0, 0, 0.2)',
+type Size = { width: string; height: string };
+
+const resize = (origin: Size, fixBy: 'width' | 'height', value: string): Size => {
+  if (String(value).endsWith('%')) {
+    return {
+      width: fixBy === 'width' ? value : 'auto',
+      height: fixBy === 'height' ? value : 'auto',
+    };
+  }
+
+  const p = Number(origin.width) / Number(origin.height);
+
+  if (isNaN(Number(value)) && Number(value) <= 0) return origin;
+
+  const valueNumber = Number(value);
+
+  return {
+    width: String(fixBy === 'height' ? Math.floor(valueNumber * p) : valueNumber),
+    height: String(fixBy === 'width' ? Math.floor(valueNumber / p) : valueNumber),
+  };
 };
+
 const Img = ({ attributes, children, element, style }: RenderElementPropsWithStyle) => {
   const { setPercent } = usePluginHelper();
   const { customUploadRequest } = useConfig();
@@ -73,32 +90,12 @@ const Img = ({ attributes, children, element, style }: RenderElementPropsWithSty
     updateSize(editable);
   };
 
-  const updateEditableSize = (key: string, value: string) => {
-    // 百分比
-    if (value.endsWith('%')) {
-      const rwidth = key === 'width' ? value : 'auto';
-      const rheight = key === 'height' ? value : 'auto';
-      setEditable({
-        width: rwidth,
-        height: rheight,
-      });
-      return;
-    }
-
-    // 非数字跳过
-    if (isNaN(Number(value))) return;
-
+  const updateEditableSize = (key: 'width' | 'height', value: string) => {
     // 等比缩放
-    const width = image.current?.naturalWidth ?? 1;
-    const height = image.current?.naturalHeight ?? 1;
-    const p = width / height;
-
-    const rwidth = key === 'width' ? value : Math.round(p * Number(value)) + '';
-    const rheight = key === 'height' ? value : Math.round(Number(value) / p) + '';
-    setEditable({
-      width: rwidth,
-      height: rheight,
-    });
+    const width = String(image.current?.naturalWidth ?? 1);
+    const height = String(image.current?.naturalHeight ?? 1);
+    const nSize = resize({ width, height }, key, value);
+    setEditable(nSize);
   };
 
   useEffect(() => {
@@ -128,21 +125,33 @@ const Img = ({ attributes, children, element, style }: RenderElementPropsWithSty
    * 图片加载完毕后初始化参数
    */
   const onImageLoad = () => {
-    setLoading(false);
+    const defaultWidth = props?.defaultWidth;
+    let width = String(image.current?.width ?? '');
+    let height = String(image.current?.height ?? '');
+
+    if (!width || !height) return;
+
+    if (defaultWidth) {
+      ({ width, height } = resize({ width, height }, 'width', defaultWidth));
+    }
+
     setEditable({
-      width: `${image.current?.width}`,
-      height: `${image.current?.height}`,
+      width: width,
+      height: height,
     });
+
     setDraggable({
       ...draggable,
-      width: image.current?.width,
-      height: image.current?.height,
+      width: Number(width),
+      height: Number(height),
     });
 
     updateSize({
-      width: image.current?.width,
-      height: image.current?.height,
+      width,
+      height,
     });
+
+    setLoading(false);
   };
 
   const updateUrl = async (option: UploadRequestOption) => {
@@ -188,8 +197,7 @@ const Img = ({ attributes, children, element, style }: RenderElementPropsWithSty
               </Upload>
               <Divider />
               <span>{getMessage('width', '宽')}</span>
-              <input
-                style={inputStyle}
+              <Input
                 value={editable.width}
                 onChange={(e) => {
                   updateEditableSize('width', e.target.value);
@@ -201,18 +209,41 @@ const Img = ({ attributes, children, element, style }: RenderElementPropsWithSty
                 }}
               />
               <span>{getMessage('height', '高')}</span>
-              <input
-                style={inputStyle}
+              <Input
                 value={editable.height}
                 onChange={(e) => {
                   updateEditableSize('height', e.target.value);
                 }}
-                onKeyPress={(e) => {
-                  if (e.key === 'Enter') {
-                    updateEditableSizeEnd();
-                  }
-                }}
               />
+              <Toolbar.Button
+                onClick={() => {
+                  updateEditableSizeEnd();
+                }}
+              >
+                {getMessage('confirm', '确认')}
+              </Toolbar.Button>
+              <Toolbar.Button
+                onClick={() => {
+                  updateEditableSize('width', '100%');
+                  updateSize({
+                    width: '100%',
+                    height: 'auto',
+                  });
+                }}
+              >
+                {getMessage('w100', '铺满')}
+              </Toolbar.Button>
+              <Divider />
+              <Toolbar.Button
+                tooltip={getMessage('remove', '删除')}
+                onClick={() => {
+                  Transforms.removeNodes(editor, {
+                    at: path,
+                  });
+                }}
+              >
+                <IconFont type="icon-empty" />
+              </Toolbar.Button>
             </>
           }
         >
@@ -228,7 +259,7 @@ const Img = ({ attributes, children, element, style }: RenderElementPropsWithSty
             {loading ? (
               <div
                 style={{
-                  ...props?.loadingMinSize,
+                  ...(props?.loadingStyle || {}),
                   display: 'flex',
                   alignItems: 'center',
                   justifyContent: 'center',

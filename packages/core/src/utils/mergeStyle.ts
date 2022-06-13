@@ -1,4 +1,4 @@
-import { CSSProperties } from 'react';
+import type { CSSProperties } from 'react';
 import type { Descendant, Editor } from 'slate';
 import type { DSlatePlugin } from '../typing';
 

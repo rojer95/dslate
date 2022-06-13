@@ -13,8 +13,7 @@ import type { CSSProperties } from 'react';
 import type { UploadRequestOption } from 'rc-upload/lib/interface';
 
 import type { DSlatePlugin, RenderElementPropsWithStyle } from '@dslate/core';
-
-import locale from '../../locale';
+import { Locales } from '@dslate/core';
 
 import './index.less';
 
@@ -63,28 +62,35 @@ const ImgPlugin: DSlatePlugin = {
   renderElement,
   renderStyle,
   props: {
-    loadingMinSize: {
+    loadingStyle: {
       minHeight: 150,
       minWidth: 300,
-    },
+    } as CSSProperties,
     maxWidth: false,
+    defaultWidth: undefined,
   },
   locale: [
     {
-      locale: locale.zhCN,
+      locale: Locales.zhCN,
       tooltip: '上传图片',
       change: '修改图片',
+      confirm: '确认',
       height: '高',
       width: '宽',
       loading: '图片加载中',
+      w100: '铺满',
+      remove: '删除',
     },
     {
-      locale: locale.enUS,
+      locale: Locales.enUS,
       tooltip: 'upload image',
       change: 'change image',
+      confirm: 'confirm',
       height: 'height',
       width: 'width',
       loading: 'loading',
+      w100: 'cover',
+      remove: 'remove',
     },
   ],
   serialize: (element, props) => {

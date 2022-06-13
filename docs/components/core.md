@@ -1,9 +1,9 @@
 ---
 title: Core
-order: 0
+order: 1
 group:
-  path: /dslate
-  title: DSlate
+  title: 核心组件
+  path: /core
   order: 1
 nav:
   path: /components

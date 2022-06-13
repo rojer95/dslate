@@ -1,6 +1,6 @@
 import React from 'react';
 import { TwitterPicker } from 'react-color';
-import locale from '../locale';
+import { Locales } from '@dslate/core';
 
 import { useSlate } from 'slate-react';
 import { Toolbar, IconFont } from '@dslate/component';
@@ -88,8 +88,8 @@ const BackgroundColorPlugin: DSlatePlugin = {
     ],
   },
   locale: [
-    { locale: locale.zhCN, tooltip: '字体背景颜色' },
-    { locale: locale.enUS, tooltip: 'font background color' },
+    { locale: Locales.zhCN, tooltip: '字体背景颜色' },
+    { locale: Locales.enUS, tooltip: 'font background color' },
   ],
 };
 

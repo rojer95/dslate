@@ -1,8 +1,8 @@
 ---
 title: Toolbar.Modal
-order: 3
+order: 2
 group:
-  path: /toolbar
+  path: /plugin
 nav:
   title: 组件
   path: /components

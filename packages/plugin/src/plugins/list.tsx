@@ -9,7 +9,7 @@ import { Toolbar, IconFont } from '@dslate/component';
 import { useMessage, getBlockProps, isBlockActive, isStart } from '@dslate/core';
 import { Editor, Transforms, Range, Path } from 'slate';
 
-import locale from '../locale';
+import { Locales } from '@dslate/core';
 import { TextIndentPlugin } from './indent';
 
 export const TYPE = 'list';
@@ -192,8 +192,8 @@ const ListPlugin: DSlatePlugin = {
   renderElement,
   withPlugin: withList,
   locale: [
-    { locale: locale.zhCN, unorder_tooltip: '无序列表', order_tooltip: '有序列表' },
-    { locale: locale.enUS, unorder_tooltip: 'unordered list', order_tooltip: 'ordered list' },
+    { locale: Locales.zhCN, unorder_tooltip: '无序列表', order_tooltip: '有序列表' },
+    { locale: Locales.enUS, unorder_tooltip: 'unordered list', order_tooltip: 'ordered list' },
   ],
   props: {
     listStyles: defaultListStyles,

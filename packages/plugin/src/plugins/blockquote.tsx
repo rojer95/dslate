@@ -8,7 +8,7 @@ import { useSlate } from 'slate-react';
 import type { CSSProperties } from 'react';
 import type { Descendant } from 'slate';
 import type { DSlatePlugin, RenderElementPropsWithStyle } from '@dslate/core';
-import locale from '../locale';
+import { Locales } from '@dslate/core';
 
 const TYPE = 'blockquote';
 
@@ -146,11 +146,11 @@ const BlockquotePlugin: DSlatePlugin = {
   withPlugin,
   locale: [
     {
-      locale: locale.zhCN,
+      locale: Locales.zhCN,
       toolbar: '引用',
     },
     {
-      locale: locale.enUS,
+      locale: Locales.enUS,
       toolbar: 'blockquote',
     },
   ],

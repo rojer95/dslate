@@ -1,7 +1,8 @@
 ---
 title: Editable
+order: 3
 group:
-  path: /dslate
+  path: /core
 nav:
   path: /components
 ---

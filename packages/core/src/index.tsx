@@ -11,5 +11,6 @@ export * from './typing';
 export * from './contexts/ConfigContext';
 export * from './contexts/PluginContext';
 export * from './utils';
+export * from './locale';
 
 export default DSlate;

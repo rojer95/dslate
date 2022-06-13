@@ -1,10 +1,9 @@
 ---
 title: Popover
-order: 2
+order: 4
 group:
-  title: Popover
-  path: /popover
-  order: 3
+  path: /plugin
+
 nav:
   path: /components
 ---

@@ -7,3 +7,4 @@ export { default as Popover } from './components/Popover';
 export { default as Progress } from './components/Progress';
 export { default as Toolbar } from './components/Toolbar';
 export { default as Divider } from './components/Divider';
+export { default as Input } from './components/Input';

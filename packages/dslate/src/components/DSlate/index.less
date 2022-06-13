@@ -14,6 +14,10 @@
   .reset-component();
   .input();
 
+  &-input {
+    .input();
+  }
+
   padding: @input-padding-vertical-base 0px;
 
   &-toolbar {
@@ -182,6 +186,12 @@
           display: flex;
         }
       }
+    }
+  }
+
+  &-progress {
+    &-bg {
+      background-color: @primary-color;
     }
   }
 }

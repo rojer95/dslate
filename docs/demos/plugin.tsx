@@ -59,6 +59,9 @@ export default () => {
         pluginProps: {
           color: { colors: ['#000000', '#0969da', '#da3109'] },
           'background-color': { colors: ['#000000', '#0969da', '#da3109'] },
+          img: {
+            defaultWidth: '100%',
+          },
         },
       }}
     >

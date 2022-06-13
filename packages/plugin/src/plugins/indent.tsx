@@ -1,5 +1,5 @@
 import React from 'react';
-import locale from '../locale';
+import { Locales } from '@dslate/core';
 import isHotkey from 'is-hotkey';
 import type { DSlatePlugin } from '@dslate/core';
 
@@ -117,7 +117,7 @@ const TextIndentPlugin: DSlatePlugin = {
   onKeyDown,
   locale: [
     {
-      locale: locale.zhCN,
+      locale: Locales.zhCN,
       indent: {
         tooltip: '增加缩进',
       },
@@ -126,7 +126,7 @@ const TextIndentPlugin: DSlatePlugin = {
       },
     },
     {
-      locale: locale.enUS,
+      locale: Locales.enUS,
       indent: {
         tooltip: 'increase indent',
       },

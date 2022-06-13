@@ -1,7 +1,8 @@
 ---
 title: Progress
+order: 4
 group:
-  path: /dslate
+  path: /core
 nav:
   path: /components
 ---

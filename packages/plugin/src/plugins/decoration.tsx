@@ -1,6 +1,6 @@
 import React from 'react';
 import { useSlate } from 'slate-react';
-import locale from '../locale';
+import { Locales } from '@dslate/core';
 
 import type { Descendant } from 'slate';
 
@@ -59,7 +59,7 @@ const DecorationPlugin: DSlatePlugin = {
   renderStyle: renderStyle,
   locale: [
     {
-      locale: locale.zhCN,
+      locale: Locales.zhCN,
       underline: {
         tooltip: '下划线',
       },
@@ -68,7 +68,7 @@ const DecorationPlugin: DSlatePlugin = {
       },
     },
     {
-      locale: locale.enUS,
+      locale: Locales.enUS,
       underline: {
         tooltip: 'underline',
       },

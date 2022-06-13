@@ -1,6 +1,6 @@
 import React from 'react';
 import { useSlate } from 'slate-react';
-import locale from '../locale';
+import { Locales } from '@dslate/core';
 
 import { IconFont, Toolbar } from '@dslate/component';
 import type { DSlatePlugin } from '@dslate/core';
@@ -30,8 +30,8 @@ const ItalicPlugin: DSlatePlugin = {
   toolbar: <ToolbarButton />,
   renderStyle: { fontStyle: 'italic' },
   locale: [
-    { locale: locale.zhCN, tooltip: '斜体' },
-    { locale: locale.enUS, tooltip: 'italic' },
+    { locale: Locales.zhCN, tooltip: '斜体' },
+    { locale: Locales.enUS, tooltip: 'italic' },
   ],
 };
 

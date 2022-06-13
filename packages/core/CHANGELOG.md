@@ -2,6 +2,23 @@
 
 All notable changes to this project will be documented in this file. See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 1.0.1 (2022-06-13)
+
+### Bug Fixes
+
+- :bug: 修复空行退出的 bug ([e34e9fc](https://github.com/rojer95/dslate/commit/e34e9fc1524849fc942c3199106d399b26fbf081))
+- **core:** :bug: base64file bug ([38d2858](https://github.com/rojer95/dslate/commit/38d285837c2a8b388d121a6a047d57d772dacdc9))
+
+### Features
+
+- :boom: 1.0.0 ([4598a1d](https://github.com/rojer95/dslate/commit/4598a1dc15772ad8955992e84414a68ca54b6a2a))
+- :boom: 更棒的插件参数注入方式 ([b9f063a](https://github.com/rojer95/dslate/commit/b9f063ad65235ac38adca5a5251ca22c2bf814bf))
+- :boom: 全新的 list ([38f2f04](https://github.com/rojer95/dslate/commit/38f2f042fd6e4b722884976ef0ad764bb58bf788))
+- :boom: 添加 ref, toHtml ([11597d8](https://github.com/rojer95/dslate/commit/11597d8b88888f36fd12fb68edee5795f066d36e))
+- :boom: 优化组件方案 ([75df63e](https://github.com/rojer95/dslate/commit/75df63ecfe90127b0d24288419092fe479bd96f4))
+- :boom: 组件核心与 antd 风格组件分离 ([695ba8b](https://github.com/rojer95/dslate/commit/695ba8b8511c47a820f75227f1568bca884ac454))
+- :boom: semi style ([4202a17](https://github.com/rojer95/dslate/commit/4202a17271eab8274022568516320e175e3ccbbc))
+
 ## [0.0.5](https://github.com/rojer95/dslate/compare/@dslate/core@0.0.4...@dslate/core@0.0.5) (2022-05-19)
 
 ### Features

@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file. See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.0.2](https://github.com/rojer95/dslate/compare/v1.0.1...v1.0.2) (2022-06-13)
+
+### Features
+
+- :boom: use force version ([892cf6c](https://github.com/rojer95/dslate/commit/892cf6c0829d13ace011b59c0aff84ca9c4d5045))
+
 ## 1.0.1 (2022-06-13)
 
 ### Bug Fixes

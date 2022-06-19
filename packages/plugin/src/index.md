@@ -98,10 +98,10 @@ $ npm i @dslate/plugin --save
 #### props
 
 | 参数 | 类型 | 默认值 | 说明 |
-| --- | --- | --- | --- | --- | --- |
+| --- | --- | --- | --- |
 | loadingStyle | `CSSProperties` | `{minHeight: 150,minWidth: 300}` | 图片加载未完成时，图片占位 style |
 | maxWidth | `boolean` | `false` | serialize 时指定 max-width |
-| defaultWidth | `undefined | number | string` | `undefined` | 图片嵌入后初始宽度 |
+| defaultWidth | `undefined \| number \| string` | `undefined` | 图片嵌入后初始宽度 |
 
 ### link
 

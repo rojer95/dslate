@@ -5,7 +5,7 @@ import { useSlate } from 'slate-react';
 import { IconFont, Toolbar } from '@dslate/component';
 import Upload from 'rc-upload';
 
-import Img from './Img';
+import Img from './img';
 import { promiseUploadFunc, usePluginHelper, useConfig, useMessage } from '@dslate/core';
 
 import type { Descendant } from 'slate';
@@ -96,7 +96,7 @@ const ImgPlugin: DSlatePlugin = {
   serialize: (element, props) => {
     const style = [];
     if (props?.style) style.push(props.style);
-    if (props?.maxWidth) style.push(`max-width: ${props.maxWidth};`);
+    if (props?.maxWidth) style.push(`max-width: ${props.maxWidth}; height: auto;`);
     return `<img style="${style.join('')}" src="${element.url}" />`;
   },
 };

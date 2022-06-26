@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file. See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.0.3](https://github.com/rojer95/dslate/compare/v1.0.2...v1.0.3) (2022-06-26)
+
+### Bug Fixes
+
+- :bug: img bug ([a9b21d4](https://github.com/rojer95/dslate/commit/a9b21d4e645fbe001ff185300a60994128b2975b))
+
 ## [1.0.2](https://github.com/rojer95/dslate/compare/v1.0.1...v1.0.2) (2022-06-13)
 
 ### Features

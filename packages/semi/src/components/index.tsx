@@ -8,7 +8,7 @@ import { Toolbar, Progress, Editable, Counter } from '@dslate/component';
 import type { SemiStyleDSlateProps } from '../typing';
 
 import './index.less';
-require('./index.scss');
+import './index.scss';
 
 const SemiStyleEditor = ({
   bordered = true,

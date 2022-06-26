@@ -6,6 +6,13 @@ All notable changes to this project will be documented in this file. See [Conven
 
 ### Bug Fixes
 
+- :bug: img bug ([1481abb](https://github.com/rojer95/dslate/commit/1481abbe1f384d40a6aadc9d650a1c8a703406fa))
+- :bug: scss require ([e12fcc1](https://github.com/rojer95/dslate/commit/e12fcc1fe0b8ac7b74eb78b2a6c6f5e564fe7bd9))
+
+## [1.0.3](https://github.com/rojer95/dslate/compare/v1.0.2...v1.0.3) (2022-06-26)
+
+### Bug Fixes
+
 - :bug: scss require ([e12fcc1](https://github.com/rojer95/dslate/commit/e12fcc1fe0b8ac7b74eb78b2a6c6f5e564fe7bd9))
 
 ## [1.0.2](https://github.com/rojer95/dslate/compare/v1.0.1...v1.0.2) (2022-06-13)

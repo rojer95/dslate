@@ -1,5 +1,5 @@
 /* eslint-disable react/no-array-index-key */
-import React, { useContext, useEffect, useMemo } from 'react';
+import React, { useContext, useMemo } from 'react';
 import type { DSlatePlugin } from '@dslate/core';
 import { usePluginHelper, ConfigContext } from '@dslate/core';
 
@@ -13,7 +13,6 @@ import type { ToolbarButtonProps } from './ToolbarButton';
 import type { ToolbarSelectProps } from './ToolbarSelect';
 import type { ToolbarModalProps } from './ToolbarModal';
 
-import { useFocused } from 'slate-react';
 import Divider from '../Divider';
 
 export interface ToolbarProps {
@@ -22,14 +21,8 @@ export interface ToolbarProps {
 
 const Toolbar = ({ toolbar }: ToolbarProps) => {
   const { plugins } = useContext(ConfigContext);
-  const { getPrefixCls, setVisibleKey } = usePluginHelper();
+  const { getPrefixCls } = usePluginHelper();
   const prefixCls = getPrefixCls?.('toolbar');
-  const focused = useFocused();
-
-  useEffect(() => {
-    if (!focused) setVisibleKey?.(undefined);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [focused]);
 
   const ToolbarItems = useMemo(() => {
     return toolbar?.map((type, index) => {

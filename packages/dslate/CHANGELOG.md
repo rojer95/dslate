@@ -16,10 +16,6 @@ All notable changes to this project will be documented in this file. See [Conven
 
 - :bug: img bug ([1481abb](https://github.com/rojer95/dslate/commit/1481abbe1f384d40a6aadc9d650a1c8a703406fa))
 
-## [1.0.3](https://github.com/rojer95/dslate/compare/v1.0.2...v1.0.3) (2022-06-26)
-
-**Note:** Version bump only for package @dslate/dslate
-
 ## [1.0.2](https://github.com/rojer95/dslate/compare/v1.0.1...v1.0.2) (2022-06-13)
 
 ### Features

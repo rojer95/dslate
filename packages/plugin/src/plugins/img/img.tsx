@@ -136,7 +136,7 @@ const Img = ({ attributes, children, element, style }: RenderElementPropsWithSty
     }
 
     if (element.imgWidth) width = element.imgWidth;
-    if (element.imgHeight) width = element.imgHeight;
+    if (element.imgHeight) height = element.imgHeight;
 
     setEditable({
       width: width,

@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file. See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.0.8](https://github.com/rojer95/dslate/compare/v1.0.7...v1.0.8) (2022-07-07)
+
+### Features
+
+- :boom: 语言包合并方式调整 ([56ca5e8](https://github.com/rojer95/dslate/commit/56ca5e82aec1381da76af7fc717db153fdaff7e3))
+
 ## [1.0.7](https://github.com/rojer95/dslate/compare/v1.0.6...v1.0.7) (2022-06-30)
 
 **Note:** Version bump only for package @dslate/component

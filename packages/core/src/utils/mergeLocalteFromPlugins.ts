@@ -9,7 +9,12 @@ export const mergeLocalteFromPlugins = (locales: Locale[], plugins: DSlatePlugin
     for (const { locale, ...languages } of plugin.locale) {
       const target = newLocales.find((i) => i.locale === locale);
       if (target) {
-        target[plugin.type] = languages;
+        const preLanguages = { ...(target[plugin.type] || {}) };
+        // 合并规则 ConfigProvider 优于 插件的语言包
+        target[plugin.type] = {
+          ...languages,
+          ...preLanguages,
+        };
       } else {
         newLocales.push({
           locale,

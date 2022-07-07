@@ -117,7 +117,12 @@ const Hr = (props: RenderElementPropsWithStyle) => {
                   });
                 }}
               >
-                <IconFont type="icon-empty" />
+                <IconFont
+                  type="icon-empty"
+                  style={{
+                    color: 'red',
+                  }}
+                />
               </Toolbar.Button>
             </>
           }

@@ -68,6 +68,7 @@ const ImgPlugin: DSlatePlugin = {
     } as CSSProperties,
     maxWidth: false,
     defaultWidth: undefined,
+    loadingText: '图片加载中...',
   },
   locale: [
     {
@@ -78,7 +79,6 @@ const ImgPlugin: DSlatePlugin = {
       height: '高',
       width: '宽',
       loading: '图片加载中',
-      w100: '铺满',
       remove: '删除',
     },
     {
@@ -89,7 +89,6 @@ const ImgPlugin: DSlatePlugin = {
       height: 'height',
       width: 'width',
       loading: 'loading',
-      w100: 'cover',
       remove: 'remove',
     },
   ],

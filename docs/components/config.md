@@ -51,7 +51,7 @@ export default () => {
 ```tsx | pure
 export type ConfigContextType = {
   plugins: DSlatePlugin[]; // 插件
-  locales: Locale[]; // 全局语言包，目前仅用到placeholder，其他的定义在插件内部
+  locales: Locale[]; // 全局语言包
   locale: string; // 当前使用的语言
   pluginProps?: Record<string, any>; // 覆盖插件的props
   iconScriptUrl?: string | string[]; // 自定义 iconfont 的 url

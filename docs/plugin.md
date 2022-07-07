@@ -34,6 +34,7 @@ type DSlatePlugin = {
   isDefaultElement?: boolean;
   locale?: Locale[];
   props?: Record<string, any>;
+  serialize?: (element: any, pluginProps: any, children: any[]) => string;
 };
 ```
 
@@ -56,6 +57,7 @@ type DSlatePlugin = {
 | isDefaultElement | `boolean` | 是否为默认渲染组件 |
 | locale | `Locale[]` | 国际化语言文案， 用法见 [国际化](/docs/locale#插件国际化) |
 | props | `Record<string, any>` | 插件预设参数 [详见下方](#插件-props) |
+| serialize | `(element: any, pluginProps: any, children: any[]) => string` | 转 HTML 方法 |
 
 ### nodeType
 

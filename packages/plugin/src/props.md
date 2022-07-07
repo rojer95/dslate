@@ -1,8 +1,8 @@
 ---
-title: 内置插件
+title: 内置插件默认配置
 group:
   path: /default
-  title: 内置插件
+  title: 内置插件默认配置
   order: 0
 nav:
   title: 插件
@@ -10,9 +10,10 @@ nav:
   order: 2
 ---
 
-## 内置插件
+## 内置插件默认配置
 
-DSlate 内置的一些基础插件，已预先载入 `@dslate/dslate` 包内，无需单独载入。你可以根据以下提供的 `props` 参数自定义插件功能。  
+DSlate 内置的一些基础插件，已预先载入 `@dslate/dslate`和 `@dslate/semi` 包内，无需单独载入。  
+你可以根据以下提供的 `props` 参数自定义插件功能。  
 如果你需要自行开发编辑器的样式布局，可以通过以下方式安装内置插件。
 
 ```shell
@@ -102,6 +103,7 @@ $ npm i @dslate/plugin --save
 | loadingStyle | `CSSProperties` | `{minHeight: 150,minWidth: 300}` | 图片加载未完成时，图片占位 style |
 | maxWidth | `boolean` | `false` | serialize 时指定 max-width |
 | defaultWidth | `undefined \| number \| string` | `undefined` | 图片嵌入后初始宽度 |
+| loadingText | `string` | `图片加载中...` | 图片加载时展示文案 |
 
 ### link
 

@@ -5,10 +5,11 @@ import { ReactEditor, useSelected, useSlate } from 'slate-react';
 import { Rnd } from 'react-rnd';
 import Upload from 'rc-upload';
 import { usePluginHelper, useConfig, useMessage, promiseUploadFunc, usePlugin } from '@dslate/core';
-import { IconFont, Toolbar, Popover, Divider, Input } from '@dslate/component';
+import { IconFont, Toolbar, Popover, Input } from '@dslate/component';
 import type { RenderElementPropsWithStyle } from '@dslate/core';
 import { Transforms } from 'slate';
 import type { UploadRequestOption } from 'rc-upload/lib/interface';
+import { css } from '@emotion/css';
 
 type Draggable = {
   status: boolean;
@@ -181,73 +182,102 @@ const Img = ({ attributes, children, element, style }: RenderElementPropsWithSty
           placement="top"
           overlayInnerStyle={{
             padding: 12,
-            display: 'flex',
-            alignItems: 'center',
-            gap: 8,
-            whiteSpace: 'nowrap',
           }}
           overlay={
-            <>
-              <Upload
-                accept="image/*"
-                customRequest={(option) => {
-                  updateUrl(option);
-                }}
+            <div>
+              <div
+                className={css`
+                  display: flex;
+                  align-items: center;
+                  gap: 8px;
+                  margin-bottom: 8px;
+                `}
               >
-                <Toolbar.Button tooltip={getMessage('change', '更换图片')}>
-                  <IconFont type="icon-image1" />
+                <span>{getMessage('width', '宽')}</span>
+                <Input
+                  value={editable.width}
+                  style={{ width: 70 }}
+                  onChange={(e) => {
+                    updateEditableSize('width', e.target.value);
+                  }}
+                  onKeyPress={(e) => {
+                    if (e.key === 'Enter') {
+                      updateEditableSizeEnd();
+                    }
+                  }}
+                />
+                <span>{getMessage('height', '高')}</span>
+                <Input
+                  value={editable.height}
+                  style={{ width: 70 }}
+                  onChange={(e) => {
+                    updateEditableSize('height', e.target.value);
+                  }}
+                />
+                <Upload
+                  accept="image/*"
+                  customRequest={(option) => {
+                    updateUrl(option);
+                  }}
+                >
+                  <Toolbar.Button tooltip={getMessage('change', '更换图片')}>
+                    <IconFont type="icon-image1" />
+                  </Toolbar.Button>
+                </Upload>
+                <Toolbar.Button
+                  tooltip={getMessage('remove', '删除')}
+                  onClick={() => {
+                    Transforms.removeNodes(editor, {
+                      at: path,
+                    });
+                  }}
+                >
+                  <IconFont
+                    type="icon-empty"
+                    style={{
+                      color: 'red',
+                    }}
+                  />
                 </Toolbar.Button>
-              </Upload>
-              <Divider />
-              <span>{getMessage('width', '宽')}</span>
-              <Input
-                value={editable.width}
-                onChange={(e) => {
-                  updateEditableSize('width', e.target.value);
-                }}
-                onKeyPress={(e) => {
-                  if (e.key === 'Enter') {
-                    updateEditableSizeEnd();
-                  }
-                }}
-              />
-              <span>{getMessage('height', '高')}</span>
-              <Input
-                value={editable.height}
-                onChange={(e) => {
-                  updateEditableSize('height', e.target.value);
-                }}
-              />
-              <Toolbar.Button
+              </div>
+
+              {/* <Toolbar.Button
                 onClick={() => {
                   updateEditableSizeEnd();
                 }}
               >
                 {getMessage('confirm', '确认')}
-              </Toolbar.Button>
-              <Toolbar.Button
-                onClick={() => {
-                  updateEditableSize('width', '100%');
-                  updateSize({
-                    width: '100%',
-                    height: 'auto',
-                  });
-                }}
+              </Toolbar.Button> */}
+
+              <div
+                className={css`
+                  display: flex;
+                  align-items: center;
+                  gap: 8px;
+                `}
               >
-                {getMessage('w100', '铺满')}
-              </Toolbar.Button>
-              <Divider />
-              <Toolbar.Button
-                tooltip={getMessage('remove', '删除')}
-                onClick={() => {
-                  Transforms.removeNodes(editor, {
-                    at: path,
-                  });
-                }}
-              >
-                <IconFont type="icon-empty" />
-              </Toolbar.Button>
-            </>
+                {['20%', '40%', '60%', '80%', '100%'].map((p) => (
+                  <Toolbar.Button
+                    onClick={() => {
+                      updateEditableSize('width', p);
+                      updateSize({
+                        width: p,
+                        height: 'auto',
+                      });
+                    }}
+                    className={css`
+                      background-color: #eee;
+                      border-radius: 8px;
+                      font-size: 12px;
+                      height: 22px;
+                    `}
+                    key={p}
+                  >
+                    {p}
+                  </Toolbar.Button>
+                ))}
+              </div>
+            </div>
           }
         >
           <span

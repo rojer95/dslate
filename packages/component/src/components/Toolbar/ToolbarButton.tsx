@@ -8,6 +8,7 @@ export type ToolbarButtonProps = {
   disabled?: boolean;
   onClick?: () => void;
   tooltip?: string;
+  className?: string;
 };
 
 const ToolbarButton: React.FC<ToolbarButtonProps> = ({
@@ -15,6 +16,7 @@ const ToolbarButton: React.FC<ToolbarButtonProps> = ({
   disabled = false,
   active = false,
   onClick,
+  className,
   tooltip = '',
 }) => {
   const { disabled: globalDisabled } = usePlugin();
@@ -24,7 +26,7 @@ const ToolbarButton: React.FC<ToolbarButtonProps> = ({
 
   const Button = (
     <div
-      className={classnames(`${prefixCls}`, {
+      className={classnames(`${prefixCls}`, className, {
         active,
         disabled: isDisabled,
       })}

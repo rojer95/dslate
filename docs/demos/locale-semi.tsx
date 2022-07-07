@@ -5,7 +5,7 @@ import { ConfigProvider, defaultConfig, Locales } from '@dslate/core';
 
 import {
   DatePicker,
-  LocaleProvider,
+  LocaleProvider as SemiLocaleProvider,
   ConfigProvider as SemiConfigProvider,
 } from '@douyinfe/semi-ui';
 import enUS from '@douyinfe/semi-ui/lib/es/locale/source/en_US';
@@ -13,16 +13,15 @@ import zhCN from '@douyinfe/semi-ui/lib/es/locale/source/zh_CN';
 
 import type { Descendant } from 'slate';
 import { Radio, Space } from '@douyinfe/semi-ui';
-import type { Locale } from '@douyinfe/semi-ui/locale/interface';
 
+// 将DSlate的语言定义与Semi的语言包关联起来
 const locales = {
   [Locales.enUS]: enUS,
   [Locales.zhCN]: zhCN,
 };
 
 export default () => {
-  const [localeCode, setLocaleCode] = useState<string>(Locales.enUS);
-  const [locale, setLocale] = useState<Locale>(enUS);
+  const [localeCode, setLocaleCode] = useState<string>(Locales.zhCN);
   const [value, setValue] = useState<Descendant[]>([
     {
       type: 'paragraph',
@@ -39,26 +38,27 @@ export default () => {
             value={localeCode}
             onChange={(e) => {
               const currentLocaleCode = e.target.value;
-              setLocale(locales[currentLocaleCode]);
               setLocaleCode(currentLocaleCode);
             }}
             options={[
               {
-                value: Locales.enUS,
-                label: 'English',
-              },
-              {
                 value: Locales.zhCN,
                 label: '中文',
+              },
+              {
+                value: Locales.enUS,
+                label: 'English',
               },
             ]}
           />
         </Space>
       </div>
 
-      <LocaleProvider locale={locale}>
-        <SemiConfigProvider locale={locale}>
+      {/* Semi国际化配置 */}
+      <SemiLocaleProvider locale={locales[localeCode]}>
+        <SemiConfigProvider locale={locales[localeCode]}>
           <div style={{ marginBottom: 16 }}>
+            {/* DSlate的国际化配置 */}
             <ConfigProvider
               value={{
                 ...defaultConfig,
@@ -67,6 +67,7 @@ export default () => {
                   { locale: zhCN.code, placeholder: '请在这里输入呦 (#^.^#)' },
                   { locale: enUS.code, placeholder: 'please enter here (#^.^#)' },
                 ],
+                // 当前选择的语言
                 locale: localeCode,
               }}
             >
@@ -78,7 +79,7 @@ export default () => {
             <DatePicker />
           </div>
         </SemiConfigProvider>
-      </LocaleProvider>
+      </SemiLocaleProvider>
     </div>
   );
 };

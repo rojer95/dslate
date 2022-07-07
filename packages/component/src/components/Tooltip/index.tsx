@@ -7,6 +7,7 @@ const DTooltip = ({
   prefixCls: parentPrefixCls,
   tooltip,
   overlay,
+  placement = 'bottom',
   ...props
 }: Omit<TooltipProps, 'overlay'> & {
   tooltip?: string;
@@ -17,8 +18,8 @@ const DTooltip = ({
   return (
     <Tooltip
       overlay={tooltip ? tooltip : overlay}
-      placement="top"
       prefixCls={prefixCls}
+      placement={placement}
       arrowContent={<span className={`${prefixCls}-arrow-content`} />}
       {...props}
     />

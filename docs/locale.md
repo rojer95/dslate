@@ -15,11 +15,23 @@ DSlate 提供了插件国际化功能，目前插件内仅内置了中文与英�
 
 ## 在 Ant 中使用
 
+> 用法请展开代码查看
+
 <code src="./demos/locale-ant.tsx" />
 
 ## 在 Semi 中使用
 
+> 用法请展开代码查看
+
 <code src="./demos/locale-semi.tsx" />
+
+## 添加其他语言
+
+目前 DSlate 插件只内置了两种语言，你可以通过 `ConfigProvider` 添加其他语言。DSlate 会合并`ConfigProvider`配置中的语言包和插件内置语言包 （ConfigProvider 配置的语言包 优先级高于 插件的内置语言包）
+
+> 示例中芬兰语翻译自谷歌，仅做展示作用。用法请展开代码查看
+
+<code src="./demos/locale-other.tsx" />
 
 ## 插件国际化
 
@@ -27,12 +39,12 @@ DSlate 提供了插件国际化功能，目前插件内仅内置了中文与英�
 
 ### 参数 locale
 
-插件中的参数 `locale` 是一个 `Locale` 数组，`Locale`定义如下：
+插件中的参数 `locale` 是一个 `Locale` 数组，一个元素标识一个语言包，`Locale`定义如下：
 
 ```ts | pure
 type Locale = {
-  locale: string; // 必须与 antd 的语言包具有相同的 `locale` 值
-  [index: string]: any;
+  locale: string; // @dslate/core 导出 Locales的值 或者 你自己设定的值
+  [index: string]: any; // key-value  格式的语言内容
 };
 ```
 
@@ -40,18 +52,17 @@ type Locale = {
 
 ```tsx | pure
 import type { DSlatePlugin } from '@dslate/core';
-import zhCN from 'antd/lib/locale/zh_CN';
-import enUS from 'antd/lib/locale/en_US';
+import { Locales } from '@dslate/core';
 
 const Plugin: DSlatePlugin = {
   // ingore other ...
   locale: [
     {
-      locale: zhCN.locale, // 直接从 antd 的语言包读取值最稳妥
+      locale: Locales.zhCN,
       tooltip: '加粗',
     },
     {
-      locale: enUS.locale, // 直接从 antd 的语言包读取值最稳妥
+      locale: Locales.enUS,
       tooltip: '加粗',
     },
   ],
@@ -76,8 +87,7 @@ getMessage('tooltip', '加粗');
 ```tsx | pure
 import React from 'react';
 import { useSlate } from 'slate-react';
-import zhCN from 'antd/lib/locale/zh_CN';
-import enUS from 'antd/lib/locale/en_US';
+import { Locales } from '@dslate/core';
 
 import { Toolbar, IconFont, getTextProps, toggleTextProps, useMessage } from '@dslate/core';
 import type { DSlatePlugin } from '@dslate/core';
@@ -109,11 +119,11 @@ const BoldPlugin: DSlatePlugin = {
   renderStyle: { fontWeight: 'bold' },
   locale: [
     {
-      locale: zhCN.locale, // 对应Antd的中文
+      locale: Locales.zhCN, // 中文
       tooltip: '加粗',
     },
     {
-      locale: enUS.locale, // 对应Antd的英文
+      locale: Locales.enUS, //  英文
       tooltip: '加粗',
     },
   ],

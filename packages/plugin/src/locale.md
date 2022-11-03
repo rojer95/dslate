@@ -59,6 +59,10 @@ nav:
   "font-size": {
     "tooltip": "字体大小"
   },
+  "line-height": {
+    "tooltip": "行高",
+    "default": "默认"
+  },
   "text-align": {
     "tooltip": "对齐方式",
     "left": "左对齐",

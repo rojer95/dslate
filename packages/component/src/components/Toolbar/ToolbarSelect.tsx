@@ -8,7 +8,7 @@ import ToolbarButton from './ToolbarButton';
 
 export type ToolbarSelectProps<T> = {
   options: { label: React.ReactNode; value: T; placeholder?: string; tooltip?: string }[];
-  placeholder?: string;
+  placeholder?: React.ReactNode;
   width?: number;
   value: T;
   disabled?: boolean;

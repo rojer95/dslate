@@ -15,6 +15,7 @@ import { ImgPlugin } from './plugins/img';
 import { LinkPlugin } from './plugins/link';
 import { BlockquotePlugin } from './plugins/blockquote';
 import { HrPlugin } from './plugins/hr';
+import { LineHeightPlugin } from './plugins/line-height';
 
 export default {
   HistoryPlugin,
@@ -34,4 +35,5 @@ export default {
   LinkPlugin,
   BlockquotePlugin,
   HrPlugin,
+  LineHeightPlugin,
 };

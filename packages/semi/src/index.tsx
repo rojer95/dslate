@@ -29,6 +29,7 @@ export const DefaultToolbar = [
   'list',
   'todo-list',
   'text-indent',
+  'line-height',
   'divider',
   'img',
   'link',
@@ -52,7 +53,7 @@ export default forwardRef<DSlateRef, SemiStyleDSlateProps>(
                 ...value,
                 locales: mergeLocalteFromPlugins(locales, plugins),
                 plugins,
-                iconScriptUrl: '//at.alicdn.com/t/font_3062978_2vfzjar92f5.js',
+                iconScriptUrl: '//at.alicdn.com/t/c/font_3062978_atuqwazgoap.js',
               }}
             >
               <DSlate {...props} toolbar={toolbar} ref={ref} />

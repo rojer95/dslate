@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file. See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.0.9](https://github.com/rojer95/dslate/compare/v1.0.8...v1.0.9) (2022-11-03)
+
+### Features
+
+- :boom: 行高 ([7a61aab](https://github.com/rojer95/dslate/commit/7a61aab48e4c4cb7f1e99712d283db75d00f5438))
+
 ## [1.0.8](https://github.com/rojer95/dslate/compare/v1.0.7...v1.0.8) (2022-07-07)
 
 **Note:** Version bump only for package @dslate/dslate

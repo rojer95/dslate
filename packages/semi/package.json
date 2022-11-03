@@ -1,6 +1,6 @@
 {
   "name": "@dslate/semi",
-  "version": "1.0.8",
+  "version": "1.0.9",
   "description": "一个Semi Design风格的富文本编辑器 - A Semi Design style rich editor based on Slate",
   "keywords": [
     "antd",
@@ -40,9 +40,9 @@
   },
   "dependencies": {
     "@babel/runtime": "^7.16.3",
-    "@dslate/component": "1.0.8",
-    "@dslate/core": "1.0.8",
-    "@dslate/plugin": "1.0.8",
+    "@dslate/component": "1.0.9",
+    "@dslate/core": "1.0.9",
+    "@dslate/plugin": "1.0.9",
     "classnames": "^2.3.1",
     "slate": "^0.81.0",
     "slate-react": "^0.81.0"

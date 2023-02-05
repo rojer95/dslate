@@ -1,0 +1,58 @@
+{
+  "name": "@dslate/antd",
+  "version": "2.0.0",
+  "description": "一个Antd Design风格的富文本编辑器 - A Antd Design style rich editor based on Slate",
+  "keywords": [
+    "antd",
+    "wysiwyg",
+    "rich-editor",
+    "ant-design",
+    "slate",
+    "slate-react",
+    "dslate"
+  ],
+  "private": true,
+  "type": "module",
+  "author": "rojer <rojerchen@qq.com>",
+  "homepage": "http://rojer95.github.io/dslate/tree/main/packages/antd#readme",
+  "license": "MIT",
+  "files": [
+    "dist"
+  ],
+  "main": "./dist/lib.umd.cjs",
+  "module": "./dist/lib.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "import": "./dist/lib.js",
+      "require": "./dist/lib.umd.cjs"
+    }
+  },
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc && vite build",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "@dslate/component": "workspace:^2.0.0",
+    "@dslate/core": "workspace:^2.0.0",
+    "@dslate/plugin": "workspace:^2.0.0",
+    "antd": "^5.1.7",
+    "classnames": "^2.3.2",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "slate": "^0.90.0",
+    "slate-react": "^0.90.0",
+    "styled-components": "^5.3.6"
+  },
+  "devDependencies": {
+    "@types/node": "^14.18.36",
+    "@types/react": "^18.0.27",
+    "@types/react-dom": "^18.0.10",
+    "@types/styled-components": "^5.1.26",
+    "@vitejs/plugin-react": "^3.1.0",
+    "typescript": "^4.9.3",
+    "vite": "^4.1.0",
+    "vite-plugin-dts": "^1.7.2"
+  }
+}

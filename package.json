@@ -1,0 +1,21 @@
+{
+  "name": "dslate",
+  "version": "2.0.0",
+  "description": "DSlate组件 - Component of DSlate",
+  "keywords": [
+    "antd",
+    "wysiwyg",
+    "rich-editor",
+    "ant-design",
+    "slate",
+    "slate-react",
+    "dslate"
+  ],
+  "main": "index.js",
+  "scripts": {
+    "dev": "pnpm run --filter '@dslate/*' dev",
+    "build": "pnpm run --filter '@dslate/*' build"
+  },
+  "author": "",
+  "license": "ISC"
+}

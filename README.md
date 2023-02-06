@@ -6,6 +6,11 @@ DSlate 是一个基于 [Slate](https://github.com/ianstormtaylor/slate) 构建�
 
 > 欢迎一起构建 DSlate
 
+## 2.0.0 Beta
+
+采用Register Component方案注入UI框架组件，更好的兼容各种UI框架的风格
+取消less/sass的css方案，采用css in js 方案适配antd5.x
+
 ## 文档
 
 要了解更多信息，请参阅以下 Dslate 文档部分：

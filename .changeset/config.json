@@ -3,7 +3,7 @@
   "changelog": "@changesets/cli/changelog",
   "commit": false,
   "fixed": [],
-  "linked": [],
+  "linked": [["@dslate/*"]],
   "access": "public",
   "baseBranch": "v2",
   "updateInternalDependencies": "patch",

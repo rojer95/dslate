@@ -11,7 +11,6 @@
     "slate-react",
     "dslate"
   ],
-  "private": true,
   "type": "module",
   "author": "rojer <rojerchen@qq.com>",
   "homepage": "http://rojer95.github.io/dslate/tree/main/packages/antd#readme",

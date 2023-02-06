@@ -22,6 +22,7 @@ type TooltipProps = {
 const Tooltip = ({ children, ...props }: PropsWithChildren<TooltipProps>) => {
   const TooltipElement = getElement("tooltip");
   if (!TooltipElement) return null;
+  if (!props.content) return <>{children}</>;
   return React.createElement(TooltipElement, props as any, children);
 };
 

@@ -1,6 +1,10 @@
 {
-  "name": "dslate",
-  "version": "2.0.0-beta.1",
+  "private": true,
+  "license": "MIT",
+  "homepage": "http://rojer95.github.io/dslate",
+  "workspaces": [
+    "packages/*"
+  ],
   "description": "DSlate组件 - Component of DSlate",
   "keywords": [
     "antd",
@@ -11,7 +15,9 @@
     "slate-react",
     "dslate"
   ],
-  "main": "index.js",
+  "gitHooks": {
+    "pre-commit": "pretty-quick --staged"
+  },
   "scripts": {
     "dev": "pnpm run --filter '@dslate/*' dev",
     "build": "pnpm run --filter '@dslate/*' build",
@@ -20,9 +26,11 @@
     "release": "pnpm build && pnpm release:only",
     "release:only": "changeset publish --registry=https://registry.npmjs.com/"
   },
-  "author": "",
-  "license": "ISC",
   "devDependencies": {
-    "@changesets/cli": "^2.26.0"
+    "@changesets/cli": "^2.26.0",
+    "yorkie": "^2.0.0"
+  },
+  "dependencies": {
+    "pretty-quick": "^3.1.3"
   }
 }

@@ -18,7 +18,6 @@
     "url": "https://github.com/rojer95/dslate"
   },
   "license": "MIT",
-  "private": true,
   "type": "module",
   "files": [
     "dist"

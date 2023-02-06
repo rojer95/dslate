@@ -1,5 +1,11 @@
 # @dslate/component
 
+## 2.0.0-beta.2
+
+### Major Changes
+
+- fix tooltip empty bug
+
 ## 2.0.0-beta.1
 
 ### Major Changes

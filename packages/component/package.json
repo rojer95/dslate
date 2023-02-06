@@ -1,6 +1,6 @@
 {
   "name": "@dslate/component",
-  "version": "2.0.0-beta.1",
+  "version": "2.0.0-beta.2",
   "description": "DSlate组件 - Component of DSlate",
   "keywords": [
     "antd",

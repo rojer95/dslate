@@ -8,7 +8,5 @@
     "@dslate/plugin": "2.0.0-beta.0",
     "@dslate/semi": "2.0.0-beta.0"
   },
-  "changesets": [
-    "wild-cycles-lay"
-  ]
+  "changesets": ["thin-laws-serve", "wild-cycles-lay"]
 }

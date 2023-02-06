@@ -28,7 +28,6 @@ const ToolbarButton = () => {
   return (
     <Toolbar.Select<string>
       onChange={onChange}
-      direction="horizontal"
       options={[
         {
           tooltip: getMessage("left", "左对齐"),

@@ -1,0 +1,14 @@
+{
+  "mode": "pre",
+  "tag": "beta",
+  "initialVersions": {
+    "@dslate/antd": "2.0.0-beta.0",
+    "@dslate/component": "2.0.0-beta.0",
+    "@dslate/core": "2.0.0-beta.0",
+    "@dslate/plugin": "2.0.0-beta.0",
+    "@dslate/semi": "2.0.0-beta.0"
+  },
+  "changesets": [
+    "wild-cycles-lay"
+  ]
+}

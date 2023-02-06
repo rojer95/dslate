@@ -1,6 +1,6 @@
 {
   "name": "dslate",
-  "version": "2.0.0",
+  "version": "2.0.0-beta.1",
   "description": "DSlate组件 - Component of DSlate",
   "keywords": [
     "antd",
@@ -14,8 +14,15 @@
   "main": "index.js",
   "scripts": {
     "dev": "pnpm run --filter '@dslate/*' dev",
-    "build": "pnpm run --filter '@dslate/*' build"
+    "build": "pnpm run --filter '@dslate/*' build",
+    "vvv": "changeset version",
+    "changeset": "changeset",
+    "release": "pnpm build && pnpm release:only",
+    "release:only": "changeset publish --registry=https://registry.npmjs.com/"
   },
   "author": "",
-  "license": "ISC"
+  "license": "ISC",
+  "devDependencies": {
+    "@changesets/cli": "^2.26.0"
+  }
 }

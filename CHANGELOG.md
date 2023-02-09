@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file. See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.0.11](https://github.com/rojer95/dslate/compare/v1.0.10...v1.0.11) (2023-02-09)
+
+### Bug Fixes
+
+- :bug: editbale bug ([6049756](https://github.com/rojer95/dslate/commit/6049756ae03d7a73b1a927014b8cf9397c78c96f))
+
 ## [1.0.10](https://github.com/rojer95/dslate/compare/v1.0.9...v1.0.10) (2023-02-09)
 
 ### Features

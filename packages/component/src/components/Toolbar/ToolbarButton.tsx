@@ -1,4 +1,5 @@
 import classnames from 'classnames';
+import type { PropsWithChildren } from 'react';
 import React from 'react';
 import { usePlugin, usePluginHelper } from '@dslate/core';
 import Tooltip from '../Tooltip';
@@ -11,7 +12,7 @@ export type ToolbarButtonProps = {
   className?: string;
 };
 
-const ToolbarButton: React.FC<ToolbarButtonProps> = ({
+const ToolbarButton: React.FC<PropsWithChildren<ToolbarButtonProps>> = ({
   children,
   disabled = false,
   active = false,

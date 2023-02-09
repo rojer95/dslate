@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file. See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.0.10](https://github.com/rojer95/dslate/compare/v1.0.9...v1.0.10) (2023-02-09)
+
+### Features
+
+- :boom: 调整 tooltip 默认展示方向，添加可调节的参数 ([edb0475](https://github.com/rojer95/dslate/commit/edb0475860f5699edf30dca90d7091eb9888473e))
+
 ## [1.0.9](https://github.com/rojer95/dslate/compare/v1.0.8...v1.0.9) (2022-11-03)
 
 ### Features

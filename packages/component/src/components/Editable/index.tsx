@@ -62,7 +62,7 @@ export default ({ disabled = false, placeholder }: EditableProps) => {
     return dom ?? <DefaultElement {...props} />;
   }, []);
 
-  const renderLeaf = useCallback((props) => {
+  const renderLeaf = useCallback((props: any) => {
     const { attributes, children, leaf } = props;
     const needRenderPlugin = plugins.find(
       (i: DSlatePlugin) => i.nodeType === 'text' && i.type in leaf && !!i.renderLeaf,

@@ -1,5 +1,18 @@
 # @dslate/antd
 
+## 2.0.0-beta.3
+
+### Major Changes
+
+- 2.0.0-beta.3
+
+### Patch Changes
+
+- Updated dependencies
+  - @dslate/component@2.0.0-beta.3
+  - @dslate/core@2.0.0-beta.3
+  - @dslate/plugin@2.0.0-beta.3
+
 ## 2.0.0-beta.2
 
 ### Patch Changes

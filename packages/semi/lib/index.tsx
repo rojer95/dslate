@@ -4,6 +4,7 @@ import {
   ConfigProvider,
   ConfigConsumer,
   mergeLocalteFromPlugins,
+  defaultConfig,
 } from "@dslate/core";
 
 import { registerElement } from "@dslate/component";
@@ -61,6 +62,8 @@ export const DefaultToolbar = [
   "blockquote",
   "hr",
 ];
+
+export { ConfigProvider, defaultConfig };
 
 export default forwardRef<DSlateRef, SemiStyleDSlateProps>(
   ({ toolbar = DefaultToolbar, ...props }, ref) => {

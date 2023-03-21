@@ -8,5 +8,10 @@
     "@dslate/plugin": "2.0.0-beta.0",
     "@dslate/semi": "2.0.0-beta.0"
   },
-  "changesets": ["kind-ducks-sparkle", "thin-laws-serve", "wild-cycles-lay"]
+  "changesets": [
+    "blue-teachers-pretend",
+    "kind-ducks-sparkle",
+    "thin-laws-serve",
+    "wild-cycles-lay"
+  ]
 }

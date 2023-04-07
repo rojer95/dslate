@@ -22,8 +22,8 @@
     "dev": "pnpm run --filter '@dslate/*' dev",
     "build": "pnpm run --filter '@dslate/*' build",
     "preview": "pnpm run --filter '@dslate/*' preview",
-    "vvv": "changeset version",
-    "changeset": "changeset",
+    "ci:changeset": "changeset",
+    "ci:version": "changeset version",
     "release": "pnpm build && pnpm release:only",
     "release:only": "changeset publish --registry=https://registry.npmjs.com/"
   },

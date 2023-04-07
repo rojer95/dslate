@@ -21,6 +21,7 @@
   "scripts": {
     "dev": "pnpm run --filter '@dslate/*' dev",
     "build": "pnpm run --filter '@dslate/*' build",
+    "preview": "pnpm run --filter '@dslate/*' preview",
     "vvv": "changeset version",
     "changeset": "changeset",
     "release": "pnpm build && pnpm release:only",

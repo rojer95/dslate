@@ -5,6 +5,8 @@ export const Popover = ({
   content,
   position,
   children,
+  trigger,
+  visible,
 }: PropsWithChildren<{
   content?: React.ReactNode;
   position?:
@@ -20,12 +22,17 @@ export const Popover = ({
     | "bottom"
     | "bottomLeft"
     | "bottomRight";
+
+  trigger?: string;
+  visible?: boolean;
 }>) => {
   return (
     <AntdPopover
+      trigger={trigger}
       placement={position}
       content={content}
       overlayInnerStyle={{ padding: 0 }}
+      open={visible}
     >
       {children}
     </AntdPopover>

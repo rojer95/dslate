@@ -15,7 +15,6 @@ import {
   Divider,
   Input,
   InputNumber,
-  Popover,
   Progress,
   Select,
   Tooltip,
@@ -25,7 +24,7 @@ import type { SemiStyleDSlateProps } from "./typing";
 
 import ZH_CN from "./locale/zh_CN";
 import EN_US from "./locale/en_US";
-import { Button, SemiEditor } from "./components";
+import { Button, Popover, SemiEditor } from "./components";
 
 registerElement("tooltip", Tooltip);
 registerElement("divider", Divider);

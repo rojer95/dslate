@@ -28,7 +28,7 @@ const renderStyle = (text: Descendant) => {
 const ToolbarButton = () => {
   const editor = useSlate();
   const getMessage = useMessage();
-  const { props } = usePlugin();
+  const { props, disabled } = usePlugin();
 
   const handleChangeComplete = (value: any) => {
     setTextProps(editor, TYPE, value?.hex ?? DEFAULT_COLOR);
@@ -65,7 +65,9 @@ const ToolbarButton = () => {
             width: 14,
             height: 2,
             marginTop: 2,
-            backgroundColor: getTextProps(editor, TYPE, "rgba(0,0,0,0.85)"),
+            backgroundColor: disabled
+              ? "rgba(0, 0, 0, 0.1)"
+              : getTextProps(editor, TYPE, "rgba(0,0,0,0.85)"),
           }}
         />
       </div>

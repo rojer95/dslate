@@ -18,6 +18,7 @@ import { mergeStyle, style2string, withPlugins } from "../utils";
 export interface DSlateProps {
   value: Descendant[];
   onChange: (value: Descendant[]) => void;
+  disabled?: boolean;
 }
 
 export type DSlateRef = {
@@ -26,7 +27,7 @@ export type DSlateRef = {
 };
 
 const DSlateCore = forwardRef<DSlateRef, PropsWithChildren<DSlateProps>>(
-  ({ value, onChange, children }, ref) => {
+  ({ value, onChange, children, disabled = false }, ref) => {
     const { plugins = [], pluginProps } = useConfig();
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -106,6 +107,7 @@ const DSlateCore = forwardRef<DSlateRef, PropsWithChildren<DSlateProps>>(
           disablePluginByType,
           setPercent,
           percent,
+          disabled,
         }}
       >
         <Slate editor={editor} value={value} onChange={onChange}>

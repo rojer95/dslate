@@ -11,6 +11,7 @@ import {
   usePluginHelper,
   useConfig,
   useMessage,
+  usePlugin,
 } from "@dslate/core";
 
 import type { Descendant } from "slate";
@@ -42,6 +43,7 @@ const ToolbarButton = () => {
   const { customUploadRequest } = useConfig();
   const editor = useSlate();
   const getMessage = useMessage();
+  const { disabled } = usePlugin();
 
   const insertImg = async (option: UploadRequestOption) => {
     const { url } = await promiseUploadFunc(
@@ -62,7 +64,11 @@ const ToolbarButton = () => {
   };
 
   return (
-    <Upload accept="image/*" customRequest={(option) => insertImg(option)}>
+    <Upload
+      disabled={disabled}
+      accept="image/*"
+      customRequest={(option) => insertImg(option)}
+    >
       <ImgStyle />
       <Toolbar.Button
         tooltip={getMessage("tooltip", "上传图片")}

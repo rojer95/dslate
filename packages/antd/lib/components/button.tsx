@@ -5,15 +5,21 @@ const { useToken } = theme;
 export const Button = ({
   children,
   active,
+  disabled,
   ...props
 }: PropsWithChildren<any>) => {
   const { token } = useToken();
   return (
     <AntdButton
       {...props}
+      disabled={disabled}
       type="text"
       style={{
-        color: active ? token.colorPrimary : token.colorText,
+        color: disabled
+          ? token.colorTextDisabled
+          : active
+          ? token.colorPrimary
+          : token.colorText,
       }}
     >
       {children}

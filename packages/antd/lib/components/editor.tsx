@@ -112,20 +112,8 @@ const AntdStyleEditor = ({
   className,
 }: Omit<AntdStyleDSlateProps, "value" | "onChange">) => {
   const focused = useFocused();
-
   const { token } = useToken();
 
-  console.log(
-    "token",
-    `${token.paddingSM - token.lineWidth}px ${Math.max(
-      Math.round(
-        ((token.controlHeight - token.fontSize * token.lineHeight) / 2) * 10
-      ) /
-        10 -
-        token.lineWidth,
-      3
-    )}px`
-  );
   return (
     <StyledComponent
       token={token}
@@ -154,10 +142,15 @@ const AntdStyleEditor = ({
 };
 
 const AntdEditor = forwardRef<DSlateRef, AntdStyleDSlateProps>(
-  ({ value, onChange, ...rest }, ref) => {
+  ({ value, onChange, disabled, ...rest }, ref) => {
     return (
-      <DSlateCore ref={ref} value={value} onChange={onChange}>
-        <AntdStyleEditor {...rest} />
+      <DSlateCore
+        ref={ref}
+        value={value}
+        onChange={onChange}
+        disabled={disabled}
+      >
+        <AntdStyleEditor {...rest} disabled={disabled} />
       </DSlateCore>
     );
   }

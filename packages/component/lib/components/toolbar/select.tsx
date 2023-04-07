@@ -28,7 +28,9 @@ const ToolbarSelect: <T = any>(props: ToolbarSelectProps<T>) => JSX.Element = ({
   placeholder = "",
   width = "max-content",
 }) => {
-  // const { visible, setVisible } = usePlugin();
+  const { disabled: globalDisabled } = usePlugin();
+  const isDisabled = disabled || globalDisabled;
+
   const triggerRender = useCallback(() => {
     const selected = options?.find((i) => i.value === value);
     let dom: React.ReactNode = placeholder;
@@ -36,7 +38,7 @@ const ToolbarSelect: <T = any>(props: ToolbarSelectProps<T>) => JSX.Element = ({
       dom = selected.placeholder ?? selected.label;
     }
     return (
-      <ToolbarButton disabled={disabled} tooltip={tooltip}>
+      <ToolbarButton disabled={isDisabled} tooltip={tooltip}>
         <div
           style={{
             width,
@@ -50,6 +52,7 @@ const ToolbarSelect: <T = any>(props: ToolbarSelectProps<T>) => JSX.Element = ({
 
   return (
     <Select
+      disabled={isDisabled}
       optionList={options}
       onChange={onChange}
       triggerRender={triggerRender}

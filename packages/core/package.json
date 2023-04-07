@@ -32,8 +32,7 @@
   },
   "scripts": {
     "dev": "tsc && vite build --watch",
-    "build": "tsc && vite build",
-    "preview": "vite preview"
+    "build": "tsc && vite build"
   },
   "dependencies": {
     "escape-html": "^1.0.3",

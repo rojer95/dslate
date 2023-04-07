@@ -100,10 +100,15 @@ const SemiStyleEditor = ({
 };
 
 const SemiEditor = forwardRef<DSlateRef, SemiStyleDSlateProps>(
-  ({ value, onChange, ...rest }, ref) => {
+  ({ value, onChange, disabled, ...rest }, ref) => {
     return (
-      <DSlateCore ref={ref} value={value} onChange={onChange}>
-        <SemiStyleEditor {...rest} />
+      <DSlateCore
+        ref={ref}
+        value={value}
+        onChange={onChange}
+        disabled={disabled}
+      >
+        <SemiStyleEditor {...rest} disabled={disabled} />
       </DSlateCore>
     );
   }

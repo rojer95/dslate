@@ -28,9 +28,8 @@
     }
   },
   "scripts": {
-    "dev": "vite",
     "build": "tsc && vite build",
-    "preview": "vite preview"
+    "preview": "vite"
   },
   "dependencies": {
     "@douyinfe/semi-ui": "^2.28.1",

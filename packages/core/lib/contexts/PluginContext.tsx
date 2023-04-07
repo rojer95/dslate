@@ -9,6 +9,7 @@ export type GlobalPluginContextType = {
   disablePluginByType?: (key: string | string[]) => void;
   setPercent?: (percent: number) => void;
   percent?: number;
+  disabled?: boolean;
 };
 
 export type PluginContextType = {
@@ -49,7 +50,7 @@ export const usePlugin = (): PluginContextType => {
   const { uuid, type } = usePluginUuid();
   const { plugins, pluginProps } = useConfig();
   const globalPluginHelper = usePluginHelper();
-  const { setVisibleKey } = globalPluginHelper;
+  const { setVisibleKey, disabled: globalDisabled } = globalPluginHelper;
 
   const [visible, setVisible] = useState(false);
   const [disabled, setDisabled] = useState(false);
@@ -60,9 +61,10 @@ export const usePlugin = (): PluginContextType => {
 
   useEffect(() => {
     setDisabled(
-      globalPluginHelper.disabledTypes?.includes(type as string) ?? false
+      globalDisabled ||
+        (globalPluginHelper.disabledTypes?.includes(type as string) ?? false)
     );
-  }, [globalPluginHelper.disabledTypes, type]);
+  }, [globalPluginHelper.disabledTypes, type, globalDisabled]);
 
   const matchPlugin = plugins?.find((plugin) => plugin.uuid === uuid);
 

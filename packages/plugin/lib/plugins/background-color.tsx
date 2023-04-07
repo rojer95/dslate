@@ -32,7 +32,7 @@ const ToolbarButton = () => {
   };
 
   const getMessage = useMessage();
-  const { props } = usePlugin();
+  const { props, disabled } = usePlugin();
 
   return (
     <Toolbar.Modal
@@ -65,7 +65,9 @@ const ToolbarButton = () => {
             width: 14,
             height: 2,
             marginTop: 2,
-            backgroundColor: getTextProps(editor, TYPE, "rgba(0,0,0,0.1)"),
+            backgroundColor: disabled
+              ? "rgba(0, 0, 0, 0.1)"
+              : getTextProps(editor, TYPE, "rgba(0,0,0,0.1)"),
           }}
         />
       </div>

@@ -1,6 +1,6 @@
 {
   "name": "@dslate/component",
-  "version": "2.0.0-beta.4",
+  "version": "2.0.0-beta.5",
   "description": "DSlate组件 - Component of DSlate",
   "keywords": [
     "antd",
@@ -36,7 +36,7 @@
     "build": "tsc && vite build"
   },
   "dependencies": {
-    "@dslate/core": "workspace:2.0.0-beta.4",
+    "@dslate/core": "workspace:2.0.0-beta.5",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "slate": "^0.90.0",

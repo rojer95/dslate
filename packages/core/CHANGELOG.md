@@ -1,5 +1,11 @@
 # @dslate/core
 
+## 2.0.0-beta.6
+
+### Patch Changes
+
+- fix types no longer use in package.json
+
 ## 2.0.0-beta.5
 
 ### Major Changes

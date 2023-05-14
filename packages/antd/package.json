@@ -1,6 +1,6 @@
 {
   "name": "@dslate/antd",
-  "version": "2.0.0-beta.5",
+  "version": "2.0.0-beta.6",
   "description": "一个Antd Design风格的富文本编辑器 - A Antd Design style rich editor based on Slate",
   "keywords": [
     "antd",
@@ -33,9 +33,9 @@
     "preview": "vite"
   },
   "dependencies": {
-    "@dslate/component": "workspace:2.0.0-beta.5",
-    "@dslate/core": "workspace:2.0.0-beta.5",
-    "@dslate/plugin": "workspace:2.0.0-beta.5",
+    "@dslate/component": "workspace:2.0.0-beta.6",
+    "@dslate/core": "workspace:2.0.0-beta.6",
+    "@dslate/plugin": "workspace:2.0.0-beta.6",
     "antd": "^5.1.7",
     "classnames": "^2.3.2",
     "react": "^18.2.0",

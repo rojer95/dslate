@@ -1,6 +1,6 @@
 {
   "name": "@dslate/core",
-  "version": "2.0.0-beta.5",
+  "version": "2.0.0-beta.6",
   "description": "一个Ant Design风格的富文本编辑器 - An Ant Design style rich editor based on Slate",
   "keywords": [
     "wysiwyg",

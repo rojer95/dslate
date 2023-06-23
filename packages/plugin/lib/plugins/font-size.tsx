@@ -1,15 +1,13 @@
-import React from "react";
-import { Locales } from "@dslate/core";
-import type { DSlatePlugin } from "@dslate/core";
-import { usePlugin } from "@dslate/core";
+import type { DSlatePlugin } from '@dslate/core';
+import { Locales, usePlugin } from '@dslate/core';
 
-import { useSlate } from "slate-react";
-import { Toolbar } from "@dslate/component";
-import { useMessage, getTextProps, setTextProps } from "@dslate/core";
-import type { Descendant } from "slate";
+import { Toolbar } from '@dslate/component';
+import { getTextProps, setTextProps, useMessage } from '@dslate/core';
+import type { Descendant } from 'slate';
+import { useSlate } from 'slate-react';
 
 const DEFAULT_FONT_SIZE = 14;
-const TYPE = "font-size";
+const TYPE = 'font-size';
 
 const renderStyle = (text: Descendant) => {
   if (text[TYPE]) {
@@ -38,20 +36,20 @@ const ToolbarButton = () => {
         label: `${size}px`,
         value: size,
       }))}
-      tooltip={getMessage("tooltip", "字体大小")}
+      tooltip={getMessage('tooltip', '字体大小')}
       value={getTextProps(editor, TYPE, DEFAULT_FONT_SIZE)}
     />
   );
 };
 
 const FontSizePlugin: DSlatePlugin = {
-  type: "font-size",
-  nodeType: "text",
-  toolbar: <ToolbarButton />,
+  type: 'font-size',
+  nodeType: 'text',
+  toolbar: ToolbarButton,
   renderStyle,
   locale: [
-    { locale: Locales.zhCN, tooltip: "字体大小" },
-    { locale: Locales.enUS, tooltip: "font size" },
+    { locale: Locales.zhCN, tooltip: '字体大小' },
+    { locale: Locales.enUS, tooltip: 'font size' },
   ],
   props: {
     sizes: DefaultSizes,

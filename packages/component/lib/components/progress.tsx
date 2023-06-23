@@ -1,6 +1,6 @@
-import { usePluginHelper } from "@dslate/core";
-import React, { PropsWithChildren, useMemo } from "react";
-import { getElement } from "../element";
+import { usePluginHelper } from '@dslate/core';
+import React, { PropsWithChildren, useMemo } from 'react';
+import { getElement } from '../element';
 
 type ProgressProps = {
   percent?: number;
@@ -9,7 +9,9 @@ type ProgressProps = {
 
 const Progress = ({ children, ...props }: PropsWithChildren<ProgressProps>) => {
   const { percent } = usePluginHelper();
-  const ProgressElement = getElement("progress");
+  const ProgressElement = getElement('progress');
+
+  console.log('percent', percent);
 
   const visible = useMemo(() => {
     return percent && Number(percent) > 0 && Number(percent) < 100;
@@ -17,7 +19,11 @@ const Progress = ({ children, ...props }: PropsWithChildren<ProgressProps>) => {
 
   if (!ProgressElement || !visible) return null;
 
-  return React.createElement(ProgressElement, props as any, children);
+  return React.createElement(
+    ProgressElement,
+    { ...(props || {}), percent } as any,
+    children,
+  );
 };
 
 export { Progress };

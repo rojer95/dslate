@@ -1,19 +1,19 @@
-import { PropsWithChildren, useEffect } from "react";
+import escapeHtml from 'escape-html';
 import React, {
   forwardRef,
+  PropsWithChildren,
   useCallback,
   useImperativeHandle,
   useMemo,
   useState,
-} from "react";
-import type { Descendant, Editor } from "slate";
-import { createEditor, Text } from "slate";
-import { Slate, withReact } from "slate-react";
-import escapeHtml from "escape-html";
+} from 'react';
+import type { Descendant, Editor } from 'slate';
+import { createEditor, Text } from 'slate';
+import { Slate, withReact } from 'slate-react';
 
-import { useConfig } from "../contexts/ConfigContext";
-import { GlobalPluginProvider } from "../contexts/PluginContext";
-import { mergeStyle, style2string, withPlugins } from "../utils";
+import { useConfig } from '../contexts/ConfigContext';
+import { GlobalPluginProvider } from '../contexts/PluginContext';
+import { mergeStyle, style2string, withPlugins } from '../utils';
 
 export interface DSlateProps {
   value: Descendant[];
@@ -33,11 +33,11 @@ const DSlateCore = forwardRef<DSlateRef, PropsWithChildren<DSlateProps>>(
     // eslint-disable-next-line react-hooks/exhaustive-deps
     const editor = useMemo(
       () => withPlugins(withReact(createEditor()), plugins),
-      []
+      [],
     );
 
     const [visibleKey, setVisibleKey] = useState<React.Key | undefined>(
-      undefined
+      undefined,
     );
 
     const [percent, setPercent] = useState(0);
@@ -49,7 +49,7 @@ const DSlateCore = forwardRef<DSlateRef, PropsWithChildren<DSlateProps>>(
         const types: string[] = Array.isArray(type) ? type : [type];
         setDisabledTypes(disabledTypes.filter((i) => !types.includes(i)));
       },
-      [disabledTypes]
+      [disabledTypes],
     );
 
     const disablePluginByType = useCallback(
@@ -57,35 +57,35 @@ const DSlateCore = forwardRef<DSlateRef, PropsWithChildren<DSlateProps>>(
         const types: string[] = Array.isArray(type) ? type : [type];
         setDisabledTypes(Array.from(new Set([...disabledTypes, ...types])));
       },
-      [disabledTypes]
+      [disabledTypes],
     );
 
     const serialize = useCallback(
       (node: any) => {
         if (Text.isText(node)) {
-          const style = mergeStyle(node, plugins, "text", editor);
+          const style = mergeStyle(node, plugins, 'text', editor);
           return `<span style="${style2string(style)}">${escapeHtml(
-            node.text
+            node.text,
           )}</span>`;
         }
 
         const childrenHtml = node.children.map((n: any) => serialize(n));
-        const style = mergeStyle(node, plugins, "element", editor);
+        const style = mergeStyle(node, plugins, 'element', editor);
         const match = Object.values(plugins).find(
-          (i) => i.type === node.type && i.nodeType === "element"
+          (i) => i.type === node.type && i.nodeType === 'element',
         );
         if (match && match.serialize) {
           const matchPluginProps = {
             ...(match?.props ?? {}),
-            ...(pluginProps?.[match.type ?? ""] ?? {}),
+            ...(pluginProps?.[match.type ?? ''] ?? {}),
             style: style2string(style),
           };
           return match.serialize(node, matchPluginProps, childrenHtml);
         }
-        return childrenHtml.join("").replace(/ style=\"\"/gi, "");
+        return childrenHtml.join('').replace(/style=""/gi, '');
       },
       // eslint-disable-next-line react-hooks/exhaustive-deps
-      [plugins, pluginProps]
+      [plugins, pluginProps],
     );
 
     const getEditor = useCallback(() => {
@@ -115,7 +115,7 @@ const DSlateCore = forwardRef<DSlateRef, PropsWithChildren<DSlateProps>>(
         </Slate>
       </GlobalPluginProvider>
     );
-  }
+  },
 );
 
 export { DSlateCore };

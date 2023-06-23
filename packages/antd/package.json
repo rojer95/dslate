@@ -11,16 +11,10 @@
     "slate-react",
     "dslate"
   ],
-  "type": "module",
-  "author": "rojer <rojerchen@qq.com>",
   "homepage": "http://rojer95.github.io/dslate/tree/main/packages/antd#readme",
   "license": "MIT",
-  "files": [
-    "dist"
-  ],
-  "main": "./dist/lib.umd.cjs",
-  "module": "./dist/lib.js",
-  "types": "./dist/lib/index.d.ts",
+  "author": "rojer <rojerchen@qq.com>",
+  "type": "module",
   "exports": {
     ".": {
       "types": "./dist/lib/index.d.ts",
@@ -28,9 +22,14 @@
       "require": "./dist/lib.umd.cjs"
     }
   },
+  "main": "./dist/lib.umd.cjs",
+  "module": "./dist/lib.js",
+  "types": "./dist/lib/index.d.ts",
+  "files": [
+    "dist"
+  ],
   "scripts": {
-    "build": "tsc && vite build",
-    "preview": "vite"
+    "build": "tsc && vite build"
   },
   "dependencies": {
     "@dslate/component": "workspace:2.0.0-beta.6",

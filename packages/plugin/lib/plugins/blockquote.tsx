@@ -1,16 +1,14 @@
-import React from "react";
+import { Icon, Toolbar } from '@dslate/component';
+import { isBlockActive, isEmpty, isStart, useMessage } from '@dslate/core';
+import { Editor, Element, Path, Range, Transforms } from 'slate';
+import { useSlate } from 'slate-react';
 
-import { isBlockActive, isEmpty, isStart, useMessage } from "@dslate/core";
-import { Icon, Toolbar } from "@dslate/component";
-import { Editor, Transforms, Element, Path, Range } from "slate";
-import { useSlate } from "slate-react";
+import type { DSlatePlugin, RenderElementPropsWithStyle } from '@dslate/core';
+import { Locales } from '@dslate/core';
+import type { CSSProperties } from 'react';
+import type { Descendant } from 'slate';
 
-import type { CSSProperties } from "react";
-import type { Descendant } from "slate";
-import type { DSlatePlugin, RenderElementPropsWithStyle } from "@dslate/core";
-import { Locales } from "@dslate/core";
-
-const TYPE = "blockquote";
+const TYPE = 'blockquote';
 
 const remove = (editor: Editor) => {
   if (!editor.selection) return;
@@ -33,8 +31,8 @@ const add = (editor: Editor) => {
         !Editor.isEditor(n) &&
         Element.isElement(n) &&
         Editor.isBlock(editor, n),
-      mode: "highest",
-    }
+      mode: 'highest',
+    },
   );
 };
 
@@ -55,7 +53,7 @@ const ToolbarButton = () => {
 
   return (
     <Toolbar.Button
-      tooltip={getMessage("toolbar", "引用")}
+      tooltip={getMessage('toolbar', '引用')}
       active={isBlockActive(editor, TYPE)}
       onClick={toggle}
     >
@@ -76,7 +74,7 @@ const renderStyle = (node: Descendant) => {
   const style: CSSProperties = {};
   if (node.type === TYPE) {
     style.paddingLeft = 10;
-    style.borderLeft = "3px solid #eeeeee";
+    style.borderLeft = '3px solid #eeeeee';
     style.marginTop = 10;
     style.marginBottom = 10;
   }
@@ -142,24 +140,24 @@ const withPlugin = (editor: Editor) => {
 
 const BlockquotePlugin: DSlatePlugin = {
   type: TYPE,
-  nodeType: "element",
-  toolbar: <ToolbarButton />,
+  nodeType: 'element',
+  toolbar: ToolbarButton,
   renderElement,
   renderStyle,
   withPlugin,
   locale: [
     {
       locale: Locales.zhCN,
-      toolbar: "引用",
+      toolbar: '引用',
     },
     {
       locale: Locales.enUS,
-      toolbar: "blockquote",
+      toolbar: 'blockquote',
     },
   ],
   serialize: (el, props, chils) => {
-    return `<blockquote style="${props.style ?? ""}">${chils.join(
-      ""
+    return `<blockquote style="${props.style ?? ''}">${chils.join(
+      '',
     )}</blockquote>`;
   },
 };

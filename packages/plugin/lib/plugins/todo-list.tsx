@@ -1,13 +1,11 @@
-import React from "react";
-import { Locales } from "@dslate/core";
-import { Editor, Transforms, Element } from "slate";
-import { useSlate, ReactEditor } from "slate-react";
-import { TYPE as LIST_TYPE, IS_ORDERED } from "./list";
-import { Icon, Toolbar } from "@dslate/component";
-import type { DSlatePlugin, RenderElementPropsWithStyle } from "@dslate/core";
-import { useMessage, isBlockActive, isStart } from "@dslate/core";
+import { Icon, Toolbar } from '@dslate/component';
+import type { DSlatePlugin, RenderElementPropsWithStyle } from '@dslate/core';
+import { isBlockActive, isStart, Locales, useMessage } from '@dslate/core';
+import { Editor, Element, Transforms } from 'slate';
+import { ReactEditor, useSlate } from 'slate-react';
+import { IS_ORDERED, TYPE as LIST_TYPE } from './list';
 
-const TYPE = "todo-list";
+const TYPE = 'todo-list';
 
 const ToolbarButton = () => {
   const editor = useSlate();
@@ -25,13 +23,13 @@ const ToolbarButton = () => {
         {
           hanging: true,
           match: (n) => Element.isElement(n) && !Editor.isEditor(n),
-        }
+        },
       );
     });
   };
   return (
     <Toolbar.Button
-      tooltip={getMessage("tooltip", "任务列表")}
+      tooltip={getMessage('tooltip', '任务列表')}
       active={isBlockActive(editor, TYPE)}
       onClick={toggle}
       icon={<Icon type="icon-multipleChoiceList" />}
@@ -49,7 +47,7 @@ const renderElement = (props: RenderElementPropsWithStyle, editor: Editor) => {
       {
         checked: e.target.checked,
       },
-      { at: path }
+      { at: path },
     );
   };
   return (
@@ -75,7 +73,7 @@ const withTodoList = (editor: Editor) => {
         {
           match: (n) =>
             !Editor.isEditor(n) && Element.isElement(n) && n.type === TYPE,
-        }
+        },
       );
     }
     deleteBackward(...args);
@@ -86,25 +84,25 @@ const withTodoList = (editor: Editor) => {
 
 const TodoListPlugin: DSlatePlugin = {
   type: TYPE,
-  nodeType: "element",
-  toolbar: <ToolbarButton />,
+  nodeType: 'element',
+  toolbar: ToolbarButton,
   renderElement,
   withPlugin: withTodoList,
   locale: [
     {
       locale: Locales.zhCN,
-      tooltip: "任务列表",
+      tooltip: '任务列表',
     },
     {
       locale: Locales.enUS,
-      tooltip: "todo list",
+      tooltip: 'todo list',
     },
   ],
   serialize: (element, props, children) => {
     return `<p style="${
-      props.style ?? ""
+      props.style ?? ''
     }"><span style={{ marginRight: 6 }}><input type="checkbox" /></span>${children.join(
-      ""
+      '',
     )}</p>`;
   },
 };

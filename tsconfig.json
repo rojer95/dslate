@@ -1,0 +1,19 @@
+{
+  "compilerOptions": {
+    "strict": true,
+    "declaration": true,
+    "skipLibCheck": true,
+    "esModuleInterop": true,
+    "jsx": "react",
+    "baseUrl": "./",
+    "paths": {
+      "@@/*": [".dumi/tmp/*"],
+      "@dslate/core": ["./packages/core/lib/index.tsx"],
+      "@dslate/component": ["./packages/component/lib/index.tsx"],
+      "@dslate/plugin": ["./packages/plugin/lib/index.tsx"],
+      "@dslate/antd": ["./packages/antd/lib/index.tsx"],
+      "@dslate/semi": ["./packages/semi/lib/index.tsx"]
+    }
+  },
+  "include": [".dumi/**/*", ".dumirc.ts", "**/docs/**/*"]
+}

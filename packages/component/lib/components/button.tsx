@@ -1,5 +1,5 @@
-import React, { forwardRef, PropsWithChildren } from "react";
-import { getElement } from "../element";
+import React from 'react';
+import { getElement } from '../element';
 
 export type ButtonProps = {
   onClick?: (e: MouseEvent) => void;
@@ -10,7 +10,7 @@ export type ButtonProps = {
 
 class Button extends React.Component<ButtonProps> {
   render() {
-    const ButtonElement = getElement("button");
+    const ButtonElement = getElement('button');
     if (!ButtonElement) return null;
     return React.createElement<any>(ButtonElement, this.props);
   }

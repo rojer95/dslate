@@ -1,5 +1,8 @@
 node_modules
+/dist
+.dumi/tmp
+.dumi/tmp-test
+.dumi/tmp-production
 .DS_Store
-vite.config.ts.*
-dumi/.dumi
-dumi/dist
+docs-dist
+.dumi

@@ -1,21 +1,20 @@
-import React from "react";
-import { TwitterPicker } from "react-color";
-import { Locales } from "@dslate/core";
+import { Locales } from '@dslate/core';
+import { TwitterPicker } from 'react-color';
 
-import { useSlate } from "slate-react";
-import { Toolbar, Icon } from "@dslate/component";
+import { Icon, Toolbar } from '@dslate/component';
 import {
-  usePlugin,
-  useMessage,
   getTextProps,
   setTextProps,
-} from "@dslate/core";
+  useMessage,
+  usePlugin,
+} from '@dslate/core';
+import { useSlate } from 'slate-react';
 
-import type { Descendant } from "slate";
-import type { DSlatePlugin } from "@dslate/core";
+import type { DSlatePlugin } from '@dslate/core';
+import type { Descendant } from 'slate';
 
 const DEFAULT_COLOR = undefined;
-const TYPE = "background-color";
+const TYPE = 'background-color';
 
 const renderStyle = (text: Descendant) => {
   if (text[TYPE]) {
@@ -36,7 +35,7 @@ const ToolbarButton = () => {
 
   return (
     <Toolbar.Modal
-      tooltip={getMessage("tooltip", "字体颜色")}
+      tooltip={getMessage('tooltip', '字体颜色')}
       overlay={
         <TwitterPicker
           color={getTextProps(editor, TYPE, DEFAULT_COLOR)}
@@ -48,15 +47,15 @@ const ToolbarButton = () => {
     >
       <div
         style={{
-          display: "flex",
-          justifyContent: "center",
-          alignItems: "center",
-          flexDirection: "column",
+          display: 'flex',
+          justifyContent: 'center',
+          alignItems: 'center',
+          flexDirection: 'column',
         }}
       >
         <Icon
           style={{
-            fontSize: "80%",
+            fontSize: '80%',
           }}
           type="icon-beijingse"
         />
@@ -66,8 +65,8 @@ const ToolbarButton = () => {
             height: 2,
             marginTop: 2,
             backgroundColor: disabled
-              ? "rgba(0, 0, 0, 0.1)"
-              : getTextProps(editor, TYPE, "rgba(0,0,0,0.1)"),
+              ? 'rgba(0, 0, 0, 0.1)'
+              : getTextProps(editor, TYPE, 'rgba(0,0,0,0.1)'),
           }}
         />
       </div>
@@ -77,26 +76,26 @@ const ToolbarButton = () => {
 
 const BackgroundColorPlugin: DSlatePlugin = {
   type: TYPE,
-  nodeType: "text",
-  toolbar: <ToolbarButton />,
+  nodeType: 'text',
+  toolbar: ToolbarButton,
   renderStyle,
   props: {
     colors: [
-      "transparent",
-      "#FF6900",
-      "#FCB900",
-      "#7BDCB5",
-      "#00D084",
-      "#8ED1FC",
-      "#0693E3",
-      "#EB144C",
-      "#F78DA7",
-      "#9900EF",
+      'transparent',
+      '#FF6900',
+      '#FCB900',
+      '#7BDCB5',
+      '#00D084',
+      '#8ED1FC',
+      '#0693E3',
+      '#EB144C',
+      '#F78DA7',
+      '#9900EF',
     ],
   },
   locale: [
-    { locale: Locales.zhCN, tooltip: "字体背景颜色" },
-    { locale: Locales.enUS, tooltip: "font background color" },
+    { locale: Locales.zhCN, tooltip: '字体背景颜色' },
+    { locale: Locales.enUS, tooltip: 'font background color' },
   ],
 };
 

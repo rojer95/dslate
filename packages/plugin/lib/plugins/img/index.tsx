@@ -1,28 +1,27 @@
-import React from "react";
-import { Transforms } from "slate";
-import { useSlate } from "slate-react";
+import { Transforms } from 'slate';
+import { useSlate } from 'slate-react';
 
-import { Icon, Toolbar } from "@dslate/component";
-import Upload from "rc-upload";
+import { Icon, Toolbar } from '@dslate/component';
+import Upload from 'rc-upload';
 
-import Img from "./img";
 import {
   promiseUploadFunc,
-  usePluginHelper,
   useConfig,
   useMessage,
   usePlugin,
-} from "@dslate/core";
+  usePluginHelper,
+} from '@dslate/core';
+import Img from './img';
 
-import type { Descendant } from "slate";
-import type { CSSProperties } from "react";
-import type { UploadRequestOption } from "rc-upload/lib/interface";
+import type { UploadRequestOption } from 'rc-upload/lib/interface';
+import type { CSSProperties } from 'react';
+import type { Descendant } from 'slate';
 
-import type { DSlatePlugin, RenderElementPropsWithStyle } from "@dslate/core";
-import { Locales } from "@dslate/core";
-import { ImgStyle } from "./style";
+import type { DSlatePlugin, RenderElementPropsWithStyle } from '@dslate/core';
+import { Locales } from '@dslate/core';
+import { ImgStyle } from './style';
 
-const TYPE = "img";
+const TYPE = 'img';
 
 const renderElement = (props: RenderElementPropsWithStyle) => {
   return <Img {...props} />;
@@ -54,12 +53,12 @@ const ToolbarButton = () => {
         file: option.file as File,
       },
       customUploadRequest,
-      setPercent
+      setPercent,
     );
     Transforms.insertNodes(editor, {
       type: TYPE,
       url,
-      children: [{ text: "" }],
+      children: [{ text: '' }],
     });
   };
 
@@ -71,7 +70,7 @@ const ToolbarButton = () => {
     >
       <ImgStyle />
       <Toolbar.Button
-        tooltip={getMessage("tooltip", "上传图片")}
+        tooltip={getMessage('tooltip', '上传图片')}
         icon={<Icon type="icon-image1" />}
       />
     </Upload>
@@ -80,8 +79,8 @@ const ToolbarButton = () => {
 
 const ImgPlugin: DSlatePlugin = {
   type: TYPE,
-  nodeType: "element",
-  toolbar: <ToolbarButton />,
+  nodeType: 'element',
+  toolbar: ToolbarButton,
   isVoid: true,
   isInline: true,
   renderElement,
@@ -93,28 +92,28 @@ const ImgPlugin: DSlatePlugin = {
     } as CSSProperties,
     maxWidth: false,
     defaultWidth: undefined,
-    loadingText: "图片加载中...",
+    loadingText: '图片加载中...',
   },
   locale: [
     {
       locale: Locales.zhCN,
-      tooltip: "上传图片",
-      change: "修改图片",
-      confirm: "确认",
-      height: "高",
-      width: "宽",
-      loading: "图片加载中",
-      remove: "删除",
+      tooltip: '上传图片',
+      change: '修改图片',
+      confirm: '确认',
+      height: '高',
+      width: '宽',
+      loading: '图片加载中',
+      remove: '删除',
     },
     {
       locale: Locales.enUS,
-      tooltip: "upload image",
-      change: "change image",
-      confirm: "confirm",
-      height: "height",
-      width: "width",
-      loading: "loading",
-      remove: "remove",
+      tooltip: 'upload image',
+      change: 'change image',
+      confirm: 'confirm',
+      height: 'height',
+      width: 'width',
+      loading: 'loading',
+      remove: 'remove',
     },
   ],
   serialize: (element, props) => {
@@ -122,7 +121,7 @@ const ImgPlugin: DSlatePlugin = {
     if (props?.style) style.push(props.style);
     if (props?.maxWidth)
       style.push(`max-width: ${props.maxWidth}; height: auto;`);
-    return `<img style="${style.join("")}" src="${element.url}" />`;
+    return `<img style="${style.join('')}" src="${element.url}" />`;
   },
 };
 

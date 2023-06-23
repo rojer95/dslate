@@ -1,17 +1,15 @@
-import React, { forwardRef, PropsWithChildren, useCallback } from "react";
-import { Editor, Node, Path, Point, Range, Text, Transforms } from "slate";
-import { Locales } from "@dslate/core";
-import { ReactEditor, useSelected, useSlate } from "slate-react";
-import { Icon, Toolbar, Popover, Input } from "@dslate/component";
-import { isBlockActive, useMessage } from "@dslate/core";
-import type { NodeEntry } from "slate";
+import { Icon, Input, Popover, Toolbar } from '@dslate/component';
 import type {
   DSlatePlugin,
   NormalizeNode,
   RenderElementPropsWithStyle,
-} from "@dslate/core";
+} from '@dslate/core';
+import { isBlockActive, Locales, useMessage } from '@dslate/core';
+import type { NodeEntry } from 'slate';
+import { Editor, Node, Path, Point, Range, Text, Transforms } from 'slate';
+import { ReactEditor, useSelected, useSlate } from 'slate-react';
 
-const TYPE = "link";
+const TYPE = 'link';
 
 const ToolbarButton = () => {
   const editor = useSlate();
@@ -30,7 +28,7 @@ const ToolbarButton = () => {
       if (Range.isCollapsed(editor.selection)) {
         Transforms.insertNodes(editor, {
           type: TYPE,
-          children: [{ text: getMessage("link", "链接") }],
+          children: [{ text: getMessage('link', '链接') }],
         });
       } else {
         Transforms.wrapNodes(
@@ -43,14 +41,14 @@ const ToolbarButton = () => {
             at: editor.selection,
             match: (n) => Text.isText(n),
             split: true,
-          }
+          },
         );
       }
     }
   };
   return (
     <Toolbar.Button
-      tooltip={getMessage("link", "链接")}
+      tooltip={getMessage('link', '链接')}
       active={isBlockActive(editor, TYPE)}
       onClick={toggle}
       icon={<Icon type="icon-link1" />}
@@ -77,14 +75,14 @@ const LinkWrap = ({
           <div
             style={{
               padding: 12,
-              display: "flex",
-              alignItems: "center",
+              display: 'flex',
+              alignItems: 'center',
               gap: 8,
-              whiteSpace: "nowrap",
-              width: "max-content",
+              whiteSpace: 'nowrap',
+              width: 'max-content',
             }}
           >
-            <div>{getMessage("link", "链接")}：</div>
+            <div>{getMessage('link', '链接')}：</div>
             <Input
               value={element.href}
               onChange={(value) => {
@@ -95,12 +93,12 @@ const LinkWrap = ({
                   },
                   {
                     at: path,
-                  }
+                  },
                 );
               }}
             />
             <Toolbar.Button
-              tooltip={getMessage("clear", "清除链接")}
+              tooltip={getMessage('clear', '清除链接')}
               onClick={() => {
                 Transforms.unwrapNodes(editor, {
                   at: path,
@@ -126,7 +124,7 @@ const renderElement = (props: RenderElementPropsWithStyle) => {
 const normalizeNode = (
   entry: NodeEntry,
   editor: Editor,
-  next: NormalizeNode
+  next: NormalizeNode,
 ) => {
   const [node, path] = entry;
   if (node.type === TYPE) {
@@ -185,19 +183,19 @@ const withPlugin = (editor: Editor) => {
 };
 const LinkPlugin: DSlatePlugin = {
   type: TYPE,
-  nodeType: "element",
+  nodeType: 'element',
   isInline: true,
   renderElement,
-  toolbar: <ToolbarButton />,
+  toolbar: ToolbarButton,
   withPlugin,
   normalizeNode,
   locale: [
-    { locale: Locales.zhCN, link: "链接", clear: "清除链接" },
-    { locale: Locales.enUS, link: "link", clear: "clear link" },
+    { locale: Locales.zhCN, link: '链接', clear: '清除链接' },
+    { locale: Locales.enUS, link: 'link', clear: 'clear link' },
   ],
   serialize: (element, props, children) =>
-    `<a style="${props.style ?? ""}" href="${element.href}">${children.join(
-      ""
+    `<a style="${props.style ?? ''}" href="${element.href}">${children.join(
+      '',
     )}</a>`,
 };
 

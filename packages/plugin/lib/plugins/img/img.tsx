@@ -1,19 +1,19 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import React, { useEffect, useRef, useState } from "react";
-import { ReactEditor, useSelected, useSlate } from "slate-react";
-import { Rnd } from "react-rnd";
-import Upload from "rc-upload";
+import { Icon, Input, Popover, Toolbar } from '@dslate/component';
+import type { RenderElementPropsWithStyle } from '@dslate/core';
 import {
-  usePluginHelper,
+  promiseUploadFunc,
   useConfig,
   useMessage,
-  promiseUploadFunc,
   usePlugin,
-} from "@dslate/core";
-import { Icon, Toolbar, Popover, Input, InputNumber } from "@dslate/component";
-import type { RenderElementPropsWithStyle } from "@dslate/core";
-import { Transforms } from "slate";
-import type { UploadRequestOption } from "rc-upload/lib/interface";
+  usePluginHelper,
+} from '@dslate/core';
+import Upload from 'rc-upload';
+import type { UploadRequestOption } from 'rc-upload/lib/interface';
+import { useEffect, useRef, useState } from 'react';
+import { Rnd } from 'react-rnd';
+import { Transforms } from 'slate';
+import { ReactEditor, useSelected, useSlate } from 'slate-react';
 
 type Draggable = {
   status: boolean;
@@ -21,19 +21,19 @@ type Draggable = {
   height?: number;
 };
 
-const prefixCls = "dslate-img-element";
+const prefixCls = 'dslate-img-element';
 
 type Size = { width: string; height: string };
 
 const resize = (
   origin: Size,
-  fixBy: "width" | "height",
-  value: string
+  fixBy: 'width' | 'height',
+  value: string,
 ): Size => {
-  if (String(value).endsWith("%")) {
+  if (String(value).endsWith('%')) {
     return {
-      width: fixBy === "width" ? value : "auto",
-      height: fixBy === "height" ? value : "auto",
+      width: fixBy === 'width' ? value : 'auto',
+      height: fixBy === 'height' ? value : 'auto',
     };
   }
 
@@ -45,10 +45,10 @@ const resize = (
 
   return {
     width: String(
-      fixBy === "height" ? Math.floor(valueNumber * p) : valueNumber
+      fixBy === 'height' ? Math.floor(valueNumber * p) : valueNumber,
     ),
     height: String(
-      fixBy === "width" ? Math.floor(valueNumber / p) : valueNumber
+      fixBy === 'width' ? Math.floor(valueNumber / p) : valueNumber,
     ),
   };
 };
@@ -77,8 +77,8 @@ const Img = ({
     width: string;
     height: string;
   }>({
-    width: "",
-    height: "",
+    width: '',
+    height: '',
   });
 
   useEffect(() => {
@@ -104,7 +104,7 @@ const Img = ({
       },
       {
         at: path,
-      }
+      },
     );
   };
 
@@ -112,7 +112,7 @@ const Img = ({
     updateSize(editable);
   };
 
-  const updateEditableSize = (key: "width" | "height", value: string) => {
+  const updateEditableSize = (key: 'width' | 'height', value: string) => {
     // 等比缩放
     const width = String(image.current?.naturalWidth ?? 1);
     const height = String(image.current?.naturalHeight ?? 1);
@@ -125,8 +125,8 @@ const Img = ({
       /**
        * 选中状态下，优先同步参数宽度，其次同步实际宽高到编辑框
        */
-      const width = element.imgWidth ?? image.current?.width ?? "";
-      const height = element.imgHeight ?? image.current?.height ?? "";
+      const width = element.imgWidth ?? image.current?.width ?? '';
+      const height = element.imgHeight ?? image.current?.height ?? '';
       setEditable({
         width: width,
         height: height,
@@ -148,13 +148,13 @@ const Img = ({
    */
   const onImageLoad = () => {
     const defaultWidth = props?.defaultWidth;
-    let width = String(image.current?.width ?? "");
-    let height = String(image.current?.height ?? "");
+    let width = String(image.current?.width ?? '');
+    let height = String(image.current?.height ?? '');
 
     if (!width || !height) return;
 
     if (defaultWidth) {
-      ({ width, height } = resize({ width, height }, "width", defaultWidth));
+      ({ width, height } = resize({ width, height }, 'width', defaultWidth));
     }
 
     if (element.imgWidth) width = element.imgWidth;
@@ -188,7 +188,7 @@ const Img = ({
         file: option.file as File,
       },
       customUploadRequest,
-      setPercent
+      setPercent,
     );
     Transforms.setNodes(
       editor,
@@ -199,7 +199,7 @@ const Img = ({
       },
       {
         at: path,
-      }
+      },
     );
   };
 
@@ -218,31 +218,31 @@ const Img = ({
             >
               <div
                 style={{
-                  display: "flex",
-                  alignItems: "center",
+                  display: 'flex',
+                  alignItems: 'center',
                   gap: 8,
                   marginBottom: 8,
                 }}
               >
-                <span>{getMessage("width", "宽")}</span>
+                <span>{getMessage('width', '宽')}</span>
                 <Input
                   value={editable.width}
                   style={{ width: 70 }}
                   onChange={(number) => {
-                    updateEditableSize("width", number);
+                    updateEditableSize('width', number);
                   }}
                   onKeyPress={(e: any) => {
-                    if (e.key === "Enter") {
+                    if (e.key === 'Enter') {
                       updateEditableSizeEnd();
                     }
                   }}
                 />
-                <span>{getMessage("height", "高")}</span>
+                <span>{getMessage('height', '高')}</span>
                 <Input
                   value={editable.height}
                   style={{ width: 70 }}
                   onChange={(number) => {
-                    updateEditableSize("height", String(number));
+                    updateEditableSize('height', String(number));
                   }}
                 />
                 <Upload
@@ -252,12 +252,12 @@ const Img = ({
                   }}
                 >
                   <Toolbar.Button
-                    tooltip={getMessage("change", "更换图片")}
+                    tooltip={getMessage('change', '更换图片')}
                     icon={<Icon type="icon-image1" />}
                   />
                 </Upload>
                 <Toolbar.Button
-                  tooltip={getMessage("remove", "删除")}
+                  tooltip={getMessage('remove', '删除')}
                   onClick={() => {
                     Transforms.removeNodes(editor, {
                       at: path,
@@ -267,7 +267,7 @@ const Img = ({
                     <Icon
                       type="icon-empty"
                       style={{
-                        color: "red",
+                        color: 'red',
                       }}
                     />
                   }
@@ -284,25 +284,25 @@ const Img = ({
 
               <div
                 style={{
-                  display: "flex",
-                  alignItems: "center",
-                  gap: "8px",
+                  display: 'flex',
+                  alignItems: 'center',
+                  gap: '8px',
                 }}
               >
-                {["20%", "40%", "60%", "80%", "100%"].map((p) => (
+                {['20%', '40%', '60%', '80%', '100%'].map((p) => (
                   <Toolbar.Button
                     onClick={() => {
-                      updateEditableSize("width", p);
+                      updateEditableSize('width', p);
                       updateSize({
                         width: p,
-                        height: "auto",
+                        height: 'auto',
                       });
                     }}
                     style={{
-                      backgroundColor: "#eee",
-                      borderRadius: "8px",
-                      fontSize: "12px",
-                      height: "22px",
+                      backgroundColor: '#eee',
+                      borderRadius: '8px',
+                      fontSize: '12px',
+                      height: '22px',
                     }}
                     key={p}
                   >
@@ -314,7 +314,7 @@ const Img = ({
           }
         >
           <span
-            className={`${prefixCls} ${selected ? "selected" : ""}`}
+            className={`${prefixCls} ${selected ? 'selected' : ''}`}
             style={{
               ...style,
               maxWidth: props?.maxWidth ?? undefined,
@@ -324,21 +324,21 @@ const Img = ({
               <div
                 style={{
                   ...(props?.loadingStyle || {}),
-                  display: "flex",
-                  alignItems: "center",
-                  justifyContent: "center",
-                  backgroundColor: "rgba(0,0,0,0.1)",
-                  color: "rgba(0,0,0,0.4)",
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  backgroundColor: 'rgba(0,0,0,0.1)',
+                  color: 'rgba(0,0,0,0.4)',
                   fontSize: 12,
                 }}
               >
-                {props?.loadingText ?? "loading..."}
+                {props?.loadingText ?? 'loading...'}
               </div>
             ) : (
               <Rnd
                 ref={rnd}
-                className={`${prefixCls}-drag ${selected ? "selected" : ""} ${
-                  draggable.status ? "draging" : ""
+                className={`${prefixCls}-drag ${selected ? 'selected' : ''} ${
+                  draggable.status ? 'draging' : ''
                 }`}
                 size={{
                   width: draggable.width ?? 0,
@@ -392,8 +392,8 @@ const Img = ({
               ref={image}
               src={element.url}
               style={{
-                width: "100%",
-                visibility: loading ? "hidden" : "visible",
+                width: '100%',
+                visibility: loading ? 'hidden' : 'visible',
               }}
               onLoad={onImageLoad}
             />

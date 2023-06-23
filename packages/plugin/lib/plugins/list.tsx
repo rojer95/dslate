@@ -1,24 +1,23 @@
-import type { CSSProperties } from "react";
-import React, { useMemo } from "react";
-import type { DSlatePlugin, RenderElementPropsWithStyle } from "@dslate/core";
-import { usePlugin } from "@dslate/core";
-import { isEmpty } from "@dslate/core";
+import type { DSlatePlugin, RenderElementPropsWithStyle } from '@dslate/core';
+import { isEmpty, usePlugin } from '@dslate/core';
+import type { CSSProperties } from 'react';
+import { useMemo } from 'react';
 
-import { useSlate } from "slate-react";
-import { Toolbar, Icon } from "@dslate/component";
+import { Icon, Toolbar } from '@dslate/component';
 import {
-  useMessage,
   getBlockProps,
   isBlockActive,
   isStart,
-} from "@dslate/core";
-import { Editor, Transforms, Range, Path } from "slate";
+  useMessage,
+} from '@dslate/core';
+import { Editor, Path, Range, Transforms } from 'slate';
+import { useSlate } from 'slate-react';
 
-import { Locales } from "@dslate/core";
-import { TextIndentPlugin } from "./indent";
+import { Locales } from '@dslate/core';
+import { TextIndentPlugin } from './indent';
 
-export const TYPE = "list";
-export const IS_ORDERED = "listIsOrdered";
+export const TYPE = 'list';
+export const IS_ORDERED = 'listIsOrdered';
 
 /**
  * 移除列表
@@ -93,13 +92,13 @@ const ToolbarButton = () => {
   return (
     <>
       <Toolbar.Button
-        tooltip={getMessage("unorder_tooltip", "无序列表")}
+        tooltip={getMessage('unorder_tooltip', '无序列表')}
         onClick={() => toggle(false)}
         active={getBlockProps(editor, IS_ORDERED, null) === false}
         icon={<Icon type="icon-unorderedList" />}
       />
       <Toolbar.Button
-        tooltip={getMessage("order_tooltip", "有序列表")}
+        tooltip={getMessage('order_tooltip', '有序列表')}
         onClick={() => toggle(true)}
         active={getBlockProps(editor, IS_ORDERED, null) === true}
         icon={<Icon type="icon-orderedList" />}
@@ -127,8 +126,8 @@ const List = (props: RenderElementPropsWithStyle) => {
         }
 
         const listStyleType = !element[IS_ORDERED]
-          ? "disc"
-          : listStyles?.[nodeIndent % listStyles?.length] ?? "decimal";
+          ? 'disc'
+          : listStyles?.[nodeIndent % listStyles?.length] ?? 'decimal';
         let paddingLeft: string | number = 40;
 
         if (nodeIndent) {
@@ -159,7 +158,7 @@ const List = (props: RenderElementPropsWithStyle) => {
             {LiItem}
           </ul>
         );
-      }
+      },
     );
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [pluginProps, children, isOrdered]);
@@ -190,24 +189,24 @@ const withList = (editor: Editor) => {
   return editor;
 };
 
-const defaultListStyles: string[] = ["decimal", "lower-alpha", "lower-roman"];
+const defaultListStyles: string[] = ['decimal', 'lower-alpha', 'lower-roman'];
 
 const ListPlugin: DSlatePlugin = {
   type: TYPE,
-  nodeType: "element",
-  toolbar: <ToolbarButton />,
+  nodeType: 'element',
+  toolbar: ToolbarButton,
   renderElement,
   withPlugin: withList,
   locale: [
     {
       locale: Locales.zhCN,
-      unorder_tooltip: "无序列表",
-      order_tooltip: "有序列表",
+      unorder_tooltip: '无序列表',
+      order_tooltip: '有序列表',
     },
     {
       locale: Locales.enUS,
-      unorder_tooltip: "unordered list",
-      order_tooltip: "ordered list",
+      unorder_tooltip: 'unordered list',
+      order_tooltip: 'ordered list',
     },
   ],
   props: {
@@ -231,11 +230,11 @@ const ListPlugin: DSlatePlugin = {
         }
 
         const listStyleType = !element?.[IS_ORDERED]
-          ? "disc"
-          : listStyles?.[nodeIndent % listStyles?.length] ?? "decimal";
+          ? 'disc'
+          : listStyles?.[nodeIndent % listStyles?.length] ?? 'decimal';
 
         style.push(`list-style-type: ${listStyleType};`);
-        let paddingLeft: string = "40px";
+        let paddingLeft: string = '40px';
 
         if (nodeIndent) {
           paddingLeft = `calc(40px + ${nodeIndent * 2}em)`;
@@ -248,10 +247,10 @@ const ListPlugin: DSlatePlugin = {
 
         start++;
         return isOrdered
-          ? `<ol start="${start}" style="${style.join("")}">${LiItem}</ol>`
-          : `<ul start="${start}" style="${style.join("")}">${LiItem}</ul>`;
+          ? `<ol start="${start}" style="${style.join('')}">${LiItem}</ol>`
+          : `<ul start="${start}" style="${style.join('')}">${LiItem}</ul>`;
       })
-      .join("");
+      .join('');
   },
 };
 

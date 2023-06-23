@@ -1,13 +1,12 @@
-import { Icon, Popover, Toolbar } from "@dslate/component";
-import type { DSlatePlugin, RenderElementPropsWithStyle } from "@dslate/core";
-import { isBlockActive, useMessage, usePlugin } from "@dslate/core";
-import type { Descendant } from "slate";
-import { Editor, Path, Range, Transforms } from "slate";
-import { ReactEditor, useSelected, useSlate } from "slate-react";
-import { Locales } from "@dslate/core";
-import { CSSProperties } from "react";
+import { Icon, Popover, Toolbar } from '@dslate/component';
+import type { DSlatePlugin, RenderElementPropsWithStyle } from '@dslate/core';
+import { isBlockActive, Locales, useMessage, usePlugin } from '@dslate/core';
+import { CSSProperties } from 'react';
+import type { Descendant } from 'slate';
+import { Editor, Path, Range, Transforms } from 'slate';
+import { ReactEditor, useSelected, useSlate } from 'slate-react';
 
-const TYPE = "hr";
+const TYPE = 'hr';
 
 const insertHr = (editor: Editor) => {
   Editor.withoutNormalizing(editor, () => {
@@ -17,7 +16,7 @@ const insertHr = (editor: Editor) => {
     }
     Transforms.insertNodes(editor, {
       type: TYPE,
-      children: [{ text: "" }],
+      children: [{ text: '' }],
     });
   });
 };
@@ -30,7 +29,7 @@ const ToolbarButton = () => {
     <Toolbar.Button
       active={isBlockActive(editor, TYPE)}
       onClick={() => insertHr(editor)}
-      tooltip={getMessage("toolbar", "分割线")}
+      tooltip={getMessage('toolbar', '分割线')}
       icon={<Icon type="icon-hr" />}
     />
   );
@@ -72,11 +71,11 @@ const withPlugin = (editor: Editor) => {
             editor,
             {
               type: editor.defaultElement,
-              children: [{ text: "" }],
+              children: [{ text: '' }],
             } as Descendant,
             {
               at: Path.next(hrpath),
-            }
+            },
           );
 
           Transforms.select(editor, Path.next(hrpath));
@@ -106,14 +105,14 @@ const HrWrap = (props: RenderElementPropsWithStyle) => {
             <div
               style={{
                 padding: 12,
-                display: "flex",
-                alignItems: "center",
+                display: 'flex',
+                alignItems: 'center',
                 gap: 8,
-                whiteSpace: "nowrap",
+                whiteSpace: 'nowrap',
               }}
             >
               <Toolbar.Button
-                tooltip={getMessage("remove", "删除")}
+                tooltip={getMessage('remove', '删除')}
                 onClick={() => {
                   Transforms.removeNodes(editor, {
                     at: path,
@@ -123,7 +122,7 @@ const HrWrap = (props: RenderElementPropsWithStyle) => {
                   <Icon
                     type="icon-empty"
                     style={{
-                      color: "red",
+                      color: 'red',
                     }}
                   />
                 }
@@ -133,8 +132,8 @@ const HrWrap = (props: RenderElementPropsWithStyle) => {
         >
           <div
             style={{
-              padding: "10px 0px",
-              cursor: "pointer",
+              padding: '10px 0px',
+              cursor: 'pointer',
             }}
           >
             <div
@@ -158,8 +157,8 @@ const renderElement = (props: RenderElementPropsWithStyle) => (
 const renderStyle = (node: Descendant) => {
   if (node.type === TYPE) {
     return {
-      padding: "10px 0px",
-      border: "1px solid transparent",
+      padding: '10px 0px',
+      border: '1px solid transparent',
       borderRadius: 4,
     } as CSSProperties;
   }
@@ -168,26 +167,26 @@ const renderStyle = (node: Descendant) => {
 
 const HrPlugin: DSlatePlugin = {
   type: TYPE,
-  nodeType: "element",
+  nodeType: 'element',
   isVoid: true,
-  toolbar: <ToolbarButton />,
+  toolbar: ToolbarButton,
   renderElement,
   renderStyle,
   withPlugin,
   props: {
-    color: "rgba(0, 0, 0, 0.06)",
-    hoverColor: "#1890ff",
+    color: 'rgba(0, 0, 0, 0.06)',
+    hoverColor: '#1890ff',
   },
   locale: [
     {
       locale: Locales.zhCN,
-      toolbar: "分割线",
-      remove: "删除",
+      toolbar: '分割线',
+      remove: '删除',
     },
     {
       locale: Locales.enUS,
-      toolbar: "split line",
-      remove: "remove",
+      toolbar: 'split line',
+      remove: 'remove',
     },
   ],
   serialize: (e, p) =>

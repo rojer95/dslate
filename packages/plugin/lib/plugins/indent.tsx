@@ -1,23 +1,22 @@
-import React from "react";
-import { Locales } from "@dslate/core";
-import isHotkey from "is-hotkey";
-import type { DSlatePlugin } from "@dslate/core";
+import type { DSlatePlugin } from '@dslate/core';
+import { Locales } from '@dslate/core';
+import isHotkey from 'is-hotkey';
+import React from 'react';
 
-import { useSlate } from "slate-react";
-import { Toolbar } from "@dslate/component";
+import { Icon, Toolbar } from '@dslate/component';
 import {
-  useMessage,
+  clearBlockProps,
   getBlockProps,
   setBlockProps,
-  clearBlockProps,
-} from "@dslate/core";
-import { Icon } from "@dslate/component";
-import { Editor, Range } from "slate";
-import type { Descendant } from "slate";
+  useMessage,
+} from '@dslate/core';
+import type { Descendant } from 'slate';
+import { Editor, Range } from 'slate';
+import { useSlate } from 'slate-react';
 
 const DEFAULT_VALUE = 0;
-const TYPE = "text-indent";
-const iconStyle = { opacity: 0.7, fontSize: "93%" };
+const TYPE = 'text-indent';
+const iconStyle = { opacity: 0.7, fontSize: '93%' };
 
 const renderStyle = (element: Descendant) => {
   if (!!element[TYPE]) {
@@ -49,12 +48,12 @@ const ToolbarButton = () => {
     <>
       <Toolbar.Button
         onClick={() => increase(editor)}
-        tooltip={getMessage("indent.tooltip", "增加缩进")}
+        tooltip={getMessage('indent.tooltip', '增加缩进')}
         icon={<Icon type="icon-indent" style={iconStyle} />}
       />
       <Toolbar.Button
         onClick={() => decrease(editor)}
-        tooltip={getMessage("outdent.tooltip", "减少缩进")}
+        tooltip={getMessage('outdent.tooltip', '减少缩进')}
         disabled={getBlockProps(editor, TYPE, DEFAULT_VALUE) === 0}
         icon={<Icon type="icon-outdent" style={iconStyle} />}
       />
@@ -98,13 +97,13 @@ const withIndent = (editor: Editor) => {
 };
 
 const onKeyDown = (e: React.KeyboardEvent, editor: Editor) => {
-  if (isHotkey("tab", e)) {
+  if (isHotkey('tab', e)) {
     e.preventDefault();
     increase(editor);
     return;
   }
 
-  if (isHotkey("shift+tab", e)) {
+  if (isHotkey('shift+tab', e)) {
     e.preventDefault();
     decrease(editor);
     return;
@@ -113,8 +112,8 @@ const onKeyDown = (e: React.KeyboardEvent, editor: Editor) => {
 
 const TextIndentPlugin: DSlatePlugin = {
   type: TYPE,
-  nodeType: "element",
-  toolbar: <ToolbarButton />,
+  nodeType: 'element',
+  toolbar: ToolbarButton,
   renderStyle,
   withPlugin: withIndent,
   onKeyDown,
@@ -122,19 +121,19 @@ const TextIndentPlugin: DSlatePlugin = {
     {
       locale: Locales.zhCN,
       indent: {
-        tooltip: "增加缩进",
+        tooltip: '增加缩进',
       },
       outdent: {
-        tooltip: "减少缩进",
+        tooltip: '减少缩进',
       },
     },
     {
       locale: Locales.enUS,
       indent: {
-        tooltip: "increase indent",
+        tooltip: 'increase indent',
       },
       outdent: {
-        tooltip: "decrease indent",
+        tooltip: 'decrease indent',
       },
     },
   ],

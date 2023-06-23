@@ -1,6 +1,6 @@
 {
   "name": "@dslate/plugin",
-  "version": "2.0.0-beta.6",
+  "version": "2.0.0-beta.7",
   "description": "DSlate预设插件 - Preset plugin of DSlate",
   "keywords": [
     "wysiwyg",
@@ -18,12 +18,6 @@
   },
   "license": "MIT",
   "type": "module",
-  "files": [
-    "dist"
-  ],
-  "main": "./dist/lib.umd.cjs",
-  "module": "./dist/lib.js",
-  "types": "./dist/index.d.ts",
   "exports": {
     ".": {
       "types": "./dist/index.d.ts",
@@ -31,13 +25,19 @@
       "require": "./dist/lib.umd.cjs"
     }
   },
+  "main": "./dist/lib.umd.cjs",
+  "module": "./dist/lib.js",
+  "types": "./dist/index.d.ts",
+  "files": [
+    "dist"
+  ],
   "scripts": {
-    "dev": "tsc && vite build --watch",
-    "build": "tsc && vite build"
+    "build": "tsc && vite build",
+    "dev": "tsc && vite build --watch"
   },
   "dependencies": {
-    "@dslate/component": "workspace:2.0.0-beta.6",
-    "@dslate/core": "workspace:2.0.0-beta.6",
+    "@dslate/component": "workspace:2.0.0-beta.7",
+    "@dslate/core": "workspace:2.0.0-beta.7",
     "is-hotkey": "^0.2.0",
     "rc-upload": "^4.3.4",
     "react": "^18.2.0",

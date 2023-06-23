@@ -1,5 +1,13 @@
 # @dslate/component
 
+## 2.0.0-beta.7
+
+### Patch Changes
+
+- last beta
+- Updated dependencies
+  - @dslate/core@2.0.0-beta.7
+
 ## 2.0.0-beta.6
 
 ### Patch Changes

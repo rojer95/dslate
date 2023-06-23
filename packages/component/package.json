@@ -1,6 +1,6 @@
 {
   "name": "@dslate/component",
-  "version": "2.0.0-beta.6",
+  "version": "2.0.0-beta.7",
   "description": "DSlate组件 - Component of DSlate",
   "keywords": [
     "antd",
@@ -19,12 +19,6 @@
   },
   "license": "MIT",
   "type": "module",
-  "files": [
-    "dist"
-  ],
-  "main": "./dist/lib.umd.cjs",
-  "module": "./dist/lib.js",
-  "types": "./dist/index.d.ts",
   "exports": {
     ".": {
       "types": "./dist/index.d.ts",
@@ -32,12 +26,18 @@
       "require": "./dist/lib.umd.cjs"
     }
   },
+  "main": "./dist/lib.umd.cjs",
+  "module": "./dist/lib.js",
+  "types": "./dist/index.d.ts",
+  "files": [
+    "dist"
+  ],
   "scripts": {
-    "dev": "tsc && vite build --watch",
-    "build": "tsc && vite build"
+    "build": "tsc && vite build",
+    "dev": "tsc && vite build --watch"
   },
   "dependencies": {
-    "@dslate/core": "workspace:2.0.0-beta.6",
+    "@dslate/core": "workspace:2.0.0-beta.7",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "slate": "^0.90.0",

@@ -1,6 +1,6 @@
 {
   "name": "@dslate/semi",
-  "version": "2.0.0-beta.6",
+  "version": "2.0.0-beta.7",
   "description": "一个Semi Design风格的富文本编辑器 - A Semi Design style rich editor based on Slate",
   "keywords": [
     "antd",
@@ -33,9 +33,9 @@
   },
   "dependencies": {
     "@douyinfe/semi-ui": "^2.28.1",
-    "@dslate/component": "workspace:2.0.0-beta.6",
-    "@dslate/core": "workspace:2.0.0-beta.6",
-    "@dslate/plugin": "workspace:2.0.0-beta.6",
+    "@dslate/component": "workspace:2.0.0-beta.7",
+    "@dslate/core": "workspace:2.0.0-beta.7",
+    "@dslate/plugin": "workspace:2.0.0-beta.7",
     "classnames": "^2.3.2",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",

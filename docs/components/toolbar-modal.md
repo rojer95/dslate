@@ -11,8 +11,6 @@ nav: 组件
 ### 用法
 
 ```tsx | pure
-import React from 'react';
-
 import { TwitterPicker } from 'react-color';
 import locale from '../locale';
 
@@ -72,7 +70,7 @@ const ToolbarButton = () => {
 const ColorPlugin: DSlatePlugin = {
   type: 'color',
   nodeType: 'text',
-  toolbar: <ToolbarButton />,
+  toolbar: ToolbarButton,
   renderStyle,
   props: {
     colors: [

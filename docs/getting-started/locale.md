@@ -83,7 +83,6 @@ getMessage('tooltip', '加粗');
 
 ```tsx | pure
 import { Locales } from '@dslate/core';
-import React from 'react';
 import { useSlate } from 'slate-react';
 
 import type { DSlatePlugin } from '@dslate/core';
@@ -118,7 +117,7 @@ const Button = () => {
 const BoldPlugin: DSlatePlugin = {
   type: TYPE,
   nodeType: 'text',
-  toolbar: <Button />,
+  toolbar: Button,
   renderStyle: { fontWeight: 'bold' },
   locale: [
     {

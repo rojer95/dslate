@@ -12,7 +12,6 @@ nav: 组件
 
 ```tsx | pure
 import type { DSlatePlugin } from '@dslate/core';
-import React from 'react';
 import locale from '../locale';
 
 import { IconFont, Toolbar } from '@dslate/component';
@@ -73,7 +72,7 @@ const ToolbarButton = () => {
 const TextAlignPlugin: DSlatePlugin = {
   type: TYPE,
   nodeType: 'element',
-  toolbar: <ToolbarButton />,
+  toolbar: ToolbarButton,
   renderStyle,
   locale: [
     {

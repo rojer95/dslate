@@ -11,8 +11,6 @@ const Progress = ({ children, ...props }: PropsWithChildren<ProgressProps>) => {
   const { percent } = usePluginHelper();
   const ProgressElement = getElement('progress');
 
-  console.log('percent', percent);
-
   const visible = useMemo(() => {
     return percent && Number(percent) > 0 && Number(percent) < 100;
   }, [percent]);

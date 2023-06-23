@@ -11,7 +11,6 @@ nav: 组件
 ### 用法
 
 ```tsx | pure
-import React from 'react';
 import { useSlate } from 'slate-react';
 import locale from '../locale';
 
@@ -42,7 +41,7 @@ const ToolbarButton = () => {
 const BoldPlugin: DSlatePlugin = {
   type: TYPE,
   nodeType: 'text',
-  toolbar: <ToolbarButton />,
+  toolbar: ToolbarButton,
   renderStyle: { fontWeight: 'bold' },
   locale: [
     { locale: locale.zhCN, tooltip: '加粗' },

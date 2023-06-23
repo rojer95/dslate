@@ -1,5 +1,35 @@
 # @dslate/component
 
+## 2.0.1
+
+### Patch Changes
+
+- 2.0.0
+- Updated dependencies
+  - @dslate/core@2.0.1
+
+## 2.0.0
+
+### Major Changes
+
+- 77c564a: 2.0.0-beta.4
+- bec045d: 2.0.0-beta.3
+- 829b7c1: fix tooltip empty bug
+- 384d1d5: 修复 disable 在 Toolbar 无效问题
+- 8912a3f: 2.0.0-beta
+
+### Patch Changes
+
+- a823ae6: last beta
+- 1393be4: fix types no longer use in package.json
+- Updated dependencies [77c564a]
+- Updated dependencies [a823ae6]
+- Updated dependencies [bec045d]
+- Updated dependencies [1393be4]
+- Updated dependencies [384d1d5]
+- Updated dependencies [8912a3f]
+  - @dslate/core@2.0.0
+
 ## 2.0.0-beta.7
 
 ### Patch Changes

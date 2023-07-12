@@ -1,5 +1,14 @@
 # @dslate/plugin
 
+## 2.0.3
+
+### Patch Changes
+
+- 修复 types
+- Updated dependencies
+  - @dslate/component@2.0.3
+  - @dslate/core@2.0.3
+
 ## 2.0.2
 
 ### Patch Changes

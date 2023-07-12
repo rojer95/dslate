@@ -45,4 +45,5 @@ customUploadRequest: ({ onSuccess, onProgress, onError, file }) => {
 
 ## 演示
 
-<code src="../demos/upload.tsx" showCode ></code>
+<code src="../demos/upload-antd.tsx" showCode ></code>
+<code src="../demos/upload-semi.tsx" showCode ></code>

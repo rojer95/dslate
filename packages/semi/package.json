@@ -15,18 +15,11 @@
   "license": "MIT",
   "author": "rojer <rojerchen@qq.com>",
   "type": "module",
-  "exports": {
-    ".": {
-      "types": "./dist/lib/index.d.ts",
-      "import": "./dist/lib.js",
-      "require": "./dist/lib.umd.cjs"
-    }
-  },
   "main": "./dist/lib.umd.cjs",
   "module": "./dist/lib.js",
-  "types": "./dist/lib/index.d.ts",
+  "types": "./dist/index.d.ts",
   "files": [
-    "dist"
+    "dist/"
   ],
   "scripts": {
     "build": "tsc && vite build"

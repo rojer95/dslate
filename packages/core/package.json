@@ -18,13 +18,6 @@
   },
   "license": "MIT",
   "type": "module",
-  "exports": {
-    ".": {
-      "types": "./dist/index.d.ts",
-      "import": "./dist/lib.js",
-      "require": "./dist/lib.umd.cjs"
-    }
-  },
   "main": "./dist/lib.umd.cjs",
   "module": "./dist/lib.js",
   "types": "./dist/index.d.ts",

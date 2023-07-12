@@ -1,5 +1,15 @@
 # @dslate/antd
 
+## 2.0.2
+
+### Patch Changes
+
+- remove console log
+- Updated dependencies
+  - @dslate/component@2.0.2
+  - @dslate/core@2.0.2
+  - @dslate/plugin@2.0.2
+
 ## 2.0.1
 
 ### Patch Changes

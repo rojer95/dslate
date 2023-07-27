@@ -1,5 +1,13 @@
 # @dslate/component
 
+## 2.0.4
+
+### Patch Changes
+
+- 图片添加浮动
+- Updated dependencies
+  - @dslate/core@2.0.4
+
 ## 2.0.3
 
 ### Patch Changes

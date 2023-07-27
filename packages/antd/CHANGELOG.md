@@ -1,5 +1,15 @@
 # @dslate/antd
 
+## 2.0.4
+
+### Patch Changes
+
+- 图片添加浮动
+- Updated dependencies
+  - @dslate/component@2.0.4
+  - @dslate/core@2.0.4
+  - @dslate/plugin@2.0.4
+
 ## 2.0.3
 
 ### Patch Changes

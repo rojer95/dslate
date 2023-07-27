@@ -32,6 +32,9 @@ const renderStyle = (node: Descendant) => {
     const style: CSSProperties = {};
     if (node.imgWidth) style.width = node.imgWidth;
     if (node.imgHeight) style.height = node.imgHeight;
+    if (node.align === 'left') style.float = 'left';
+    if (node.align === 'right') style.float = 'right';
+    if (node.align === '') style.float = undefined;
     return style;
   }
   return {};

@@ -108,6 +108,18 @@ const Img = ({
     );
   };
 
+  const updateAlign = (align: string) => {
+    Transforms.setNodes(
+      editor,
+      {
+        align,
+      },
+      {
+        at: path,
+      },
+    );
+  };
+
   const updateEditableSizeEnd = () => {
     updateSize(editable);
   };
@@ -287,6 +299,7 @@ const Img = ({
                   display: 'flex',
                   alignItems: 'center',
                   gap: '8px',
+                  marginBottom: 8,
                 }}
               >
                 {['20%', '40%', '60%', '80%', '100%'].map((p) => (
@@ -309,6 +322,36 @@ const Img = ({
                     {p}
                   </Toolbar.Button>
                 ))}
+              </div>
+
+              <div
+                style={{
+                  display: 'flex',
+                  alignItems: 'center',
+                  gap: '8px',
+                }}
+              >
+                <Toolbar.Button
+                  tooltip={getMessage('float-default', '默认')}
+                  onClick={() => {
+                    updateAlign('');
+                  }}
+                  icon={<Icon type="icon-alignjustify" />}
+                />
+                <Toolbar.Button
+                  tooltip={getMessage('float-left', '左浮动')}
+                  onClick={() => {
+                    updateAlign('left');
+                  }}
+                  icon={<Icon type="icon-alignleft" />}
+                />
+                <Toolbar.Button
+                  tooltip={getMessage('float-right', '右浮动')}
+                  onClick={() => {
+                    updateAlign('right');
+                  }}
+                  icon={<Icon type="icon-alignright" />}
+                />
               </div>
             </div>
           }

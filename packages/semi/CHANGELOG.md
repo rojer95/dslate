@@ -1,5 +1,15 @@
 # @dslate/semi
 
+## 2.0.6
+
+### Patch Changes
+
+- fix initialValue
+- Updated dependencies
+  - @dslate/component@2.0.6
+  - @dslate/core@2.0.6
+  - @dslate/plugin@2.0.6
+
 ## 2.0.5
 
 ### Patch Changes

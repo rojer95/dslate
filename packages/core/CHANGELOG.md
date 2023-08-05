@@ -1,5 +1,11 @@
 # @dslate/core
 
+## 2.0.6
+
+### Patch Changes
+
+- fix initialValue
+
 ## 2.0.5
 
 ### Patch Changes

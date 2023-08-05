@@ -78,10 +78,6 @@
     "stylelint": "^15.9.0",
     "yorkie": "^2.0.0"
   },
-  "peerDependencies": {
-    "react": ">=16.9.0",
-    "react-dom": ">=16.9.0"
-  },
   "publishConfig": {
     "access": "public"
   },

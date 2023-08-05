@@ -1,6 +1,6 @@
 {
   "name": "@dslate/semi",
-  "version": "2.0.4",
+  "version": "2.0.5",
   "description": "一个Semi Design风格的富文本编辑器 - A Semi Design style rich editor based on Slate",
   "keywords": [
     "antd",
@@ -25,18 +25,14 @@
     "build": "tsc && vite build"
   },
   "dependencies": {
-    "@douyinfe/semi-ui": "^2.28.1",
-    "@dslate/component": "workspace:2.0.4",
-    "@dslate/core": "workspace:2.0.4",
-    "@dslate/plugin": "workspace:2.0.4",
+    "@dslate/component": "workspace:2.0.5",
+    "@dslate/core": "workspace:2.0.5",
+    "@dslate/plugin": "workspace:2.0.5",
     "classnames": "^2.3.2",
-    "react": "^18.2.0",
-    "react-dom": "^18.2.0",
-    "slate": "^0.90.0",
-    "slate-react": "^0.90.0",
     "styled-components": "^5.3.6"
   },
   "devDependencies": {
+    "@douyinfe/semi-ui": "^2.28.1",
     "@types/node": "^14.18.36",
     "@types/react": "^18.0.27",
     "@types/react-dom": "^18.0.10",
@@ -45,5 +41,12 @@
     "typescript": "^4.9.3",
     "vite": "^4.1.0",
     "vite-plugin-dts": "^1.7.2"
+  },
+  "peerDependencies": {
+    "@douyinfe/semi-ui": ">=2.28.1",
+    "react": ">=16.9.0",
+    "react-dom": ">=16.9.0",
+    "slate": ">=0.90.0",
+    "slate-react": ">=0.90.0"
   }
 }

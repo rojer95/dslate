@@ -1,5 +1,13 @@
 # @dslate/component
 
+## 2.0.5
+
+### Patch Changes
+
+- 规范化依赖，分离对 Slate 版本的强依赖
+- Updated dependencies
+  - @dslate/core@2.0.5
+
 ## 2.0.4
 
 ### Patch Changes

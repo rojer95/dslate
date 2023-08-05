@@ -23,6 +23,7 @@ DSlate 提供组件使得用户能够自行拼装自己的富文本编辑器。
 ## 安装
 
 ```shell
+$ npm i slate slate-react --save # 安装 Slate
 $ npm i @dslate/antd --save # Antd 风格 （要求 "antd": "^5.0.0"）
 # OR
 $ npm i @dslate/semi --save # Semi 风格

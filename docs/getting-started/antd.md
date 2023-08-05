@@ -13,6 +13,7 @@ DSlate 的 Antd 风格 的实现
 ## 安装
 
 ```shell
+$ npm i slate slate-react --save # 安装 Slate
 $ npm i @dslate/dslate --save
 ```
 

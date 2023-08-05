@@ -81,13 +81,13 @@ importers:
   packages/antd:
     dependencies:
       '@dslate/component':
-        specifier: workspace:2.0.4
+        specifier: workspace:2.0.5
         version: link:../component
       '@dslate/core':
-        specifier: workspace:2.0.4
+        specifier: workspace:2.0.5
         version: link:../core
       '@dslate/plugin':
-        specifier: workspace:2.0.4
+        specifier: workspace:2.0.5
         version: link:../plugin
       classnames:
         specifier: ^2.3.2
@@ -152,7 +152,7 @@ importers:
         version: 0.90.0(react-dom@18.2.0)(react@18.2.0)(slate@0.90.0)
     devDependencies:
       '@dslate/core':
-        specifier: workspace:2.0.4
+        specifier: workspace:2.0.5
         version: link:../core
       '@types/node':
         specifier: ^14.18.36
@@ -256,10 +256,10 @@ importers:
         version: 5.3.6(react-dom@18.2.0)(react-is@18.2.0)(react@18.2.0)
     devDependencies:
       '@dslate/component':
-        specifier: workspace:2.0.4
+        specifier: workspace:2.0.5
         version: link:../component
       '@dslate/core':
-        specifier: workspace:2.0.4
+        specifier: workspace:2.0.5
         version: link:../core
       '@types/is-hotkey':
         specifier: ^0.1.7
@@ -295,13 +295,13 @@ importers:
   packages/semi:
     dependencies:
       '@dslate/component':
-        specifier: workspace:2.0.4
+        specifier: workspace:2.0.5
         version: link:../component
       '@dslate/core':
-        specifier: workspace:2.0.4
+        specifier: workspace:2.0.5
         version: link:../core
       '@dslate/plugin':
-        specifier: workspace:2.0.4
+        specifier: workspace:2.0.5
         version: link:../plugin
       classnames:
         specifier: ^2.3.2

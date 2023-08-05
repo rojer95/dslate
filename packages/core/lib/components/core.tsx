@@ -110,7 +110,14 @@ const DSlateCore = forwardRef<DSlateRef, PropsWithChildren<DSlateProps>>(
           disabled,
         }}
       >
-        <Slate editor={editor} value={value} onChange={onChange}>
+        <Slate
+          editor={editor}
+          // @ts-ignore
+          initialValue={value}
+          // @ts-ignore
+          value={value}
+          onChange={onChange}
+        >
           {children}
         </Slate>
       </GlobalPluginProvider>

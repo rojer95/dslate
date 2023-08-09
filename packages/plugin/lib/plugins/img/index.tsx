@@ -35,6 +35,19 @@ const renderStyle = (node: Descendant) => {
     if (node.align === 'left') style.float = 'left';
     if (node.align === 'right') style.float = 'right';
     if (node.align === '') style.float = undefined;
+    for (const position of ['Left', 'Top', 'Bottom', 'Right']) {
+      const cssKey = `margin${position}` as
+        | 'marginLeft'
+        | 'marginTop'
+        | 'marginBottom'
+        | 'marginRight';
+      if (node.margin?.[position.toLowerCase()]) {
+        style[cssKey] = `${node.margin[position.toLowerCase()]}px`;
+      } else {
+        style[cssKey] = undefined;
+      }
+    }
+
     return style;
   }
   return {};
@@ -107,6 +120,15 @@ const ImgPlugin: DSlatePlugin = {
       width: '宽',
       loading: '图片加载中',
       remove: '删除',
+      float: '浮动方式',
+      ['float-left']: '左浮动',
+      ['float-right']: '右浮动',
+      ['float-default']: '默认',
+      margin: '外边距',
+      top: '上',
+      left: '左',
+      right: '右',
+      bottom: '下',
     },
     {
       locale: Locales.enUS,
@@ -117,6 +139,15 @@ const ImgPlugin: DSlatePlugin = {
       width: 'width',
       loading: 'loading',
       remove: 'remove',
+      float: 'float',
+      ['float-left']: 'float left',
+      ['float-right']: 'float right',
+      ['float-default']: 'float default',
+      margin: 'margin',
+      top: 'top',
+      left: 'left',
+      right: 'right',
+      bottom: 'bottom',
     },
   ],
   serialize: (element, props) => {
@@ -125,6 +156,20 @@ const ImgPlugin: DSlatePlugin = {
     if (props?.maxWidth)
       style.push(`max-width: ${props.maxWidth}; height: auto;`);
     return `<img style="${style.join('')}" src="${element.url}" />`;
+  },
+  serializeWeapp: (element, props) => {
+    const style = [];
+    if (props?.style) style.push(props.style);
+    if (props?.maxWidth)
+      style.push(`max-width: ${props.maxWidth}; height: auto;`);
+    return {
+      type: 'node',
+      name: 'img',
+      attrs: {
+        style: style.join(''),
+        src: element.url,
+      },
+    };
   },
 };
 

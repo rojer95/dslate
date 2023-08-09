@@ -218,6 +218,39 @@ const ParagraphPlugin: DSlatePlugin = {
       isEmpty ? '&nbsp;' : ''
     }</${tag}>`;
   },
+  serializeWeapp: (element, props, children) => {
+    const isEmpty = Node.string(element) === '';
+    let tag = 'div';
+
+    if (element?.[PROPS_KEY] === 'h1') {
+      tag = 'h1';
+    }
+
+    if (element?.[PROPS_KEY] === 'h2') {
+      tag = 'h2';
+    }
+
+    if (element?.[PROPS_KEY] === 'h3') {
+      tag = 'h3';
+    }
+
+    if (element?.[PROPS_KEY] === 'h4') {
+      tag = 'h4';
+    }
+
+    return {
+      type: 'node',
+      name: tag,
+      children: isEmpty
+        ? [
+            {
+              type: 'text',
+              text: '&nbsp;',
+            },
+          ]
+        : children,
+    };
+  },
 };
 
 export { ParagraphPlugin };

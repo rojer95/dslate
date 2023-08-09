@@ -1,5 +1,5 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import { Icon, Input, Popover, Toolbar } from '@dslate/component';
+import { Icon, Input, InputNumber, Popover, Toolbar } from '@dslate/component';
 import type { RenderElementPropsWithStyle } from '@dslate/core';
 import {
   promiseUploadFunc,
@@ -82,7 +82,9 @@ const Img = ({
   });
 
   useEffect(() => {
-    setLoading(true);
+    if (element.url.indexOf(';base64,') === -1) {
+      setLoading(true);
+    }
   }, [element.url]);
 
   const selected = useSelected();
@@ -120,6 +122,21 @@ const Img = ({
     );
   };
 
+  const updateMargin = (position: string, margin: number) => {
+    Transforms.setNodes(
+      editor,
+      {
+        margin: {
+          ...(element.margin || {}),
+          [position]: margin,
+        },
+      },
+      {
+        at: path,
+      },
+    );
+  };
+
   const updateEditableSizeEnd = () => {
     updateSize(editable);
   };
@@ -129,7 +146,10 @@ const Img = ({
     const width = String(image.current?.naturalWidth ?? 1);
     const height = String(image.current?.naturalHeight ?? 1);
     const nSize = resize({ width, height }, key, value);
-    setEditable(nSize);
+    setEditable((pre) => ({
+      ...pre,
+      ...nSize,
+    }));
   };
 
   useEffect(() => {
@@ -139,9 +159,12 @@ const Img = ({
        */
       const width = element.imgWidth ?? image.current?.width ?? '';
       const height = element.imgHeight ?? image.current?.height ?? '';
-      setEditable({
-        width: width,
-        height: height,
+      setEditable((pre) => {
+        return {
+          ...pre,
+          width: width,
+          height: height,
+        };
       });
     }
 
@@ -172,9 +195,12 @@ const Img = ({
     if (element.imgWidth) width = element.imgWidth;
     if (element.imgHeight) height = element.imgHeight;
 
-    setEditable({
-      width: width,
-      height: height,
+    setEditable((pre) => {
+      return {
+        ...pre,
+        width: width,
+        height: height,
+      };
     });
 
     setDraggable({
@@ -329,8 +355,10 @@ const Img = ({
                   display: 'flex',
                   alignItems: 'center',
                   gap: '8px',
+                  marginBottom: 8,
                 }}
               >
+                <span>{getMessage('float', '浮动方式')}</span>
                 <Toolbar.Button
                   tooltip={getMessage('float-default', '默认')}
                   onClick={() => {
@@ -351,6 +379,47 @@ const Img = ({
                     updateAlign('right');
                   }}
                   icon={<Icon type="icon-alignright" />}
+                />
+              </div>
+              <div
+                style={{
+                  display: 'flex',
+                  alignItems: 'center',
+                  gap: '8px',
+                }}
+              >
+                <span>{getMessage('margin', '外边距')}</span>
+                <InputNumber
+                  value={element?.margin?.top}
+                  style={{ width: 70 }}
+                  onChange={(number) => {
+                    updateMargin('top', number as number);
+                  }}
+                  placeholder={getMessage('top', '上')}
+                />
+                <InputNumber
+                  value={element?.margin?.right}
+                  style={{ width: 70 }}
+                  onChange={(number) => {
+                    updateMargin('right', number as number);
+                  }}
+                  placeholder={getMessage('right', '右')}
+                />
+                <InputNumber
+                  value={element?.margin?.bottom}
+                  style={{ width: 70 }}
+                  onChange={(number) => {
+                    updateMargin('bottom', number as number);
+                  }}
+                  placeholder={getMessage('bottom', '下')}
+                />
+                <InputNumber
+                  value={element?.margin?.left}
+                  style={{ width: 70 }}
+                  onChange={(number) => {
+                    updateMargin('left', number as number);
+                  }}
+                  placeholder={getMessage('left', '左')}
                 />
               </div>
             </div>

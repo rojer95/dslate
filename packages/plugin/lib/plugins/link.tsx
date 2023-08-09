@@ -197,6 +197,17 @@ const LinkPlugin: DSlatePlugin = {
     `<a style="${props.style ?? ''}" href="${element.href}">${children.join(
       '',
     )}</a>`,
+
+  serializeWeapp: (element, props, children) => {
+    return {
+      type: 'node',
+      name: 'span',
+      attrs: {
+        style: props.style,
+      },
+      children,
+    };
+  },
 };
 
 export { LinkPlugin };

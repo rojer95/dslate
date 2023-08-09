@@ -10,11 +10,12 @@ import { registerElement } from '@dslate/component';
 
 import DefaultPlugin from '@dslate/plugin';
 
-import { Input, InputNumber, Progress } from 'antd';
+import { InputNumber, Progress } from 'antd';
 import {
   AntdEditor,
   Button,
   Divider,
+  Input,
   Popover,
   Select,
   Tooltip,
@@ -22,6 +23,7 @@ import {
 
 import type { AntdStyleDSlateProps } from './typing';
 
+import { Textarea } from './components/textarea';
 import EN_US from './locale/en_US';
 import ZH_CN from './locale/zh_CN';
 
@@ -33,6 +35,7 @@ registerElement('input', Input);
 registerElement('input-number', InputNumber);
 registerElement('button', Button);
 registerElement('select', Select);
+registerElement('textarea', Textarea);
 
 export const DefaultLocales = [ZH_CN, EN_US];
 
@@ -81,7 +84,7 @@ export default forwardRef<DSlateRef, AntdStyleDSlateProps>(
                 locales: mergeLocalteFromPlugins(locales, plugins),
                 plugins,
                 iconScriptUrl:
-                  '//at.alicdn.com/t/c/font_3062978_atuqwazgoap.js',
+                  '//at.alicdn.com/t/c/font_3062978_igshjiflyft.js',
               }}
             >
               <AntdEditor {...props} toolbar={toolbar} ref={ref} />

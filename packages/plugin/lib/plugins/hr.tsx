@@ -98,7 +98,7 @@ const HrWrap = (props: RenderElementPropsWithStyle) => {
   const getMessage = useMessage();
 
   return (
-    <div {...props.attributes} style={props.style}>
+    <div {...props.attributes}>
       <div contentEditable={false}>
         <Popover
           content={
@@ -132,14 +132,14 @@ const HrWrap = (props: RenderElementPropsWithStyle) => {
         >
           <div
             style={{
-              padding: '10px 0px',
               cursor: 'pointer',
             }}
           >
-            <div
+            <hr
               style={{
-                borderBottom: `1px solid
-       ${!selected ? pluginProps?.color : pluginProps?.hoverColor}`,
+                ...props.style,
+                borderBottomColor: `
+       ${!selected ? props.style?.borderBottomColor : pluginProps?.hoverColor}`,
               }}
             />
           </div>
@@ -154,12 +154,15 @@ const renderElement = (props: RenderElementPropsWithStyle) => (
   <HrWrap {...props} />
 );
 
-const renderStyle = (node: Descendant) => {
+const renderStyle = (node: Descendant, _: Editor, props?: any) => {
   if (node.type === TYPE) {
     return {
-      padding: '10px 0px',
-      border: '1px solid transparent',
-      borderRadius: 4,
+      border: 'none',
+      margin: '10px 0px',
+      borderBottomWidth: 1,
+      borderBottomStyle: 'solid',
+      borderBottomColor: props.color,
+      height: 1,
     } as CSSProperties;
   }
   return {};
@@ -189,8 +192,19 @@ const HrPlugin: DSlatePlugin = {
       remove: 'remove',
     },
   ],
-  serialize: (e, p) =>
-    `<hr style="backgroud-color: ${p.color};height: 1px;border: none;" />`,
+  serialize: (e, p) => {
+    return `<hr style="${p.style}" />`;
+  },
+
+  serializeWeapp: (e, p) => {
+    return {
+      type: 'node',
+      name: 'hr',
+      attrs: {
+        style: p.style,
+      },
+    };
+  },
 };
 
 export { HrPlugin };

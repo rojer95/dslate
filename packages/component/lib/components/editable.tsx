@@ -1,20 +1,20 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import React, { useCallback } from "react";
+import {
+  mergeStyle,
+  PluginUuidContext,
+  useConfig,
+  useMessage,
+  usePluginHelper,
+} from '@dslate/core';
+import React, { useCallback } from 'react';
 import {
   DefaultElement,
   Editable as SlateEditable,
   RenderLeafProps,
   useSlate,
-} from "slate-react";
-import {
-  PluginUuidContext,
-  usePluginHelper,
-  mergeStyle,
-  useConfig,
-  useMessage,
-} from "@dslate/core";
+} from 'slate-react';
 
-import type { DSlatePlugin, RenderElementPropsWithStyle } from "@dslate/core";
+import type { DSlatePlugin, RenderElementPropsWithStyle } from '@dslate/core';
 
 interface EditableProps {
   disabled?: boolean;
@@ -33,10 +33,10 @@ const Editable = ({
   const getMessage = useMessage();
 
   const renderElement = useCallback((props: RenderElementPropsWithStyle) => {
-    const style = mergeStyle(props.element, plugins, "element", editor);
+    const style = mergeStyle(props.element, plugins, 'element', editor);
     const plugin = plugins.find(
       (i: DSlatePlugin) =>
-        i.nodeType === "element" && i.type === props.element.type
+        i.nodeType === 'element' && i.type === props.element.type,
     ) as DSlatePlugin | undefined;
 
     let dom;
@@ -53,7 +53,7 @@ const Editable = ({
       );
     } else {
       const defaultElementPlugin = plugins.find(
-        (p: DSlatePlugin) => p.isDefaultElement
+        (p: DSlatePlugin) => p.isDefaultElement,
       );
 
       if (defaultElementPlugin && defaultElementPlugin.renderElement) {
@@ -77,10 +77,10 @@ const Editable = ({
     const { attributes, children, leaf } = props;
     const needRenderPlugin = plugins.find(
       (i: DSlatePlugin) =>
-        i.nodeType === "text" && i.type in leaf && !!i.renderLeaf
+        i.nodeType === 'text' && i.type in leaf && !!i.renderLeaf,
     ) as DSlatePlugin | undefined;
 
-    const style = mergeStyle(leaf, plugins, "text", editor);
+    const style = mergeStyle(leaf, plugins, 'text', editor);
 
     if (needRenderPlugin && needRenderPlugin.renderLeaf) {
       return needRenderPlugin.renderLeaf({ ...props, style }, editor);
@@ -95,24 +95,27 @@ const Editable = ({
 
   const onKeyDown = useCallback((e: React.KeyboardEvent<HTMLDivElement>) => {
     for (const plugin of plugins) {
-      if (typeof plugin.onKeyDown === "function") {
+      if (typeof plugin.onKeyDown === 'function') {
         plugin.onKeyDown(e, editor);
       }
     }
   }, []);
 
   return (
-    <SlateEditable
-      className={`dslate-editable ${className || ""}`}
-      renderElement={renderElement}
-      renderLeaf={renderLeaf}
-      onMouseDown={() => {
-        setVisibleKey?.(undefined);
-      }}
-      onKeyDown={onKeyDown}
-      readOnly={disabled}
-      placeholder={placeholder ?? getMessage("placeholder", "")}
-    />
+    <>
+      <SlateEditable
+        className={`dslate-editable ${className || ''}`}
+        renderElement={renderElement}
+        renderLeaf={renderLeaf}
+        onMouseDown={() => {
+          setVisibleKey?.(undefined);
+        }}
+        onKeyDown={onKeyDown}
+        readOnly={disabled}
+        placeholder={placeholder ?? getMessage('placeholder', '')}
+      />
+      <div style={{ clear: 'both' }}></div>
+    </>
   );
 };
 

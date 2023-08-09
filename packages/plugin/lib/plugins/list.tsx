@@ -252,6 +252,64 @@ const ListPlugin: DSlatePlugin = {
       })
       .join('');
   },
+
+  serializeWeapp: (element, pluginProps, children) => {
+    const isOrdered = element?.[IS_ORDERED];
+    const { listStyles } = pluginProps ?? {};
+    let start = 0;
+    return {
+      type: 'node',
+      name: 'div',
+      children: (Array.isArray(children) ? children : [children]).map(
+        (li: any, index: number) => {
+          const node = element?.children[index];
+          const preNode = element?.children?.[index - 1];
+          const nodeIndent = node?.[TextIndentPlugin.type] ?? 0;
+          const preNodeIndent = preNode?.[TextIndentPlugin.type] ?? 0;
+
+          const style: string[] = [];
+
+          if (nodeIndent !== preNodeIndent) {
+            start = 0;
+          }
+
+          const listStyleType = !element?.[IS_ORDERED]
+            ? 'disc'
+            : listStyles?.[nodeIndent % listStyles?.length] ?? 'decimal';
+
+          style.push(`list-style-type: ${listStyleType};`);
+          let paddingLeft: string = '40px';
+
+          if (nodeIndent) {
+            paddingLeft = `calc(40px + ${nodeIndent * 2}em)`;
+          }
+
+          style.push(`padding-left: ${paddingLeft};`);
+
+          start++;
+
+          return {
+            type: 'node',
+            name: isOrdered ? 'ol' : 'ul',
+            attrs: {
+              start: isOrdered ? String(start) : undefined,
+              style: style.join(''),
+            },
+            children: [
+              {
+                type: 'node',
+                name: 'li',
+                attrs: {
+                  style: `text-indent: ${-nodeIndent * 2}em`,
+                },
+                children: [li],
+              },
+            ],
+          };
+        },
+      ),
+    };
+  },
 };
 
 export { ListPlugin };

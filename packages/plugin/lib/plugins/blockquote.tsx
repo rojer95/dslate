@@ -160,6 +160,17 @@ const BlockquotePlugin: DSlatePlugin = {
       '',
     )}</blockquote>`;
   },
+
+  serializeWeapp: (element, props, children) => {
+    return {
+      type: 'node',
+      name: 'blockquote',
+      attrs: {
+        style: props.style,
+      },
+      children,
+    };
+  },
 };
 
 export { BlockquotePlugin };

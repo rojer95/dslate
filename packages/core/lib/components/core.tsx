@@ -23,6 +23,7 @@ export interface DSlateProps {
 
 export type DSlateRef = {
   serialize: (v: any) => string;
+  serializeWeapp: (v: any) => any;
   getEditor: () => Editor;
 };
 
@@ -88,11 +89,51 @@ const DSlateCore = forwardRef<DSlateRef, PropsWithChildren<DSlateProps>>(
       [plugins, pluginProps],
     );
 
+    const serializeWeapp = useCallback(
+      (node: any) => {
+        if (Text.isText(node)) {
+          const style = mergeStyle(node, plugins, 'text', editor);
+          return {
+            type: 'node',
+            name: 'span',
+            attrs: {
+              style: style2string(style),
+            },
+            children: [
+              {
+                type: 'text',
+                text: escapeHtml(node.text),
+              },
+            ],
+          };
+        }
+
+        const childrens = node.children.map((n: any) => serializeWeapp(n));
+        const style = mergeStyle(node, plugins, 'element', editor);
+        const match = Object.values(plugins).find(
+          (i) => i.type === node.type && i.nodeType === 'element',
+        );
+
+        if (match && match.serializeWeapp) {
+          const matchPluginProps = {
+            ...(match?.props ?? {}),
+            ...(pluginProps?.[match.type ?? ''] ?? {}),
+            style: style2string(style),
+          };
+          return match.serializeWeapp(node, matchPluginProps, childrens);
+        }
+
+        return childrens;
+      },
+      // eslint-disable-next-line react-hooks/exhaustive-deps
+      [plugins, pluginProps],
+    );
+
     const getEditor = useCallback(() => {
       return editor;
     }, [editor]);
 
-    useImperativeHandle(ref, () => ({ serialize, getEditor }), [
+    useImperativeHandle(ref, () => ({ serialize, getEditor, serializeWeapp }), [
       serialize,
       getEditor,
     ]);

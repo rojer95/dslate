@@ -67,6 +67,7 @@ export type DSlatePlugin = {
   locale?: Locale[];
   props?: Record<string, any>;
   serialize?: (element: any, pluginProps: any, children: any[]) => string;
+  serializeWeapp?: (element: any, pluginProps: any, children: any[]) => any;
 };
 
 export type Locale = {

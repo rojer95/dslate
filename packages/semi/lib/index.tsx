@@ -16,6 +16,7 @@ import {
   InputNumber,
   Progress,
   Select,
+  TextArea,
   Tooltip,
 } from '@douyinfe/semi-ui';
 
@@ -33,6 +34,7 @@ registerElement('input', Input);
 registerElement('input-number', InputNumber);
 registerElement('button', Button);
 registerElement('select', Select);
+registerElement('textarea', TextArea);
 
 export const DefaultLocales = [ZH_CN, EN_US];
 
@@ -81,7 +83,7 @@ export default forwardRef<DSlateRef, SemiStyleDSlateProps>(
                 locales: mergeLocalteFromPlugins(locales, plugins),
                 plugins,
                 iconScriptUrl:
-                  '//at.alicdn.com/t/c/font_3062978_atuqwazgoap.js',
+                  '//at.alicdn.com/t/c/font_3062978_igshjiflyft.js',
               }}
             >
               <SemiEditor {...props} toolbar={toolbar} ref={ref} />

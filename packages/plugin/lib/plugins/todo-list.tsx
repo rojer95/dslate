@@ -105,6 +105,16 @@ const TodoListPlugin: DSlatePlugin = {
       '',
     )}</p>`;
   },
+  serializeWeapp: (element, props, children) => {
+    return {
+      type: 'node',
+      name: 'p',
+      attrs: {
+        type: props.style,
+      },
+      children,
+    };
+  },
 };
 
 export { TodoListPlugin };

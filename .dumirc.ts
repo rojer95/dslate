@@ -11,6 +11,7 @@ export default defineConfig({
       github: 'https://github.com/rojer95/dslate',
     },
   },
+  mfsu: false,
   monorepoRedirect: {
     srcDir: ['packages'],
     peerDeps: true,

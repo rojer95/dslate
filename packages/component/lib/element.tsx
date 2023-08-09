@@ -8,7 +8,8 @@ export type ElementType =
   | 'input'
   | 'input-number'
   | 'button'
-  | 'select';
+  | 'select'
+  | 'textarea';
 
 export const elements: Record<
   ElementType,
@@ -22,6 +23,7 @@ export const elements: Record<
   'input-number': undefined,
   button: undefined,
   select: undefined,
+  textarea: undefined,
 };
 
 export const registerElement = (

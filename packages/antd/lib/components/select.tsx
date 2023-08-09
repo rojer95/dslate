@@ -1,5 +1,6 @@
-import React, { PropsWithChildren } from "react";
-import { Select as AntdSelect } from "antd";
+/* eslint-disable @typescript-eslint/no-unused-vars */
+import { Select as AntdSelect } from 'antd';
+import { PropsWithChildren } from 'react';
 
 export const Select = ({
   children,

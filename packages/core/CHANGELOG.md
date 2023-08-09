@@ -1,5 +1,11 @@
 # @dslate/core
 
+## 2.0.7
+
+### Patch Changes
+
+- 支持 latex & 支持导出小程序 RichNode &题目编排 demo
+
 ## 2.0.6
 
 ### Patch Changes

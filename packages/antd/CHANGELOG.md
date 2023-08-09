@@ -1,5 +1,15 @@
 # @dslate/antd
 
+## 2.0.7
+
+### Patch Changes
+
+- 支持 latex & 支持导出小程序 RichNode &题目编排 demo
+- Updated dependencies
+  - @dslate/component@2.0.7
+  - @dslate/core@2.0.7
+  - @dslate/plugin@2.0.7
+
 ## 2.0.6
 
 ### Patch Changes

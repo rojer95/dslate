@@ -11,7 +11,7 @@ import parseKatexWeapp from '@rojer/katex-mini';
 import katex from 'katex';
 import 'katex/dist/katex.min.css';
 import { useMemo } from 'react';
-import { Editor, Text, Transforms } from 'slate';
+import { Editor, Range, Text, Transforms } from 'slate';
 import { ReactEditor, useSelected, useSlate } from 'slate-react';
 const TYPE = 'latex';
 
@@ -25,6 +25,26 @@ const remove = (editor: Editor) => {
 
 const add = (editor: Editor) => {
   if (!editor.selection) return;
+  if (Range.isCollapsed(editor.selection)) {
+    Transforms.insertNodes(editor, {
+      type: TYPE,
+      children: [{ text: '' }],
+    });
+  } else {
+    Transforms.wrapNodes(
+      editor,
+      {
+        type: TYPE,
+        children: [],
+      },
+      {
+        at: editor.selection,
+        match: (n) => Text.isText(n),
+        split: true,
+      },
+    );
+  }
+
   Transforms.wrapNodes(
     editor,
     {

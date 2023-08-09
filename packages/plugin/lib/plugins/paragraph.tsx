@@ -219,7 +219,6 @@ const ParagraphPlugin: DSlatePlugin = {
     }</${tag}>`;
   },
   serializeWeapp: (element, props, children) => {
-    const isEmpty = Node.string(element) === '';
     let tag = 'div';
 
     if (element?.[PROPS_KEY] === 'h1') {
@@ -241,14 +240,7 @@ const ParagraphPlugin: DSlatePlugin = {
     return {
       type: 'node',
       name: tag,
-      children: isEmpty
-        ? [
-            {
-              type: 'text',
-              text: '&nbsp;',
-            },
-          ]
-        : children,
+      children,
     };
   },
 };

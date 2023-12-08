@@ -1,5 +1,5 @@
-import { Locales } from '@dslate/core';
-import { useEffect } from 'react';
+import { Locales, usePlugin } from '@dslate/core';
+import React, { useEffect } from 'react';
 import type { NodeEntry } from 'slate';
 
 import { Toolbar } from '@dslate/component';
@@ -73,22 +73,22 @@ const ToolbarButton = () => {
         },
         {
           value: 'h1',
-          label: <h1 style={{ margin: 0 }}>{getMessage('h1', '标题1')}</h1>,
+          label: getMessage('h1', '标题1'),
           placeholder: getMessage('h1', '标题1'),
         },
         {
           value: 'h2',
-          label: <h2 style={{ margin: 0 }}>{getMessage('h2', '标题2')}</h2>,
+          label: getMessage('h2', '标题2'),
           placeholder: getMessage('h2', '标题2'),
         },
         {
           value: 'h3',
-          label: <h3 style={{ margin: 0 }}>{getMessage('h3', '标题3')}</h3>,
+          label: getMessage('h3', '标题3'),
           placeholder: getMessage('h3', '标题3'),
         },
         {
           value: 'h4',
-          label: <h4 style={{ margin: 0 }}>{getMessage('h4', '标题4')}</h4>,
+          label: getMessage('h4', '标题4'),
           placeholder: getMessage('h4', '标题4'),
         },
       ]}
@@ -98,8 +98,13 @@ const ToolbarButton = () => {
   );
 };
 
-const renderElement = (props: RenderElementPropsWithStyle) => {
-  const { attributes, children, element, style } = props;
+const Paragraph = ({
+  attributes,
+  children,
+  element,
+  style,
+}: RenderElementPropsWithStyle) => {
+  const { props } = usePlugin();
 
   if (element?.[PROPS_KEY] === 'h1') {
     return (
@@ -133,11 +138,25 @@ const renderElement = (props: RenderElementPropsWithStyle) => {
     );
   }
 
+  if (props?.tag) {
+    return React.createElement(
+      props?.tag,
+      {
+        ...attributes,
+        style,
+      },
+      children,
+    );
+  }
+
   return (
     <div {...attributes} style={style}>
       {children}
     </div>
   );
+};
+const renderElement = (props: RenderElementPropsWithStyle) => {
+  return <Paragraph {...props} />;
 };
 
 const normalizeNode = (
@@ -198,7 +217,8 @@ const ParagraphPlugin: DSlatePlugin = {
   ],
   serialize: (element, props, children) => {
     const isEmpty = Node.string(element) === '';
-    let tag = 'div';
+    let tag = props?.tag || 'div';
+
     if (element?.[PROPS_KEY] === 'h1') {
       tag = 'h1';
     }
@@ -219,7 +239,7 @@ const ParagraphPlugin: DSlatePlugin = {
     }</${tag}>`;
   },
   serializeWeapp: (element, props, children) => {
-    let tag = 'div';
+    let tag = props?.tag || 'div';
 
     if (element?.[PROPS_KEY] === 'h1') {
       tag = 'h1';

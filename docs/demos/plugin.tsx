@@ -1,7 +1,7 @@
 /**
  * defaultShowCode: true
  */
-import React, { useState } from 'react';
+import React, { useRef, useState } from 'react';
 import type { Descendant } from 'slate';
 import { Range, Transforms } from 'slate';
 import { useSlate } from 'slate-react';
@@ -12,6 +12,7 @@ import DSlate, {
   DefaultPlugin,
   DefaultToolbar,
   DSlatePlugin,
+  DSlateRef,
   Toolbar,
   usePlugin,
 } from '@dslate/antd';
@@ -48,6 +49,8 @@ const CustomPlugin: DSlatePlugin = {
 };
 
 export default () => {
+  const ref = useRef<DSlateRef>(null);
+
   const [value, setValue] = useState<Descendant[]>([
     {
       type: 'paragraph',
@@ -66,14 +69,35 @@ export default () => {
           img: {
             defaultWidth: '100%',
           },
+          paragraph: {
+            tag: 'p',
+          },
         },
       }}
     >
       <DSlate
+        ref={ref}
         value={value}
         onChange={setValue}
         toolbar={[...DefaultToolbar, 'custom']}
       />
+
+      <br />
+      <div>
+        <button
+          type="button"
+          onClick={() => {
+            console.log(value);
+            console.log(
+              ref.current?.serialize({
+                children: value,
+              }),
+            );
+          }}
+        >
+          转内容为HTML
+        </button>
+      </div>
     </ConfigProvider>
   );
 };

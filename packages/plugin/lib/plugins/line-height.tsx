@@ -11,12 +11,12 @@ const TYPE = 'line-height';
 
 const renderStyle = (text: Descendant) => {
   if (text[TYPE] && text?.[TYPE] > 0) {
-    return { lineHeight: text?.[TYPE] } as CSSProperties;
+    return { lineHeight: `${text?.[TYPE]}` } as CSSProperties;
   }
   return {};
 };
 
-const DefaultLineHeight = [1, 2, 2.5, 3];
+const DefaultLineHeight = [1, 1.5, 2, 2.5, 3, 3.5, 4];
 
 const ToolbarButton = () => {
   const editor = useSlate();
@@ -40,7 +40,7 @@ const ToolbarButton = () => {
         },
         ...(props?.heights ?? DefaultLineHeight).map(
           (height: number | undefined) => ({
-            label: `${height}`,
+            label: `${height}倍`,
             value: height,
             placeholder: <Icon type="icon-line-height" />,
           }),

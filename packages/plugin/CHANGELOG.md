@@ -1,5 +1,14 @@
 # @dslate/plugin
 
+## 2.0.8
+
+### Patch Changes
+
+- 973ddc2: 优化行高组件
+- 973ddc2: 段落可自定义 html 的标签
+- Updated dependencies [973ddc2]
+  - @dslate/component@2.0.8
+
 ## 2.0.7
 
 ### Patch Changes

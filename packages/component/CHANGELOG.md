@@ -1,5 +1,11 @@
 # @dslate/component
 
+## 2.0.8
+
+### Patch Changes
+
+- 973ddc2: select 的 bug
+
 ## 2.0.7
 
 ### Patch Changes

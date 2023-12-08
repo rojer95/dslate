@@ -1,5 +1,16 @@
 # @dslate/antd
 
+## 2.0.8
+
+### Patch Changes
+
+- 973ddc2: select 的 bug
+- Updated dependencies [973ddc2]
+- Updated dependencies [973ddc2]
+- Updated dependencies [973ddc2]
+  - @dslate/component@2.0.8
+  - @dslate/plugin@2.0.8
+
 ## 2.0.7
 
 ### Patch Changes

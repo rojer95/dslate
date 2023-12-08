@@ -1,5 +1,15 @@
 # @dslate/semi
 
+## 2.0.8
+
+### Patch Changes
+
+- Updated dependencies [973ddc2]
+- Updated dependencies [973ddc2]
+- Updated dependencies [973ddc2]
+  - @dslate/component@2.0.8
+  - @dslate/plugin@2.0.8
+
 ## 2.0.7
 
 ### Patch Changes

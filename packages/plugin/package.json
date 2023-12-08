@@ -1,6 +1,6 @@
 {
   "name": "@dslate/plugin",
-  "version": "2.0.7",
+  "version": "2.0.8",
   "description": "DSlate预设插件 - Preset plugin of DSlate",
   "keywords": [
     "wysiwyg",
@@ -39,7 +39,7 @@
     "styled-components": "^5.3.6"
   },
   "devDependencies": {
-    "@dslate/component": "workspace:2.0.7",
+    "@dslate/component": "workspace:2.0.8",
     "@dslate/core": "workspace:2.0.7",
     "@types/is-hotkey": "^0.1.7",
     "@types/katex": "^0.16.2",
@@ -54,7 +54,7 @@
     "vite-plugin-dts": "^1.7.2"
   },
   "peerDependencies": {
-    "@dslate/component": ">=2.0.7",
+    "@dslate/component": ">=2.0.8",
     "@dslate/core": ">=2.0.7",
     "react": ">=16.9.0",
     "react-dom": ">=16.9.0",

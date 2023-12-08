@@ -1,7 +1,7 @@
-import React, { useCallback, useMemo } from "react";
-import { usePlugin } from "@dslate/core";
-import ToolbarButton from "./button";
-import { Select } from "../select";
+import { usePlugin } from '@dslate/core';
+import React, { useCallback } from 'react';
+import { Select } from '../select';
+import ToolbarButton from './button';
 
 export type ToolbarSelectProps<T> = {
   options: {
@@ -25,8 +25,8 @@ const ToolbarSelect: <T = any>(props: ToolbarSelectProps<T>) => JSX.Element = ({
   disabled,
   tooltip,
   onChange,
-  placeholder = "",
-  width = "max-content",
+  placeholder = '',
+  width = 'max-content',
 }) => {
   const { disabled: globalDisabled } = usePlugin();
   const isDisabled = disabled || globalDisabled;
@@ -34,18 +34,20 @@ const ToolbarSelect: <T = any>(props: ToolbarSelectProps<T>) => JSX.Element = ({
   const triggerRender = useCallback(() => {
     const selected = options?.find((i) => i.value === value);
     let dom: React.ReactNode = placeholder;
+
     if (selected) {
       dom = selected.placeholder ?? selected.label;
     }
+
     return (
-      <ToolbarButton disabled={isDisabled} tooltip={tooltip}>
-        <div
-          style={{
-            width,
-          }}
-        >
-          {dom}
-        </div>
+      <ToolbarButton
+        disabled={isDisabled}
+        tooltip={tooltip}
+        style={{
+          width: '100%',
+        }}
+      >
+        <div>{dom}</div>
       </ToolbarButton>
     );
   }, [options, value, placeholder, disabled, tooltip]);
@@ -57,6 +59,7 @@ const ToolbarSelect: <T = any>(props: ToolbarSelectProps<T>) => JSX.Element = ({
       onChange={onChange}
       triggerRender={triggerRender}
       value={value}
+      tooltip={tooltip}
       style={{
         width,
       }}

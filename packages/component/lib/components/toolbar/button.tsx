@@ -1,7 +1,7 @@
-import React, { forwardRef, PropsWithChildren } from "react";
-import { usePlugin } from "@dslate/core";
-import { Tooltip } from "../tooltip";
-import { Button, ButtonProps } from "../button";
+import { usePlugin } from '@dslate/core';
+import React, { PropsWithChildren } from 'react';
+import { Button, ButtonProps } from '../button';
+import { Tooltip } from '../tooltip';
 
 export type ToolbarButtonProps = {
   tooltip?: string;
@@ -12,7 +12,7 @@ const ToolbarButton: React.FC<PropsWithChildren<ToolbarButtonProps>> = ({
   disabled = false,
   active = false,
   onClick,
-  tooltip = "",
+  tooltip = '',
   ...props
 }) => {
   const { disabled: globalDisabled } = usePlugin();

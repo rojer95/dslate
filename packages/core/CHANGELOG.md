@@ -1,5 +1,11 @@
 # @dslate/core
 
+## 2.0.9
+
+### Patch Changes
+
+- 优化缩进、列表插件
+
 ## 2.0.7
 
 ### Patch Changes

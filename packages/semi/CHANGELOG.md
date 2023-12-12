@@ -1,5 +1,15 @@
 # @dslate/semi
 
+## 2.0.9
+
+### Patch Changes
+
+- 优化缩进、列表插件
+- Updated dependencies
+  - @dslate/component@2.0.9
+  - @dslate/core@2.0.9
+  - @dslate/plugin@2.0.9
+
 ## 2.0.8
 
 ### Patch Changes

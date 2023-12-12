@@ -1,6 +1,6 @@
 {
   "name": "@dslate/component",
-  "version": "2.0.8",
+  "version": "2.0.9",
   "description": "DSlate组件 - Component of DSlate",
   "keywords": [
     "antd",
@@ -30,7 +30,7 @@
     "dev": "tsc && vite build --watch"
   },
   "devDependencies": {
-    "@dslate/core": "workspace:2.0.7",
+    "@dslate/core": "workspace:2.0.9",
     "@types/node": "^14.18.36",
     "@types/react": "^18.0.27",
     "@types/react-dom": "^18.0.10",
@@ -40,7 +40,7 @@
     "vite-plugin-dts": "^1.7.2"
   },
   "peerDependencies": {
-    "@dslate/core": ">=2.0.7",
+    "@dslate/core": ">=2.0.9",
     "react": ">=16.9.0",
     "react-dom": ">=16.9.0",
     "slate": ">=0.90.0",

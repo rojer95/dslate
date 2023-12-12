@@ -136,9 +136,11 @@ const List = (props: RenderElementPropsWithStyle) => {
 
         const LiItem = (
           <li
-            style={{
-              textIndent: `${-nodeIndent * 2}em`,
-            }}
+            style={
+              {
+                // textIndent: `${-nodeIndent * 2}em`,
+              }
+            }
           >
             {li}
           </li>
@@ -241,9 +243,11 @@ const ListPlugin: DSlatePlugin = {
         }
 
         style.push(`padding-left: ${paddingLeft};`);
-        const LiItem = `<li style="text-indent: ${
+        /** const LiItem = `<li style="text-indent: ${
           -nodeIndent * 2
-        }em">${li}</li>`;
+        }em">${li}</li>`; **/
+
+        const LiItem = `<li>${li}</li>`;
 
         start++;
         return isOrdered
@@ -300,7 +304,7 @@ const ListPlugin: DSlatePlugin = {
                 type: 'node',
                 name: 'li',
                 attrs: {
-                  style: `text-indent: ${-nodeIndent * 2}em`,
+                  // style: `text-indent: ${-nodeIndent * 2}em`,
                 },
                 children: [li],
               },

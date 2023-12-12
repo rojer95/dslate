@@ -1,9 +1,14 @@
-import type { DSlatePlugin } from '@dslate/core';
-import { Locales, usePlugin } from '@dslate/core';
+import {
+  DSlatePlugin,
+  getBlockProps,
+  Locales,
+  setBlockProps,
+  usePlugin,
+} from '@dslate/core';
 import type { CSSProperties } from 'react';
 
 import { Icon, Toolbar } from '@dslate/component';
-import { getTextProps, setTextProps, useMessage } from '@dslate/core';
+import { useMessage } from '@dslate/core';
 import type { Descendant } from 'slate';
 import { useSlate } from 'slate-react';
 
@@ -25,7 +30,7 @@ const ToolbarButton = () => {
   const { props } = usePlugin();
 
   const onChange = (lineHeight: number | undefined) => {
-    setTextProps(editor, TYPE, lineHeight);
+    setBlockProps(editor, TYPE, lineHeight);
   };
 
   return (
@@ -47,14 +52,14 @@ const ToolbarButton = () => {
         ),
       ]}
       tooltip={getMessage('tooltip', '行高')}
-      value={getTextProps(editor, TYPE, -1)}
+      value={getBlockProps(editor, TYPE, -1)}
     />
   );
 };
 
 const LineHeightPlugin: DSlatePlugin = {
   type: 'line-height',
-  nodeType: 'text',
+  nodeType: 'element',
   toolbar: ToolbarButton,
   renderStyle,
   locale: [

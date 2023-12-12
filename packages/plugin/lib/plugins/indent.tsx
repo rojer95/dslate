@@ -1,5 +1,4 @@
-import type { DSlatePlugin } from '@dslate/core';
-import { Locales } from '@dslate/core';
+import { DSlatePlugin, isBlockActive, Locales } from '@dslate/core';
 import isHotkey from 'is-hotkey';
 import React from 'react';
 
@@ -16,27 +15,34 @@ import { useSlate } from 'slate-react';
 
 const DEFAULT_VALUE = 0;
 const TYPE = 'text-indent';
+const TYPE_IS_LIST = 'text-indent-is-list';
 const iconStyle = { opacity: 0.7, fontSize: '93%' };
 
 const renderStyle = (element: Descendant) => {
+  if (!!element[TYPE_IS_LIST]) return {};
+
   if (!!element[TYPE]) {
-    return { paddingLeft: `${element[TYPE] * 2}em` };
+    return { textIndent: `${element[TYPE] * 2}em` };
   }
   return {};
 };
 
 const increase = (editor: Editor) => {
+  const isList = isBlockActive(editor, 'list');
   const indent = getBlockProps(editor, TYPE, DEFAULT_VALUE);
   setBlockProps(editor, TYPE, indent + 1);
+  setBlockProps(editor, TYPE_IS_LIST, isList);
 };
 
 const decrease = (editor: Editor) => {
+  const isList = isBlockActive(editor, 'list');
   let indent = getBlockProps(editor, TYPE, DEFAULT_VALUE);
   indent--;
   if (indent <= 0) {
     clearBlockProps(editor, TYPE);
   } else {
     setBlockProps(editor, TYPE, indent);
+    setBlockProps(editor, TYPE_IS_LIST, isList);
   }
 };
 

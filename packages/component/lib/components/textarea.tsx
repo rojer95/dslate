@@ -1,4 +1,5 @@
-import React, { PropsWithChildren } from 'react';
+import { ConfigContext } from '@dslate/core';
+import React, { PropsWithChildren, useContext } from 'react';
 import { getElement } from '../element';
 
 type InputProps = {
@@ -13,7 +14,8 @@ const Textarea = ({
   autosize,
   ...props
 }: PropsWithChildren<InputProps>) => {
-  const InputElement = getElement('textarea');
+  const { namespace } = useContext(ConfigContext);
+  const InputElement = getElement('textarea', namespace);
   if (!InputElement) return null;
   return React.createElement(
     InputElement,

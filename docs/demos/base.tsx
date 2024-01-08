@@ -12,7 +12,7 @@ export default () => {
   ]);
 
   return (
-    <div>
+    <>
       <DSlateAntd
         value={value}
         onChange={setValue}
@@ -25,6 +25,6 @@ export default () => {
         onChange={setValue}
         placeholder="Semi 风格编辑器"
       />
-    </div>
+    </>
   );
 };

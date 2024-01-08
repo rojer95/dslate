@@ -1,3 +1,4 @@
-export * from "./editor";
-export * from "./button";
-export * from "./popover";
+export * from './button';
+export * from './editor';
+export * from './popover';
+export * from './tooltip';

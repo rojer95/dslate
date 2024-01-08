@@ -1,4 +1,5 @@
-import React from 'react';
+import { ConfigContext } from '@dslate/core';
+import React, { PropsWithChildren, useContext } from 'react';
 import { getElement } from '../element';
 
 export type ButtonProps = {
@@ -8,12 +9,11 @@ export type ButtonProps = {
   [index: string]: any;
 };
 
-class Button extends React.Component<ButtonProps> {
-  render() {
-    const ButtonElement = getElement('button');
-    if (!ButtonElement) return null;
-    return React.createElement<any>(ButtonElement, this.props);
-  }
-}
+const Button = ({ children, ...props }: PropsWithChildren<ButtonProps>) => {
+  const ctx = useContext(ConfigContext);
+  const ButtonElement = getElement('button', ctx.namespace);
+  if (!ButtonElement) return null;
+  return React.createElement(ButtonElement, props as any, children);
+};
 
 export { Button };

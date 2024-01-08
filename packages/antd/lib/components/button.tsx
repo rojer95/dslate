@@ -1,7 +1,8 @@
-import React, { PropsWithChildren } from "react";
-import { Button as AntdButton, theme } from "antd";
+import { Button as AntdButton, theme } from 'antd';
+import { PropsWithChildren } from 'react';
 
 const { useToken } = theme;
+
 export const Button = ({
   children,
   active,

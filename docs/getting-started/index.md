@@ -31,4 +31,4 @@ $ npm i @dslate/semi --save # Semi 风格
 
 ## 在项目中使用
 
-<code src="../demos/base.tsx"></code>
+<code src="../demos/base.tsx"  background="#FFFFFF"></code>

@@ -1,5 +1,6 @@
-import React, { PropsWithChildren } from "react";
-import { getElement } from "../element";
+import { ConfigContext } from '@dslate/core';
+import React, { PropsWithChildren, useContext } from 'react';
+import { getElement } from '../element';
 
 type InputProps = {
   value?: string;
@@ -8,7 +9,8 @@ type InputProps = {
 };
 
 const Input = ({ children, ...props }: PropsWithChildren<InputProps>) => {
-  const InputElement = getElement("input");
+  const { namespace } = useContext(ConfigContext);
+  const InputElement = getElement('input', namespace);
   if (!InputElement) return null;
   return React.createElement(InputElement, props as any, children);
 };

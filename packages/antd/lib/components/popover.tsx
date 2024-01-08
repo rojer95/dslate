@@ -1,5 +1,5 @@
-import { Popover as AntdPopover } from "antd";
-import React, { PropsWithChildren } from "react";
+import { Popover as AntdPopover } from 'antd';
+import React, { PropsWithChildren } from 'react';
 
 export const Popover = ({
   content,
@@ -10,20 +10,20 @@ export const Popover = ({
 }: PropsWithChildren<{
   content?: React.ReactNode;
   position?:
-    | "top"
-    | "topLeft"
-    | "topRight"
-    | "left"
-    | "leftTop"
-    | "leftBottom"
-    | "right"
-    | "rightTop"
-    | "rightBottom"
-    | "bottom"
-    | "bottomLeft"
-    | "bottomRight";
+    | 'top'
+    | 'topLeft'
+    | 'topRight'
+    | 'left'
+    | 'leftTop'
+    | 'leftBottom'
+    | 'right'
+    | 'rightTop'
+    | 'rightBottom'
+    | 'bottom'
+    | 'bottomLeft'
+    | 'bottomRight';
 
-  trigger?: string;
+  trigger?: any;
   visible?: boolean;
 }>) => {
   return (

@@ -62,7 +62,7 @@
     "@types/react": "^18.2.13",
     "@types/react-dom": "^18.2.6",
     "@umijs/lint": "^4.0.71",
-    "antd": "^5.1.7",
+    "antd": "^5.12.0",
     "dumi": "^2.2.1",
     "eslint": "^8.43.0",
     "gh-pages": "^5.0.0",

@@ -11,33 +11,33 @@ export type ElementType =
   | 'select'
   | 'textarea';
 
-export const elements: Record<
-  ElementType,
-  FunctionComponent | ComponentClass | string | undefined
-> = {
-  tooltip: undefined,
-  divider: undefined,
-  progress: undefined,
-  popover: undefined,
-  input: undefined,
-  'input-number': undefined,
-  button: undefined,
-  select: undefined,
-  textarea: undefined,
-};
+export const elements: {
+  type: ElementType;
+  elemet: FunctionComponent | ComponentClass | string | undefined;
+  namespace: string | symbol;
+}[] = [];
 
 export const registerElement = (
   type: ElementType,
   elemet: FunctionComponent | ComponentClass | string,
+  namespace: string | symbol,
 ) => {
-  elements[type] = elemet;
+  elements.push({
+    type,
+    elemet,
+    namespace,
+  });
 };
 
-export const getElement = (type: ElementType) => {
-  if (!elements[type]) {
+export const getElement = (type: ElementType, namespace?: string | symbol) => {
+  const target = elements.find(
+    (i) => i.type === type && i.namespace === namespace,
+  );
+
+  if (!target) {
     console.warn('Please reigster element first: ' + type);
     return null;
   }
 
-  return elements[type];
+  return target.elemet;
 };

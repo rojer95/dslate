@@ -1,5 +1,6 @@
-import React, { PropsWithChildren } from "react";
-import { getElement } from "../element";
+import { ConfigContext } from '@dslate/core';
+import React, { PropsWithChildren, useContext } from 'react';
+import { getElement } from '../element';
 
 type SelectProps = {
   onChange: (value: any) => void;
@@ -9,7 +10,8 @@ type SelectProps = {
 };
 
 const Select = ({ children, ...props }: PropsWithChildren<SelectProps>) => {
-  const SelectElement = getElement("select");
+  const { namespace } = useContext(ConfigContext);
+  const SelectElement = getElement('select', namespace);
   if (!SelectElement) return null;
   return React.createElement(SelectElement, props as any, children);
 };

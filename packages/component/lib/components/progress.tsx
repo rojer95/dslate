@@ -1,5 +1,5 @@
-import { usePluginHelper } from '@dslate/core';
-import React, { PropsWithChildren, useMemo } from 'react';
+import { ConfigContext, usePluginHelper } from '@dslate/core';
+import React, { PropsWithChildren, useContext, useMemo } from 'react';
 import { getElement } from '../element';
 
 type ProgressProps = {
@@ -9,7 +9,8 @@ type ProgressProps = {
 
 const Progress = ({ children, ...props }: PropsWithChildren<ProgressProps>) => {
   const { percent } = usePluginHelper();
-  const ProgressElement = getElement('progress');
+  const { namespace } = useContext(ConfigContext);
+  const ProgressElement = getElement('progress', namespace);
 
   const visible = useMemo(() => {
     return percent && Number(percent) > 0 && Number(percent) < 100;

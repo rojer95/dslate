@@ -60,7 +60,7 @@ export default () => {
     >
       <div>
         <Form.Item label="普通输入框">
-          <Input />
+          <Input placeholder="输入框" />
         </Form.Item>
 
         <DSlate ref={ref} value={value} onChange={setValue} />

@@ -1,8 +1,8 @@
-import React from "react";
-import defaultConfig from "../defaultConfig";
-import type { DSlatePlugin, Locale, UploadRequestOption } from "../typing";
-import { get } from "../utils";
-import { usePlugin } from "./PluginContext";
+import React from 'react';
+import defaultConfig from '../defaultConfig';
+import type { DSlatePlugin, Locale, UploadRequestOption } from '../typing';
+import { get } from '../utils';
+import { usePlugin } from './PluginContext';
 
 export type ConfigContextType = {
   plugins: DSlatePlugin[];
@@ -11,14 +11,14 @@ export type ConfigContextType = {
   pluginProps?: Record<string, any>;
   iconScriptUrl?: string | string[];
   customUploadRequest?: (options: UploadRequestOption) => void;
+  namespace?: string | symbol;
 };
 
 const ConfigContext = React.createContext<ConfigContextType>(defaultConfig);
 
-const { Consumer: ConfigConsumer, Provider: ConfigProvider } = ConfigContext;
+const { Provider: ConfigProvider } = ConfigContext;
 
-export { ConfigConsumer, ConfigProvider };
-
+export { ConfigProvider };
 export { ConfigContext };
 
 export const useConfig = () => {
@@ -31,7 +31,7 @@ export const useMessage = () => {
 
   return (id: string, defaultMessage: string) => {
     const targetLocale: Locale = locales.find((i) => i.locale === locale) ?? {
-      locale: "default",
+      locale: 'default',
     };
     return (
       get(targetLocale, `${type ? `${type}.${id}` : id}`, defaultMessage) ||

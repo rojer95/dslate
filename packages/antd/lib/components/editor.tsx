@@ -1,25 +1,30 @@
-import { forwardRef } from "react";
-import { theme } from "antd";
-import { useFocused } from "slate-react";
-import { DSlateRef, DSlateCore } from "@dslate/core";
-import classNames from "classnames";
-import styled from "styled-components";
-import { Toolbar, Progress, Counter, Editable } from "@dslate/component";
+import { Counter, Editable, Progress, Toolbar } from '@dslate/component';
+import { DSlateCore, DSlateRef } from '@dslate/core';
+import { theme } from 'antd';
+import classNames from 'classnames';
+import { forwardRef } from 'react';
+import { useFocused } from 'slate-react';
+import styled from 'styled-components';
 
-import type { AntdStyleDSlateProps } from "../typing";
+import type { AntdStyleDSlateProps } from '../typing';
 
 const StyledComponent = styled.div<{ token: any }>`
   border-radius: ${(props) => `${props.token.borderRadius}px`};
   border-width: ${(props) => `${props.token.lineWidth}px`};
   border-style: ${(props) => `${props.token.lineType}`};
   border-color: ${(props) => `${props.token.colorBorder}`};
+  background-color: ${(props) => `${props.token.colorBgContainer}`};
+  transition: ${(props) => `all ${props.token.motionDurationMid}`};
 
   &.focus {
-    border-color: ${(props) => props.token.colorPrimaryHover};
+    border-color: ${(props) => `${props.token.colorPrimary}`};
     box-shadow: ${(props) =>
       `0 0 0 ${props.token.controlOutlineWidth}px ${props.token.controlOutline}`};
-    border-inline-end-width: ${(props) => props.token.lineWidth};
     outline: 0;
+  }
+
+  &:hover {
+    border-color: ${(props) => props.token.colorPrimaryHover};
   }
 
   &.borderless {
@@ -60,11 +65,11 @@ const StyledComponent = styled.div<{ token: any }>`
           ((props.token.controlHeight -
             props.token.fontSize * props.token.lineHeight) /
             2) *
-            10
+            10,
         ) /
           10 -
           props.token.lineWidth,
-        3
+        3,
       )}px ${props.token.paddingSM - props.token.lineWidth}px`};
 
     h1 {
@@ -110,7 +115,7 @@ const AntdStyleEditor = ({
   placeholder,
   toolbar,
   className,
-}: Omit<AntdStyleDSlateProps, "value" | "onChange">) => {
+}: Omit<AntdStyleDSlateProps, 'value' | 'onChange'>) => {
   const focused = useFocused();
   const { token } = useToken();
 
@@ -153,7 +158,7 @@ const AntdEditor = forwardRef<DSlateRef, AntdStyleDSlateProps>(
         <AntdStyleEditor {...rest} disabled={disabled} />
       </DSlateCore>
     );
-  }
+  },
 );
 
 export { AntdEditor };

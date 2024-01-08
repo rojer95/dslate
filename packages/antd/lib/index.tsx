@@ -1,10 +1,10 @@
-import type { DSlateRef } from '@dslate/core';
 import {
-  ConfigConsumer,
+  ConfigContext,
   ConfigProvider,
+  DSlateRef,
   mergeLocalteFromPlugins,
 } from '@dslate/core';
-import { forwardRef } from 'react';
+import { forwardRef, useContext, useMemo } from 'react';
 
 import { registerElement } from '@dslate/component';
 
@@ -27,15 +27,17 @@ import { Textarea } from './components/textarea';
 import EN_US from './locale/en_US';
 import ZH_CN from './locale/zh_CN';
 
-registerElement('tooltip', Tooltip);
-registerElement('divider', Divider);
-registerElement('progress', Progress);
-registerElement('popover', Popover);
-registerElement('input', Input);
-registerElement('input-number', InputNumber);
-registerElement('button', Button);
-registerElement('select', Select);
-registerElement('textarea', Textarea);
+const NAMESPACE = Symbol('antd');
+
+registerElement('tooltip', Tooltip, NAMESPACE);
+registerElement('divider', Divider, NAMESPACE);
+registerElement('progress', Progress, NAMESPACE);
+registerElement('popover', Popover, NAMESPACE);
+registerElement('input', Input, NAMESPACE);
+registerElement('input-number', InputNumber, NAMESPACE);
+registerElement('button', Button, NAMESPACE);
+registerElement('select', Select, NAMESPACE);
+registerElement('textarea', Textarea, NAMESPACE);
 
 export const DefaultLocales = [ZH_CN, EN_US];
 
@@ -69,29 +71,28 @@ export const DefaultToolbar = [
 
 export default forwardRef<DSlateRef, AntdStyleDSlateProps>(
   ({ toolbar = DefaultToolbar, ...props }, ref) => {
+    const context = useContext(ConfigContext);
+
+    const mixContext = useMemo(() => {
+      const plugins =
+        !context.plugins || context.plugins.length === 0
+          ? Object.values(DefaultPlugin)
+          : context.plugins;
+      const locales = context.locales ? context.locales : DefaultLocales;
+
+      return {
+        iconScriptUrl: '//at.alicdn.com/t/c/font_3062978_igshjiflyft.js',
+        ...context,
+        locales: mergeLocalteFromPlugins(locales, plugins),
+        plugins,
+        namespace: NAMESPACE,
+      };
+    }, [context]);
+
     return (
-      <ConfigConsumer>
-        {(value) => {
-          const plugins =
-            !value.plugins || value.plugins.length === 0
-              ? Object.values(DefaultPlugin)
-              : value.plugins;
-          const locales = value.locales ? value.locales : DefaultLocales;
-          return (
-            <ConfigProvider
-              value={{
-                ...value,
-                locales: mergeLocalteFromPlugins(locales, plugins),
-                plugins,
-                iconScriptUrl:
-                  '//at.alicdn.com/t/c/font_3062978_igshjiflyft.js',
-              }}
-            >
-              <AntdEditor {...props} toolbar={toolbar} ref={ref} />
-            </ConfigProvider>
-          );
-        }}
-      </ConfigConsumer>
+      <ConfigProvider value={mixContext}>
+        <AntdEditor {...props} toolbar={toolbar} ref={ref} />
+      </ConfigProvider>
     );
   },
 );

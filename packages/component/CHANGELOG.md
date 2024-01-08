@@ -1,5 +1,13 @@
 # @dslate/component
 
+## 2.0.10
+
+### Patch Changes
+
+- 解决 Antd 与 Semi 同时使用时基础组织注册的 bug
+- Updated dependencies
+  - @dslate/core@2.0.10
+
 ## 2.0.9
 
 ### Patch Changes

@@ -15,5 +15,5 @@
       "@dslate/semi": ["./packages/semi/lib/index.tsx"]
     }
   },
-  "include": [".dumi/**/*", ".dumirc.ts", "**/docs/**/*"]
+  "include": [".dumirc.ts", "**/docs/**/*"]
 }

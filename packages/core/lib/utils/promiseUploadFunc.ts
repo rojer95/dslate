@@ -31,8 +31,16 @@ export const promiseUploadFunc = (
     if (customUploadRequest) {
       customUploadRequest(args);
     } else {
-      if (defaultType === 'dataurl') base64file(args);
-      if (defaultType === 'bloburl') blobfile(args);
+      console.log('defaultType', defaultType);
+
+      if (defaultType === 'dataurl') {
+        base64file(args);
+        return;
+      }
+      if (defaultType === 'bloburl') {
+        blobfile(args);
+        return;
+      }
       alert('not support upload function');
       reject('not support upload function');
       onError?.(new Error('not support upload function'));

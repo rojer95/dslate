@@ -1,5 +1,15 @@
 # @dslate/semi
 
+## 2.0.14
+
+### Patch Changes
+
+- 修复 Popver 的 bug 修复上传 Bug
+- Updated dependencies
+  - @dslate/component@2.0.14
+  - @dslate/core@2.0.14
+  - @dslate/plugin@2.0.14
+
 ## 2.0.13
 
 ### Patch Changes

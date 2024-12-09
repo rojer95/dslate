@@ -14,7 +14,7 @@ DSlate 的 Antd 风格 的实现
 
 ```shell
 $ npm i slate slate-react --save # 安装 Slate
-$ npm i @dslate/dslate --save
+$ npm i @dslate/antd --save
 ```
 
 ## 在项目中使用

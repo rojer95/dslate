@@ -1,6 +1,6 @@
 import DSlateAntd from '@dslate/antd';
 import DSlateSemi from '@dslate/semi';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import type { Descendant } from 'slate';
 
 export default () => {
@@ -17,6 +17,10 @@ export default () => {
       children: [{ text: '' }],
     },
   ]);
+
+  useEffect(() => {
+    console.log(value1);
+  }, [value1]);
 
   return (
     <>

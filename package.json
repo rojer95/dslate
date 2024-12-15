@@ -76,6 +76,7 @@
     "react-dom": "^18.2.0",
     "slate": "^0.103.0",
     "slate-react": "^0.104.0",
+    "styled-components": "^5.3.6",
     "stylelint": "^15.9.0",
     "vite-plugin-css-injected-by-js": "^3.5.1",
     "yorkie": "^2.0.0"

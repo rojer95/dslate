@@ -72,7 +72,8 @@ const Img = ({
   const [draggable, setDraggable] = useState<Draggable>({
     status: false,
   });
-
+  const { disabled: globalDisabled } = usePlugin();
+  const isDisabled = globalDisabled;
   const [editable, setEditable] = useState<{
     width: string;
     height: string;
@@ -434,7 +435,9 @@ const Img = ({
           }
         >
           <span
-            className={`${prefixCls} ${selected ? 'selected' : ''}`}
+            className={`${prefixCls} ${
+              selected && !isDisabled ? 'selected' : ''
+            }`}
             style={{
               ...style,
               maxWidth: props?.maxWidth ?? undefined,
@@ -457,9 +460,9 @@ const Img = ({
             ) : (
               <Rnd
                 ref={rnd}
-                className={`${prefixCls}-drag ${selected ? 'selected' : ''} ${
-                  draggable.status ? 'draging' : ''
-                }`}
+                className={`${prefixCls}-drag ${
+                  selected && !isDisabled ? 'selected' : ''
+                } ${draggable.status ? 'draging' : ''}`}
                 size={{
                   width: draggable.width ?? 0,
                   height: draggable.height ?? 0,

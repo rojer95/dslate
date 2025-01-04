@@ -45,7 +45,7 @@ const ToolbarButton = () => {
         },
         ...(props?.heights ?? DefaultLineHeight).map(
           (height: number | undefined) => ({
-            label: `${height}倍`,
+            label: getMessage(`x${height}`.replace('.', '_'), `${height}倍`),
             value: height,
             placeholder: <Icon type="icon-line-height" />,
           }),
@@ -63,8 +63,24 @@ const LineHeightPlugin: DSlatePlugin = {
   toolbar: ToolbarButton,
   renderStyle,
   locale: [
-    { locale: Locales.zhCN, tooltip: '行高', default: '默认' },
-    { locale: Locales.enUS, tooltip: 'line height', default: 'default' },
+    {
+      locale: Locales.zhCN,
+      tooltip: '行高',
+      default: '默认',
+      ...DefaultLineHeight.reduce(
+        (p, i) => ({ ...p, [`x${i}`.replace('.', '_')]: `${i}倍` }),
+        {},
+      ),
+    },
+    {
+      locale: Locales.enUS,
+      tooltip: 'line height',
+      default: 'default',
+      ...DefaultLineHeight.reduce(
+        (p, i) => ({ ...p, [`x${i}`.replace('.', '_')]: `×${i}` }),
+        {},
+      ),
+    },
   ],
   props: {
     heights: DefaultLineHeight,
